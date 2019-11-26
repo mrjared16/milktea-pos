@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QUAN_LY_QUAN_CAPHEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CaLamViec">
+          <Key>
+            <PropertyRef Name="MACALV" />
+          </Key>
+          <Property Name="MACALV" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TENCA" Type="nvarchar" MaxLength="30" />
+          <Property Name="GIOBATDAU" Type="time" Precision="7" />
+          <Property Name="GIOKETTHUC" Type="time" Precision="7" />
+          <Property Name="ISDEL" Type="int" />
+          <Property Name="CREADTEDAT" Type="datetime" />
+          <Property Name="UPDATEDAT" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ChiTietDonhang">
+          <Key>
+            <PropertyRef Name="MADH" />
+            <PropertyRef Name="MAMON" />
+          </Key>
+          <Property Name="MADH" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MAMON" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="SOLUONG" Type="float" />
+          <Property Name="DONGIA" Type="float" />
+          <Property Name="THANHTIEN" Type="float" />
+          <Property Name="GIAMGIA" Type="float" />
+          <Property Name="ISDEL" Type="int" />
+          <Property Name="CREADTEDAT" Type="datetime" />
+          <Property Name="UPDATEDAT" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DonHang">
+          <Key>
+            <PropertyRef Name="MADH" />
+          </Key>
+          <Property Name="MADH" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MANV" Type="varchar" MaxLength="30" />
+          <Property Name="THOIGIAN" Type="datetime" />
+          <Property Name="TONGTIEN" Type="float" />
+          <Property Name="TENKH" Type="nvarchar" MaxLength="30" />
+          <Property Name="ISDEL" Type="int" />
+          <Property Name="CREADTEDAT" Type="datetime" />
+          <Property Name="UPDATEDAT" Type="datetime" />
+        </EntityType>
+        <EntityType Name="LichLamViec">
+          <Key>
+            <PropertyRef Name="MANV" />
+            <PropertyRef Name="THU" />
+            <PropertyRef Name="MACALV" />
+          </Key>
+          <Property Name="MANV" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="THU" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="MACALV" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="PHUCAP" Type="float" />
+          <Property Name="ISDEL" Type="int" />
+          <Property Name="CREADTEDAT" Type="datetime" />
+          <Property Name="UPDATEDAT" Type="datetime" />
+        </EntityType>
+        <EntityType Name="LoaiMonAn">
+          <Key>
+            <PropertyRef Name="MALOAI" />
+          </Key>
+          <Property Name="MALOAI" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TENLOAI" Type="nvarchar" MaxLength="30" />
+          <Property Name="ISDEL" Type="int" />
+          <Property Name="CREADTEDAT" Type="datetime" />
+          <Property Name="UPDATEDAT" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MonAn">
+          <Key>
+            <PropertyRef Name="MAMON" />
+          </Key>
+          <Property Name="MAMON" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TENMON" Type="nvarchar" MaxLength="30" />
+          <Property Name="GIA" Type="float" />
+          <Property Name="MOTA" Type="nvarchar" MaxLength="30" />
+          <Property Name="MALOAI" Type="varchar" MaxLength="30" />
+          <Property Name="HINHANH" Type="image" />
+          <Property Name="TTSP" Type="nvarchar" MaxLength="30" />
+          <Property Name="ISDEL" Type="int" />
+          <Property Name="CREADTEDAT" Type="datetime" />
+          <Property Name="UPDATEDAT" Type="datetime" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="MANV" />
+          </Key>
+          <Property Name="MANV" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="HOTEN" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LUONG" Type="float" />
+          <Property Name="NGSINH" Type="date" />
+          <Property Name="PHAI" Type="varchar" MaxLength="5" />
+          <Property Name="CMND" Type="varchar" MaxLength="30" />
+          <Property Name="DIENTHOAI" Type="varchar" MaxLength="30" />
+          <Property Name="CHUCVU" Type="nvarchar" MaxLength="30" />
+          <Property Name="TAIKHOAN" Type="varchar" MaxLength="30" />
+          <Property Name="MATKHAU" Type="varchar" MaxLength="50" />
+          <Property Name="ISDEL" Type="int" />
+          <Property Name="ISADMIN" Type="int" />
+          <Property Name="CREATEDAT" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_CTDH_DH">
+          <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
+          <End Role="ChiTietDonhang" Type="Self.ChiTietDonhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonHang">
+              <PropertyRef Name="MADH" />
+            </Principal>
+            <Dependent Role="ChiTietDonhang">
+              <PropertyRef Name="MADH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CTDH_MA">
+          <End Role="MonAn" Type="Self.MonAn" Multiplicity="1" />
+          <End Role="ChiTietDonhang" Type="Self.ChiTietDonhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonAn">
+              <PropertyRef Name="MAMON" />
+            </Principal>
+            <Dependent Role="ChiTietDonhang">
+              <PropertyRef Name="MAMON" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DH_NV">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MANV" />
+            </Principal>
+            <Dependent Role="DonHang">
+              <PropertyRef Name="MANV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LLV_CLV">
+          <End Role="CaLamViec" Type="Self.CaLamViec" Multiplicity="1" />
+          <End Role="LichLamViec" Type="Self.LichLamViec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaLamViec">
+              <PropertyRef Name="MACALV" />
+            </Principal>
+            <Dependent Role="LichLamViec">
+              <PropertyRef Name="MACALV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LLV_NV">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1" />
+          <End Role="LichLamViec" Type="Self.LichLamViec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MANV" />
+            </Principal>
+            <Dependent Role="LichLamViec">
+              <PropertyRef Name="MANV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MA_LMA">
+          <End Role="LoaiMonAn" Type="Self.LoaiMonAn" Multiplicity="0..1" />
+          <End Role="MonAn" Type="Self.MonAn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiMonAn">
+              <PropertyRef Name="MALOAI" />
+            </Principal>
+            <Dependent Role="MonAn">
+              <PropertyRef Name="MALOAI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QUAN_LY_QUAN_CAPHEModelStoreContainer">
+          <EntitySet Name="CaLamViec" EntityType="Self.CaLamViec" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChiTietDonhang" EntityType="Self.ChiTietDonhang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LichLamViec" EntityType="Self.LichLamViec" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiMonAn" EntityType="Self.LoaiMonAn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonAn" EntityType="Self.MonAn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CTDH_DH" Association="Self.FK_CTDH_DH">
+            <End Role="DonHang" EntitySet="DonHang" />
+            <End Role="ChiTietDonhang" EntitySet="ChiTietDonhang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTDH_MA" Association="Self.FK_CTDH_MA">
+            <End Role="MonAn" EntitySet="MonAn" />
+            <End Role="ChiTietDonhang" EntitySet="ChiTietDonhang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DH_NV" Association="Self.FK_DH_NV">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="DonHang" EntitySet="DonHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LLV_CLV" Association="Self.FK_LLV_CLV">
+            <End Role="CaLamViec" EntitySet="CaLamViec" />
+            <End Role="LichLamViec" EntitySet="LichLamViec" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LLV_NV" Association="Self.FK_LLV_NV">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="LichLamViec" EntitySet="LichLamViec" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MA_LMA" Association="Self.FK_MA_LMA">
+            <End Role="LoaiMonAn" EntitySet="LoaiMonAn" />
+            <End Role="MonAn" EntitySet="MonAn" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QUAN_LY_QUAN_CAPHEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="QUAN_LY_QUAN_CAPHEEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CaLamViecs" EntityType="QUAN_LY_QUAN_CAPHEModel.CaLamViec" />
+          <EntitySet Name="ChiTietDonhangs" EntityType="QUAN_LY_QUAN_CAPHEModel.ChiTietDonhang" />
+          <EntitySet Name="DonHangs" EntityType="QUAN_LY_QUAN_CAPHEModel.DonHang" />
+          <EntitySet Name="LichLamViecs" EntityType="QUAN_LY_QUAN_CAPHEModel.LichLamViec" />
+          <EntitySet Name="LoaiMonAns" EntityType="QUAN_LY_QUAN_CAPHEModel.LoaiMonAn" />
+          <EntitySet Name="MonAns" EntityType="QUAN_LY_QUAN_CAPHEModel.MonAn" />
+          <EntitySet Name="NhanViens" EntityType="QUAN_LY_QUAN_CAPHEModel.NhanVien" />
+          <AssociationSet Name="FK_LLV_CLV" Association="QUAN_LY_QUAN_CAPHEModel.FK_LLV_CLV">
+            <End Role="CaLamViec" EntitySet="CaLamViecs" />
+            <End Role="LichLamViec" EntitySet="LichLamViecs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTDH_DH" Association="QUAN_LY_QUAN_CAPHEModel.FK_CTDH_DH">
+            <End Role="DonHang" EntitySet="DonHangs" />
+            <End Role="ChiTietDonhang" EntitySet="ChiTietDonhangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTDH_MA" Association="QUAN_LY_QUAN_CAPHEModel.FK_CTDH_MA">
+            <End Role="MonAn" EntitySet="MonAns" />
+            <End Role="ChiTietDonhang" EntitySet="ChiTietDonhangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DH_NV" Association="QUAN_LY_QUAN_CAPHEModel.FK_DH_NV">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="DonHang" EntitySet="DonHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LLV_NV" Association="QUAN_LY_QUAN_CAPHEModel.FK_LLV_NV">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="LichLamViec" EntitySet="LichLamViecs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MA_LMA" Association="QUAN_LY_QUAN_CAPHEModel.FK_MA_LMA">
+            <End Role="LoaiMonAn" EntitySet="LoaiMonAns" />
+            <End Role="MonAn" EntitySet="MonAns" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CaLamViec">
+          <Key>
+            <PropertyRef Name="MACALV" />
+          </Key>
+          <Property Name="MACALV" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TENCA" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="GIOBATDAU" Type="Time" Precision="7" />
+          <Property Name="GIOKETTHUC" Type="Time" Precision="7" />
+          <Property Name="ISDEL" Type="Int32" />
+          <Property Name="CREADTEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UPDATEDAT" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="LichLamViecs" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_LLV_CLV" FromRole="CaLamViec" ToRole="LichLamViec" />
+        </EntityType>
+        <EntityType Name="ChiTietDonhang">
+          <Key>
+            <PropertyRef Name="MADH" />
+            <PropertyRef Name="MAMON" />
+          </Key>
+          <Property Name="MADH" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MAMON" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SOLUONG" Type="Double" />
+          <Property Name="DONGIA" Type="Double" />
+          <Property Name="THANHTIEN" Type="Double" />
+          <Property Name="GIAMGIA" Type="Double" />
+          <Property Name="ISDEL" Type="Int32" />
+          <Property Name="CREADTEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UPDATEDAT" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DonHang" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_CTDH_DH" FromRole="ChiTietDonhang" ToRole="DonHang" />
+          <NavigationProperty Name="MonAn" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_CTDH_MA" FromRole="ChiTietDonhang" ToRole="MonAn" />
+        </EntityType>
+        <EntityType Name="DonHang">
+          <Key>
+            <PropertyRef Name="MADH" />
+          </Key>
+          <Property Name="MADH" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MANV" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="THOIGIAN" Type="DateTime" Precision="3" />
+          <Property Name="TONGTIEN" Type="Double" />
+          <Property Name="TENKH" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ISDEL" Type="Int32" />
+          <Property Name="CREADTEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UPDATEDAT" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ChiTietDonhangs" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_CTDH_DH" FromRole="DonHang" ToRole="ChiTietDonhang" />
+          <NavigationProperty Name="NhanVien" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_DH_NV" FromRole="DonHang" ToRole="NhanVien" />
+        </EntityType>
+        <EntityType Name="LichLamViec">
+          <Key>
+            <PropertyRef Name="MANV" />
+            <PropertyRef Name="THU" />
+            <PropertyRef Name="MACALV" />
+          </Key>
+          <Property Name="MANV" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="THU" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="MACALV" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PHUCAP" Type="Double" />
+          <Property Name="ISDEL" Type="Int32" />
+          <Property Name="CREADTEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UPDATEDAT" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CaLamViec" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_LLV_CLV" FromRole="LichLamViec" ToRole="CaLamViec" />
+          <NavigationProperty Name="NhanVien" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_LLV_NV" FromRole="LichLamViec" ToRole="NhanVien" />
+        </EntityType>
+        <EntityType Name="LoaiMonAn">
+          <Key>
+            <PropertyRef Name="MALOAI" />
+          </Key>
+          <Property Name="MALOAI" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TENLOAI" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ISDEL" Type="Int32" />
+          <Property Name="CREADTEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UPDATEDAT" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="MonAns" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_MA_LMA" FromRole="LoaiMonAn" ToRole="MonAn" />
+        </EntityType>
+        <EntityType Name="MonAn">
+          <Key>
+            <PropertyRef Name="MAMON" />
+          </Key>
+          <Property Name="MAMON" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TENMON" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="GIA" Type="Double" />
+          <Property Name="MOTA" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="MALOAI" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="HINHANH" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="TTSP" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ISDEL" Type="Int32" />
+          <Property Name="CREADTEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UPDATEDAT" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ChiTietDonhangs" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_CTDH_MA" FromRole="MonAn" ToRole="ChiTietDonhang" />
+          <NavigationProperty Name="LoaiMonAn" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_MA_LMA" FromRole="MonAn" ToRole="LoaiMonAn" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="MANV" />
+          </Key>
+          <Property Name="MANV" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="HOTEN" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LUONG" Type="Double" />
+          <Property Name="NGSINH" Type="DateTime" Precision="0" />
+          <Property Name="PHAI" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="CMND" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DIENTHOAI" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CHUCVU" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="TAIKHOAN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MATKHAU" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ISDEL" Type="Int32" />
+          <Property Name="ISADMIN" Type="Int32" />
+          <Property Name="CREATEDAT" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DonHangs" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_DH_NV" FromRole="NhanVien" ToRole="DonHang" />
+          <NavigationProperty Name="LichLamViecs" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_LLV_NV" FromRole="NhanVien" ToRole="LichLamViec" />
+        </EntityType>
+        <Association Name="FK_LLV_CLV">
+          <End Type="QUAN_LY_QUAN_CAPHEModel.CaLamViec" Role="CaLamViec" Multiplicity="1" />
+          <End Type="QUAN_LY_QUAN_CAPHEModel.LichLamViec" Role="LichLamViec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaLamViec">
+              <PropertyRef Name="MACALV" />
+            </Principal>
+            <Dependent Role="LichLamViec">
+              <PropertyRef Name="MACALV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CTDH_DH">
+          <End Type="QUAN_LY_QUAN_CAPHEModel.DonHang" Role="DonHang" Multiplicity="1" />
+          <End Type="QUAN_LY_QUAN_CAPHEModel.ChiTietDonhang" Role="ChiTietDonhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonHang">
+              <PropertyRef Name="MADH" />
+            </Principal>
+            <Dependent Role="ChiTietDonhang">
+              <PropertyRef Name="MADH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CTDH_MA">
+          <End Type="QUAN_LY_QUAN_CAPHEModel.MonAn" Role="MonAn" Multiplicity="1" />
+          <End Type="QUAN_LY_QUAN_CAPHEModel.ChiTietDonhang" Role="ChiTietDonhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonAn">
+              <PropertyRef Name="MAMON" />
+            </Principal>
+            <Dependent Role="ChiTietDonhang">
+              <PropertyRef Name="MAMON" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DH_NV">
+          <End Type="QUAN_LY_QUAN_CAPHEModel.NhanVien" Role="NhanVien" Multiplicity="0..1" />
+          <End Type="QUAN_LY_QUAN_CAPHEModel.DonHang" Role="DonHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MANV" />
+            </Principal>
+            <Dependent Role="DonHang">
+              <PropertyRef Name="MANV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LLV_NV">
+          <End Type="QUAN_LY_QUAN_CAPHEModel.NhanVien" Role="NhanVien" Multiplicity="1" />
+          <End Type="QUAN_LY_QUAN_CAPHEModel.LichLamViec" Role="LichLamViec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MANV" />
+            </Principal>
+            <Dependent Role="LichLamViec">
+              <PropertyRef Name="MANV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MA_LMA">
+          <End Type="QUAN_LY_QUAN_CAPHEModel.LoaiMonAn" Role="LoaiMonAn" Multiplicity="0..1" />
+          <End Type="QUAN_LY_QUAN_CAPHEModel.MonAn" Role="MonAn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiMonAn">
+              <PropertyRef Name="MALOAI" />
+            </Principal>
+            <Dependent Role="MonAn">
+              <PropertyRef Name="MALOAI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QUAN_LY_QUAN_CAPHEModelStoreContainer" CdmEntityContainer="QUAN_LY_QUAN_CAPHEEntities">
+          <EntitySetMapping Name="CaLamViecs">
+            <EntityTypeMapping TypeName="QUAN_LY_QUAN_CAPHEModel.CaLamViec">
+              <MappingFragment StoreEntitySet="CaLamViec">
+                <ScalarProperty Name="UPDATEDAT" ColumnName="UPDATEDAT" />
+                <ScalarProperty Name="CREADTEDAT" ColumnName="CREADTEDAT" />
+                <ScalarProperty Name="ISDEL" ColumnName="ISDEL" />
+                <ScalarProperty Name="GIOKETTHUC" ColumnName="GIOKETTHUC" />
+                <ScalarProperty Name="GIOBATDAU" ColumnName="GIOBATDAU" />
+                <ScalarProperty Name="TENCA" ColumnName="TENCA" />
+                <ScalarProperty Name="MACALV" ColumnName="MACALV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChiTietDonhangs">
+            <EntityTypeMapping TypeName="QUAN_LY_QUAN_CAPHEModel.ChiTietDonhang">
+              <MappingFragment StoreEntitySet="ChiTietDonhang">
+                <ScalarProperty Name="UPDATEDAT" ColumnName="UPDATEDAT" />
+                <ScalarProperty Name="CREADTEDAT" ColumnName="CREADTEDAT" />
+                <ScalarProperty Name="ISDEL" ColumnName="ISDEL" />
+                <ScalarProperty Name="GIAMGIA" ColumnName="GIAMGIA" />
+                <ScalarProperty Name="THANHTIEN" ColumnName="THANHTIEN" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="MAMON" ColumnName="MAMON" />
+                <ScalarProperty Name="MADH" ColumnName="MADH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DonHangs">
+            <EntityTypeMapping TypeName="QUAN_LY_QUAN_CAPHEModel.DonHang">
+              <MappingFragment StoreEntitySet="DonHang">
+                <ScalarProperty Name="UPDATEDAT" ColumnName="UPDATEDAT" />
+                <ScalarProperty Name="CREADTEDAT" ColumnName="CREADTEDAT" />
+                <ScalarProperty Name="ISDEL" ColumnName="ISDEL" />
+                <ScalarProperty Name="TENKH" ColumnName="TENKH" />
+                <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+                <ScalarProperty Name="THOIGIAN" ColumnName="THOIGIAN" />
+                <ScalarProperty Name="MANV" ColumnName="MANV" />
+                <ScalarProperty Name="MADH" ColumnName="MADH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LichLamViecs">
+            <EntityTypeMapping TypeName="QUAN_LY_QUAN_CAPHEModel.LichLamViec">
+              <MappingFragment StoreEntitySet="LichLamViec">
+                <ScalarProperty Name="UPDATEDAT" ColumnName="UPDATEDAT" />
+                <ScalarProperty Name="CREADTEDAT" ColumnName="CREADTEDAT" />
+                <ScalarProperty Name="ISDEL" ColumnName="ISDEL" />
+                <ScalarProperty Name="PHUCAP" ColumnName="PHUCAP" />
+                <ScalarProperty Name="MACALV" ColumnName="MACALV" />
+                <ScalarProperty Name="THU" ColumnName="THU" />
+                <ScalarProperty Name="MANV" ColumnName="MANV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiMonAns">
+            <EntityTypeMapping TypeName="QUAN_LY_QUAN_CAPHEModel.LoaiMonAn">
+              <MappingFragment StoreEntitySet="LoaiMonAn">
+                <ScalarProperty Name="UPDATEDAT" ColumnName="UPDATEDAT" />
+                <ScalarProperty Name="CREADTEDAT" ColumnName="CREADTEDAT" />
+                <ScalarProperty Name="ISDEL" ColumnName="ISDEL" />
+                <ScalarProperty Name="TENLOAI" ColumnName="TENLOAI" />
+                <ScalarProperty Name="MALOAI" ColumnName="MALOAI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonAns">
+            <EntityTypeMapping TypeName="QUAN_LY_QUAN_CAPHEModel.MonAn">
+              <MappingFragment StoreEntitySet="MonAn">
+                <ScalarProperty Name="UPDATEDAT" ColumnName="UPDATEDAT" />
+                <ScalarProperty Name="CREADTEDAT" ColumnName="CREADTEDAT" />
+                <ScalarProperty Name="ISDEL" ColumnName="ISDEL" />
+                <ScalarProperty Name="TTSP" ColumnName="TTSP" />
+                <ScalarProperty Name="HINHANH" ColumnName="HINHANH" />
+                <ScalarProperty Name="MALOAI" ColumnName="MALOAI" />
+                <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+                <ScalarProperty Name="GIA" ColumnName="GIA" />
+                <ScalarProperty Name="TENMON" ColumnName="TENMON" />
+                <ScalarProperty Name="MAMON" ColumnName="MAMON" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NhanViens">
+            <EntityTypeMapping TypeName="QUAN_LY_QUAN_CAPHEModel.NhanVien">
+              <MappingFragment StoreEntitySet="NhanVien">
+                <ScalarProperty Name="CREATEDAT" ColumnName="CREATEDAT" />
+                <ScalarProperty Name="ISADMIN" ColumnName="ISADMIN" />
+                <ScalarProperty Name="ISDEL" ColumnName="ISDEL" />
+                <ScalarProperty Name="MATKHAU" ColumnName="MATKHAU" />
+                <ScalarProperty Name="TAIKHOAN" ColumnName="TAIKHOAN" />
+                <ScalarProperty Name="CHUCVU" ColumnName="CHUCVU" />
+                <ScalarProperty Name="DIENTHOAI" ColumnName="DIENTHOAI" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="PHAI" ColumnName="PHAI" />
+                <ScalarProperty Name="NGSINH" ColumnName="NGSINH" />
+                <ScalarProperty Name="LUONG" ColumnName="LUONG" />
+                <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+                <ScalarProperty Name="MANV" ColumnName="MANV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
