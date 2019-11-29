@@ -1,0 +1,46 @@
+C:\Users\duyph\Documents\Visual Studio 2015\Projects\WPF_CafeServer\WpfPageTransitions\bin\Debug\WpfPageTransitions.exe.config
+C:\Users\duyph\Documents\Visual Studio 2015\Projects\WPF_CafeServer\WpfPageTransitions\bin\Debug\WpfPageTransitions.exe
+C:\Users\duyph\Documents\Visual Studio 2015\Projects\WPF_CafeServer\WpfPageTransitions\bin\Debug\WpfPageTransitions.pdb
+C:\Users\duyph\Documents\Visual Studio 2015\Projects\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.csprojResolveAssemblyReference.cache
+C:\Users\duyph\Documents\Visual Studio 2015\Projects\WPF_CafeServer\WpfPageTransitions\obj\Debug\PageTransition.g.cs
+C:\Users\duyph\Documents\Visual Studio 2015\Projects\WPF_CafeServer\WpfPageTransitions\obj\Debug\App.g.cs
+C:\Users\duyph\Documents\Visual Studio 2015\Projects\WPF_CafeServer\WpfPageTransitions\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\duyph\Documents\Visual Studio 2015\Projects\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions_MarkupCompile.cache
+C:\Users\duyph\Documents\Visual Studio 2015\Projects\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions_MarkupCompile.lref
+C:\Users\duyph\Documents\Visual Studio 2015\Projects\WPF_CafeServer\WpfPageTransitions\obj\Debug\PageTransition.baml
+C:\Users\duyph\Documents\Visual Studio 2015\Projects\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.g.resources
+C:\Users\duyph\Documents\Visual Studio 2015\Projects\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.Properties.Resources.resources
+C:\Users\duyph\Documents\Visual Studio 2015\Projects\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.csproj.GenerateResource.Cache
+C:\Users\duyph\Documents\Visual Studio 2015\Projects\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.exe
+C:\Users\duyph\Documents\Visual Studio 2015\Projects\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.pdb
+D:\Games\Cafe\WPF_CafeServer\WpfPageTransitions\bin\Debug\WpfPageTransitions.exe.config
+D:\Games\Cafe\WPF_CafeServer\WpfPageTransitions\bin\Debug\WpfPageTransitions.exe
+D:\Games\Cafe\WPF_CafeServer\WpfPageTransitions\bin\Debug\WpfPageTransitions.pdb
+D:\Games\Cafe\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.csprojResolveAssemblyReference.cache
+D:\Games\Cafe\WPF_CafeServer\WpfPageTransitions\obj\Debug\PageTransition.g.cs
+D:\Games\Cafe\WPF_CafeServer\WpfPageTransitions\obj\Debug\App.g.cs
+D:\Games\Cafe\WPF_CafeServer\WpfPageTransitions\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Games\Cafe\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions_MarkupCompile.cache
+D:\Games\Cafe\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions_MarkupCompile.lref
+D:\Games\Cafe\WPF_CafeServer\WpfPageTransitions\obj\Debug\PageTransition.baml
+D:\Games\Cafe\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.g.resources
+D:\Games\Cafe\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.Properties.Resources.resources
+D:\Games\Cafe\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.csproj.GenerateResource.Cache
+D:\Games\Cafe\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.exe
+D:\Games\Cafe\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.pdb
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\bin\Debug\WpfPageTransitions.exe.config
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\bin\Debug\WpfPageTransitions.exe
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\bin\Debug\WpfPageTransitions.pdb
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.csprojAssemblyReference.cache
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\obj\Debug\PageTransition.g.cs
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\obj\Debug\App.g.cs
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions_MarkupCompile.cache
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions_MarkupCompile.lref
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\obj\Debug\PageTransition.baml
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.g.resources
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.Properties.Resources.resources
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.csproj.GenerateResource.cache
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.csproj.CoreCompileInputs.cache
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.exe
+C:\Users\USER\Desktop\WPF_CafeServer\WpfPageTransitions\obj\Debug\WpfPageTransitions.pdb

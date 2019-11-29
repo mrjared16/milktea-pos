@@ -79,6 +79,9 @@
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\CaLamViec.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -116,15 +119,24 @@
     <Compile Include="Models\NhanVien.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserControlWPF\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlWPF\MonAnAdmin.xaml.cs">
+      <DependentUpon>MonAnAdmin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControlWPF\UserControlBarUC.xaml.cs">
       <DependentUpon>UserControlBarUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\ControlBarViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ControlBarViewModel.cs" />
+    <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MonAnAdminViewModel.cs" />
     <Page Include="Login.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -134,11 +146,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Page Include="Resource\MainResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlWPF\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlWPF\MonAnAdmin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

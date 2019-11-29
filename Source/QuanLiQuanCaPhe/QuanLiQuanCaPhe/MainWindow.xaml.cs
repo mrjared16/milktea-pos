@@ -1,4 +1,6 @@
-﻿using QuanLiQuanCaPhe.Models;
+﻿using Microsoft.Win32;
+using QuanLiQuanCaPhe.Models;
+using QuanLiQuanCaPhe.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +26,17 @@ namespace QuanLiQuanCaPhe
 		public MainWindow()
 		{
 			InitializeComponent();
+			DataContext = new HomeViewModel();
+		}
 
+		private void taiKhoan(object sender, RoutedEventArgs e)
+		{
+			DataContext = new HomeViewModel();
+		}
+
+		private void MonAnAdmin(object sender, RoutedEventArgs e)
+		{
+			DataContext = new MonAnAdminViewModel();
 		}
 	}
 }

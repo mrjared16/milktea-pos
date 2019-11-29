@@ -10,17 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiQuanCaPhe
+namespace QuanLiQuanCaPhe.UserControlWPF
 {
 	/// <summary>
-	/// Interaction logic for Login.xaml
+	/// Interaction logic for MonAn.xaml
 	/// </summary>
-	public partial class Login : Window
+	public partial class MonAn : UserControl
 	{
-		public string tumeo;
-		public Login()
+		public MonAn()
 		{
 			InitializeComponent();
 		}
