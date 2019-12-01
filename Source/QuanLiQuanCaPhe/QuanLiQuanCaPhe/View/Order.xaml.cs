@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiQuanCaPhe
+namespace QuanLiQuanCaPhe.View
 {
 	/// <summary>
-	/// Interaction logic for Login.xaml
+	/// Interaction logic for Order.xaml
 	/// </summary>
-	public partial class Login : Window
+	public partial class Order : UserControl
 	{
-		public Login()
+		public Order()
 		{
 			InitializeComponent();
 		}

@@ -1,6 +1,4 @@
-﻿using Microsoft.Win32;
-using QuanLiQuanCaPhe.Models;
-using QuanLiQuanCaPhe.ViewModel;
+﻿using QuanLiQuanCaPhe.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,30 +11,38 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace QuanLiQuanCaPhe
 {
 	/// <summary>
-	/// Interaction logic for MainWindow.xaml
+	/// Interaction logic for NhanVienMainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class NhanVienMainWindow : Window
 	{
-		public MainWindow()
+		public NhanVienMainWindow()
 		{
 			InitializeComponent();
-			DataContext = new TaiKhoanViewModel();
-		}
+			DataContext = new TaiKhoanNhanVienViewModel();
 
+		}
 		private void taiKhoan(object sender, RoutedEventArgs e)
 		{
-			DataContext = new TaiKhoanViewModel();
+			DataContext = new TaiKhoanNhanVienViewModel();
 		}
 
 		private void MonAnAdmin(object sender, RoutedEventArgs e)
 		{
 			DataContext = new MonAnAdminViewModel();
+		}
+
+		private void BanHang(object sender, RoutedEventArgs e)
+		{
+		}
+
+		private void LichSuBanHang(object sender, RoutedEventArgs e)
+		{
+
 		}
 
 		private void DangXuat(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLiQuanCaPhe.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,18 +11,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiQuanCaPhe
+namespace QuanLiQuanCaPhe.View
 {
 	/// <summary>
-	/// Interaction logic for Login.xaml
+	/// Interaction logic for Home.xaml
 	/// </summary>
-	public partial class Login : Window
+	/// 
+	public partial class TaiKhoan : UserControl
 	{
-		public Login()
+		public TaiKhoanViewModel home { get; set; }
+
+		public TaiKhoan()
 		{
 			InitializeComponent();
+			home = new TaiKhoanViewModel();
+			this.DataContext = home;
 		}
 	}
 }

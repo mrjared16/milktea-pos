@@ -23,12 +23,11 @@ namespace QuanLiQuanCaPhe.UserControlWPF
 	public partial class Home : UserControl
 	{
 		public HomeViewModel home { get; set; }
-
 		public Home()
 		{
 			InitializeComponent();
-			this.DataContext = home = new HomeViewModel();
-
+			home = new HomeViewModel();
+			this.DataContext = home;
 		}
 	}
 }

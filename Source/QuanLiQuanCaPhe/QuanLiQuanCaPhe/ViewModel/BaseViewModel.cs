@@ -30,7 +30,6 @@ namespace QuanLiQuanCaPhe.ViewModel
 			_canExecute = canExecute;
 			_execute = execute;
 		}
-
 		public bool CanExecute(object parameter)
 		{
 			try

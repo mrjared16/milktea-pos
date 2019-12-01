@@ -3,6 +3,7 @@ using QuanLiQuanCaPhe.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -43,13 +44,40 @@ namespace QuanLiQuanCaPhe.ViewModel
 				return;
 
 			string passEncode = MD5Hash(Base64Encode(Password));
-			var accCount = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN == UserName && x.MATKHAU == passEncode).Count();
+			var accCount = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN == UserName && x.MATKHAU == passEncode);
 
-			if (accCount > 0)
+			if(UserName.Equals("")||Password.Equals(""))
 			{
-				IsLogin = true;
-				tendangnhap = UserName;
-				p.Close();
+				MessageBox.Show("Bạn chưa điền đầy đủ thông tin đăng nhập!!!");
+			}
+			else if(accCount.Count()>0)
+			{
+				foreach (var item in accCount)
+				{
+					if(item.ISDEL==1)
+					{
+						FileStream fileStream = new FileStream("tumeo.txt",FileMode.OpenOrCreate, FileAccess.ReadWrite);
+						byte[] temp = Encoding.UTF8.GetBytes(UserName);
+						fileStream.Write(temp, 0, temp.Length);
+						fileStream.Close();
+						IsLogin = true;
+						tendangnhap = UserName;
+
+						if (item.CHUCVU.Equals("Admisdan"))
+						{
+							MainWindow mainWindow = new MainWindow();
+							mainWindow.Show();
+						}
+						else
+						{
+							NhanVienMainWindow nhanVienMainWindow = new NhanVienMainWindow();
+							nhanVienMainWindow.Show();
+						}
+						UserName = "";
+						Password = "";
+						p.Close();
+					}
+				}
 			}
 			else
 			{
@@ -63,9 +91,6 @@ namespace QuanLiQuanCaPhe.ViewModel
 			var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
 			return System.Convert.ToBase64String(plainTextBytes);
 		}
-
-
-
 		public static string MD5Hash(string input)
 		{
 			StringBuilder hash = new StringBuilder();
