@@ -63,7 +63,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 						IsLogin = true;
 						tendangnhap = UserName;
 
-						if (item.CHUCVU.Equals("Admisdan"))
+						if (item.CHUCVU.Equals("Admin"))
 						{
 							MainWindow mainWindow = new MainWindow();
 							mainWindow.Show();
