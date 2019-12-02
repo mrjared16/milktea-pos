@@ -1,37 +1,54 @@
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\QuanLiQuanCaPhe.exe.config
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\QuanLiQuanCaPhe.exe
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\QuanLiQuanCaPhe.pdb
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\MaterialDesignColors.dll
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\MaterialDesignThemes.Wpf.dll
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\MaterialDesignColors.pdb
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\MaterialDesignThemes.Wpf.pdb
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\MaterialDesignThemes.Wpf.xml
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe.csprojAssemblyReference.cache
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\MainWindow.g.cs
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\App.g.cs
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe_MarkupCompile.cache
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe_MarkupCompile.lref
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\App.baml
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\MainWindow.baml
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe.g.resources
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe.Properties.Resources.resources
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe.csproj.GenerateResource.cache
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe.csproj.CoreCompileInputs.cache
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe.csproj.CopyComplete
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe.exe
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe.pdb
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\GeneratedInternalTypeHelper.g.cs
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\Resource\MainResource.baml
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\Login.g.cs
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\Login.baml
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\UserControlWPF\UserControlBarUC.g.cs
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\UserControlWPF\UserControlBarUC.baml
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\Microsoft.Expression.Interactions.dll
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\System.Windows.Interactivity.dll
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\Microsoft.Expression.Interactions.xml
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\System.Windows.Interactivity.xml
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\EntityFramework.dll
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\EntityFramework.SqlServer.dll
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\EntityFramework.xml
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\EntityFramework.SqlServer.xml
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe_Content.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\QuanLiQuanCaPhe.exe.config
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\QuanLiQuanCaPhe.exe
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\QuanLiQuanCaPhe.pdb
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\EntityFramework.dll
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\EntityFramework.SqlServer.dll
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\MaterialDesignColors.dll
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\MaterialDesignThemes.Wpf.dll
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\Microsoft.Expression.Interactions.dll
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\System.Windows.Interactivity.dll
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\EntityFramework.xml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\EntityFramework.SqlServer.xml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\MaterialDesignColors.pdb
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\MaterialDesignThemes.Wpf.pdb
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\MaterialDesignThemes.Wpf.xml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\Microsoft.Expression.Interactions.xml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\bin\Debug\System.Windows.Interactivity.xml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe.csprojAssemblyReference.cache
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\Login.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\MainWindow.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\NhanVienMainWindow.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\Home.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\TaiKhoan.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\MonAnAdmin.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\Order.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\TaiKhoanNhanVien.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\UserControlBarUC.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\App.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe_Content.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe_MarkupCompile.cache
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe_MarkupCompile.lref
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\App.baml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\Login.baml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\MainWindow.baml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\NhanVienMainWindow.baml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\Resource\MainResource.baml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\Home.baml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\TaiKhoan.baml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\MonAnAdmin.baml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\Order.baml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\TaiKhoanNhanVien.baml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\UserControlBarUC.baml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe.g.resources
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe.Properties.Resources.resources
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe.csproj.GenerateResource.cache
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe.csproj.CopyComplete
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe.exe
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\QuanLiQuanCaPhe.pdb
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\HoaDon.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\HoaDon.baml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\NhanVien.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\NhanVien.baml
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\LoaiMonAn.g.cs
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\View\LoaiMonAn.baml

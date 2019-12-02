@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\
 QuanLiQuanCaPhe
 none
 false
 DEBUG;TRACE
-H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\App.xaml
-4-1644616283
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\App.xaml
+131411371602
 21363741524
-22751965855
-221918240639
-Login.xaml;MainWindow.xaml;Resource\MainResource.xaml;UserControlWPF\UserControlBarUC.xaml;
+40-340354641
+2235036613
+Login.xaml;MainWindow.xaml;NhanVienMainWindow.xaml;Resource\MainResource.xaml;View\HoaDon.xaml;View\Home.xaml;View\LoaiMonAn.xaml;View\NhanVien.xaml;View\TaiKhoan.xaml;View\MonAnAdmin.xaml;View\Order.xaml;View\TaiKhoanNhanVien.xaml;View\UserControlBarUC.xaml;
 
-False
+True
 

@@ -1,4 +1,6 @@
-﻿using QuanLiQuanCaPhe.Models;
+﻿using Microsoft.Win32;
+using QuanLiQuanCaPhe.Models;
+using QuanLiQuanCaPhe.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +26,40 @@ namespace QuanLiQuanCaPhe
 		public MainWindow()
 		{
 			InitializeComponent();
-
+			DataContext = new TaiKhoanViewModel();
 		}
-	}
+
+		private void taiKhoan(object sender, RoutedEventArgs e)
+		{
+			DataContext = new TaiKhoanViewModel();
+		}
+
+		private void MonAnAdmin(object sender, RoutedEventArgs e)
+		{
+			DataContext = new MonAnAdminViewModel();
+		}
+
+		private void DangXuat(object sender, RoutedEventArgs e)
+		{
+			Login login = new Login();
+			login.Show();
+			this.Close();
+		}
+
+        private void DonHang(object sender, RoutedEventArgs e)
+        {
+            // bắt sự kiện click trong man để khởi tọa layout
+            DataContext = new HoaDonViewModel();
+        }
+
+        private void NhanVien(object sender, RoutedEventArgs e)
+        {
+            DataContext = new NhanVienViewModel();
+        }
+
+        private void LoaiMonAn(object sender, RoutedEventArgs e)
+        {
+            DataContext = new LoaiMonAnViewModel();
+        }
+    }
 }

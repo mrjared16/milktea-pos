@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="QuanLiQuanCaPhe.UserControlWPF.Order"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QuanLiQuanCaPhe.UserControlWPF"
+             mc:Ignorable="d" 
+			    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+        x:Name="window" d:DesignHeight="450" d:DesignWidth="800">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"></RowDefinition>
+			<RowDefinition></RowDefinition>
+		</Grid.RowDefinitions>
+
+
+		<Grid Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto"></RowDefinition>
+				<RowDefinition Height="auto"></RowDefinition>
+				<RowDefinition></RowDefinition>
+			</Grid.RowDefinitions>
+
+			<!--các element binding từ selected item-->
+			<materialDesign:Card Grid.Row="0" Margin="5">
+				<WrapPanel Margin="0 0 0 10">
+					<TextBox Text="{Binding DisplayName}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Tên nhà cung cấp" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+					<TextBox Text="{Binding Address}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Địa chỉ" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+					<TextBox Text="{Binding Phone}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+					<TextBox Text="{Binding Email}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+					<TextBox Text="{Binding MoreInfo}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Thông tin thêm" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+					<DatePicker VerticalAlignment="Center" SelectedDate="{Binding ContractDate}" Width="100" Margin="5 5 15 -7" materialDesign:HintAssist.Hint="Ngày hợp tác" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+				</WrapPanel>
+			</materialDesign:Card>
+
+			<materialDesign:Card Grid.Row="1" Margin="5">
+				<WrapPanel>
+					<Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100"></Button>
+					<Button Command="{Binding EditCommand}" Content="Sửa" Margin="5" Width="100"></Button>
+					<Button Command="{Binding DeleteCommand}" Content="Xóa" Margin="5" Width="100"></Button>
+				</WrapPanel>
+			</materialDesign:Card>
+
+			<materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
+				<ScrollViewer VerticalScrollBarVisibility="Auto">
+					<ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+						<ListView.View>
+							<GridView>
+								<GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+								<GridViewColumn Header="Tên nhà cung cấp" DisplayMemberBinding="{Binding DisplayName}"></GridViewColumn>
+								<GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding Address}"></GridViewColumn>
+								<GridViewColumn Header="Điện thoại" DisplayMemberBinding="{Binding Phone}"></GridViewColumn>
+								<GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}"></GridViewColumn>
+								<GridViewColumn Header="Thông tin thêm" DisplayMemberBinding="{Binding MoreInfo}"></GridViewColumn>
+								<GridViewColumn Header="Ngày hợp tác" DisplayMemberBinding="{Binding ContractDate}"></GridViewColumn>
+
+							</GridView>
+						</ListView.View>
+					</ListView>
+				</ScrollViewer>
+			</materialDesign:Card>
+		</Grid>
+	</Grid>
+</UserControl>

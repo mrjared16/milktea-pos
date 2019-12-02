@@ -3,5 +3,8 @@
 					xmlns:viewModel="clr-namespace:QuanLiQuanCaPhe.ViewModel"
 					>
 	<viewModel:MainViewModel x:Key="MainVM"></viewModel:MainViewModel>
-	
+	<viewModel:MainViewModel x:Key="NhanVienMainVM"></viewModel:MainViewModel>
+	<viewModel:LoginViewModel x:Key="LoginVM"></viewModel:LoginViewModel>
+
+
 </ResourceDictionary>

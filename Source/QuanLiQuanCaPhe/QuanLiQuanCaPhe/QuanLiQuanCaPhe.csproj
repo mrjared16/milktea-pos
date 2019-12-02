@@ -79,6 +79,9 @@
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\CaLamViec.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -104,6 +107,7 @@
     <Compile Include="Models\DonHang.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Home.cs" />
     <Compile Include="Models\LichLamViec.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -116,15 +120,50 @@
     <Compile Include="Models\NhanVien.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserControlWPF\UserControlBarUC.xaml.cs">
+    <Compile Include="NhanVienMainWindow.xaml.cs">
+      <DependentUpon>NhanVienMainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\HoaDonViewModel.cs" />
+    <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\LoaiMonAnViewModel.cs" />
+    <Compile Include="ViewModel\NhanVienViewModel.cs" />
+    <Compile Include="ViewModel\TaiKhoanNhanVienViewModel.cs" />
+    <Compile Include="View\HoaDon.xaml.cs">
+      <DependentUpon>HoaDon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoaiMonAn.xaml.cs">
+      <DependentUpon>LoaiMonAn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NhanVien.xaml.cs">
+      <DependentUpon>NhanVien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TaiKhoan.xaml.cs">
+      <DependentUpon>TaiKhoan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MonAnAdmin.xaml.cs">
+      <DependentUpon>MonAnAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Order.xaml.cs">
+      <DependentUpon>Order.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TaiKhoanNhanVien.xaml.cs">
+      <DependentUpon>TaiKhoanNhanVien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControlBarUC.xaml.cs">
       <DependentUpon>UserControlBarUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\ControlBarViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ControlBarViewModel.cs" />
+    <Compile Include="ViewModel\TaiKhoanViewModel.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MonAnAdminViewModel.cs" />
     <Page Include="Login.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -134,15 +173,47 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="NhanVienMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resource\MainResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControlWPF\UserControlBarUC.xaml">
+    <Page Include="View\HoaDon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoaiMonAn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NhanVien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TaiKhoan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MonAnAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Order.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TaiKhoanNhanVien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControlBarUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,6 +254,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Resource Include="Image\HomeBackground.jpg" />
     <Content Include="Models\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Database.Context.cs</LastGenOutput>
