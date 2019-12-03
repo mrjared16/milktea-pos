@@ -123,8 +123,13 @@
     <Compile Include="NhanVienMainWindow.xaml.cs">
       <DependentUpon>NhanVienMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\DoanhThuAdminViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\MonAnAdmin.cs" />
     <Compile Include="ViewModel\TaiKhoanNhanVienViewModel.cs" />
+    <Compile Include="View\DoanhThuAdmin.xaml.cs">
+      <DependentUpon>DoanhThuAdmin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
@@ -166,6 +171,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resource\MainResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DoanhThuAdmin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,6 +240,7 @@
   <ItemGroup />
   <ItemGroup>
     <Resource Include="Image\HomeBackground.jpg" />
+    <Resource Include="Image\trasua.jpg" />
     <Content Include="Models\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Database.Context.cs</LastGenOutput>

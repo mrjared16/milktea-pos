@@ -18,32 +18,37 @@ using System.Windows.Shapes;
 
 namespace QuanLiQuanCaPhe
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow : Window
-	{
-		public MainWindow()
-		{
-			InitializeComponent();
-			DataContext = new TaiKhoanViewModel();
-		}
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+            DataContext = new TaiKhoanViewModel();
+        }
 
-		private void taiKhoan(object sender, RoutedEventArgs e)
-		{
-			DataContext = new TaiKhoanViewModel();
-		}
+        private void taiKhoan(object sender, RoutedEventArgs e)
+        {
+            DataContext = new TaiKhoanViewModel();
+        }
 
-		private void MonAnAdmin(object sender, RoutedEventArgs e)
-		{
-			DataContext = new MonAnAdminViewModel();
-		}
+        private void MonAnAdmin(object sender, RoutedEventArgs e)
+        {
+            DataContext = new MonAnAdminViewModel();
+        }
 
-		private void DangXuat(object sender, RoutedEventArgs e)
-		{
-			Login login = new Login();
-			login.Show();
-			this.Close();
-		}
-	}
+        private void DangXuat(object sender, RoutedEventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
+            this.Close();
+        }
+
+        private void DoanhThu(object sender, RoutedEventArgs e)
+        {
+            DataContext = new DoanhThuAdminViewModel();
+        }
+    }
 }
