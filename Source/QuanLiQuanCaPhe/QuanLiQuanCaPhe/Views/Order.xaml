@@ -18,7 +18,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <!--Categories-->
-            <ListBox Grid.Row="0" Margin="0" Padding="0" ItemsSource="{Binding CategoryItems}" SelectedItem="{Binding SelectedCategory}">
+            <ListBox Grid.Row="0" Margin="0" Padding="0" ItemsSource="{Binding ListCategory}" SelectedItem="{Binding SelectedCategory}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel/>
@@ -42,7 +42,7 @@
             <!--End Categories-->
 
             <!--Product Items-->
-            <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Items}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True">
+            <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding ListDrink}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"/>
@@ -53,7 +53,11 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
-                                    <Button Height="100" Width="100" Background="Transparent" Margin="20,15,0,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0" BorderBrush="Transparent">
+                                    <Button Height="100" Width="100" Background="Transparent" Margin="20,15,0,0"
+                                            HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                                            Padding="0" BorderBrush="Transparent"
+                                            Command="{Binding DataContext.AddDrink, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                                            CommandParameter="{Binding}">
                                         <Grid >
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="6*"/>
@@ -81,7 +85,7 @@
 
         <!--Order Content-->
         <!--BINDING TO ORDER-->
-        <Grid Grid.Column="1" Background="{DynamicResource SideBar}" DataContext="{Binding Order}">
+        <Grid Grid.Column="1" Background="{DynamicResource SideBar}" DataContext="{Binding CurrentOrder}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
                 <RowDefinition Height="400"/>
@@ -89,59 +93,76 @@
             </Grid.RowDefinitions>
             <!--Header-->
             <StackPanel Grid.Row="0" Margin="15,5,10,0">
-                <TextBlock Style="{DynamicResource StrongTitle}" Text="{Binding IDString}"><!--Hóa đơn - HD001--></TextBlock>
+                <TextBlock Style="{DynamicResource StrongTitle}" Text="{Binding ID, StringFormat={}Hóa đơn - HD{0}}"><!--Hóa đơn - HD001--></TextBlock>
                 <TextBlock Style="{DynamicResource LightContent}" Text="{Binding Date}"></TextBlock>
             </StackPanel>
             <!--End of Header-->
 
             <!--Order Items-->
             <!--BINDING TO LIST OF ITEM ORDER-->
-            <StackPanel Grid.Row="1" Background="{DynamicResource LightSideBar}" >
-                <ListView ItemsSource="{Binding items}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate>
-                                        <Grid Height="80" Margin="15,20,10,0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="32*"></ColumnDefinition>
-                                                <ColumnDefinition Width="16*"></ColumnDefinition>
-                                                <ColumnDefinition Width="10*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="30"/>
-                                                <RowDefinition Height="*"/>
-                                            </Grid.RowDefinitions>
-                                            <!--Name and exit-->
-                                            <TextBlock Grid.Column="0" Grid.Row="0" Style="{DynamicResource StrongTitle}" Text="{Binding Item.Name}"></TextBlock>
-                                            <Button Grid.Column="2" Grid.Row="0" Style="{DynamicResource SimpleButton}" HorizontalAlignment="Right" VerticalAlignment="Top" Height="23.263" Width="16.417">X</Button>
-                                            <!--Info and total-->
-                                            <TextBlock Grid.Column="0" Grid.Row="1" Style="{DynamicResource LightContent}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31.92" Width="150.293" Text="{Binding Info}"></TextBlock>
-                                            <TextBlock Grid.Column="2" Grid.Row="1" Style="{DynamicResource LightContent}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,0,0" Height="15.96" Width="42.017" Text="{Binding ItemTotalString}"></TextBlock>
-                                            <!--Seperator-->
-                                            <Separator Grid.Row="1" Grid.ColumnSpan="3" Background="{DynamicResource LightButton}" VerticalAlignment="Bottom" Height="1" Margin="0,0,0,2"/>
-                                            <!--Amount-->
-                                            <Grid Grid.Column="1" Grid.RowSpan="2">
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel  Background="{DynamicResource LightSideBar}" >
+                    <ListView ItemsSource="{Binding items}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Grid Height="80" Margin="15,20,10,0">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="28*"></ColumnDefinition>
-                                                    <ColumnDefinition Width="25*"></ColumnDefinition>
-                                                    <ColumnDefinition Width="28*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="32*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="15*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="11*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Button Grid.Column="0" Style="{DynamicResource SimpleButton}" HorizontalAlignment="Center" VerticalAlignment="Center">-</Button>
-                                                <Button Grid.Column="2" Style="{DynamicResource SimpleButton}" HorizontalAlignment="Center" VerticalAlignment="Center">+</Button>
-                                                <Border CornerRadius="50" Grid.Column="1" Background="{DynamicResource StrongContent}" Height="25" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource Font}" FontSize="{DynamicResource MediumFont}" Text="{Binding Number}"></TextBlock>
-                                                </Border>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="30"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <!--Name and exit-->
+                                                <TextBlock Grid.Column="0" Grid.Row="0" Style="{DynamicResource StrongTitle}" Text="{Binding Item.Name}"></TextBlock>
+                                                <Button Grid.Column="2" Grid.Row="0" Style="{DynamicResource SimpleButton}" HorizontalAlignment="Right" VerticalAlignment="Top" Height="23.263" Width="16.417"
+                                                        Command="{Binding DataContext.RemoveDrink, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                                                        CommandParameter="{Binding}">X</Button>
+                                                <!--Info and total-->
+                                                <TextBlock Grid.Column="0" Grid.Row="1" Style="{DynamicResource LightContent}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31.92" Width="150.293" 
+                                                           >
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0:N0}đ{1}">
+                                                            <Binding Path="ItemTotal" />
+                                                            <Binding Path="Info" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                                <TextBlock Grid.Column="2" Grid.Row="1" Style="{DynamicResource LightContent}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,0,0" Height="15.96" Width="Auto"
+                                                           Text="{Binding ItemTotal, StringFormat={}{0:N0}đ}"></TextBlock>
+                                                <!--Seperator-->
+                                                <Separator Grid.Row="1" Grid.ColumnSpan="3" Background="{DynamicResource LightButton}" VerticalAlignment="Bottom" Height="1" Margin="0,0,0,2"/>
+                                                <!--Amount-->
+                                                <Grid Grid.Column="1" Grid.RowSpan="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="28*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="25*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="28*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Button Grid.Column="0" Style="{DynamicResource SimpleButton}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                            Command="{Binding DataContext.DecreaseAmount, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                                                            CommandParameter="{Binding}">-</Button>
+                                                    <Button Grid.Column="2" Style="{DynamicResource SimpleButton}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                            Command="{Binding DataContext.IncreaseAmount, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                                                            CommandParameter="{Binding}">+</Button>
+                                                    <Border CornerRadius="50" Grid.Column="1" Background="{DynamicResource StrongContent}" Height="25" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource Font}" FontSize="{DynamicResource MediumFont}" Text="{Binding Number}"></TextBlock>
+                                                    </Border>
+                                                </Grid>
                                             </Grid>
-                                        </Grid>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-            </StackPanel>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </StackPanel>
+            </ScrollViewer>
             <!--End of Order Items-->
 
             <!--Checkout-->
@@ -159,8 +180,10 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="0" Margin="15,5,10,0">
                         <DockPanel>
-                            <TextBlock FontSize="{DynamicResource SmallFont}" FontWeight="Bold" Foreground="{DynamicResource Font}" HorizontalAlignment="Left" VerticalAlignment="Top">Tổng cộng</TextBlock>
-                            <TextBlock Style="{DynamicResource LightContent}" HorizontalAlignment="Right" VerticalAlignment="Top" Text="{Binding OrderSubTotalString}"></TextBlock>
+                            <TextBlock FontSize="{DynamicResource SmallFont}" FontWeight="Bold" Foreground="{DynamicResource Font}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                Tổng cộng</TextBlock>
+                            <TextBlock Style="{DynamicResource LightContent}" HorizontalAlignment="Right" VerticalAlignment="Top" 
+                                       Text="{Binding OrderSubTotal, StringFormat={}{0:N0}đ}"></TextBlock>
                         </DockPanel>
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="15,5,10,0">
@@ -168,23 +191,37 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Style="{DynamicResource LightContent}" HorizontalAlignment="Right" VerticalAlignment="Top">Mã giảm giá</TextBlock>
-                        <TextBlock Grid.Column="1" Style="{DynamicResource LightContent}" HorizontalAlignment="Right" VerticalAlignment="Top" Text="{Binding CouponString}"></TextBlock>
+                        <TextBlock Grid.Column="0" Style="{DynamicResource LightContent}" HorizontalAlignment="Right" VerticalAlignment="Top">
+                            Mã giảm giá</TextBlock>
+                        <TextBlock Grid.Column="1" Style="{DynamicResource LightContent}" HorizontalAlignment="Right" VerticalAlignment="Top" 
+                                   >
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}% - {1:N0}đ">
+                                    <Binding Path="Coupon"/>
+                                    <Binding Path="CouponAmount"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Grid>
                     <StackPanel Grid.Row="2" Margin="15,10,10,0">
-                        <Button Background="{DynamicResource StrongContent}" FontSize="{DynamicResource SmallFont}" Foreground="{DynamicResource Font}" Width="120" Height="25" HorizontalAlignment="Right">Thêm mã giảm giá</Button>
+                        <Button Background="{DynamicResource StrongContent}" FontSize="{DynamicResource SmallFont}" Foreground="{DynamicResource Font}" Width="120" Height="25" HorizontalAlignment="Right"
+                                >Thêm mã giảm giá</Button>
                     </StackPanel>
                     <StackPanel Grid.Row="3" Margin="15,10,10,0">
                         <Separator Margin="0,0,0,2"/>
                         <DockPanel>
-                            <TextBlock Style="{DynamicResource StrongTitle}" HorizontalAlignment="Left" VerticalAlignment="Top">Thành tiền</TextBlock>
-                            <TextBlock FontSize="{DynamicResource BigFont}" Foreground="{DynamicResource StrongContent}" HorizontalAlignment="Right" VerticalAlignment="Top" Text="{Binding OrderTotalString}"></TextBlock>
+                            <TextBlock Style="{DynamicResource StrongTitle}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                Thành tiền</TextBlock>
+                            <TextBlock FontSize="{DynamicResource BigFont}" Foreground="{DynamicResource StrongContent}" HorizontalAlignment="Right" VerticalAlignment="Top" 
+                                       Text="{Binding OrderTotal, StringFormat={}{0:N0}đ}"></TextBlock>
                         </DockPanel>
                     </StackPanel>
                     <StackPanel Grid.Row="4" Margin="15,10,10,0">
                         <DockPanel>
-                            <Button Background="{DynamicResource StrongContent}" FontSize="{DynamicResource SmallFont}" Foreground="{DynamicResource Font}" Width="120" Height="25" HorizontalAlignment="Left">Hủy</Button>
-                            <Button Background="{DynamicResource StrongContent}" FontSize="{DynamicResource SmallFont}" Foreground="{DynamicResource Font}" Width="120" Height="25" HorizontalAlignment="Right">Thanh toán</Button>
+                            <Button Background="{DynamicResource StrongContent}" FontSize="{DynamicResource SmallFont}" Foreground="{DynamicResource Font}" Width="120" Height="25" HorizontalAlignment="Left">
+                                Hủy</Button>
+                            <Button Background="{DynamicResource StrongContent}" FontSize="{DynamicResource SmallFont}" Foreground="{DynamicResource Font}" Width="120" Height="25" HorizontalAlignment="Right">
+                                Thanh toán</Button>
                         </DockPanel>
                     </StackPanel>
                 </Grid>
