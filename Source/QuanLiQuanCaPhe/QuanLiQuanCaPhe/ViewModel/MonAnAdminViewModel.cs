@@ -12,9 +12,61 @@ namespace QuanLiQuanCaPhe.ViewModel
 {
     public class MonAnAdminViewModel : BaseViewModel
     {
-        public ICommand selectedItemListMilk_Clicked { get; set; }
         public ICommand addMilkteaCommand { get; set; }
         public ICommand LoadedMenuUCCommand { get; set; }
+
+        public List<Category> MilkteaCategories { get; set; }
+        public BindingList<MilkteaInfo> _listMilkteaInfo { get; set; }
+
+
+        #region Binding
+        private bool _ButtonVisibility;
+        public bool ButtonVisibility
+        {
+            get { return _ButtonVisibility; }
+            set
+            {
+                _ButtonVisibility = value;
+                OnPropertyChanged("ButtonVisibility");
+            }
+        }
+
+        private MilkteaInfo _milkTeaInfoCha;
+        public MilkteaInfo milkTeaInfoCha
+        {
+            get
+            {
+                return _milkTeaInfoCha;
+            }
+            set
+            {
+                _milkTeaInfoCha = value;
+                OnPropertyChanged("milkTeaInfoCha");
+            }
+        }
+
+        private string _btnAdd_Save;
+        public string btnAdd_Save
+        {
+            get { return _btnAdd_Save; }
+            set { 
+                _btnAdd_Save = value;
+                OnPropertyChanged("btnAdd_Save");
+            }
+        }
+
+        private string _btnDelete_Cancel;
+        public string btnDelete_Cancel
+        {
+            get { return _btnDelete_Cancel; }
+            set
+            {
+                _btnDelete_Cancel = value;
+                OnPropertyChanged("btnDelete_Cancel");
+            }
+        }
+        #endregion
+
 
         //itemlistView click
         private MilkteaInfo temp { get; set; }
@@ -31,52 +83,31 @@ namespace QuanLiQuanCaPhe.ViewModel
             }
         }
 
-        public MilkteaInfo milkTeaInfoCha { get; set; }
         public void showDetails()
         {
+            milkTeaInfoCha = new MilkteaInfo();
             milkTeaInfoCha = selectItem_Menu;
-            OnPropertyChanged("milkTeaInfoCha");
-            OnPropertyChanged("detailInfoCon");
+            ButtonVisibility = true;
+            btnDelete_Cancel = "THOÁT";
+            btnAdd_Save = "LƯU";
+
         }
-
-        public List<Category> MilkteaCategories { get; set; }
-        public BindingList<MilkteaInfo> _listMilkteaInfo { get; set; }
-        public bool clickOnItemMenu = true;
-
-        private bool _a;
-        public bool ButtonVisibility
-        {
-            get { return _a; }
-            set
-            {
-                _a = value;
-                OnPropertyChanged("ButtonVisibility");
-            }
-        }
-
 
         public MonAnAdminViewModel()
         {
-            /// <summary>
-            /// Command
-            /// </summary>
-            /// 
-            selectedItemListMilk_Clicked = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
-                MessageBox.Show("knock knock");
-            }
-           );
-
-
-
-            addMilkteaCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
-            {
-                MessageBox.Show("aaa");
-            });
-
+            //khi khoi tao thi man hinh chi tiet null
             ButtonVisibility = false;
 
-            milkTeaInfoCha = new MilkteaInfo();
+            //click vao them mon
+            addMilkteaCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {
+                ButtonVisibility = true;
+                btnDelete_Cancel = "HỦY";
+                btnAdd_Save = "THÊM";
+                milkTeaInfoCha = new MilkteaInfo();
+            });
+
+
             MilkteaCategories = new List<Category>
             {
                 new Category
@@ -105,14 +136,6 @@ namespace QuanLiQuanCaPhe.ViewModel
         public class Category
         {
             public string Name { get; set; }
-        }
-
-        public string getImageAbsolutePath(object relativePath)
-        {
-            string absolutePath =
-                $"{AppDomain.CurrentDomain.BaseDirectory}images\\{relativePath}";
-            MessageBox.Show(absolutePath);
-            return absolutePath;
         }
 
 

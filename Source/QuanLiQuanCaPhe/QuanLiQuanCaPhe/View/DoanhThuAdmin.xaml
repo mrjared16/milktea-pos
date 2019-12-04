@@ -38,7 +38,7 @@
                     Background="{Binding colorBtnSP, UpdateSourceTrigger=PropertyChanged}"
                     Command="{Binding btnSanPhamCommand}"
                     materialDesign:ButtonAssist.CornerRadius="10"
-                    ToolTip="MaterialDesignRaisedButton with Round Corners">Tong san pham
+                    ToolTip="MaterialDesignRaisedButton with Round Corners">Tổng sản phẩm
                 </Button>
                 <Button
                     Style="{StaticResource MaterialDesignRaisedButton}"
@@ -46,7 +46,7 @@
                     Background="{Binding colorBtnTong}"
                     Height="40"
                     materialDesign:ButtonAssist.CornerRadius="10"
-                    ToolTip="MaterialDesignRaisedButton with Round Corners">Tong doanh thu
+                    ToolTip="MaterialDesignRaisedButton with Round Corners">Tổng doanh thu
                 </Button>
 
             </StackPanel>
@@ -59,7 +59,7 @@
                     Command="{Binding btnNgayCommand}"
                     materialDesign:ButtonAssist.CornerRadius="10"
                    
-                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">Ngay nay
+                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">Ngày này
                 </Button>
 
                 <Button
@@ -67,14 +67,14 @@
                     Height="30" Margin="0 0 10 0"
                      Command="{Binding btnThangCommand}"
                     materialDesign:ButtonAssist.CornerRadius="10"
-                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">Thang nay
+                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">Tháng này
                 </Button>
                 <Button
                     Style="{StaticResource MaterialDesignRaisedLightButton}"
                     Height="30" Margin="0 0 10 0"
                      Command="{Binding btnNamCommand}"
                     materialDesign:ButtonAssist.CornerRadius="10"
-                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">Nam nay
+                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">Năm này
                 </Button>
 
                 <Button
@@ -82,7 +82,7 @@
                     Height="30" Margin="0 0 10 0"
                      Command="{Binding btnQuiCommand}"
                     materialDesign:ButtonAssist.CornerRadius="10"
-                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">Quy nay
+                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">Quý này
                 </Button>
 
             </StackPanel>
