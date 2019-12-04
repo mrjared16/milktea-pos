@@ -19,6 +19,8 @@ namespace QuanLiQuanCaPhe.ViewModels
         public ICommand IncreaseAmount { get; set; }
         public ICommand DecreaseAmount { get; set; }
         public ICommand RemoveDrink { get; set; }
+        public ICommand ClearOrder { get; set; }
+        public ICommand CheckoutOrder { get; set; }
         #endregion
 
         public OrderViewModel()
@@ -32,20 +34,30 @@ namespace QuanLiQuanCaPhe.ViewModels
             });
             AddDrink = new RelayCommand<Drink>((drink) => { return true; }, (drink) =>
             {
-                CurrentOrder.items.Add(new OrderItem(drink, 1, ""));
-                MessageBox.Show(CurrentOrder.OrderTotal + "đ");
+                CurrentOrder.Add(new OrderItem(drink, 1, ""));
             });
             IncreaseAmount = new RelayCommand<OrderItem>((drink) => { return true; }, (OrderItem) =>
             {
-                OrderItem.Number++;
+                CurrentOrder.SetAmount(OrderItem, OrderItem.Number + 1);
+                //OrderItem.Number++;
             });
             DecreaseAmount = new RelayCommand<OrderItem>((drink) => { return (drink.Number > 1); }, (OrderItem) =>
             {
-                OrderItem.Number--;
+                CurrentOrder.SetAmount(OrderItem, OrderItem.Number - 1);
+                //OrderItem.Number--;
             });
             RemoveDrink = new RelayCommand<OrderItem>((drink) => { return true; }, (orderitem) =>
             {
-                CurrentOrder.items.Remove(orderitem);
+                CurrentOrder.Remove(orderitem);
+            });
+            ClearOrder = new RelayCommand<OrderItem>((drink) => { return true; }, (orderitem) =>
+            {
+                CurrentOrder.RemoveAll();
+            });
+            CheckoutOrder = new RelayCommand<OrderItem>((drink) => { return true; }, (orderitem) =>
+            {
+                CurrentOrder.SaveOrder();
+                CurrentOrder = new Order();
             });
 
         }
@@ -103,7 +115,7 @@ namespace QuanLiQuanCaPhe.ViewModels
             {
                 if (_CurrentOrder == null)
                 {
-                    _CurrentOrder = OrderService.createOrder();
+                    _CurrentOrder = new Order();
                 }
                 return _CurrentOrder;
             }
@@ -170,6 +182,7 @@ namespace QuanLiQuanCaPhe.ViewModels
 
     public class OrderService
     {
+        public static int counter = 1;
         public static Order createOrder()
         {
             Drink tmp_item = new Drink("Trà sữa", 30000, "");
@@ -179,6 +192,10 @@ namespace QuanLiQuanCaPhe.ViewModels
             _CurrentOrder.Add(tmp_orderItem);
             _CurrentOrder.Add(tmp_orderItem2);
             return _CurrentOrder;
+        }
+        public static string getNextID()
+        {
+            return "HD" + String.Format("{0:000}", counter++);
         }
     }
     public class OrderItem : BaseViewModel
@@ -204,7 +221,8 @@ namespace QuanLiQuanCaPhe.ViewModels
             }
             set
             {
-                OnPropertyChanged(ref _Number, value);
+                _Number = value;
+                //OnPropertyChanged(ref _Number, value);
                 OnPropertyChanged("");
             }
         }
@@ -234,6 +252,7 @@ namespace QuanLiQuanCaPhe.ViewModels
                 return Item.Price * Number;
             }
         }
+
         public OrderItem(Drink item, int number, string note)
         {
             Item = item;
@@ -246,19 +265,46 @@ namespace QuanLiQuanCaPhe.ViewModels
         public Order(string ID, string date)
         {
             this.ID = ID;
-            this.Date = date;
+            //this.Date = date;
             this.Coupon = 10;
+            items = new ObservableCollection<OrderItem>();
+        }
+        public Order()
+        {
+            this.ID = OrderService.getNextID();
+            this.Date = DateTime.Now;
             items = new ObservableCollection<OrderItem>();
         }
         public void Add(OrderItem item)
         {
-            OnPropertyChanged("OrderSubTotal");
             items.Add(item);
+            OnPropertyChanged(null);
+        }
+        public void Remove(OrderItem item)
+        {
+            items.Remove(item);
+            OnPropertyChanged(null);
+        }
+        public void RemoveAll()
+        {
+            items.Clear();
+            OnPropertyChanged(null);
+        }
+        public void SaveOrder()
+        {
+            // do something here
+            OnPropertyChanged(null);
+        }
+        // TODO: need refactor
+        public void SetAmount(OrderItem orderitem, int amount)
+        {
+            orderitem.Number = amount;
+            OnPropertyChanged(null);
         }
         public ObservableCollection<OrderItem> items { get; set; }
         public string ID { get; set; }
         public float Coupon { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public float OrderSubTotal
         {
             get
