@@ -30,7 +30,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ScrollViewer Grid.Row="0" Height="500">
+            <ScrollViewer Grid.Row="0" Height="560">
                 <ListView x:Name="listViewLoaiMonAn" Margin="10">
                     <ListView.View>
                         <GridView>
@@ -40,15 +40,27 @@
                     </ListView.View>
                 </ListView>
             </ScrollViewer>
-            <StackPanel Grid.Column="1" Margin="10 20 10 10">
+            <StackPanel Grid.Column="1" Margin="10 20 10 10" Background="AntiqueWhite">
                 <TextBlock Text="CHI TIẾT LOẠI MÓN ĂN" HorizontalAlignment="Center" FontSize="25"/>
-                <ScrollViewer Height="440" VerticalScrollBarVisibility="Visible">
+                <ScrollViewer Height="500" VerticalScrollBarVisibility="Visible">
                     <StackPanel>
-                        <TextBlock Text="Mã loại món ăn:"/>
-                        <TextBlock x:Name="textBlockMALOAI" Text="mã loại món ăn tại đây"/>
-                        <TextBlock Text="Tên loại món ăn:"/>
-                        <TextBlock x:Name="textBlockTENLOAI" Text="tên loại món ăn tại đây"/>
-                    </StackPanel>
+                        <TextBox
+                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="Mã loại món ăn:" 
+                            Text="mã loại món ăn tại đây"
+                            x:Name="textBlockMALOAI"/>
+                        <TextBox
+                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="Tên loại món ăn:" 
+                            Text="tên loại món ăn tại đây"
+                            x:Name="textBlockTENLOAI"/>
+                        </StackPanel>
                 </ScrollViewer>
             </StackPanel>
         </Grid>

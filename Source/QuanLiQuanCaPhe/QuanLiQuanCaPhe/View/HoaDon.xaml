@@ -42,7 +42,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ScrollViewer Grid.Row="0" Height="470">
+            <ScrollViewer Grid.Row="0" Height="520">
                 <ListView x:Name="listViewDonHang" Margin="10">
                     <ListView.View>
                         <GridView>
@@ -54,19 +54,49 @@
                     </ListView.View>
                 </ListView>
             </ScrollViewer>
-            <StackPanel Grid.Column="1" Margin="10 20 10 10">
+            <StackPanel Grid.Column="1" Margin="10 20 10 10" Background="AntiqueWhite">
                 <TextBlock Text="CHI TIẾT ĐƠN HÀNG" HorizontalAlignment="Center" FontSize="25"/>
-                <TextBlock Text="Mã đơn hàng:"/>
-                <TextBlock x:Name="textBlockMADH" Text="mã đơn hàng tại đây"/>
-                <TextBlock Text="Người bán:"/>
-                <TextBlock x:Name="textBlockHOTEN" Text="tên người bán hàng tại đây"/>
-                <TextBlock Text="Thời gian:"/>
-                <TextBlock x:Name="textBlockTHOIGIAN" Text="thời gian bán hàng tại đây"/>
-                <TextBlock Text="Tổng tiền:"/>
-                <TextBlock x:Name="textBlockTONGTIEN" Text="tổng tiền đơn hàng tại đây"/>
-                <TextBlock Text="Tên khách hàng:"/>
-                <TextBlock x:Name="textBlockTENKH" Text="mã đơn hàng tại đây"/>
-                <ScrollViewer Height="270" VerticalScrollBarVisibility="Visible">
+                <TextBox
+                    Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                    VerticalAlignment="Top"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    materialDesign:HintAssist.Hint="Mã đơn hàng:" 
+                    Text="mã đơn hàng tại đây"
+                    x:Name="textBlockMADH"/>
+                <TextBox
+                    Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                    VerticalAlignment="Top"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    materialDesign:HintAssist.Hint="Người bán:" 
+                    Text="tên người bán hàng tại đây"
+                    x:Name="textBlockHOTEN"/>
+                <TextBox
+                    Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                    VerticalAlignment="Top"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    materialDesign:HintAssist.Hint="Thời gian:" 
+                    Text="thời gian bán hàng tại đây"
+                    x:Name="textBlockTHOIGIAN"/>
+                <TextBox
+                    Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                    VerticalAlignment="Top"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    materialDesign:HintAssist.Hint="Tổng tiền:" 
+                    Text="tổng tiền đơn hàng tại đây"
+                    x:Name="textBlockTONGTIEN"/>
+                <TextBox
+                    Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                    VerticalAlignment="Top"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    materialDesign:HintAssist.Hint="Tên khách hàng:" 
+                    Text="mã đơn hàng tại đây"
+                    x:Name="textBlockTENKH"/>
+                <ScrollViewer Height="180" VerticalScrollBarVisibility="Visible">
                     <ListView Grid.Row="0" x:Name="listViewChiTietDonHang">
                         <ListView.View>
                             <GridView>

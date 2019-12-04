@@ -30,7 +30,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ScrollViewer Grid.Row="0" Height="500">
+            <ScrollViewer Grid.Row="0" Height="560">
                 <ListView x:Name="listViewNhanvien" Margin="10">
                     <ListView.View>
                         <GridView>
@@ -42,26 +42,74 @@
                     </ListView.View>
                 </ListView>
             </ScrollViewer>
-            <StackPanel Grid.Column="1" Margin="10 20 10 10">
+            <StackPanel Grid.Column="1" Margin="10 20 10 10" Background="AntiqueWhite">
                 <TextBlock Text="CHI TIẾT NHÂN VIÊN" HorizontalAlignment="Center" FontSize="25"/>
-                <ScrollViewer Height="440" VerticalScrollBarVisibility="Visible">
+                <ScrollViewer Height="500" VerticalScrollBarVisibility="Visible">
                     <StackPanel>
-                        <TextBlock Text="Mã nhân viên:"/>
-                        <TextBlock x:Name="textBlockMANV" Text="mã nhân viên tại đây"/>
-                        <TextBlock Text="Họ tên:"/>
-                        <TextBlock x:Name="textBlockHOTEN" Text="tên nhân viên tại đây"/>
-                        <TextBlock Text="Lương:"/>
-                        <TextBlock x:Name="textBlockLUONG" Text="lương nhân viên tại đây"/>
-                        <TextBlock Text="Ngày sinh:"/>
-                        <TextBlock x:Name="textBlockNGSINH" Text="ngày sinh tại đây"/>
-                        <TextBlock Text="Giới tính:"/>
-                        <TextBlock x:Name="textBlockPHAI" Text="giới tính nhân viên tại đây"/>
-                        <TextBlock Text="Số CMND:"/>
-                        <TextBlock x:Name="textBlockCMND" Text="số CMND tại đây"/>
-                        <TextBlock Text="Số điện thoại:"/>
-                        <TextBlock x:Name="textBlockDIENTHOAI" Text="sđt nhân viên tại đây"/>
-                        <TextBlock Text="Chức vụ:"/>
-                        <TextBlock x:Name="textBlockCHUCVU" Text="chức vụ nhân viên tại đây"/>
+                        <TextBox
+                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="Mã nhân viên:" 
+                            Text="mã nhân viên tại đây"
+                            x:Name="textBlockMANV"/>
+                        <TextBox
+                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="Họ tên:" 
+                            Text="tên nhân viên tại đây"
+                            x:Name="textBlockHOTEN"/>
+                        <TextBox
+                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="Lương:" 
+                            Text="lương nhân viên tại đây"
+                            x:Name="textBlockLUONG"/>
+                        <TextBox
+                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="Ngày sinh:" 
+                            Text="ngày sinh tại đây"
+                            x:Name="textBlockNGSINH"/>
+                        <TextBox
+                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="Giới tính:" 
+                            Text="giới tính nhân viên tại đây"
+                            x:Name="textBlockPHAI"/>
+                        <TextBox
+                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="Số CMND:" 
+                            Text="số CMND tại đây"
+                            x:Name="textBlockCMND"/>
+                        <TextBox
+                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="Số điện thoại:" 
+                            Text="sđt nhân viên tại đây"
+                            x:Name="textBlockDIENTHOAI"/>
+                        <TextBox
+                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="Chức vụ:" 
+                            Text="chức vụ nhân viên tại đây"
+                            x:Name="textBlockCHUCVU"/>
                     </StackPanel>
                 </ScrollViewer>
             </StackPanel>
