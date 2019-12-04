@@ -7,16 +7,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace QuanLiQuanCaPhe.ViewModel
+namespace QuanLiQuanCaPhe.ViewModels
 {
 	public class BaseViewModel : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
-
 		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
 		}
+        protected virtual bool OnPropertyChanged<T>(ref T backingField, T value, [CallerMemberName] string propertyName = "")
+        {
+            if (EqualityComparer<T>.Default.Equals(backingField, value))
+                return false;
+
+            backingField = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
 	}
 	class RelayCommand<T> : ICommand
 	{
