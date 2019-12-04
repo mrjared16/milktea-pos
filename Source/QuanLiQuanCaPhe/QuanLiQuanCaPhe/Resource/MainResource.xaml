@@ -45,6 +45,11 @@
         <Setter Property="FontSize" Value="22"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Foreground" Value="{DynamicResource LightButton}"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value="0"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="TabButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedButton}">
