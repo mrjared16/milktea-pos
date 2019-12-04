@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace QuanLiQuanCaPhe.ViewModel
+namespace QuanLiQuanCaPhe.ViewModels
 {
 	public class ControlBarViewModel : BaseViewModel
 	{
