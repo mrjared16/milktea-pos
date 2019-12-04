@@ -68,7 +68,7 @@
                                             <StackPanel Grid.Row="1">
                                                 <TextBlock Text="{Binding Name}" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource Font}" FontWeight="Bold">
                                                 </TextBlock>
-                                                <TextBlock Text="{Binding PriceString}" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource Font}" FontSize="10">
+                                                <TextBlock Text="{Binding Price, StringFormat={}{0:N0}đ}" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource Font}" FontSize="10">
                                                 </TextBlock>
                                             </StackPanel>
                                         </Grid>
@@ -94,7 +94,7 @@
             <!--Header-->
             <StackPanel Grid.Row="0" Margin="15,5,10,0">
                 <TextBlock Style="{DynamicResource StrongTitle}" Text="{Binding ID, StringFormat={}Hóa đơn - HD{0}}"><!--Hóa đơn - HD001--></TextBlock>
-                <TextBlock Style="{DynamicResource LightContent}" Text="{Binding Date}"></TextBlock>
+                <TextBlock Style="{DynamicResource LightContent}" Text="{Binding Date, StringFormat={}{0: dd/M/yyyy | HH:mm:ss}}"></TextBlock>
             </StackPanel>
             <!--End of Header-->
 
@@ -218,9 +218,11 @@
                     </StackPanel>
                     <StackPanel Grid.Row="4" Margin="15,10,10,0">
                         <DockPanel>
-                            <Button Background="{DynamicResource StrongContent}" FontSize="{DynamicResource SmallFont}" Foreground="{DynamicResource Font}" Width="120" Height="25" HorizontalAlignment="Left">
+                            <Button Background="{DynamicResource StrongContent}" FontSize="{DynamicResource SmallFont}" Foreground="{DynamicResource Font}" Width="120" Height="25" HorizontalAlignment="Left"
+                                      Command="{Binding DataContext.ClearOrder, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}">
                                 Hủy</Button>
-                            <Button Background="{DynamicResource StrongContent}" FontSize="{DynamicResource SmallFont}" Foreground="{DynamicResource Font}" Width="120" Height="25" HorizontalAlignment="Right">
+                            <Button Background="{DynamicResource StrongContent}" FontSize="{DynamicResource SmallFont}" Foreground="{DynamicResource Font}" Width="120" Height="25" HorizontalAlignment="Right"
+                                      Command="{Binding DataContext.CheckoutOrder, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}">
                                 Thanh toán</Button>
                         </DockPanel>
                     </StackPanel>
