@@ -93,7 +93,7 @@
             </Grid.RowDefinitions>
             <!--Header-->
             <StackPanel Grid.Row="0" Margin="15,5,10,0">
-                <TextBlock Style="{DynamicResource StrongTitle}" Text="{Binding ID, StringFormat={}Hóa đơn - HD{0}}"><!--Hóa đơn - HD001--></TextBlock>
+                <TextBlock Style="{DynamicResource StrongTitle}" Text="{Binding ID, StringFormat={}Hóa đơn - {0}}"><!--Hóa đơn - HD001--></TextBlock>
                 <TextBlock Style="{DynamicResource LightContent}" Text="{Binding Date, StringFormat={}{0: dd/M/yyyy | HH:mm:ss}}"></TextBlock>
             </StackPanel>
             <!--End of Header-->
