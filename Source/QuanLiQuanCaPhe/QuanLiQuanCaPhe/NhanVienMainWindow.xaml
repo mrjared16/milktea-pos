@@ -26,10 +26,10 @@
 
 	<Window.Resources>
 		<DataTemplate 
-			x:Name="taiKhoanTempalte"
-			DataType ="{x:Type ViewModelss:TaiKhoanNhanVienViewModel}"
+			x:Name="HomeNhanVienTempalte"
+			DataType ="{x:Type ViewModelss:HomeNhanVienViewModel}"
 			>
-			<View:TaiKhoanNhanVien DataContext="{Binding}"></View:TaiKhoanNhanVien>
+			<View:HomeNhanVien DataContext="{Binding}"></View:HomeNhanVien>
 		</DataTemplate>
 	</Window.Resources>
 
@@ -74,7 +74,7 @@
 				Height="150">
 					<Ellipse.Fill>
 						<ImageBrush
-						ImageSource="{Binding DisplayedImagePath}"
+						ImageSource="{Binding abc}"
 						>
 						</ImageBrush>
 					</Ellipse.Fill>

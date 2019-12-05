@@ -26,12 +26,6 @@
 
 	<Window.Resources>
 		<DataTemplate 
-			x:Name="homeTempalte"
-			DataType ="{x:Type ViewModelss:HomeViewModel}"
-			>
-			<View:Home DataContext="{Binding}"></View:Home>
-		</DataTemplate>
-		<DataTemplate 
 			x:Name="taiKhoanTempalte"
 			DataType ="{x:Type ViewModelss:TaiKhoanViewModel}"
 			>
@@ -41,7 +35,13 @@
 			x:Name="MonAnAdminTempalte"
 			DataType ="{x:Type ViewModelss:MonAnAdminViewModel}"
 			>
-			<View:MonAn DataContext="{Binding}"></View:MonAn>
+			<View:MonAnAdmin DataContext="{Binding}"></View:MonAnAdmin>
+		</DataTemplate>
+		<DataTemplate 
+			x:Name="DoanhThuAdminTempalte"
+			DataType ="{x:Type ViewModelss:DoanhThuViewModel}"
+			>
+			<View:DoanhThu DataContext="{Binding}"></View:DoanhThu>
 		</DataTemplate>
 	</Window.Resources>
 	
@@ -52,9 +52,6 @@
 		</i:EventTrigger>
 	</i:Interaction.Triggers>
 	<Grid>
-		<Grid.Background>
-			<ImageBrush x:Name="igridnen" Stretch="Fill"></ImageBrush>
-		</Grid.Background>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="auto"></RowDefinition>
 			<RowDefinition></RowDefinition>
@@ -79,22 +76,26 @@
 			</Grid.RowDefinitions>
 			<Grid
 				Grid.Row="0"
-				Background="Aquamarine">
+				Grid.Column="0"
+				Background="Orange"
+				>
 				<Ellipse 
-				HorizontalAlignment="Center"
-				Width="150"
-				Height="150">
+					HorizontalAlignment="Center"
+					Width="150"
+					Height="150">
 					<Ellipse.Fill>
 						<ImageBrush
-						ImageSource="{Binding DisplayedImagePath}"
-						>
+							ImageSource="{Binding DisplayedImagePath,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+							>
 						</ImageBrush>
 					</Ellipse.Fill>
 				</Ellipse>
 			</Grid>
-			<DockPanel Background="Aquamarine" Grid.Row="1" Grid.Column="0" Grid.RowSpan="5">
+			<DockPanel Background="Orange" Grid.Row="1" Grid.Column="0" Grid.RowSpan="5">
 				<StackPanel>
 					<Button
+						x:Name="TaiKhoan"
+						Background="ForestGreen"
 						Padding="5,5,5,5"
 						Grid.Row="0"
 						HorizontalAlignment="Stretch"
@@ -108,6 +109,8 @@
 						Click="taiKhoan">
 					</Button>
 					<Button
+						x:Name="DonHang"
+						Background="ForestGreen"
 						Grid.Row="1"
 						Padding="5,5,5,5"
 						FontSize="20"
@@ -119,6 +122,8 @@
 						_Đơn hàng
 					</Button>
 					<Button
+						x:Name="MonAn"
+						Background="ForestGreen"
 						Grid.Row="2"
 						FontSize="20"
 						Padding="5,5,5,5"
@@ -130,6 +135,8 @@
 						_Món ăn
 					</Button>
 					<Button
+						x:Name="LoaiMonAn"
+						Background="ForestGreen"
 						Grid.Row="3"
 						FontSize="20"
 						Padding="5,5,5,5"
@@ -141,14 +148,30 @@
 						_Loại món ăn
 					</Button>
 					<Button
+						x:Name="DoanhThu"
+						Background="ForestGreen"
 						Grid.Row="4"
+						FontSize="20"
+						Padding="5,5,5,5"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
+						Margin="0,0,0,0"
+						Style="{StaticResource MaterialDesignRaisedButton}"
+						ToolTip="Resource name: MaterialDesignRaisedButton"
+						Click="doanhThu">
+						_Doanh thu
+					</Button>
+					<Button
+						Grid.Row="5"
 						Padding="5,5,5,5"
 						FontSize="20"
 						HorizontalAlignment="Stretch"
 						VerticalAlignment="Stretch"
 						Margin="0,0,0,0"
+						Background="ForestGreen"
 						Style="{StaticResource MaterialDesignRaisedButton}"
-						ToolTip="Resource name: MaterialDesignRaisedButton" Click="DangXuat">
+						ToolTip="Resource name: MaterialDesignRaisedButton" 
+						Click="DangXuat">
 						_Đăng xuất
 					</Button>
 				</StackPanel>

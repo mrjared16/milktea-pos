@@ -104,6 +104,7 @@
       <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\DataProvider.cs" />
+    <Compile Include="Models\DoanhThu.cs" />
     <Compile Include="Models\DonHang.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -114,19 +115,35 @@
     <Compile Include="Models\LoaiMonAn.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MilkteaInfo.cs" />
     <Compile Include="Models\MonAn.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NhanVien.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SeviceData.cs" />
     <Compile Include="NhanVienMainWindow.xaml.cs">
       <DependentUpon>NhanVienMainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\detailsInfoMilkteaViewModel.cs" />
+    <Compile Include="ViewModel\DoanhThuViewModel.cs" />
+    <Compile Include="ViewModel\HomeNhanVienViewModel.cs" />
+    <Compile Include="ViewModel\LichLamViecNhanVienViewModel.cs" />
+    <Compile Include="ViewModel\OderViewModel.cs" />
     <Compile Include="ViewModel\TaiKhoanNhanVienViewModel.cs" />
+    <Compile Include="ViewModel\Temp1ViewModel.cs" />
+    <Compile Include="View\detailsInfoMilktea.xaml.cs">
+      <DependentUpon>detailsInfoMilktea.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DoanhThu.xaml.cs">
+      <DependentUpon>DoanhThu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LichLamViecNhanVien.xaml.cs">
+      <DependentUpon>LichLamViecNhanVien.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TaiKhoan.xaml.cs">
       <DependentUpon>TaiKhoan.xaml</DependentUpon>
@@ -135,10 +152,13 @@
       <DependentUpon>MonAnAdmin.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Order.xaml.cs">
-      <DependentUpon>Order.xaml</DependentUpon>
+      <DependentUpon>HomeNhanVien.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TaiKhoanNhanVien.xaml.cs">
       <DependentUpon>TaiKhoanNhanVien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\temp1.xaml.cs">
+      <DependentUpon>temp1.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControlBarUC.xaml.cs">
       <DependentUpon>UserControlBarUC.xaml</DependentUpon>
@@ -149,6 +169,9 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MonAnAdminViewModel.cs" />
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -169,7 +192,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\detailsInfoMilktea.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DoanhThu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LichLamViecNhanVien.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -181,7 +216,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Order.xaml">
+    <Page Include="View\HomeNhanVien.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -189,7 +224,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\temp1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControlBarUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,6 +274,7 @@
   <ItemGroup />
   <ItemGroup>
     <Resource Include="Image\HomeBackground.jpg" />
+    <Resource Include="Image\trasua.jpg" />
     <Content Include="Models\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Database.Context.cs</LastGenOutput>

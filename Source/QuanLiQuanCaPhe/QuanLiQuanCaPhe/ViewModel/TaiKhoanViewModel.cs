@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.ComponentModel;
 using QuanLiQuanCaPhe.Models;
 using System.IO;
+using System.Globalization;
 
 namespace QuanLiQuanCaPhe.ViewModel
 {
@@ -19,6 +20,8 @@ namespace QuanLiQuanCaPhe.ViewModel
 	{
 		public bool Isloaded = false;
 		public ICommand LoadedWindowCommand { get; set; }
+		public ICommand LuuThongTinAdminCommand { get; set; }
+		
 		public bool IsLoaded { get; set; }
 		public static string tumeo = "";
 
@@ -32,13 +35,13 @@ namespace QuanLiQuanCaPhe.ViewModel
 				OnPropertyChanged();
 			}
 		}
-		private string _MatKhau;
-		public string MatKhau
+		private string _GioiTinh;
+		public string GioiTinh
 		{
-			get => _MatKhau;
+			get => _GioiTinh;
 			set
 			{
-				_MatKhau = value;
+				_GioiTinh = value;
 				OnPropertyChanged();
 			}
 		}
@@ -109,32 +112,89 @@ namespace QuanLiQuanCaPhe.ViewModel
 		}
 		public ICommand ChonAnhCommand { get; set; }
 		String temp;
-
+		private string _DisplayedImagePath;
 		public string DisplayedImagePath
 		{
-			get { return temp; }
-			set { temp = value; OnPropertyChanged(); }
+			get { return _DisplayedImagePath; }
+			set { _DisplayedImagePath = value; OnPropertyChanged(); }
 		}
 
-		public ImageSource MyPhoto { get; set; }
-
+		SeviceData seviceData;
 		public TaiKhoanViewModel()
 		{
 			loadData();
 			ChonAnhCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
 			{
+				seviceData = new SeviceData();
+				//string temo = DataProvider.ISCreated.DB.NhanViens.First().HOTEN;
+
+				foreach (var item in seviceData.GetCMNDNhanVien("Trương Văn Tú"))
+				{
+					MessageBox.Show(item.HOTEN);
+				}
 				OpenFileDialog openFileDialog = new OpenFileDialog();
 				if (openFileDialog.ShowDialog() == true)
 				{
 					Uri fileUri = new Uri(openFileDialog.FileName);
 					temp = fileUri.ToString();
 					DisplayedImagePath = temp;
+					OnPropertyChanged("Avatar");
+
 				}
 			}
 			);
-			
-			
+			LuuThongTinAdminCommand = new RelayCommand<Window>((p) => 
+			{
+				var nhanVien = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN.Equals(tumeo));
+				foreach (var item in nhanVien)
+				{
+					//ho ten
+					if (!HoTen.Equals(item.HOTEN))
+						return true;
+					if (!TaiKhoan.ToString().Trim().Equals(tumeo.Trim()))
+					{
+						return true;
+					}
+						//ngay sinh
+					//	DateTime a = item.NGSINH.Value;
+					//if (!NgaySinh.Equals(a.ToString()))
+					//	return false;
+					//dia chi
+					if (!DiaChi.Equals(item.DIACHI))
+						return true;
+					// so dien thoai
+
+					if (!SDT.Equals(item.DIENTHOAI))
+						return true;
+					//mat khau
+					if (!GioiTinh.Equals(item.PHAI))
+						return true;
+					//chuc vu
+					if (!ChucVu.Equals(item.CHUCVU))
+						return true;
+					//CMND
+					if (!CMND.Equals(item.CMND))
+						return true;
+				}
+				return false;
+
+			; }, (p) =>
+			{
+				//var nhanvien = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN == tumeo).SingleOrDefault();
+				//nhanvien.TAIKHOAN = TaiKhoan;
+				//nhanvien.PHAI = GioiTinh;
+				//nhanvien.CMND = CMND;
+				//nhanvien.HOTEN = HoTen;
+				//nhanvien.NGSINH = DateTime.ParseExact(NgaySinh, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+				//nhanvien.DIACHI = DiaChi;
+				//DataProvider.ISCreated.DB.SaveChangesAsync();
+			}
+			);
 		}
+
+
+
+
 		public void loadData()
 		{
 			using (var fs1 = new FileStream("tumeo.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite))
@@ -146,7 +206,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 				{
 					 tumeo= encoding.GetString(atemp, 0, len);
 				}
-
+				fs1.Close();
 			}
 			var nhanVien = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN.Equals(tumeo));
 			foreach (var item in nhanVien)
@@ -158,15 +218,18 @@ namespace QuanLiQuanCaPhe.ViewModel
 				//ngay sinh
 				DateTime a = item.NGSINH.Value;
 				NgaySinh = a.ToString("dd/MM/yyyy");
+				//dia chi
+				DiaChi = item.DIACHI;
 				// so dien thoai
 				SDT = item.DIENTHOAI;
 				//mat khau
-				MatKhau = item.MATKHAU;
+				GioiTinh = item.PHAI;
 				//chuc vu
 				ChucVu = item.CHUCVU;
 				//CMND
 				CMND = item.CMND;
 			}
+			File.Delete("tumeo.txt");
 		}
 
 	}

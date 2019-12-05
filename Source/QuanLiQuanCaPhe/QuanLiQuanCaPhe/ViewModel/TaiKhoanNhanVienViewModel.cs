@@ -101,11 +101,12 @@ namespace QuanLiQuanCaPhe.ViewModel
 		public ICommand ChonAnhNhanVienCommand { get; set; }
 		String temp;
 
-		public string DisplayedImagePath
+		public string DisplayedImagePath1
 		{
 			get { return temp; }
 			set { temp = value; OnPropertyChanged(); }
 		}
+		
 		public TaiKhoanNhanVienViewModel()
 		{
 			ChonAnhNhanVienCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -115,7 +116,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 				{
 					Uri fileUri = new Uri(openFileDialog.FileName);
 					temp = fileUri.ToString();
-					DisplayedImagePath = temp;
+					DisplayedImagePath1 = temp;
 				}
 			}
 			);

@@ -23,7 +23,6 @@ namespace QuanLiQuanCaPhe.View
 	public partial class TaiKhoan : UserControl
 	{
 		public TaiKhoanViewModel home { get; set; }
-
 		public TaiKhoan()
 		{
 			InitializeComponent();

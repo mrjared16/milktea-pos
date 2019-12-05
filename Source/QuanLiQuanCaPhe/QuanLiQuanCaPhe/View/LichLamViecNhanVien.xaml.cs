@@ -15,19 +15,18 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace QuanLiQuanCaPhe.View
-
 {
 	/// <summary>
-	/// Interaction logic for MonAn.xaml
+	/// Interaction logic for LichLamViecNhanVien.xaml
 	/// </summary>
-	public partial class MonAnAdmin : UserControl
+	public partial class LichLamViecNhanVien : UserControl
 	{
-		public MonAnAdminViewModel home { get; set; }
-		public MonAnAdmin()
+		public LichLamViecNhanVienViewModel Home { get; set; }
+		public LichLamViecNhanVien()
 		{
 			InitializeComponent();
-			home = new MonAnAdminViewModel();
-			this.DataContext = home;
+			Home = new LichLamViecNhanVienViewModel();
+			this.DataContext = Home;
 		}
 	}
 }

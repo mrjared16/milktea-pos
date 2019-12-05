@@ -92,15 +92,16 @@
           <Property Name="HOTEN" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="LUONG" Type="float" />
           <Property Name="NGSINH" Type="date" />
-          <Property Name="PHAI" Type="varchar" MaxLength="5" />
+          <Property Name="PHAI" Type="nvarchar" MaxLength="5" />
           <Property Name="CMND" Type="varchar" MaxLength="30" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="100" />
           <Property Name="DIENTHOAI" Type="varchar" MaxLength="30" />
           <Property Name="CHUCVU" Type="nvarchar" MaxLength="30" />
           <Property Name="TAIKHOAN" Type="varchar" MaxLength="30" />
           <Property Name="MATKHAU" Type="varchar" MaxLength="50" />
           <Property Name="ISDEL" Type="int" />
-          <Property Name="ISADMIN" Type="int" />
-          <Property Name="CREATEDAT" Type="datetime" />
+          <Property Name="CREADTEDAT" Type="datetime" />
+          <Property Name="UPDATEDAT" Type="datetime" />
         </EntityType>
         <Association Name="FK_CTDH_DH">
           <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
@@ -341,15 +342,16 @@
           <Property Name="HOTEN" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="LUONG" Type="Double" />
           <Property Name="NGSINH" Type="DateTime" Precision="0" />
-          <Property Name="PHAI" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PHAI" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="CMND" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DIACHI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="DIENTHOAI" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="CHUCVU" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="TAIKHOAN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="MATKHAU" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ISDEL" Type="Int32" />
-          <Property Name="ISADMIN" Type="Int32" />
-          <Property Name="CREATEDAT" Type="DateTime" Precision="3" />
+          <Property Name="CREADTEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UPDATEDAT" Type="DateTime" Precision="3" />
           <NavigationProperty Name="DonHangs" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_DH_NV" FromRole="NhanVien" ToRole="DonHang" />
           <NavigationProperty Name="LichLamViecs" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_LLV_NV" FromRole="NhanVien" ToRole="LichLamViec" />
         </EntityType>
@@ -425,7 +427,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -516,13 +518,14 @@
           <EntitySetMapping Name="NhanViens">
             <EntityTypeMapping TypeName="QUAN_LY_QUAN_CAPHEModel.NhanVien">
               <MappingFragment StoreEntitySet="NhanVien">
-                <ScalarProperty Name="CREATEDAT" ColumnName="CREATEDAT" />
-                <ScalarProperty Name="ISADMIN" ColumnName="ISADMIN" />
+                <ScalarProperty Name="UPDATEDAT" ColumnName="UPDATEDAT" />
+                <ScalarProperty Name="CREADTEDAT" ColumnName="CREADTEDAT" />
                 <ScalarProperty Name="ISDEL" ColumnName="ISDEL" />
                 <ScalarProperty Name="MATKHAU" ColumnName="MATKHAU" />
                 <ScalarProperty Name="TAIKHOAN" ColumnName="TAIKHOAN" />
                 <ScalarProperty Name="CHUCVU" ColumnName="CHUCVU" />
                 <ScalarProperty Name="DIENTHOAI" ColumnName="DIENTHOAI" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
                 <ScalarProperty Name="CMND" ColumnName="CMND" />
                 <ScalarProperty Name="PHAI" ColumnName="PHAI" />
                 <ScalarProperty Name="NGSINH" ColumnName="NGSINH" />

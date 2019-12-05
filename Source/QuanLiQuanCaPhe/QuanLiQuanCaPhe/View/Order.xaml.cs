@@ -18,11 +18,24 @@ namespace QuanLiQuanCaPhe.View
 	/// <summary>
 	/// Interaction logic for Order.xaml
 	/// </summary>
-	public partial class Order : UserControl
+	public partial class HomeNhanVien : UserControl
 	{
-		public Order()
+
+	
+		public HomeNhanVien()
 		{
 			InitializeComponent();
+			DataContext = new TaiKhoanNhanVien();
+		}
+
+		private void LichLamViecNhanVien(object sender, RoutedEventArgs e)
+		{
+			DataContext = new LichLamViecNhanVien();
+		}
+
+		private void TaiKhoanNhanVien(object sender, RoutedEventArgs e)
+		{
+			DataContext = new TaiKhoanNhanVien();
 		}
 	}
 }

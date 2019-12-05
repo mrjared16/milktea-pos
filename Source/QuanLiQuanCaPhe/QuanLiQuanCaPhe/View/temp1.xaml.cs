@@ -15,19 +15,18 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace QuanLiQuanCaPhe.View
-
 {
 	/// <summary>
-	/// Interaction logic for MonAn.xaml
+	/// Interaction logic for temp1.xaml
 	/// </summary>
-	public partial class MonAnAdmin : UserControl
+	public partial class temp1 : UserControl
 	{
-		public MonAnAdminViewModel home { get; set; }
-		public MonAnAdmin()
+		public Temp1ViewModel Home { get; set; }
+		public temp1()
 		{
 			InitializeComponent();
-			home = new MonAnAdminViewModel();
-			this.DataContext = home;
+			Home = new Temp1ViewModel();
+			this.DataContext = Home;
 		}
 	}
 }
