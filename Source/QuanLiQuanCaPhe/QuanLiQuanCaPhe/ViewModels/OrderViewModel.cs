@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using QuanLiQuanCaPhe.Models;
 
 namespace QuanLiQuanCaPhe.ViewModels
 {
@@ -28,6 +29,7 @@ namespace QuanLiQuanCaPhe.ViewModels
             Title = "Bán hàng";
             // commands
             SelectedCategory = ListCategory[0];
+
             LoadCategory = new RelayCommand<Category>((category) => { return (category != SelectedCategory); }, (category) =>
             {
                 SelectedCategory = category;
@@ -71,7 +73,7 @@ namespace QuanLiQuanCaPhe.ViewModels
             }
             set
             {
-                ListDrink = DrinkService.getDrinkFromCategory(value);
+                ListDrink = DrinkService.GetDrinkFromCategory(value);
                 OnPropertyChanged(ref _SelectedCategory, value);
             }
         }
@@ -84,7 +86,7 @@ namespace QuanLiQuanCaPhe.ViewModels
             {
                 if (_ListCategory == null)
                 {
-                    _ListCategory = DrinkService.getCategory();
+                    _ListCategory = DrinkService.GetCategories();
                 }
                 return _ListCategory;
             }
@@ -125,79 +127,8 @@ namespace QuanLiQuanCaPhe.ViewModels
             }
         }
     }
-    public class Category
-    {
-        public string Name { get; set; }
-    }
-    public class DrinkService
-    {
-        public static List<Category> getCategory()
-        {
-            List<Category> _ListCategory = new List<Category>();
-            _ListCategory.Add(new Category() { Name = "Tất cả" });
-            _ListCategory.Add(new Category() { Name = "Trà sữa" });
-            _ListCategory.Add(new Category() { Name = "Trà trái cây" });
-            _ListCategory.Add(new Category() { Name = "Coffee" });
-            return _ListCategory;
-        }
-        public static List<Drink> getDrinkFromCategory(Category _ListCategory)
-        {
-            return getDrinkFromCategory(_ListCategory.Name);
-        }
-        private static List<Drink> getDrinkFromCategory(string _ListCategory)
-        {
-            List<Drink> result = new List<Drink>();
-            for (int i = 1; i <= 15; i++)
-                result.Add(new Drink(_ListCategory + i, 30000, ""));
-            return result;
-        }
-    }
-    public class Drink
-    {
-        private float price;
-        private string name;
-        private string img_source;
-
-        public Drink(string name, float price, string img_source)
-        {
-            this.price = price;
-            this.name = name;
-            this.img_source = img_source;
-        }
-
-        public string Name
-        {
-            get { return name; }
-        }
-        public float Price
-        {
-            get { return price; }
-        }
-        public string ImgSource()
-        {
-            return img_source;
-        }
-    }
 
 
-    public class OrderService
-    {
-        public static int counter = 1;
-        public static Order createOrder()
-        {
-            Drink tmp_item = new Drink("Trà sữa", 30000, "");
-            OrderItem tmp_orderItem = new OrderItem(tmp_item, 2, "thêm topping, 30% ngọt, ít đá");
-            OrderItem tmp_orderItem2 = new OrderItem(tmp_item, 1, "50% ngọt");
-            Order _CurrentOrder = new Order("HD001", "24/10/2017 | 13:00:00");
-            _CurrentOrder.Add(tmp_orderItem);
-            _CurrentOrder.Add(tmp_orderItem2);
-            return _CurrentOrder;
-        }
-        public static string getNextID()
-        {
-            return "HD" + String.Format("{0:000}", counter++);
-        }
-    }
     public class OrderItem : BaseViewModel
     {
         private Drink _Item;
@@ -262,17 +193,20 @@ namespace QuanLiQuanCaPhe.ViewModels
     }
     public class Order : BaseViewModel
     {
-        public Order(string ID, string date)
+        public Order(string ID, DateTime date, string username, float coupon)
         {
             this.ID = ID;
-            //this.Date = date;
-            this.Coupon = 10;
+            this.Date = date;
+            this.Username = username;
+            this.Coupon = coupon;
             items = new ObservableCollection<OrderItem>();
         }
         public Order()
         {
-            this.ID = OrderService.getNextID();
+            this.ID = OrderService.GetNextID();
+            this.Username = OrderService.GetUser();
             this.Date = DateTime.Now;
+            this.Coupon = 0;
             items = new ObservableCollection<OrderItem>();
         }
         public void Add(OrderItem item)
@@ -292,7 +226,7 @@ namespace QuanLiQuanCaPhe.ViewModels
         }
         public void SaveOrder()
         {
-            // do something here
+            OrderService.AddOrder(this);
             OnPropertyChanged(null);
         }
         // TODO: need refactor
@@ -301,10 +235,13 @@ namespace QuanLiQuanCaPhe.ViewModels
             orderitem.Number = amount;
             OnPropertyChanged(null);
         }
+
+        // public binding data
         public ObservableCollection<OrderItem> items { get; set; }
         public string ID { get; set; }
         public float Coupon { get; set; }
         public DateTime Date { get; set; }
+        public string Username { get; set; }
         public float OrderSubTotal
         {
             get

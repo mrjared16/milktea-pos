@@ -7,38 +7,44 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using QuanLiQuanCaPhe.Models;
 using System.Windows;
+using QuanLiQuanCaPhe.Models;
+
 namespace QuanLiQuanCaPhe.ViewModels
 {
     public class HistoryViewModel : NhanVienLayoutViewModelInterface
     {
-        private Order SelectOrder;
-        private List<Order> orders;
+        private Order _SelectedOrder;
+        private List<Order> _ListOrder = null;
         public HistoryViewModel()
         {
             Title = "Lịch sử bán hàng";
-           
 
-            Drink tmp_item = new Drink("Trà sữa", 30000, "");
-            OrderItem tmp_orderItem = new OrderItem(tmp_item, 2, "thêm topping, 30% ngọt, ít đá");
-            OrderItem tmp_orderItem2 = new OrderItem(tmp_item, 1, "50% ngọt");
-            SelectOrder = new Order("HD001", "24/10/2017 | 13:00:00");
-            SelectOrder.Add(tmp_orderItem);
-            SelectOrder.Add(tmp_orderItem2);
+            SelectedOrder = (_ListOrder == null) ? null : ListOrder[0];
 
-            orders = new List<Order>();
-
-            orders.Add(SelectOrder);
-            orders.Add(SelectOrder);
-            orders.Add(SelectOrder);
-            orders.Add(SelectOrder);
         }
-        public Order Order
+
+        public List<Order> ListOrder
         {
-            get { return SelectOrder; }
+            get
+            {
+                if (_ListOrder == null)
+                {
+                    _ListOrder = OrderService.GetListOrder();
+                }
+                return _ListOrder;
+            }
+            set
+            {
+                OnPropertyChanged(ref _ListOrder, value);
+            }
         }
-        public List<Order> List
+        public Order SelectedOrder
         {
-            get { return orders; }
+            get { return _SelectedOrder; }
+            set
+            {
+                OnPropertyChanged(ref _SelectedOrder, value);
+            }
         }
     }
 }
