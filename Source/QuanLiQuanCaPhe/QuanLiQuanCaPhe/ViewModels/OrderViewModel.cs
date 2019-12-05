@@ -29,7 +29,6 @@ namespace QuanLiQuanCaPhe.ViewModels
             Title = "Bán hàng";
             // commands
             SelectedCategory = ListCategory[0];
-
             LoadCategory = new RelayCommand<Category>((category) => { return (category != SelectedCategory); }, (category) =>
             {
                 SelectedCategory = category;
@@ -127,8 +126,6 @@ namespace QuanLiQuanCaPhe.ViewModels
             }
         }
     }
-
-
     public class OrderItem : BaseViewModel
     {
         private Drink _Item;
@@ -204,8 +201,8 @@ namespace QuanLiQuanCaPhe.ViewModels
         public Order()
         {
             this.ID = OrderService.GetNextID();
-            this.Username = OrderService.GetUser();
             this.Date = DateTime.Now;
+            this.Username = OrderService.GetUser();
             this.Coupon = 0;
             items = new ObservableCollection<OrderItem>();
         }

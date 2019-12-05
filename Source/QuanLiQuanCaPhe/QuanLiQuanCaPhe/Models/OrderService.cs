@@ -31,8 +31,8 @@ namespace QuanLiQuanCaPhe.Models
             if (ListOrder == null)
             {
                 ListOrder = new List<Order>();
-                //ListOrder.Add(FakeData.createOrder());
-                //ListOrder.Add(FakeData.createOrder());
+                //ListOrder.Add(FakeData.CreateOrder());
+                //ListOrder.Add(FakeData.CreateOrder());
             }
             return ListOrder;
         }

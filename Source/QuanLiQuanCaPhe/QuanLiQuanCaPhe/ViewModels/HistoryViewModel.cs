@@ -7,43 +7,37 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using QuanLiQuanCaPhe.Models;
 using System.Windows;
-using QuanLiQuanCaPhe.Models;
-
 namespace QuanLiQuanCaPhe.ViewModels
 {
     public class HistoryViewModel : NhanVienLayoutViewModelInterface
     {
-        private Order _SelectedOrder;
-        private List<Order> _ListOrder = null;
         public HistoryViewModel()
         {
             Title = "Lịch sử bán hàng";
-
             SelectedOrder = (_ListOrder == null) ? null : ListOrder[0];
 
         }
-
-        public List<Order> ListOrder
-        {
-            get
-            {
-                if (_ListOrder == null)
-                {
-                    _ListOrder = OrderService.GetListOrder();
-                }
-                return _ListOrder;
-            }
-            set
-            {
-                OnPropertyChanged(ref _ListOrder, value);
-            }
-        }
+        private Order _SelectedOrder;
         public Order SelectedOrder
         {
             get { return _SelectedOrder; }
             set
             {
                 OnPropertyChanged(ref _SelectedOrder, value);
+            }
+        }
+        private List<Order> _ListOrder = null;
+        public List<Order> ListOrder
+        {
+            get
+            {
+                if (_ListOrder == null)
+                    _ListOrder = OrderService.GetListOrder();
+                return _ListOrder;
+            }
+            set
+            {
+                OnPropertyChanged(ref _ListOrder, value);
             }
         }
     }

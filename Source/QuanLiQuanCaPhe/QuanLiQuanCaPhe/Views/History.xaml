@@ -12,13 +12,6 @@
             <ColumnDefinition Width="320"/>
         </Grid.ColumnDefinitions>
         <!--Main Content-->
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-        </Grid>
-        <!--End of Main Content-->
         <ListView Grid.Row="0" Margin="10" ItemsSource="{Binding ListOrder}" SelectedItem="{Binding SelectedOrder}">
             <ListView.View>
                 <GridView>
@@ -29,6 +22,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <!--End of Main Content-->
+
         <!--Order Content-->
         <!--BINDING TO ORDER-->
         <Grid Grid.Column="1" Background="{DynamicResource SideBar}" DataContext="{Binding SelectedOrder}">
@@ -43,7 +38,6 @@
                 <TextBlock Style="{DynamicResource LightContent}" Text="{Binding Date, StringFormat={}{0: dd/M/yyyy | HH:mm:ss}}"></TextBlock>
             </StackPanel>
             <!--End of Header-->
-
 
             <!--Order Items-->
             <!--BINDING TO LIST OF ITEM ORDER-->
