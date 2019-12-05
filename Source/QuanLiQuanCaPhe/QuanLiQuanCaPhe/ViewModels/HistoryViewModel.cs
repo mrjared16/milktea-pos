@@ -32,7 +32,7 @@ namespace QuanLiQuanCaPhe.ViewModels
             get
             {
                 if (_ListOrder == null)
-                    _ListOrder = OrderService.GetListOrder();
+                    _ListOrder = OrderService.GetListOrder;
                 return _ListOrder;
             }
             set

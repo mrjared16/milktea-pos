@@ -17,7 +17,7 @@ namespace QuanLiQuanCaPhe.Models
         }
         public static void AddOrder(Order item)
         {
-            ListOrder.Add(item);
+            GetListOrder.Add(item);
         }
         public static string GetNextID()
         {
@@ -26,15 +26,19 @@ namespace QuanLiQuanCaPhe.Models
 
 
         private static List<Order> ListOrder = null;
-        public static List<Order> GetListOrder()
+        public static List<Order> GetListOrder
         {
-            if (ListOrder == null)
+            get
             {
-                ListOrder = new List<Order>();
-                //ListOrder.Add(FakeData.CreateOrder());
-                //ListOrder.Add(FakeData.CreateOrder());
+
+                if (ListOrder == null)
+                {
+                    ListOrder = new List<Order>();
+                    //ListOrder.Add(FakeData.CreateOrder());
+                    //ListOrder.Add(FakeData.CreateOrder());
+                }
+                return ListOrder;
             }
-            return ListOrder;
         }
 
 
