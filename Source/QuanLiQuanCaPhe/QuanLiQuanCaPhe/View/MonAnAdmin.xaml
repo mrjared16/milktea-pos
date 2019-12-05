@@ -54,33 +54,57 @@
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         BorderThickness="2"
                         CornerRadius="10">
-                        <TextBox Width="300" materialDesign:HintAssist.Hint="Tìm kiếm" />
+                        <TextBox Width="300" materialDesign:HintAssist.Hint="Tìm kiếm món ăn" />
                     </Border>
-                    <Button Height="40" Margin="5 0 0 0">
+                    <Button Height="40" Margin="5,0,0,0">
                         <materialDesign:PackIcon
-                        Width="30"
-                        Height="30"
-                        Margin="5"
-                        VerticalAlignment="Center"
-                        Kind="Search" />
+                            Width="30"
+                            Height="30"
+                            Margin="5"
+                            VerticalAlignment="Center"
+                            Kind="Search" />
                     </Button>
                 </StackPanel>
             </StackPanel>
-            <ComboBox
-                Width="200"
-                Height="35"
+            <!--<Border
+                Width="250"
+                Height="50"
                 Margin="20,0,0,0"
-                Padding="15"
+                Padding="8"
+                HorizontalAlignment="Left"
+                Background="PeachPuff">
+                <ComboBox ItemsSource="{Binding Path=MilkteaCategories}" SelectedValuePath="Name">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </Border>-->
+            <Border
+                Width="250"
+                Height="80"
+                Margin="20,0,0,0"
+                Padding="8"
                 HorizontalAlignment="Left"
                 Background="PeachPuff"
-                ItemsSource="{Binding Path=MilkteaCategories}"
-                SelectedValuePath="Name">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Path=Name}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+                BorderBrush="LightBlue"
+                BorderThickness="2">
+                <ComboBox
+                    materialDesign:HintAssist.FloatingOffset="0, -24"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    materialDesign:HintAssist.Hint="LOẠI MÓN"
+                    ItemsSource="{Binding MilkteaCategories}"
+                    SelectedValuePath="Name"
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </Border>
+
         </StackPanel>
 
         <Grid
@@ -115,7 +139,7 @@
                 ItemsSource="{Binding _listMilkteaInfo}"
                 ScrollViewer.CanContentScroll="True"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                SelectedItem="{Binding selectItem_Menu}">
+                SelectedItem="{Binding selectItem_Menu, Mode=TwoWay}">
 
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -258,7 +282,7 @@
                             FontFamily="Cambria"
                             FontSize="14"
                             FontWeight="Bold">
-                            Max loại:
+                            Mã loại:
                         </Label>
                         <Border
                             Grid.Row="2"
@@ -322,8 +346,15 @@
                             Grid.ColumnSpan="3"
                             Margin="0,20,0,0"
                             Orientation="Horizontal">
-                            <Button Content="{Binding btnAdd_Save}" DataContext="{StaticResource Menu}" Margin="0 0 5 0"/>
-                            <Button Content="{Binding btnDelete_Cancel}" DataContext="{StaticResource Menu}" />
+                            <Button
+                                Margin="0,0,5,0"
+                                Command="{Binding Add_SaveCommand}"
+                                Content="{Binding btnAdd_Save}"
+                                DataContext="{StaticResource Menu}" />
+                            <Button
+                                Command="{Binding Delete_CancelCommand}"
+                                Content="{Binding btnDelete_Cancel}"
+                                DataContext="{StaticResource Menu}" />
                         </StackPanel>
                     </Grid>
                 </Grid>

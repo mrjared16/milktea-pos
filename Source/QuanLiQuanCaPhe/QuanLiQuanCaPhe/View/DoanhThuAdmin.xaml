@@ -1,103 +1,130 @@
-﻿<UserControl x:Class="QuanLiQuanCaPhe.View.DoanhThuAdmin"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:QuanLiQuanCaPhe.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             DataContext="{StaticResource DoanhThu}"
-             
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-		        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-                TextElement.FontWeight="Regular"
-                TextElement.FontSize="13"
-                TextOptions.TextFormattingMode="Ideal"
-                TextOptions.TextRenderingMode="Auto"
-                Background="{DynamicResource MaterialDesignPaper}"
-                FontFamily="{DynamicResource MaterialDesignFont}">
+﻿<UserControl
+    x:Class="QuanLiQuanCaPhe.View.DoanhThuAdmin"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:QuanLiQuanCaPhe.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Background="{DynamicResource MaterialDesignPaper}"
+    DataContext="{StaticResource DoanhThu}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d">
     <Grid Background="LightGreen">
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <StackPanel HorizontalAlignment="Center" Grid.Row="0" Grid.RowSpan="3">
-            <TextBlock FontSize="36" Margin="0 0 0 20" HorizontalAlignment="Center">DOANH THU</TextBlock>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            HorizontalAlignment="Center">
+            <TextBlock
+                Margin="0,0,0,20"
+                HorizontalAlignment="Center"
+                FontSize="36">
+                DOANH THU
+            </TextBlock>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
 
-                <Button Margin="0 0 30 0"
-                    Style="{StaticResource MaterialDesignRaisedButton}"
+                <Button
                     Height="40"
+                    Margin="0,0,30,0"
+                    materialDesign:ButtonAssist.CornerRadius="10"
                     Background="{Binding colorBtnSP, UpdateSourceTrigger=PropertyChanged}"
                     Command="{Binding btnSanPhamCommand}"
-                    materialDesign:ButtonAssist.CornerRadius="10"
-                    ToolTip="MaterialDesignRaisedButton with Round Corners">Tổng sản phẩm
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    ToolTip="MaterialDesignRaisedButton with Round Corners">
+                    Loại sản phẩm
                 </Button>
                 <Button
-                    Style="{StaticResource MaterialDesignRaisedButton}"
-                    Command="{Binding btnTongDoanhThuCommand}"
-                    Background="{Binding colorBtnTong}"
                     Height="40"
                     materialDesign:ButtonAssist.CornerRadius="10"
-                    ToolTip="MaterialDesignRaisedButton with Round Corners">Tổng doanh thu
+                    Background="{Binding colorBtnTong}"
+                    Command="{Binding btnTongDoanhThuCommand}"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    ToolTip="MaterialDesignRaisedButton with Round Corners">
+                    Tổng doanh thu
                 </Button>
 
             </StackPanel>
-            <TextBlock Margin="0 20 0 20" FontFamily="Cambria" HorizontalAlignment="Center" Foreground="Red" FontSize="20" FontWeight="Bold" Text="{Binding txtDoanhThu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock
+                Margin="0,20,0,20"
+                HorizontalAlignment="Center"
+                FontFamily="Cambria"
+                FontSize="20"
+                FontWeight="Bold"
+                Foreground="Red"
+                Text="{Binding txtDoanhThu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
 
                 <Button
-                    Style="{StaticResource MaterialDesignRaisedLightButton}"
-                    Height="30" Margin="0 0 10 0"
+                    Height="30"
+                    Margin="0,0,10,0"
+                    materialDesign:ButtonAssist.CornerRadius="10"
                     Command="{Binding btnNgayCommand}"
-                    materialDesign:ButtonAssist.CornerRadius="10"
-                   
-                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">Ngày này
+                    Style="{StaticResource MaterialDesignRaisedLightButton}"
+                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">
+                    Ngày này
                 </Button>
 
                 <Button
-                    Style="{StaticResource MaterialDesignRaisedLightButton}"
-                    Height="30" Margin="0 0 10 0"
-                     Command="{Binding btnThangCommand}"
+                    Height="30"
+                    Margin="0,0,10,0"
                     materialDesign:ButtonAssist.CornerRadius="10"
-                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">Tháng này
+                    Command="{Binding btnThangCommand}"
+                    Style="{StaticResource MaterialDesignRaisedLightButton}"
+                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">
+                    Tháng này
                 </Button>
                 <Button
-                    Style="{StaticResource MaterialDesignRaisedLightButton}"
-                    Height="30" Margin="0 0 10 0"
-                     Command="{Binding btnNamCommand}"
+                    Height="30"
+                    Margin="0,0,10,0"
                     materialDesign:ButtonAssist.CornerRadius="10"
-                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">Năm này
+                    Command="{Binding btnNamCommand}"
+                    Style="{StaticResource MaterialDesignRaisedLightButton}"
+                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">
+                    Năm này
                 </Button>
 
                 <Button
-                    Style="{StaticResource MaterialDesignRaisedLightButton}"
-                    Height="30" Margin="0 0 10 0"
-                     Command="{Binding btnQuiCommand}"
+                    Height="30"
+                    Margin="0,0,10,0"
                     materialDesign:ButtonAssist.CornerRadius="10"
-                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">Quý này
+                    Command="{Binding btnQuiCommand}"
+                    Style="{StaticResource MaterialDesignRaisedLightButton}"
+                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners">
+                    Quý này
                 </Button>
 
             </StackPanel>
         </StackPanel>
         <ListView
-            Grid.Row="3" Grid.RowSpan="6"
-            Margin="0 0 0 30"
+            Grid.Row="3"
+            Grid.RowSpan="4"
+            Margin="0,0,0,30"
             HorizontalAlignment="Center"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-            ScrollViewer.CanContentScroll="True"
+            Grid.IsSharedSizeScope="True"
             ItemsSource="{Binding _listMilkteaInfo}"
-            Grid.IsSharedSizeScope="True">
+            ScrollViewer.CanContentScroll="True"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemsPanel>
@@ -110,26 +137,61 @@
                 <GridView>
                     <GridView.ColumnHeaderContainerStyle>
                         <Style TargetType="{x:Type GridViewColumnHeader}">
-                            <Setter Property="Background" Value="#0D47A1"></Setter>
-                            <Setter Property="Foreground" Value="White"></Setter>
-                            <Setter Property="BorderBrush" Value="{x:Null}"></Setter>
-                            <Setter Property="BorderThickness" Value="0"></Setter>
-                            <Setter Property="Margin" Value="0"></Setter>
-                            <Setter Property="Padding" Value="5"></Setter>
+                            <Setter Property="Background" Value="#0D47A1" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="BorderBrush" Value="{x:Null}" />
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="Margin" Value="0" />
+                            <Setter Property="Padding" Value="5" />
                         </Style>
                     </GridView.ColumnHeaderContainerStyle>
-                    <GridViewColumn Header="Hình ảnh" Width="150">
+                    <GridViewColumn Width="150" Header="Hình ảnh">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding imgUrl}" Width="50" Height="50"></Image>
+                                <Image
+                                    Width="50"
+                                    Height="50"
+                                    Source="{Binding imgUrl}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Sản phẩm" DisplayMemberBinding="{Binding tenMon}" Width="250"/>
-                    <GridViewColumn Header="Loại" DisplayMemberBinding="{Binding Name}" Width="150"/>
-                    <GridViewColumn Header="Doanh thu" DisplayMemberBinding="{Binding gia}" Width="200"/>
+                    <GridViewColumn
+                        Width="250"
+                        DisplayMemberBinding="{Binding tenMon}"
+                        Header="Sản phẩm" />
+                    <GridViewColumn
+                        Width="150"
+                        DisplayMemberBinding="{Binding Name}"
+                        Header="Loại" />
+                    <GridViewColumn
+                        Width="200"
+                        DisplayMemberBinding="{Binding gia}"
+                        Header="Doanh thu" />
                 </GridView>
             </ListView.View>
         </ListView>
+        <StackPanel Grid.Row="7" Grid.RowSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 250 0">
+            <materialDesign:Card
+                Padding="5"
+                Width="200"
+
+                Background="#2979ff"
+                Margin="0 0 20 0"
+                Height="40"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                materialDesign:ShadowAssist.ShadowEdges="All">
+                TỔNG DOANH THU:
+            </materialDesign:Card>
+            <materialDesign:Card
+                Padding="5"
+                Width="100"
+
+                Height="40"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                materialDesign:ShadowAssist.ShadowEdges="All">
+                10.500.000đ
+            </materialDesign:Card>
+        </StackPanel>
+
     </Grid>
 </UserControl>

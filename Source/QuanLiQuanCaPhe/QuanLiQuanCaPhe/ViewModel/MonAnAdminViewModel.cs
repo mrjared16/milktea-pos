@@ -14,6 +14,7 @@ namespace QuanLiQuanCaPhe.ViewModel
     {
         public ICommand addMilkteaCommand { get; set; }
         public ICommand LoadedMenuUCCommand { get; set; }
+        public ICommand Add_SaveCommand { get; set; }
 
         public List<Category> MilkteaCategories { get; set; }
         public BindingList<MilkteaInfo> _listMilkteaInfo { get; set; }
@@ -49,7 +50,8 @@ namespace QuanLiQuanCaPhe.ViewModel
         public string btnAdd_Save
         {
             get { return _btnAdd_Save; }
-            set { 
+            set
+            {
                 _btnAdd_Save = value;
                 OnPropertyChanged("btnAdd_Save");
             }
@@ -78,6 +80,7 @@ namespace QuanLiQuanCaPhe.ViewModel
                 if (temp != value)
                 {
                     temp = value;
+
                     showDetails();
                 }
             }
@@ -88,13 +91,18 @@ namespace QuanLiQuanCaPhe.ViewModel
             milkTeaInfoCha = new MilkteaInfo();
             milkTeaInfoCha = selectItem_Menu;
             ButtonVisibility = true;
-            btnDelete_Cancel = "THOÁT";
+            btnDelete_Cancel = "XÓA";
             btnAdd_Save = "LƯU";
 
         }
 
         public MonAnAdminViewModel()
         {
+
+            Add_SaveCommand = new RelayCommand<Object>((x) => { return true; }, (x) =>
+            {
+                MessageBox.Show("hihi");
+            });
             //khi khoi tao thi man hinh chi tiet null
             ButtonVisibility = false;
 
@@ -105,7 +113,13 @@ namespace QuanLiQuanCaPhe.ViewModel
                 btnDelete_Cancel = "HỦY";
                 btnAdd_Save = "THÊM";
                 milkTeaInfoCha = new MilkteaInfo();
+                Add_SaveCommand = new RelayCommand<Object>((x) => { return true; }, (x) =>
+                {
+                    MessageBox.Show(milkTeaInfoCha.tenMon);
+                });
             });
+
+
 
 
             MilkteaCategories = new List<Category>
@@ -122,7 +136,7 @@ namespace QuanLiQuanCaPhe.ViewModel
                 }
             };
             _listMilkteaInfo = new BindingList<MilkteaInfo>();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 15; i++)
             {
                 MilkteaInfo a = new MilkteaInfo();
                 a.tenMon = "Tra sua tran chau " + i.ToString();
