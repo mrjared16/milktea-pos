@@ -9,14 +9,14 @@ namespace QuanLiQuanCaPhe.Models
 	public class DoanhThu
 	{
 		private MonAn _monAn;
-		private int _soLuotMua;
-		private float _tongTienThu;
+		private double _soLuotMua;
+		private double _tongTienThu;
 
 		public MonAn monAn { get => _monAn; set => _monAn = value; }
-		public int SoLuotMua { get => _soLuotMua; set => _soLuotMua = value; }
-		public float TongTienThu { get => _tongTienThu; set => _tongTienThu = value; }
+		public double SoLuotMua { get => _soLuotMua; set => _soLuotMua = value; }
+		public double TongTienThu { get => _tongTienThu; set => _tongTienThu = value; }
 
-		public DoanhThu(MonAn monAn, int soLuotMua, float tongTienThu)
+		public DoanhThu(MonAn monAn, double soLuotMua, double tongTienThu)
 		{
 			this._monAn = monAn;
 			_soLuotMua = soLuotMua;
