@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLiQuanCaPhe.View"
              mc:Ignorable="d" 
-              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="658" d:DesignWidth="720">
-    <Grid Background="White">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="320"/>
@@ -54,9 +54,9 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="Auto" Header="ID" DisplayMemberBinding="{Binding ID, StringFormat={}#{0}}"  />
-                        <GridViewColumn Width="Auto" Header="Date" DisplayMemberBinding="{Binding Date, StringFormat={}{0: dd/MM/yyyy | HH:mm:ss}}"/>
-                        <GridViewColumn Width="Auto" Header="Total" DisplayMemberBinding="{Binding OrderTotal, StringFormat=\{0:N0\}đ}" />
-                        <GridViewColumn Width="Auto" Header="User" DisplayMemberBinding="{Binding Username}" />
+                        <GridViewColumn Width="Auto" Header="Thời gian" DisplayMemberBinding="{Binding Date, StringFormat={}{0: dd/MM/yyyy | HH:mm:ss}}"/>
+                        <GridViewColumn Width="Auto" Header="Tổng cộng" DisplayMemberBinding="{Binding OrderTotal, StringFormat=\{0:N0\}đ}" />
+                        <GridViewColumn Width="Auto" Header="Nhân viên" DisplayMemberBinding="{Binding Username}" />
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -73,7 +73,7 @@
             </Grid.RowDefinitions>
             <!--Header-->
             <StackPanel Grid.Row="0" Margin="15,5,10,0">
-                <TextBlock Style="{DynamicResource StrongTitle}" Text="{Binding ID, StringFormat={}Hóa đơn - {0}}"><!--Hóa đơn - HD001--></TextBlock>
+                <TextBlock Style="{DynamicResource StrongTitle}" Text="{Binding ID, StringFormat={}Hóa đơn - #{0}}"><!--Hóa đơn - HD001--></TextBlock>
                 <TextBlock Style="{DynamicResource LightContent}" Text="{Binding Date, StringFormat={}{0: dd/MM/yyyy | HH:mm:ss}}"></TextBlock>
             </StackPanel>
             <!--End of Header-->

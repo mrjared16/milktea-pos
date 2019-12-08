@@ -127,9 +127,6 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderService.cs" />
     <Compile Include="Models\SeviceData.cs" />
-    <Compile Include="NhanVienMainWindow.xaml.cs">
-      <DependentUpon>NhanVienMainWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\detailsInfoMilkteaViewModel.cs" />
     <Compile Include="ViewModel\DoanhThuAdminViewModel.cs" />
     <Compile Include="ViewModel\HistoryViewModel.cs" />
@@ -174,9 +171,6 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MonAnAdminViewModel.cs" />
-    <Compile Include="Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
-    </Compile>
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -189,10 +183,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="NhanVienMainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resource\MainResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -237,10 +227,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Window1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -273,9 +259,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="a.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Models\Database.Context.tt">
