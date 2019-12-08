@@ -9,7 +9,7 @@ namespace QuanLiQuanCaPhe.Models
 	class DataProvider
 	{
 		private static DataProvider isCreated;
-		public static DataProvider ISCreated
+		public static DataProvider IsCreated
 		{
 			get
 			{

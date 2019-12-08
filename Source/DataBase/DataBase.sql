@@ -1,4 +1,4 @@
-﻿USE master;
+﻿﻿USE master;
 GO
 ALTER DATABASE QUAN_LY_QUAN_CAPHE SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
 GO
@@ -14,15 +14,16 @@ create table NhanVien
 	HOTEN nvarchar(100) NOT NULL,
 	LUONG float,
 	NGSINH date,    
-	PHAI varchar(5) Check (PHAI IN('Nam','Nu')),                                                                           
+	PHAI nvarchar(5) Check (PHAI IN('Nam','Nữ')),                                                                           
 	CMND varchar(30),
+	DIACHI nvarchar(100),
 	DIENTHOAI varchar(30),
 	CHUCVU nvarchar(30),
 	TAIKHOAN varchar(30),
 	MATKHAU varchar(50),
 	ISDEL int,
-	ISADMIN int,
-	CREATEDAT datetime
+	CREADTEDAT datetime,
+	UPDATEDAT datetime
 )
 
 create table MonAn
@@ -126,8 +127,8 @@ alter table MonAn add
 GO	
 
 
-insert into NhanVien (MANV,HOTEN,LUONG,NGSINH,PHAI,CMND,DIENTHOAI,CHUCVU,TAIKHOAN ,MATKHAU,ISDEL,ISADMIN,CREATEDAT)
-values ('NV01',N'Trương Văn Tú',2000,CAST(N'1959-06-20' AS Date),'Nam','123456','0978966563','Admin','tumeotl@gmail.com','db69fc039dcbd2962cb4d28f5891aae1',1,1,CAST(N'1959-06-20' AS Date))
+insert into NhanVien (MANV,HOTEN,LUONG,NGSINH,PHAI,DIACHI,CMND,DIENTHOAI,CHUCVU,TAIKHOAN ,MATKHAU,ISDEL,CREADTEDAT,UPDATEDAT)
+values ('NV01',N'Trương Văn Tú',2000,CAST(N'1959-06-20' AS Date),'Nam',N'167 Lương Nhữ Học Phường 11 Quận 5 HCM','123456','0978966563','Admin','admin','db69fc039dcbd2962cb4d28f5891aae1',1,CAST(N'1959-06-20' AS Date),CAST(N'1959-06-20' AS Date))
 
 
 

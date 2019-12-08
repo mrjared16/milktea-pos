@@ -27,13 +27,14 @@ namespace QuanLiQuanCaPhe.Models
         public Nullable<System.DateTime> NGSINH { get; set; }
         public string PHAI { get; set; }
         public string CMND { get; set; }
+        public string DIACHI { get; set; }
         public string DIENTHOAI { get; set; }
         public string CHUCVU { get; set; }
         public string TAIKHOAN { get; set; }
         public string MATKHAU { get; set; }
         public Nullable<int> ISDEL { get; set; }
-        public Nullable<int> ISADMIN { get; set; }
-        public Nullable<System.DateTime> CREATEDAT { get; set; }
+        public Nullable<System.DateTime> CREADTEDAT { get; set; }
+        public Nullable<System.DateTime> UPDATEDAT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonHang> DonHangs { get; set; }
