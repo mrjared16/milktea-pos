@@ -131,18 +131,15 @@
       <DependentUpon>NhanVienMainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\detailsInfoMilkteaViewModel.cs" />
-    <Compile Include="ViewModel\DoanhThuViewModel.cs" />
+    <Compile Include="ViewModel\DoanhThuAdminViewModel.cs" />
     <Compile Include="ViewModel\HistoryViewModel.cs" />
     <Compile Include="ViewModel\HomeNhanVienViewModel.cs" />
     <Compile Include="ViewModel\LichLamViecNhanVienViewModel.cs" />
     <Compile Include="ViewModel\NhanVienLayoutViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\TaiKhoanNhanVienViewModel.cs" />
-    <Compile Include="View\detailsInfoMilktea.xaml.cs">
-      <DependentUpon>detailsInfoMilktea.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\DoanhThu.xaml.cs">
-      <DependentUpon>DoanhThu.xaml</DependentUpon>
+    <Compile Include="View\DoanhThuAdmin.xaml.cs">
+      <DependentUpon>DoanhThuAdmin.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\History.xaml.cs">
       <DependentUpon>History.xaml</DependentUpon>
@@ -200,13 +197,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\detailsInfoMilktea.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\DoanhThuAdmin.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\DoanhThu.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\History.xaml">
       <Generator>MSBuild:Compile</Generator>

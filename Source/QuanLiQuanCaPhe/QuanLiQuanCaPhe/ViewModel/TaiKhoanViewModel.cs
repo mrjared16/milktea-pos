@@ -17,12 +17,12 @@ using System.Drawing;
 
 namespace QuanLiQuanCaPhe.ViewModel
 {
-	public class TaiKhoanViewModel: BaseViewModel
+	public class TaiKhoanViewModel : BaseViewModel
 	{
 		public bool Isloaded = false;
 		public ICommand LoadedWindowCommand { get; set; }
 		public ICommand LuuThongTinAdminCommand { get; set; }
-		
+
 		public bool IsLoaded { get; set; }
 		public static string tumeo = "";
 
@@ -138,55 +138,54 @@ namespace QuanLiQuanCaPhe.ViewModel
 				}
 			}
 			);
-			LuuThongTinAdminCommand = new RelayCommand<Window>((p) => 
+			LuuThongTinAdminCommand = new RelayCommand<Window>((p) =>
 			{
-				var nhanVien = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN.Equals(tumeo));
-				foreach (var item in nhanVien)
+				NhanVien item = UserService.GetCurrentUser;
+				//hinh anh
+				if (!DisplayedImagePath.ToString().Equals(LoadImage(item.HINHANH).ToString()))
 				{
-					//hinh anh
-					if (!DisplayedImagePath.ToString().Equals(LoadImage(item.HINHANH).ToString()))
-					{
-						return true;
-					}
-					//ho ten
-					if (!HoTen.Equals(item.HOTEN))
-						return true;
-					//ngay sinh
-					DateTime a = item.NGSINH;
-					if (!NgaySinh.Equals(a.ToString("dd/MM/yyyy")))
-						return true;
-					//dia chi
-					if (!DiaChi.Equals(item.DIACHI))
-						return true;
-					// so dien thoai
-
-					if (!SDT.Equals(item.DIENTHOAI))
-						return true;
-					//mat khau
-					if (!GioiTinh.Equals(item.PHAI))
-						return true;
-					//chuc vu
-					if (!ChucVu.Equals(item.CHUCVU))
-						return true;
-					//CMND
-					if (!CMND.Equals(item.CMND))
-						return true;
+					return true;
 				}
-				return false;
+				//ho ten
+				if (!HoTen.Equals(item.HOTEN))
+					return true;
+				//ngay sinh
+				DateTime a = item.NGSINH;
+				if (!NgaySinh.Equals(a.ToString("dd/MM/yyyy")))
+					return true;
+				//dia chi
+				if (!DiaChi.Equals(item.DIACHI))
+					return true;
+				// so dien thoai
 
-			; }, (p) =>
-			{
-				var nhanvien = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN == tumeo).SingleOrDefault();
-				nhanvien.PHAI = GioiTinh;
-				nhanvien.HINHANH = ImageToByte2(DisplayedImagePath);
-				nhanvien.CMND = CMND;
-				nhanvien.CHUCVU = ChucVu;
-				nhanvien.DIENTHOAI = SDT;
-				nhanvien.HOTEN = HoTen;
-				nhanvien.NGSINH = DateTime.ParseExact(NgaySinh, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-				nhanvien.DIACHI = DiaChi;
-				DataProvider.ISCreated.DB.SaveChangesAsync();
-			}
+				if (!SDT.Equals(item.DIENTHOAI))
+					return true;
+				//mat khau
+				if (!GioiTinh.Equals(item.PHAI))
+					return true;
+				//chuc vu
+				if (!ChucVu.Equals(item.CHUCVU))
+					return true;
+				//CMND
+				if (!CMND.Equals(item.CMND))
+					return true;
+				else
+					return false;
+
+				;
+			}, (p) =>
+		  {
+			  var nhanvien = UserService.GetCurrentUser;
+			  nhanvien.PHAI = GioiTinh;
+			  nhanvien.HINHANH = ImageToByte2(DisplayedImagePath);
+			  nhanvien.CMND = CMND;
+			  nhanvien.CHUCVU = ChucVu;
+			  nhanvien.DIENTHOAI = SDT;
+			  nhanvien.HOTEN = HoTen;
+			  nhanvien.NGSINH = DateTime.ParseExact(NgaySinh, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+			  nhanvien.DIACHI = DiaChi;
+			  DataProvider.ISCreated.DB.SaveChangesAsync();
+		  }
 			);
 		}
 		public void loadData()
@@ -204,25 +203,25 @@ namespace QuanLiQuanCaPhe.ViewModel
 			//}
 
 			NhanVien item = UserService.GetCurrentUser;
-				//ho ten
-				HoTen = item.HOTEN;
-				//
-				TaiKhoan = item.TAIKHOAN;
-				//ngay sinh
-				DateTime a = item.NGSINH;
-				NgaySinh = a.ToString("dd/MM/yyyy");
-				//dia chi
-				DiaChi = item.DIACHI;
-				// so dien thoai
-				SDT = item.DIENTHOAI;
-				//mat khau
-				GioiTinh = item.PHAI;
-				//chuc vu
-				ChucVu = item.CHUCVU;
-				//CMND
-				CMND = item.CMND;
-				//hinh anh ca nhan
-				DisplayedImagePath = LoadImage(item.HINHANH);
+			//ho ten
+			HoTen = item.HOTEN;
+			//
+			TaiKhoan = item.TAIKHOAN;
+			//ngay sinh
+			DateTime a = item.NGSINH;
+			NgaySinh = a.ToString("dd/MM/yyyy");
+			//dia chi
+			DiaChi = item.DIACHI;
+			// so dien thoai
+			SDT = item.DIENTHOAI;
+			//mat khau
+			GioiTinh = item.PHAI;
+			//chuc vu
+			ChucVu = item.CHUCVU;
+			//CMND
+			CMND = item.CMND;
+			//hinh anh ca nhan
+			DisplayedImagePath = LoadImage(item.HINHANH);
 			File.Delete("tumeo.txt");
 		}
 		private static BitmapImage LoadImage(byte[] imageData)

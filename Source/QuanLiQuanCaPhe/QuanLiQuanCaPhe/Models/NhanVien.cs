@@ -28,9 +28,9 @@ namespace QuanLiQuanCaPhe.Models
         public string PHAI { get; set; }
         public string CMND { get; set; }
         public string DIACHI { get; set; }
-        public byte[] HINHANH { get; set; }
         public string DIENTHOAI { get; set; }
         public string CHUCVU { get; set; }
+        public byte[] HINHANH { get; set; }
         public string TAIKHOAN { get; set; }
         public string MATKHAU { get; set; }
         public Nullable<int> ISDEL { get; set; }

@@ -12,15 +12,16 @@ create table NhanVien
 (
 	MANV varchar(30) primary key,
 	HOTEN nvarchar(100) NOT NULL,
-	LUONG float,
-	NGSINH date,    
+	LUONG float not null,
+	NGSINH date not null,    
 	PHAI nvarchar(5) Check (PHAI IN('Nam','Nữ')),                                                                           
-	CMND varchar(30),
-	DIACHI nvarchar(100),
-	DIENTHOAI varchar(30),
-	CHUCVU nvarchar(30),
-	TAIKHOAN varchar(30),
-	MATKHAU varchar(50),
+	CMND varchar(30) not null,
+	DIACHI nvarchar(100) not null,
+	HINHANH image,
+	DIENTHOAI varchar(30) not null,
+	CHUCVU nvarchar(30) not null,
+	TAIKHOAN varchar(30) not null,
+	MATKHAU varchar(50) not null,
 	ISDEL int,
 	CREADTEDAT datetime,
 	UPDATEDAT datetime
@@ -29,12 +30,12 @@ create table NhanVien
 create table MonAn
 (
 	MAMON varchar(30) primary key,
-	TENMON nvarchar(30),
-	GIA float,
-	MOTA nvarchar(30),
-	MALOAI varchar(30),
-	HINHANH image,
-	TTSP nvarchar(30),
+	TENMON nvarchar(30) not null,
+	GIA float not null,
+	MOTA nvarchar(30)not null,
+	MALOAI varchar(30) not null,
+	HINHANH image ,
+	TTSP nvarchar(30)not null,
 	ISDEL int,
 	CREADTEDAT datetime,
 	UPDATEDAT datetime
@@ -42,7 +43,7 @@ create table MonAn
 create table LoaiMonAn
 (
 	MALOAI varchar(30) primary key,
-	TENLOAI nvarchar(30),
+	TENLOAI nvarchar(30)not null,
 	ISDEL int,
 	CREADTEDAT datetime,
 	UPDATEDAT datetime
@@ -51,8 +52,8 @@ create table DonHang
 (
 	MADH varchar(30) primary key,
 	MANV varchar(30),
-	THOIGIAN datetime,
-	TONGTIEN float,
+	THOIGIAN datetime not null,
+	TONGTIEN float not null,
 	TENKH nvarchar(30),
 	ISDEL int,
 	CREADTEDAT datetime,
@@ -62,10 +63,10 @@ create table ChiTietDonhang
 (
 	MADH VARCHAR(30) not null,
 	MAMON VARCHAR(30) not null,
-	SOLUONG  FLOAT,
-	DONGIA FLOAT ,
-	THANHTIEN  FLOAT,
-	GIAMGIA FLOAT,
+	SOLUONG  FLOAT not null,
+	DONGIA FLOAT not null,
+	THANHTIEN  FLOAT not null,
+	GIAMGIA FLOAT not null,
 	ISDEL int,
 	CREADTEDAT datetime,
 	UPDATEDAT datetime
@@ -128,7 +129,9 @@ GO
 
 
 insert into NhanVien (MANV,HOTEN,LUONG,NGSINH,PHAI,DIACHI,CMND,DIENTHOAI,CHUCVU,TAIKHOAN ,MATKHAU,ISDEL,CREADTEDAT,UPDATEDAT)
-values ('NV01',N'Trương Văn Tú',2000,CAST(N'1959-06-20' AS Date),'Nam',N'167 Lương Nhữ Học Phường 11 Quận 5 HCM','123456','0978966563','Admin','admin','db69fc039dcbd2962cb4d28f5891aae1',1,CAST(N'1959-06-20' AS Date),CAST(N'1959-06-20' AS Date))
+values ('NV01',N'Trương Văn Tú',2000,CAST(N'1959-06-20' AS Date),'Nam',N'167 Lương Nhữ Học Phường 11 Quận 5 HCM','123456','0978966563','Admin','admin','db69fc039dcbd2962cb4d28f5891aae1',0,CAST(N'1959-06-20' AS Date),CAST(N'1959-06-20' AS Date))
 
+insert into NhanVien (MANV,HOTEN,LUONG,NGSINH,PHAI,DIACHI,CMND,DIENTHOAI,CHUCVU,TAIKHOAN ,MATKHAU,ISDEL,CREADTEDAT,UPDATEDAT)
+values ('NV02',N'Nguyễn Chánh Anh Tuấn',2000,CAST(N'1959-06-20' AS Date),'Nam',N'167 Lương Nhữ Học Phường 11 Quận 5 HCM','123456','0978966563','Nhân viên','nhanvien','db69fc039dcbd2962cb4d28f5891aae1',0,CAST(N'1959-06-20' AS Date),CAST(N'1959-06-20' AS Date))
 
 

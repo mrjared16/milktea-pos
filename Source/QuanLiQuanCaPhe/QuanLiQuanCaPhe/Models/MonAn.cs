@@ -9,30 +9,136 @@
 
 namespace QuanLiQuanCaPhe.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class MonAn
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MonAn()
-        {
-            this.ChiTietDonhangs = new HashSet<ChiTietDonhang>();
-        }
-    
-        public string MAMON { get; set; }
-        public string TENMON { get; set; }
-        public double GIA { get; set; }
-        public string MOTA { get; set; }
-        public string MALOAI { get; set; }
-        public byte[] HINHANH { get; set; }
-        public string TTSP { get; set; }
-        public Nullable<int> ISDEL { get; set; }
-        public Nullable<System.DateTime> CREADTEDAT { get; set; }
-        public Nullable<System.DateTime> UPDATEDAT { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietDonhang> ChiTietDonhangs { get; set; }
-        public virtual LoaiMonAn LoaiMonAn { get; set; }
-    }
+	using QuanLiQuanCaPhe.ViewModel;
+	using System;
+	using System.Collections.Generic;
+
+	public partial class MonAn : BaseViewModel
+	{
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+		public MonAn()
+		{
+			this.ChiTietDonhangs = new HashSet<ChiTietDonhang>();
+		}
+		//public string MAMON { get; set; }
+		//public string TENMON { get; set; }
+		//public Nullable<double> GIA { get; set; }
+		//public string MOTA { get; set; }
+		//public string MALOAI { get; set; }
+		//public string TTSP { get; set; }
+		//public Nullable<int> ISDEL { get; set; }
+		//public Nullable<System.DateTime> CREADTEDAT { get; set; }
+		//public Nullable<System.DateTime> UPDATEDAT { get; set; }
+
+		private Nullable<System.DateTime> _UPDATEDAT;
+		public Nullable<System.DateTime> UPDATEDAT
+		{
+			get { return _UPDATEDAT; }
+			set
+			{
+				_UPDATEDAT = value;
+				OnPropertyChanged("UPDATEDAT");
+			}
+		}
+		private Nullable<System.DateTime> _CREADTEDAT;
+		public Nullable<System.DateTime> CREADTEDAT
+		{
+			get { return _CREADTEDAT; }
+			set
+			{
+				_CREADTEDAT = value;
+				OnPropertyChanged("CREADTEDAT");
+			}
+		}
+		private Nullable<double> _GIA;
+		public Nullable<double> GIA
+		{
+			get { return _GIA; }
+			set
+			{
+				_GIA = value;
+				OnPropertyChanged("GIA");
+			}
+		}
+		private Nullable<int> _ISDEL;
+		public Nullable<int> ISDEL
+		{
+			get { return _ISDEL; }
+			set
+			{
+				_ISDEL = value;
+				OnPropertyChanged("ISDEL");
+			}
+		}
+		private string _TTSP;
+		public string TTSP
+		{
+			get { return _TTSP; }
+			set
+			{
+				_TTSP = value;
+				OnPropertyChanged("TTSP");
+			}
+		}
+		private string _MALOAI;
+		public string MALOAI
+		{
+			get { return _MALOAI; }
+			set
+			{
+				_MALOAI = value;
+				OnPropertyChanged("MALOAI");
+			}
+		}
+		private string _MOTA;
+		public string MOTA
+		{
+			get { return _MOTA; }
+			set
+			{
+				_MOTA = value;
+				OnPropertyChanged("MOTA");
+			}
+		}
+		private string _maMon;
+		public string MAMON
+		{
+			get { return _maMon; }
+			set
+			{
+				_maMon = value;
+				OnPropertyChanged("MAMON");
+			}
+		}
+		private string _tenMon;
+		public string TENMON
+		{
+			get { return _tenMon; }
+			set
+			{
+				_tenMon = value;
+				OnPropertyChanged("TENMON");
+			}
+		}
+
+
+		private byte[] hinhAnh;
+		public byte[] HINHANH
+		{
+			get
+			{
+				return hinhAnh;
+			}
+			set
+			{
+				hinhAnh = value;
+				OnPropertyChanged("HINHANH");
+			}
+		}
+
+
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+		public virtual ICollection<ChiTietDonhang> ChiTietDonhangs { get; set; }
+		public virtual LoaiMonAn LoaiMonAn { get; set; }
+	}
 }

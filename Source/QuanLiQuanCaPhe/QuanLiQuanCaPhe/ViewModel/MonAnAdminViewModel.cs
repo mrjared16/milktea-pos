@@ -1,8 +1,11 @@
-﻿using QuanLiQuanCaPhe.Models;
-using QuanLiQuanCaPhe.View;
+﻿using Microsoft.Win32;
+using QuanLiQuanCaPhe.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,139 +15,281 @@ using System.Windows.Input;
 
 namespace QuanLiQuanCaPhe.ViewModel
 {
-	public class MonAnAdminViewModel:BaseViewModel
-	{
-		public ICommand selectedItemListMilk_Clicked { get; set; }
-		public ICommand addMilkteaCommand { get; set; }
-		public ICommand LoadedMenuUCCommand { get; set; }
-
-		//itemlistView click
-		private MilkteaInfo temp { get; set; }
-		public MilkteaInfo selectItem_Menu
-		{
-			get { return temp; }
-			set
-			{
-				if (temp != value)
-				{
-					temp = value;
-					showDetails();
-				}
-			}
-		}
-
-		public void showDetails()
-		{
-			OnPropertyChanged("milkTeaInfoCha");
-			OnPropertyChanged("detailInfoCon");
-		}
-
-		// truyen data qua man hinh detail
-		public static readonly DependencyProperty SudokuSizeProperty =
-		DependencyProperty.Register("milkTeaInfoCha", typeof(MilkteaInfo), typeof(MonAnAdmin), new FrameworkPropertyMetadata(null));
-
-		///// 
-		///public event PropertyChangedEventHandler PropertyChanged;
+    public class MonAnAdminViewModel : BaseViewModel
+    {
+        public ICommand addMilkteaCommand { get; set; }
+        public ICommand LoadedMenuUCCommand { get; set; }
+        public ICommand Add_SaveCommand { get; set; }
+        public ICommand Delete_CancelCommand { get; set; }
+        public ICommand SearchMonAnCommand { get; set; }
+        public ICommand ChooseImgMonAn { get; set; }
+        public ICommand ShowAllMonAn { get; set; }
 
 
+        public List<LoaiMonAn> MilkteaCategories { get; set; }
 
-		public List<Category> MilkteaCategories { get; set; }
-		public BindingList<MilkteaInfo> _listMilkteaInfo { get; set; }
-		public detailsInfoMilktea details;
-		public bool clickOnItemMenu = true;
-
-		private bool _a;
-		public bool ButtonVisibility
-		{
-			get { return _a; }
-			set
-			{
-				_a = value;
-				OnPropertyChanged("ButtonVisibility");
-			}
-		}
-		public MonAnAdminViewModel()
-		{
-			/// <summary>
-			/// Command
-			/// </summary>
-			/// 
-			selectedItemListMilk_Clicked = new RelayCommand<object>((p) => { return true; }, (p) => {
-				MessageBox.Show("knock knock");
-			}
-		   );
+        public string _btnButtonAllColor;
+        public string btnAllMonAnColor
+        {
+            get { return _btnButtonAllColor; }
+            set
+            {
+                _btnButtonAllColor = value;
 
 
+            }
+        }
 
-			addMilkteaCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
-			{
-				MessageBox.Show("aaa");
-			});
+        private BindingList<MonAn> _listMonAn;
+        public BindingList<MonAn> listMonAn
+        {
+            get { return _listMonAn; }
+            set
+            {
+                _listMonAn = value;
+                OnPropertyChanged("listMonAn");
+            }
+        }
 
-			ButtonVisibility = false;
-			MilkteaCategories = new List<Category>
-			{
-				new Category
-				{
-					Name="Tra sua",
+        private string _searchMonAnStr;
+        public string searchMonAnStr
+        {
+            get { return _searchMonAnStr; }
+            set
+            {
+                _searchMonAnStr = value;
+                OnPropertyChanged("searchMonAnStr");
+            }
 
-				},
-				new Category
-				{
-					Name="Hong tra",
-
-				}
-			};
-			//Object la tham so truyen vao khi goi su kien loaded
-			LoadedMenuUCCommand = new RelayCommand<UserControl>((p) => { return true; }, (parent) =>
-			{
-				//int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
-				//for (int i = 0; i < childrenCount; i++)
-				//{
-				//    var child = VisualTreeHelper.GetChild(parent, i);
-				//    // If the child is not of the request child type child
-				//     if (!string.IsNullOrEmpty("details"))
-				//    {
-				//        var frameworkElement = child as FrameworkElement;
-				//        // If the child's name is set for search
-				//        if (frameworkElement != null && frameworkElement.Name == "details")
-				//        {
-				//            var childFound = child as Grid;
-				//            childFound.Visibility = Visibility.Hidden;
-				//        }
-				//    }
-
-				//}
-				//isShowDetails = Visibility.Hidden;
-			});
+        }
 
 
+        #region Binding
+        private bool _ButtonVisibility;
+        public bool ButtonVisibility
+        {
+            get { return _ButtonVisibility; }
+            set
+            {
+                _ButtonVisibility = value;
+                OnPropertyChanged("ButtonVisibility");
+            }
+        }
+
+        private MonAn _MonAnChiTiet;
+        public MonAn MonAnChiTiet
+        {
+            get
+            {
+                return _MonAnChiTiet;
+            }
+            set
+            {
+                _MonAnChiTiet = value;
+                OnPropertyChanged("MonAnChiTiet");
+            }
+        }
+
+        private string _btnAdd_Save;
+        public string btnAdd_Save
+        {
+            get { return _btnAdd_Save; }
+            set
+            {
+                _btnAdd_Save = value;
+                OnPropertyChanged("btnAdd_Save");
+            }
+        }
+
+        private string _btnDelete_Cancel;
+        public string btnDelete_Cancel
+        {
+            get { return _btnDelete_Cancel; }
+            set
+            {
+                _btnDelete_Cancel = value;
+                OnPropertyChanged("btnDelete_Cancel");
+            }
+        }
+        #endregion
 
 
+        //itemlistView click
+        private MonAn temp { get; set; }
+        public MonAn selectItem_Menu
+        {
+            get { return temp; }
+            set
+            {
+                if (temp != value)
+                {
+                    temp = value;
+                    showDetails();
+                }
+            }
+        }
 
-			_listMilkteaInfo = new BindingList<MilkteaInfo>();
-			for (int i = 0; i < 10; i++)
-			{
-				MilkteaInfo a = new MilkteaInfo();
-				a.tenMon = "Tra sua tran chau " + i.ToString();
-				a.gia = 50000 + i * 5000;
-				a.imgUrl = "../images/trasua.jpg";
-				_listMilkteaInfo.Add(a);
-			}
-		}
+        public void showDetails()
+        {
+            MonAnChiTiet = new MonAn();
+            MonAnChiTiet.TENMON = selectItem_Menu.TENMON;
+            MonAnChiTiet.MALOAI = selectItem_Menu.MALOAI;
+            MonAnChiTiet.MAMON = selectItem_Menu.MAMON;
+            MonAnChiTiet.GIA = selectItem_Menu.GIA;
+            MonAnChiTiet.MOTA = selectItem_Menu.MOTA;
+            MonAnChiTiet.HINHANH = selectItem_Menu.HINHANH;
+            //còn create date, updatedate
+
+            ButtonVisibility = true;
+            btnDelete_Cancel = "XÓA";
+            btnAdd_Save = "LƯU";
+        }
+
+        //itemCombobox loaiMonAn click
+        private LoaiMonAn _selectedLoai { get; set; }
+        public LoaiMonAn selectedLoai
+        {
+            get { return _selectedLoai; }
+            set
+            {
+                if (_selectedLoai != value)
+                {
+                    _selectedLoai = value;
+                    btnAllMonAnColor = "#002171";
+                    OnPropertyChanged("btnAllMonAnColor");
+                    showListMonAnTheoLoai();
+                }
+            }
+        }
+
+        public void showListMonAnTheoLoai()
+        {
+            if (selectedLoai != null)
+                listMonAn = new BindingList<MonAn>(SeviceData.getListMonAnLoai(selectedLoai.MALOAI));
+            ButtonVisibility = false;
+        }
+
+        private void MyMessageBox(string messageBoxText)
+        {
+            string caption = "Notification";
+            MessageBoxButton button = MessageBoxButton.OK;
+            MessageBoxImage icon = MessageBoxImage.Information;
+            MessageBox.Show(messageBoxText, caption, button, icon);
+        }
+
+        public MonAnAdminViewModel()
+        {
+
+            //khi khoi tao thi man hinh chi tiet null
+            ButtonVisibility = false;
+            btnAllMonAnColor = "#002171";
+            OnPropertyChanged("btnAllMonAnColor");
+
+            //DTO
+            MilkteaCategories = new List<LoaiMonAn>();
+            MilkteaCategories = SeviceData.getLoaiMonAn();// get from database
+
+            listMonAn = SeviceData.getListMonAn();
 
 
-		public class Category
-		{
-			public string Name { get; set; }
-		}
+            //command  command  command
+            Add_SaveCommand = new RelayCommand<Button>((x) =>
+            {
+                if (string.IsNullOrEmpty(MonAnChiTiet.TENMON)) return false;
+                return true;
+            },
+            (x) =>
+            {
+                if (x.Content.ToString() == "THÊM")//ADD MON ĂN
+                {
+                    string res = SeviceData.themMonAn(MonAnChiTiet);
+                    MyMessageBox(res);//xử lí thêm vào
 
-		public string getImageAbsolutePath(object relativePath)
-		{
-			string absolutePath =
-				$"{AppDomain.CurrentDomain.BaseDirectory}images\\{relativePath}";
-			MessageBox.Show(absolutePath);
-			return absolutePath;
-		}
-	}
+                    if (res.ToString() == "Thành công")
+                    {
+                        if (selectedLoai == null)
+                            listMonAn.Add(MonAnChiTiet);
+                        else if (MonAnChiTiet.MALOAI == selectedLoai.MALOAI) listMonAn.Add(MonAnChiTiet);
+
+                        MonAnChiTiet = new MonAn();
+                    }
+                }
+                else if (x.Content.ToString() == "LƯU")///UPDATE MÓN ĂN
+                {
+                    string res = SeviceData.suaMonAn(MonAnChiTiet);
+                    MyMessageBox(res);
+
+                    if (res.ToString() == "Thành công")
+                    {
+                        selectItem_Menu.TENMON = MonAnChiTiet.TENMON;
+                        selectItem_Menu.MAMON = MonAnChiTiet.MAMON;
+                        selectItem_Menu.MALOAI = MonAnChiTiet.MALOAI;
+                        selectItem_Menu.MOTA = MonAnChiTiet.MOTA;
+                        selectItem_Menu.GIA = MonAnChiTiet.GIA;
+                        selectItem_Menu.HINHANH = MonAnChiTiet.HINHANH;
+                    }
+                }
+
+            });
+            Delete_CancelCommand = new RelayCommand<Button>((x) => { return true; }, (x) =>
+            {
+                if (x.Content.ToString() == "HỦY")
+                {
+                    MonAnChiTiet = new MonAn();
+                    ButtonVisibility = false;
+                }
+                else if (x.Content.ToString() == "XÓA")
+                {
+                    string res = SeviceData.XoaMonAn(MonAnChiTiet);
+                    MyMessageBox(res);//xử lí thêm vào
+
+                    if (res.ToString() == "Thành công")
+                        listMonAn.Remove(selectItem_Menu);
+                }
+
+            });
+
+            SearchMonAnCommand = new RelayCommand<Button>((x) =>
+            {
+                if (string.IsNullOrEmpty(searchMonAnStr)) return false;
+                return true;
+            },
+            (x) =>
+            {
+                listMonAn = SeviceData.getListMonAnTenMon(searchMonAnStr);
+                ButtonVisibility = false;
+            });
+
+            ShowAllMonAn = new RelayCommand<ComboBox>((x) => { return true; }, (x) =>
+             {
+                 btnAllMonAnColor = "#0277bd";
+                 OnPropertyChanged("btnAllMonAnColor");
+                 OnPropertyChanged("btnAllMonAnColor");
+                 selectedLoai = null;
+                 x.SelectedIndex = -1;
+                 listMonAn = SeviceData.getListMonAn();
+             });
+
+            ChooseImgMonAn = new RelayCommand<Button>((x) => { return true; }, (x) =>
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Images File(*.png;*.jpg;*.jpeg;*.bmp*)|*.png;*.jpg;*.jpeg;*.bmp*";
+                //openFileDialog.FilterIndex = 1;
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    MonAnChiTiet.HINHANH = File.ReadAllBytes(openFileDialog.FileName);
+                }
+            });
+
+            //click vao them mon
+            addMilkteaCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {
+                ButtonVisibility = true;
+                btnDelete_Cancel = "HỦY";
+                btnAdd_Save = "THÊM";
+                MonAnChiTiet = new MonAn();
+            });
+
+        }
+    }
 }

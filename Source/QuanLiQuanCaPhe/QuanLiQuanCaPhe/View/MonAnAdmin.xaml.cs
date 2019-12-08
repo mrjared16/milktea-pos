@@ -1,5 +1,4 @@
-﻿using QuanLiQuanCaPhe.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,14 +19,11 @@ namespace QuanLiQuanCaPhe.View
 	/// <summary>
 	/// Interaction logic for MonAn.xaml
 	/// </summary>
-	public partial class MonAnAdmin : UserControl
+	public partial class MonAn : UserControl
 	{
-		public MonAnAdminViewModel home { get; set; }
-		public MonAnAdmin()
+		public MonAn()
 		{
 			InitializeComponent();
-			home = new MonAnAdminViewModel();
-			this.DataContext = home;
 		}
 	}
 }

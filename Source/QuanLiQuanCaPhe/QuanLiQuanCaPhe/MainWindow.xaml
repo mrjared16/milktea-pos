@@ -35,13 +35,13 @@
 			x:Name="MonAnAdminTempalte"
 			DataType ="{x:Type ViewModelss:MonAnAdminViewModel}"
 			>
-			<View:MonAnAdmin DataContext="{Binding}"></View:MonAnAdmin>
+			<View:MonAn DataContext="{Binding}"></View:MonAn>
 		</DataTemplate>
 		<DataTemplate 
 			x:Name="DoanhThuAdminTempalte"
-			DataType ="{x:Type ViewModelss:DoanhThuViewModel}"
+			DataType ="{x:Type ViewModelss:DoanhThuAdminViewModel}"
 			>
-			<View:DoanhThu DataContext="{Binding}"></View:DoanhThu>
+			<View:DoanhThuAdmin DataContext="{Binding}"></View:DoanhThuAdmin>
 		</DataTemplate>
 	</Window.Resources>
 	

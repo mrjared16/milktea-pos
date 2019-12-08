@@ -68,7 +68,7 @@ namespace QuanLiQuanCaPhe
 
 		private void doanhThu(object sender, RoutedEventArgs e)
 		{
-			DataContext = new DoanhThuViewModel();
+			DataContext = new DoanhThuAdminViewModel();
 			TaiKhoan.Background = Brushes.ForestGreen;
 			DonHang.Background = Brushes.ForestGreen;
 			MonAn.Background = Brushes.ForestGreen;
