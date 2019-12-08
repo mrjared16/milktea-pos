@@ -15,8 +15,6 @@
 		<DataTemplate x:Name="HomeViewTemplate" DataType="{x:Type viewModels:HomeNhanVienViewModel }">
 			<views:HomeNhanVien/>
 		</DataTemplate>
-
-
 		<DataTemplate x:Name="OrderViewTemplate" DataType="{x:Type viewModels:OrderViewModel}">
             <views:Order/>
         </DataTemplate>

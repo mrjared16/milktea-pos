@@ -141,9 +141,6 @@
     <Compile Include="View\History.xaml.cs">
       <DependentUpon>History.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Home.xaml.cs">
-      <DependentUpon>Home.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\HomeNhanVien.xaml.cs">
       <DependentUpon>HomeNhanVien.xaml</DependentUpon>
     </Compile>
@@ -195,10 +192,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\History.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Home.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

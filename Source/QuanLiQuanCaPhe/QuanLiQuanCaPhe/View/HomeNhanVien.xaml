@@ -8,58 +8,50 @@
 			 		xmlns:ViewModelss="clr-namespace:QuanLiQuanCaPhe.ViewModel"
 		xmlns:View="clr-namespace:QuanLiQuanCaPhe.View"
 			  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             d:DesignHeight="800" d:DesignWidth="1250"  >
-	<UserControl.Resources>
-		<DataTemplate 
+              d:DesignHeight="658" d:DesignWidth="720" >
+    <UserControl.Resources>
+        <DataTemplate 
 			x:Name="TaiKhoanTempalte"
 			DataType ="{x:Type ViewModelss:TaiKhoanNhanVienViewModel}"
 			>
-			<View:TaiKhoanNhanVien DataContext="{Binding}"></View:TaiKhoanNhanVien>
-		</DataTemplate>
-		<DataTemplate 
+            <View:TaiKhoanNhanVien DataContext="{Binding}"></View:TaiKhoanNhanVien>
+        </DataTemplate>
+        <DataTemplate 
 			x:Name="LichLamviecTempalte"
 			DataType ="{x:Type ViewModelss:LichLamViecNhanVienViewModel}"
 			>
-			<View:LichLamViecNhanVien DataContext="{Binding}"></View:LichLamViecNhanVien>
-		</DataTemplate>
-	</UserControl.Resources>
+            <View:LichLamViecNhanVien DataContext="{Binding}"></View:LichLamViecNhanVien>
+        </DataTemplate>
+    </UserControl.Resources>
 
 
-	<Grid Background="{DynamicResource BackgroundColor}">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="auto"></RowDefinition>
-			<RowDefinition></RowDefinition>
-		</Grid.RowDefinitions>
-		<Grid Grid.Row="0" Margin="20">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="312*"></ColumnDefinition>
-				<ColumnDefinition Width="249*"></ColumnDefinition>
-				<ColumnDefinition Width="64*"/>
-				<ColumnDefinition Width="312*"></ColumnDefinition>
-				<ColumnDefinition Width="312*"></ColumnDefinition>
-			</Grid.ColumnDefinitions>
-			<Button 
+    <Grid Background="{DynamicResource BackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <WrapPanel HorizontalAlignment="Center" Grid.Row="0" Margin="20">
+            <Button 
 				x:Name="TaiKhoan"
-				Grid.Column="1"
-				Background="{StaticResource TabActive}"
+				Background="{StaticResource Tab}"
 				IsDefault="True"
 				Style="{StaticResource MaterialDesignRaisedButton}"    
-				Width="220"  
+				Width="240"  
 				ToolTip="Resource name: MaterialDesignRaisedButton" 
 				Content="Tài khoản" Grid.ColumnSpan="2" 
-				Click="TaiKhoan_Click">
-			</Button>
-			<Button 
+				Command="{Binding LoadProfileView}">
+            </Button>
+            <Button 
 				x:Name="LichLamViec"
-				Grid.Column="3"
 				IsDefault="True"
 				Background="{StaticResource Tab}"
 				Style="{StaticResource MaterialDesignRaisedButton}"    
-				Width="220"  
+				Width="240"  
 				ToolTip="Resource name: MaterialDesignRaisedButton" 
-				Content="Lịch làm việc" Click="LichLamViec_Click">
-			</Button>
-		</Grid>
-		<ContentControl Grid.Row="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Content="{Binding}"/>
-	</Grid>
+				Content="Lịch làm việc"
+                Command="{Binding LoadScheduleView}">
+            </Button>
+        </WrapPanel>
+        <ContentControl Grid.Row="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Content="{Binding CurrentView}"/>
+    </Grid>
 </UserControl>
