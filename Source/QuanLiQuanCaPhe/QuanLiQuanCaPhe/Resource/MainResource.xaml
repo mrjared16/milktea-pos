@@ -13,8 +13,7 @@
     <SolidColorBrush x:Key="Font" Color="#FFFAFAFA"/>
     <SolidColorBrush x:Key="LightButton" Color="#FFC4C4C4"/>
     <SolidColorBrush x:Key="ContentFont" Color="#FFADBDDB"/>
-    <SolidColorBrush x:Key="BgNull">
-    </SolidColorBrush>
+    <SolidColorBrush x:Key="BgNull"/>
     <SolidColorBrush x:Key="Header" Color="#FF4C4C4C"/>
     <System:Double x:Key="BigFont">24</System:Double>
     <System:Double x:Key="SemiBigFont">21</System:Double>

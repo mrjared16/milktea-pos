@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLiQuanCaPhe.Views"
              mc:Ignorable="d" 
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="658" d:DesignWidth="720">
     <Grid Background="White">
         <Grid.ColumnDefinitions>
@@ -12,16 +13,54 @@
             <ColumnDefinition Width="320"/>
         </Grid.ColumnDefinitions>
         <!--Main Content-->
-        <ListView Grid.Row="0" Margin="10" ItemsSource="{Binding ListOrder}" SelectedItem="{Binding SelectedOrder}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="Auto" Header="ID" DisplayMemberBinding="{Binding ID}"  />
-                    <GridViewColumn Width="Auto"  Header="Date" DisplayMemberBinding="{Binding Date, StringFormat={}{0: dd/M/yyyy | HH:mm:ss}}"/>
-                    <GridViewColumn Width="Auto"  Header="Total" DisplayMemberBinding="{Binding OrderTotal, StringFormat=\{0:N0\}đ}" />
-                    <GridViewColumn Width="Auto"  Header="User" DisplayMemberBinding="{Binding Username}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                    Margin="20">
+                <Border
+                Padding="8"
+                BorderThickness="2"
+                Background="WhiteSmoke"
+                CornerRadius="10"
+                BorderBrush="{DynamicResource MaterialDesignDivider}">
+                    <TextBox materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource TabActive}" materialDesign:HintAssist.Hint="Tìm kiếm" Width="250"></TextBox>
+                </Border>
+                <Button Background="{StaticResource TabActive}" Height="40" Width="40" Margin="5" Padding="0">
+                    <materialDesign:PackIcon Kind="Search" VerticalAlignment="Center" Width="30" Height="30" Margin="5"/>
+                </Button>
+            </StackPanel>
+            <ListBox  Margin="0" Padding="0" ItemsSource="{Binding ListCategory}" SelectedItem="{Binding SelectedCategory}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem" >
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Button FontSize="{StaticResource SmallFont}" Background="{StaticResource Tab}" Name="ButtonColor" Height="30" Width="90" Margin="5,5,0,0"  
+                                    Content="{Binding Name}"  
+                                    Command="{Binding DataContext.LoadOrderByCategory,RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                                    CommandParameter="{Binding}"
+                                            />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+            <ListView ItemsSource="{Binding ListOrder}" SelectedItem="{Binding SelectedOrder}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="Auto" Header="ID" DisplayMemberBinding="{Binding ID, StringFormat={}#{0}}"  />
+                        <GridViewColumn Width="Auto" Header="Date" DisplayMemberBinding="{Binding Date, StringFormat={}{0: dd/MM/yyyy | HH:mm:ss}}"/>
+                        <GridViewColumn Width="Auto" Header="Total" DisplayMemberBinding="{Binding OrderTotal, StringFormat=\{0:N0\}đ}" />
+                        <GridViewColumn Width="Auto" Header="User" DisplayMemberBinding="{Binding Username}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
         <!--End of Main Content-->
 
         <!--Order Content-->
@@ -35,7 +74,7 @@
             <!--Header-->
             <StackPanel Grid.Row="0" Margin="15,5,10,0">
                 <TextBlock Style="{DynamicResource StrongTitle}" Text="{Binding ID, StringFormat={}Hóa đơn - {0}}"><!--Hóa đơn - HD001--></TextBlock>
-                <TextBlock Style="{DynamicResource LightContent}" Text="{Binding Date, StringFormat={}{0: dd/M/yyyy | HH:mm:ss}}"></TextBlock>
+                <TextBlock Style="{DynamicResource LightContent}" Text="{Binding Date, StringFormat={}{0: dd/MM/yyyy | HH:mm:ss}}"></TextBlock>
             </StackPanel>
             <!--End of Header-->
 
@@ -49,18 +88,18 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate>
-                                            <Grid Height="80" Margin="15,20,10,0">
+                                            <Grid HorizontalAlignment="Left" Height="80" Width="280" Margin="15,20,0,0">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="32*"></ColumnDefinition>
-                                                    <ColumnDefinition Width="15*"></ColumnDefinition>
-                                                    <ColumnDefinition Width="11*"/>
+                                                    <ColumnDefinition Width="28*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="18*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="12*"/>
                                                 </Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="30"/>
                                                     <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
                                                 <!--Name and exit-->
-                                                <TextBlock Grid.Column="0" Grid.Row="0" Style="{DynamicResource StrongTitle}" Text="{Binding Item.Name}"></TextBlock>
+                                                <TextBlock Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0" Style="{DynamicResource StrongTitle}" Text="{Binding Item.Name}"></TextBlock>
                                                 <!--Info and total-->
                                                 <TextBlock Grid.Column="0" Grid.Row="1" Style="{DynamicResource LightContent}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31.92" Width="150.293" 
                                                            >
