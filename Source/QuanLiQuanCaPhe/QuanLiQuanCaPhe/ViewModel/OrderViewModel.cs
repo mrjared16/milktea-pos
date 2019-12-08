@@ -22,6 +22,9 @@ namespace QuanLiQuanCaPhe.ViewModel
         public ICommand RemoveDrink { get; set; }
         public ICommand ClearOrder { get; set; }
         public ICommand CheckoutOrder { get; set; }
+        public ICommand AddCoupon { get; set; }
+        public ICommand ShowAddCouponDialog { get; set; }
+        public ICommand HideAddCouponDialog { get; set; }
         #endregion
 
         public OrderViewModel()
@@ -35,32 +38,66 @@ namespace QuanLiQuanCaPhe.ViewModel
             });
             AddDrink = new RelayCommand<Drink>((drink) => { return true; }, (drink) =>
             {
+                OrderItem OrderItem = CurrentOrder.FindDrink(drink);
+                if (OrderItem != null)
+                {
+                    CurrentOrder.SetAmount(OrderItem, OrderItem.Number + 1);
+                    return;
+                }
+
                 CurrentOrder.Add(new OrderItem(drink, 1, ""));
             });
             IncreaseAmount = new RelayCommand<OrderItem>((drink) => { return true; }, (OrderItem) =>
             {
                 CurrentOrder.SetAmount(OrderItem, OrderItem.Number + 1);
-                //OrderItem.Number++;
             });
             DecreaseAmount = new RelayCommand<OrderItem>((drink) => { return (drink.Number > 1); }, (OrderItem) =>
             {
                 CurrentOrder.SetAmount(OrderItem, OrderItem.Number - 1);
-                //OrderItem.Number--;
             });
             RemoveDrink = new RelayCommand<OrderItem>((drink) => { return true; }, (orderitem) =>
             {
                 CurrentOrder.Remove(orderitem);
             });
-            ClearOrder = new RelayCommand<OrderItem>((drink) => { return CurrentOrder.items.Any(); }, (orderitem) =>
+            ClearOrder = new RelayCommand<OrderItem>((drink) => { return !CurrentOrder.IsEmpty(); }, (orderitem) =>
             {
                 CurrentOrder.RemoveAll();
             });
-            CheckoutOrder = new RelayCommand<OrderItem>((drink) => { return CurrentOrder.items.Any(); }, (orderitem) =>
+            CheckoutOrder = new RelayCommand<OrderItem>((drink) => { return !CurrentOrder.IsEmpty(); }, (orderitem) =>
             {
                 CurrentOrder.SaveOrder();
                 CurrentOrder = new Order();
             });
 
+            ShowAddCouponDialog = new RelayCommand<object>((p) => { return !CurrentOrder.IsEmpty(); }, (p) =>
+            {
+                IsAddCouponDialogOpen = true;
+            });
+
+            HideAddCouponDialog = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                CurrentOrder.ClearCoupon();
+                IsAddCouponDialogOpen = false;
+            });
+
+            AddCoupon = new RelayCommand<object>((p) => { return !CurrentOrder.hasCoupon(); }, (p) =>
+            {
+                if (!CurrentOrder.AddCoupon(CouponCode))
+                {
+                    MessageBox.Show("Mã không hợp lệ");
+                    return;
+                }
+                IsAddCouponDialogOpen = false;
+            });
+        }
+        private string _CouponCode;
+        public string CouponCode { get => _CouponCode; set { OnPropertyChanged(ref _CouponCode, value); } }
+
+        private bool _IsAddCouponDiaglogOpen = false;
+        public bool IsAddCouponDialogOpen
+        {
+            get => _IsAddCouponDiaglogOpen;
+            set => OnPropertyChanged(ref _IsAddCouponDiaglogOpen, value);
         }
         // danh muc hien tai
         private Category _SelectedCategory = null;
@@ -221,7 +258,7 @@ namespace QuanLiQuanCaPhe.ViewModel
         }
         public Order()
         {
-           
+
             this.Date = DateTime.Now;
             //this.Username = OrderService.GetUser();
             this.Coupon = 0;
@@ -262,11 +299,35 @@ namespace QuanLiQuanCaPhe.ViewModel
             orderitem.Number = amount;
             OnPropertyChanged(null);
         }
+        public OrderItem FindDrink(Drink Drink)
+        {
+            return items.Where(x => x.Item.ID == Drink.ID).FirstOrDefault();
+        }
 
+        public bool AddCoupon(string Coupon)
+        {
+            this.Coupon = OrderService.ValidateCoupon(Coupon);
+            return (this.Coupon != 0);
+        }
+        public void ClearCoupon()
+        {
+            Coupon = 0;
+        }
         // public binding data
         public ObservableCollection<OrderItem> items { get; set; }
         public string ID { get; set; }
-        public double Coupon { get; set; }
+        private double _Coupon;
+        public double Coupon
+        {
+            get
+            {
+                return _Coupon;
+            }
+            set
+            {
+                OnPropertyChanged(ref _Coupon, value);
+            }
+        }
         public DateTime Date { get; set; }
         public NhanVien User { get; set; }
         public string Username
@@ -328,6 +389,15 @@ namespace QuanLiQuanCaPhe.ViewModel
                 list.Add(item.ToChiTietDonHang(this.ID, Now));
             }
             return list;
+        }
+
+        public bool IsEmpty()
+        {
+            return !items.Any();
+        }
+        public bool hasCoupon()
+        {
+            return Coupon > 0;
         }
     }
 }

@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLiQuanCaPhe.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="658" d:DesignWidth="720">
-    <Grid Background="White">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="320"/>
@@ -39,7 +40,7 @@
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListBox>
-            
+
             <!--End Categories-->
 
             <!--Product Items-->
@@ -205,7 +206,8 @@
                     </Grid>
                     <StackPanel Grid.Row="2" Margin="15,10,10,0">
                         <Button Background="{DynamicResource StrongContent}" FontSize="{DynamicResource SmallFont}" Foreground="{DynamicResource Font}" Width="120" Height="25" HorizontalAlignment="Right"
-                                >Thêm mã giảm giá</Button>
+                                Command="{Binding DataContext.ShowAddCouponDialog, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                            >Thêm giảm giá</Button>
                     </StackPanel>
                     <StackPanel Grid.Row="3" Margin="15,10,10,0">
                         <Separator Margin="0,0,0,2"/>
@@ -231,5 +233,47 @@
             <!--End of Checkout-->
         </Grid>
         <!--End of Order Content-->
+        <materialDesign:DialogHost IsOpen="{Binding IsAddCouponDialogOpen}" Grid.ColumnSpan="2" CloseOnClickAway="True">
+            <materialDesign:DialogHost.DialogContent>
+                <materialDesign:Card Grid.Row="1" Width="330" Height="150" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="Grid">
+                                <Setter Property="Margin" Value="15 0 15 0"></Setter>
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBox materialDesign:HintAssist.Hint="Mã giảm giá"
+                            Text="{Binding CouponCode}"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource TabActive}"
+                                     materialDesign:HintAssist.Foreground="{DynamicResource ContentFont}"
+                            />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0"    
+                                IsDefault="True"
+                                Background="{DynamicResource StrongContent}" BorderBrush="{DynamicResource StrongContent}"  FontSize="{DynamicResource SmallFont}" Foreground="{DynamicResource Font}" Width="120" Height="25" HorizontalAlignment="Right"  
+                                Command="{Binding AddCoupon}"
+                                ToolTip="Resource name: MaterialDesignRaisedButton" Content="Nhập mã"/>
+
+                            <Button Grid.Column="1"    
+                                IsDefault="True"
+                                Background="{DynamicResource StrongContent}" BorderBrush="{DynamicResource StrongContent}"  FontSize="{DynamicResource SmallFont}" Foreground="{DynamicResource Font}" Width="120" Height="25" HorizontalAlignment="Right"  
+                                Command="{Binding HideAddCouponDialog}"
+                                ToolTip="Resource name: MaterialDesignRaisedButton" Content="Hủy"/>
+                        </Grid>
+                    </Grid>
+                </materialDesign:Card>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
     </Grid>
 </UserControl>

@@ -44,7 +44,15 @@ namespace QuanLiQuanCaPhe.Models
             return DataAccess.GetNextOrderID();
         }
 
-
+        public static double ValidateCoupon(string CouponCode)
+        {
+            if (CouponCode == "MAGIAMGIA")
+            {
+                return 20;
+            }
+            return 0;
+        }
+        
         //private static List<Order> ListOrder = null;
         //public static List<Order> GetListOrder
         //{
