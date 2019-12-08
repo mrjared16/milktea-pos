@@ -18,9 +18,9 @@ namespace QuanLiQuanCaPhe.View
     /// <summary>
     /// Interaction logic for Order.xaml
     /// </summary>
-    public partial class Order : UserControl
+    public partial class History : UserControl
     {
-        public Order()
+        public History()
         {
             InitializeComponent();
         }

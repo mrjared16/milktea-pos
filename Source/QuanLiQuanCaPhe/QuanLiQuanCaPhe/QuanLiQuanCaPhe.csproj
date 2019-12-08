@@ -53,6 +53,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -112,6 +113,7 @@
     <Compile Include="Models\LichLamViec.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LichLamViecNhanVien.cs" />
     <Compile Include="Models\LoaiMonAn.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -122,28 +124,37 @@
     <Compile Include="Models\NhanVien.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderService.cs" />
     <Compile Include="Models\SeviceData.cs" />
     <Compile Include="NhanVienMainWindow.xaml.cs">
       <DependentUpon>NhanVienMainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\detailsInfoMilkteaViewModel.cs" />
     <Compile Include="ViewModel\DoanhThuViewModel.cs" />
+    <Compile Include="ViewModel\HistoryViewModel.cs" />
     <Compile Include="ViewModel\HomeNhanVienViewModel.cs" />
     <Compile Include="ViewModel\LichLamViecNhanVienViewModel.cs" />
-    <Compile Include="ViewModel\OderViewModel.cs" />
+    <Compile Include="ViewModel\NhanVienLayoutViewModel.cs" />
+    <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\TaiKhoanNhanVienViewModel.cs" />
-    <Compile Include="ViewModel\Temp1ViewModel.cs" />
     <Compile Include="View\detailsInfoMilktea.xaml.cs">
       <DependentUpon>detailsInfoMilktea.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DoanhThu.xaml.cs">
       <DependentUpon>DoanhThu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\History.xaml.cs">
+      <DependentUpon>History.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LichLamViecNhanVien.xaml.cs">
       <DependentUpon>LichLamViecNhanVien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NhanVienLayout.xaml.cs">
+      <DependentUpon>NhanVienLayout.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TaiKhoan.xaml.cs">
       <DependentUpon>TaiKhoan.xaml</DependentUpon>
@@ -152,13 +163,10 @@
       <DependentUpon>MonAnAdmin.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Order.xaml.cs">
-      <DependentUpon>HomeNhanVien.xaml</DependentUpon>
+      <DependentUpon>Order.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TaiKhoanNhanVien.xaml.cs">
       <DependentUpon>TaiKhoanNhanVien.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\temp1.xaml.cs">
-      <DependentUpon>temp1.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControlBarUC.xaml.cs">
       <DependentUpon>UserControlBarUC.xaml</DependentUpon>
@@ -200,6 +208,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\History.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -207,6 +219,14 @@
     <Page Include="View\LichLamViecNhanVien.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NhanVienLayout.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Order.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\TaiKhoan.xaml">
       <SubType>Designer</SubType>
@@ -216,15 +236,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\HomeNhanVien.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\TaiKhoanNhanVien.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\temp1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

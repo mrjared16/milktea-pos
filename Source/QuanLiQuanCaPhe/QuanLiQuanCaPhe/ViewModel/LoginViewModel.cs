@@ -1,4 +1,5 @@
 ﻿using QuanLiQuanCaPhe.Models;
+using QuanLiQuanCaPhe.View;
 using QuanLiQuanCaPhe.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -45,8 +46,8 @@ namespace QuanLiQuanCaPhe.ViewModel
 
 			string passEncode = MD5Hash(Base64Encode(Password));
 			var accCount = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN == UserName && x.MATKHAU == passEncode);
-
-			if(UserName.Equals("")||Password.Equals(""))
+			
+			if (UserName.Equals("")||Password.Equals(""))
 			{
 				MessageBox.Show("Bạn chưa điền đầy đủ thông tin đăng nhập!!!");
 			}
@@ -54,7 +55,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 			{
 				foreach (var item in accCount)
 				{
-					if(item.ISDEL==1)
+					if (item.ISDEL==0)
 					{
 						FileStream fileStream = new FileStream("tumeo.txt",FileMode.OpenOrCreate, FileAccess.ReadWrite);
 						byte[] temp = Encoding.UTF8.GetBytes(UserName);
@@ -70,9 +71,14 @@ namespace QuanLiQuanCaPhe.ViewModel
 						}
 						else
 						{
-							NhanVienMainWindow nhanVienMainWindow = new NhanVienMainWindow();
-							nhanVienMainWindow.Show();
+							NhanVienLayout nhanVienLayout = new NhanVienLayout();
+							nhanVienLayout.Show();
+
+
+							//NhanVienMainWindow nhanVienMainWindow = new NhanVienMainWindow();
+							//nhanVienMainWindow.Show();
 						}
+					
 						UserName = "";
 						Password = "";
 						p.Close();

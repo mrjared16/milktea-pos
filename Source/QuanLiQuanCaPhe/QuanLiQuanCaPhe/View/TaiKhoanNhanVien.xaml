@@ -91,13 +91,8 @@
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 						</Grid>
 						<Grid Grid.Row="6">
-							<TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
-							 Text="{Binding TaiKhoan, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-						</Grid>
-						<Grid Grid.Row="7">
-							<TextBox materialDesign:HintAssist.Hint="Mật khẩu"
-							 Text="{Binding MatKhau, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+							<TextBox materialDesign:HintAssist.Hint="Giới tính"
+							 Text="{Binding GioiTinh, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 						</Grid>
 					</Grid>

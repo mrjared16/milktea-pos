@@ -24,10 +24,10 @@
           </Key>
           <Property Name="MADH" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="MAMON" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="SOLUONG" Type="float" />
-          <Property Name="DONGIA" Type="float" />
-          <Property Name="THANHTIEN" Type="float" />
-          <Property Name="GIAMGIA" Type="float" />
+          <Property Name="SOLUONG" Type="float" Nullable="false" />
+          <Property Name="DONGIA" Type="float" Nullable="false" />
+          <Property Name="THANHTIEN" Type="float" Nullable="false" />
+          <Property Name="GIAMGIA" Type="float" Nullable="false" />
           <Property Name="ISDEL" Type="int" />
           <Property Name="CREADTEDAT" Type="datetime" />
           <Property Name="UPDATEDAT" Type="datetime" />
@@ -38,8 +38,8 @@
           </Key>
           <Property Name="MADH" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="MANV" Type="varchar" MaxLength="30" />
-          <Property Name="THOIGIAN" Type="datetime" />
-          <Property Name="TONGTIEN" Type="float" />
+          <Property Name="THOIGIAN" Type="datetime" Nullable="false" />
+          <Property Name="TONGTIEN" Type="float" Nullable="false" />
           <Property Name="TENKH" Type="nvarchar" MaxLength="30" />
           <Property Name="ISDEL" Type="int" />
           <Property Name="CREADTEDAT" Type="datetime" />
@@ -64,7 +64,7 @@
             <PropertyRef Name="MALOAI" />
           </Key>
           <Property Name="MALOAI" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="TENLOAI" Type="nvarchar" MaxLength="30" />
+          <Property Name="TENLOAI" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="ISDEL" Type="int" />
           <Property Name="CREADTEDAT" Type="datetime" />
           <Property Name="UPDATEDAT" Type="datetime" />
@@ -74,12 +74,12 @@
             <PropertyRef Name="MAMON" />
           </Key>
           <Property Name="MAMON" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="TENMON" Type="nvarchar" MaxLength="30" />
-          <Property Name="GIA" Type="float" />
-          <Property Name="MOTA" Type="nvarchar" MaxLength="30" />
-          <Property Name="MALOAI" Type="varchar" MaxLength="30" />
+          <Property Name="TENMON" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="GIA" Type="float" Nullable="false" />
+          <Property Name="MOTA" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="MALOAI" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="HINHANH" Type="image" />
-          <Property Name="TTSP" Type="nvarchar" MaxLength="30" />
+          <Property Name="TTSP" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="ISDEL" Type="int" />
           <Property Name="CREADTEDAT" Type="datetime" />
           <Property Name="UPDATEDAT" Type="datetime" />
@@ -90,15 +90,16 @@
           </Key>
           <Property Name="MANV" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="HOTEN" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="LUONG" Type="float" />
-          <Property Name="NGSINH" Type="date" />
+          <Property Name="LUONG" Type="float" Nullable="false" />
+          <Property Name="NGSINH" Type="date" Nullable="false" />
           <Property Name="PHAI" Type="nvarchar" MaxLength="5" />
-          <Property Name="CMND" Type="varchar" MaxLength="30" />
-          <Property Name="DIACHI" Type="nvarchar" MaxLength="100" />
-          <Property Name="DIENTHOAI" Type="varchar" MaxLength="30" />
-          <Property Name="CHUCVU" Type="nvarchar" MaxLength="30" />
-          <Property Name="TAIKHOAN" Type="varchar" MaxLength="30" />
-          <Property Name="MATKHAU" Type="varchar" MaxLength="50" />
+          <Property Name="CMND" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="HINHANH" Type="image" />
+          <Property Name="DIENTHOAI" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CHUCVU" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="TAIKHOAN" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MATKHAU" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ISDEL" Type="int" />
           <Property Name="CREADTEDAT" Type="datetime" />
           <Property Name="UPDATEDAT" Type="datetime" />
@@ -164,7 +165,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MA_LMA">
-          <End Role="LoaiMonAn" Type="Self.LoaiMonAn" Multiplicity="0..1" />
+          <End Role="LoaiMonAn" Type="Self.LoaiMonAn" Multiplicity="1" />
           <End Role="MonAn" Type="Self.MonAn" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LoaiMonAn">
@@ -265,10 +266,10 @@
           </Key>
           <Property Name="MADH" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="MAMON" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="SOLUONG" Type="Double" />
-          <Property Name="DONGIA" Type="Double" />
-          <Property Name="THANHTIEN" Type="Double" />
-          <Property Name="GIAMGIA" Type="Double" />
+          <Property Name="SOLUONG" Type="Double" Nullable="false" />
+          <Property Name="DONGIA" Type="Double" Nullable="false" />
+          <Property Name="THANHTIEN" Type="Double" Nullable="false" />
+          <Property Name="GIAMGIA" Type="Double" Nullable="false" />
           <Property Name="ISDEL" Type="Int32" />
           <Property Name="CREADTEDAT" Type="DateTime" Precision="3" />
           <Property Name="UPDATEDAT" Type="DateTime" Precision="3" />
@@ -281,8 +282,8 @@
           </Key>
           <Property Name="MADH" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="MANV" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="THOIGIAN" Type="DateTime" Precision="3" />
-          <Property Name="TONGTIEN" Type="Double" />
+          <Property Name="THOIGIAN" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TONGTIEN" Type="Double" Nullable="false" />
           <Property Name="TENKH" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="ISDEL" Type="Int32" />
           <Property Name="CREADTEDAT" Type="DateTime" Precision="3" />
@@ -311,7 +312,7 @@
             <PropertyRef Name="MALOAI" />
           </Key>
           <Property Name="MALOAI" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="TENLOAI" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="TENLOAI" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="ISDEL" Type="Int32" />
           <Property Name="CREADTEDAT" Type="DateTime" Precision="3" />
           <Property Name="UPDATEDAT" Type="DateTime" Precision="3" />
@@ -322,12 +323,12 @@
             <PropertyRef Name="MAMON" />
           </Key>
           <Property Name="MAMON" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="TENMON" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="GIA" Type="Double" />
-          <Property Name="MOTA" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="MALOAI" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TENMON" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="GIA" Type="Double" Nullable="false" />
+          <Property Name="MOTA" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="MALOAI" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="HINHANH" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="TTSP" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="TTSP" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="ISDEL" Type="Int32" />
           <Property Name="CREADTEDAT" Type="DateTime" Precision="3" />
           <Property Name="UPDATEDAT" Type="DateTime" Precision="3" />
@@ -340,15 +341,16 @@
           </Key>
           <Property Name="MANV" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="HOTEN" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LUONG" Type="Double" />
-          <Property Name="NGSINH" Type="DateTime" Precision="0" />
+          <Property Name="LUONG" Type="Double" Nullable="false" />
+          <Property Name="NGSINH" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="PHAI" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="CMND" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="DIACHI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DIENTHOAI" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="CHUCVU" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="TAIKHOAN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="MATKHAU" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CMND" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DIACHI" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HINHANH" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DIENTHOAI" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CHUCVU" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="TAIKHOAN" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MATKHAU" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ISDEL" Type="Int32" />
           <Property Name="CREADTEDAT" Type="DateTime" Precision="3" />
           <Property Name="UPDATEDAT" Type="DateTime" Precision="3" />
@@ -416,7 +418,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MA_LMA">
-          <End Type="QUAN_LY_QUAN_CAPHEModel.LoaiMonAn" Role="LoaiMonAn" Multiplicity="0..1" />
+          <End Type="QUAN_LY_QUAN_CAPHEModel.LoaiMonAn" Role="LoaiMonAn" Multiplicity="1" />
           <End Type="QUAN_LY_QUAN_CAPHEModel.MonAn" Role="MonAn" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LoaiMonAn">
@@ -525,6 +527,7 @@
                 <ScalarProperty Name="TAIKHOAN" ColumnName="TAIKHOAN" />
                 <ScalarProperty Name="CHUCVU" ColumnName="CHUCVU" />
                 <ScalarProperty Name="DIENTHOAI" ColumnName="DIENTHOAI" />
+                <ScalarProperty Name="HINHANH" ColumnName="HINHANH" />
                 <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
                 <ScalarProperty Name="CMND" ColumnName="CMND" />
                 <ScalarProperty Name="PHAI" ColumnName="PHAI" />

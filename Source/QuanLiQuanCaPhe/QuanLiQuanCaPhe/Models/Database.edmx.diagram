@@ -5,13 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="880d48214e8041a9954641a3b8831113" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="QUAN_LY_QUAN_CAPHEModel.CaLamViec" Width="1.5" PointX="8.125" PointY="1.125" />
-        <EntityTypeShape EntityType="QUAN_LY_QUAN_CAPHEModel.ChiTietDonhang" Width="1.5" PointX="10.5" PointY="0.75" />
-        <EntityTypeShape EntityType="QUAN_LY_QUAN_CAPHEModel.DonHang" Width="1.5" PointX="7.125" PointY="6.375" />
-        <EntityTypeShape EntityType="QUAN_LY_QUAN_CAPHEModel.LichLamViec" Width="1.5" PointX="5.875" PointY="0.5" />
-        <EntityTypeShape EntityType="QUAN_LY_QUAN_CAPHEModel.LoaiMonAn" Width="1.5" PointX="11.875" PointY="6.75" />
-        <EntityTypeShape EntityType="QUAN_LY_QUAN_CAPHEModel.MonAn" Width="1.5" PointX="13.75" PointY="3.75" />
-        <EntityTypeShape EntityType="QUAN_LY_QUAN_CAPHEModel.NhanVien" Width="1.5" PointX="3.5" PointY="0.75" />
+        <EntityTypeShape EntityType="QUAN_LY_QUAN_CAPHEModel.CaLamViec" Width="1.5" PointX="0.75" PointY="8.125" />
+        <EntityTypeShape EntityType="QUAN_LY_QUAN_CAPHEModel.ChiTietDonhang" Width="1.5" PointX="5.25" PointY="6.375" />
+        <EntityTypeShape EntityType="QUAN_LY_QUAN_CAPHEModel.DonHang" Width="1.5" PointX="3" PointY="6.5" />
+        <EntityTypeShape EntityType="QUAN_LY_QUAN_CAPHEModel.LichLamViec" Width="1.5" PointX="3" PointY="2.125" />
+        <EntityTypeShape EntityType="QUAN_LY_QUAN_CAPHEModel.LoaiMonAn" Width="1.5" PointX="0.75" PointY="12.875" />
+        <EntityTypeShape EntityType="QUAN_LY_QUAN_CAPHEModel.MonAn" Width="1.5" PointX="3" PointY="12.25" />
+        <EntityTypeShape EntityType="QUAN_LY_QUAN_CAPHEModel.NhanVien" Width="1.5" PointX="0.75" PointY="2.375" />
         <AssociationConnector Association="QUAN_LY_QUAN_CAPHEModel.FK_LLV_CLV" />
         <AssociationConnector Association="QUAN_LY_QUAN_CAPHEModel.FK_CTDH_DH" />
         <AssociationConnector Association="QUAN_LY_QUAN_CAPHEModel.FK_CTDH_MA" />

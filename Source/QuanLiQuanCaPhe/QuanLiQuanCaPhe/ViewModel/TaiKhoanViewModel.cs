@@ -13,6 +13,7 @@ using System.ComponentModel;
 using QuanLiQuanCaPhe.Models;
 using System.IO;
 using System.Globalization;
+using System.Drawing;
 
 namespace QuanLiQuanCaPhe.ViewModel
 {
@@ -112,8 +113,8 @@ namespace QuanLiQuanCaPhe.ViewModel
 		}
 		public ICommand ChonAnhCommand { get; set; }
 		String temp;
-		private string _DisplayedImagePath;
-		public string DisplayedImagePath
+		private BitmapImage _DisplayedImagePath;
+		public BitmapImage DisplayedImagePath
 		{
 			get { return _DisplayedImagePath; }
 			set { _DisplayedImagePath = value; OnPropertyChanged(); }
@@ -127,19 +128,12 @@ namespace QuanLiQuanCaPhe.ViewModel
 			{
 				seviceData = new SeviceData();
 				//string temo = DataProvider.ISCreated.DB.NhanViens.First().HOTEN;
-
-				foreach (var item in seviceData.GetCMNDNhanVien("Trương Văn Tú"))
-				{
-					MessageBox.Show(item.HOTEN);
-				}
 				OpenFileDialog openFileDialog = new OpenFileDialog();
 				if (openFileDialog.ShowDialog() == true)
 				{
 					Uri fileUri = new Uri(openFileDialog.FileName);
 					temp = fileUri.ToString();
-					DisplayedImagePath = temp;
-					OnPropertyChanged("Avatar");
-
+					DisplayedImagePath = new BitmapImage(new Uri(openFileDialog.FileName));
 				}
 			}
 			);
@@ -148,17 +142,18 @@ namespace QuanLiQuanCaPhe.ViewModel
 				var nhanVien = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN.Equals(tumeo));
 				foreach (var item in nhanVien)
 				{
-					//ho ten
-					if (!HoTen.Equals(item.HOTEN))
-						return true;
-					if (!TaiKhoan.ToString().Trim().Equals(tumeo.Trim()))
+					//hinh anh
+					if (!DisplayedImagePath.ToString().Equals(LoadImage(item.HINHANH).ToString()))
 					{
 						return true;
 					}
-						//ngay sinh
-					//	DateTime a = item.NGSINH.Value;
-					//if (!NgaySinh.Equals(a.ToString()))
-					//	return false;
+					//ho ten
+					if (!HoTen.Equals(item.HOTEN))
+						return true;
+					//ngay sinh
+					DateTime a = item.NGSINH;
+					if (!NgaySinh.Equals(a.ToString("dd/MM/yyyy")))
+						return true;
 					//dia chi
 					if (!DiaChi.Equals(item.DIACHI))
 						return true;
@@ -180,21 +175,19 @@ namespace QuanLiQuanCaPhe.ViewModel
 
 			; }, (p) =>
 			{
-				//var nhanvien = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN == tumeo).SingleOrDefault();
-				//nhanvien.TAIKHOAN = TaiKhoan;
-				//nhanvien.PHAI = GioiTinh;
-				//nhanvien.CMND = CMND;
-				//nhanvien.HOTEN = HoTen;
-				//nhanvien.NGSINH = DateTime.ParseExact(NgaySinh, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-				//nhanvien.DIACHI = DiaChi;
-				//DataProvider.ISCreated.DB.SaveChangesAsync();
+				var nhanvien = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN == tumeo).SingleOrDefault();
+				nhanvien.PHAI = GioiTinh;
+				nhanvien.HINHANH = ImageToByte2(DisplayedImagePath);
+				nhanvien.CMND = CMND;
+				nhanvien.CHUCVU = ChucVu;
+				nhanvien.DIENTHOAI = SDT;
+				nhanvien.HOTEN = HoTen;
+				nhanvien.NGSINH = DateTime.ParseExact(NgaySinh, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+				nhanvien.DIACHI = DiaChi;
+				DataProvider.ISCreated.DB.SaveChangesAsync();
 			}
 			);
 		}
-
-
-
-
 		public void loadData()
 		{
 			using (var fs1 = new FileStream("tumeo.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite))
@@ -216,7 +209,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 				//
 				TaiKhoan = item.TAIKHOAN;
 				//ngay sinh
-				DateTime a = item.NGSINH.Value;
+				DateTime a = item.NGSINH;
 				NgaySinh = a.ToString("dd/MM/yyyy");
 				//dia chi
 				DiaChi = item.DIACHI;
@@ -228,8 +221,37 @@ namespace QuanLiQuanCaPhe.ViewModel
 				ChucVu = item.CHUCVU;
 				//CMND
 				CMND = item.CMND;
+				//hinh anh ca nhan
+				DisplayedImagePath = LoadImage(item.HINHANH);
 			}
 			File.Delete("tumeo.txt");
+		}
+		private static BitmapImage LoadImage(byte[] imageData)
+		{
+			if (imageData == null || imageData.Length == 0) return null;
+			var image = new BitmapImage();
+			using (var mem = new MemoryStream(imageData))
+			{
+				mem.Position = 0;
+				image.BeginInit();
+				image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+				image.CacheOption = BitmapCacheOption.OnLoad;
+				image.UriSource = null;
+				image.StreamSource = mem;
+				image.EndInit();
+			}
+			image.Freeze();
+			return image;
+		}
+		public static byte[] ImageToByte2(BitmapImage img)
+		{
+			JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+			encoder.Frames.Add(BitmapFrame.Create(img));
+			using (MemoryStream ms = new MemoryStream())
+			{
+				encoder.Save(ms);
+				return ms.ToArray();
+			}
 		}
 
 	}

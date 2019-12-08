@@ -459,7 +459,7 @@ namespace QuanLiQuanCaPhe.Models
 		// don hang
 		public List<DonHang> danhSachDonHangHomNay(DateTime date)
 		{
-			List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.Day == date.Day));
+			List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.ToString("dd/mm/yyy").Equals(date.ToString("dd/mm/yyy"))));
 			int count = 0;
 			foreach (var item in donHangs)
 			{

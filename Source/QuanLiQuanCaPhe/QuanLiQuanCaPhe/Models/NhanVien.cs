@@ -20,35 +20,15 @@ namespace QuanLiQuanCaPhe.Models
             this.DonHangs = new HashSet<DonHang>();
             this.LichLamViecs = new HashSet<LichLamViec>();
         }
-
-		public NhanVien(string mANV, string hOTEN, double? lUONG, DateTime? nGSINH,
-			string pHAI, string cMND, string dIACHI, string dIENTHOAI, string cHUCVU,
-			string tAIKHOAN, string mATKHAU, int? iSDEL, DateTime? cREADTEDAT, 
-			DateTime? uPDATEDAT)
-		{
-			MANV = mANV;
-			HOTEN = hOTEN;
-			LUONG = lUONG;
-			NGSINH = nGSINH;
-			PHAI = pHAI;
-			CMND = cMND;
-			DIACHI = dIACHI;
-			DIENTHOAI = dIENTHOAI;
-			CHUCVU = cHUCVU;
-			TAIKHOAN = tAIKHOAN;
-			MATKHAU = mATKHAU;
-			ISDEL = iSDEL;
-			CREADTEDAT = cREADTEDAT;
-			UPDATEDAT = uPDATEDAT;
-		}
-
-		public string MANV { get; set; }
+    
+        public string MANV { get; set; }
         public string HOTEN { get; set; }
-        public Nullable<double> LUONG { get; set; }
-        public Nullable<System.DateTime> NGSINH { get; set; }
+        public double LUONG { get; set; }
+        public System.DateTime NGSINH { get; set; }
         public string PHAI { get; set; }
         public string CMND { get; set; }
         public string DIACHI { get; set; }
+        public byte[] HINHANH { get; set; }
         public string DIENTHOAI { get; set; }
         public string CHUCVU { get; set; }
         public string TAIKHOAN { get; set; }
@@ -61,24 +41,5 @@ namespace QuanLiQuanCaPhe.Models
         public virtual ICollection<DonHang> DonHangs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LichLamViec> LichLamViecs { get; set; }
-
-		public override bool Equals(object obj)
-		{
-			return obj is NhanVien vien &&
-				   MANV == vien.MANV &&
-				   HOTEN == vien.HOTEN &&
-				   EqualityComparer<double?>.Default.Equals(LUONG, vien.LUONG) &&
-				   EqualityComparer<DateTime?>.Default.Equals(NGSINH, vien.NGSINH) &&
-				   PHAI == vien.PHAI &&
-				   CMND == vien.CMND &&
-				   DIACHI == vien.DIACHI &&
-				   DIENTHOAI == vien.DIENTHOAI &&
-				   CHUCVU == vien.CHUCVU &&
-				   TAIKHOAN == vien.TAIKHOAN &&
-				   MATKHAU == vien.MATKHAU &&
-				   EqualityComparer<int?>.Default.Equals(ISDEL, vien.ISDEL) &&
-				   EqualityComparer<DateTime?>.Default.Equals(CREADTEDAT, vien.CREADTEDAT) &&
-				   EqualityComparer<DateTime?>.Default.Equals(UPDATEDAT, vien.UPDATEDAT);
-		}
-	}
+    }
 }

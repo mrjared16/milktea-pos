@@ -22,8 +22,11 @@ namespace QuanLiQuanCaPhe.Models
     
         public string MADH { get; set; }
         public string MANV { get; set; }
-        public Nullable<System.DateTime> THOIGIAN { get; set; }
-        public Nullable<double> TONGTIEN { get; set; }
+        public System.DateTime THOIGIAN { get; set; }
+        public double TONGTIEN { get; set; }
+
+
+
         public string TENKH { get; set; }
         public Nullable<int> ISDEL { get; set; }
         public Nullable<System.DateTime> CREADTEDAT { get; set; }

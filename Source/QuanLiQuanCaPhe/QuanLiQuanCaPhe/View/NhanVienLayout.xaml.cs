@@ -10,17 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QuanLiQuanCaPhe.ViewModel;
 
 namespace QuanLiQuanCaPhe.View
 {
     /// <summary>
-    /// Interaction logic for Order.xaml
+    /// Interaction logic for Layout.xaml
     /// </summary>
-    public partial class Order : UserControl
+    public partial class NhanVienLayout : Window
     {
-        public Order()
+        public NhanVienLayout()
         {
             InitializeComponent();
         }

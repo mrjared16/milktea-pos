@@ -7,7 +7,7 @@
 			 xmlns:local="clr-namespace:QuanLiQuanCaPhe.View"
              mc:Ignorable="d" 
 			 d:DesignHeight="800" d:DesignWidth="1250"  
-							>
+			>
 	<Grid Background="MediumSpringGreen">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="auto"></RowDefinition>
@@ -96,11 +96,6 @@
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 				</Grid>
 				<Grid Grid.Row="6">
-					<TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
-							 Text="{Binding TaiKhoan, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-				</Grid>
-				<Grid Grid.Row="7">
 					<TextBox materialDesign:HintAssist.Hint="Giới tính"
 							 Text="{Binding GioiTinh, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
