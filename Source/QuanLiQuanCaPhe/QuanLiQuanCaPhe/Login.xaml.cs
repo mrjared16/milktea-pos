@@ -10,18 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiQuanCaPhe.View
-
+namespace QuanLiQuanCaPhe
 {
 	/// <summary>
-	/// Interaction logic for MonAn.xaml
+	/// Interaction logic for Login.xaml
 	/// </summary>
-	public partial class MonAn : UserControl
+	public partial class Login : Window
 	{
-		public MonAn()
+		public Login()
 		{
 			InitializeComponent();
 		}

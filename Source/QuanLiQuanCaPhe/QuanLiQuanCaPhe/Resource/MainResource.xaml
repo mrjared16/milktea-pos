@@ -8,7 +8,11 @@
 	<viewModel:MainViewModel x:Key="NhanVienMainVM"></viewModel:MainViewModel>
 	<viewModel:LoginViewModel x:Key="LoginVM"></viewModel:LoginViewModel>
     <viewModel:MainViewModel x:Key="NhanVienLayoutVM"></viewModel:MainViewModel>
-    <SolidColorBrush x:Key="Tab" Color="#FF585E6E"/>
+	<viewModel:MonAnAdminViewModel x:Key="Menu"></viewModel:MonAnAdminViewModel>
+	<viewModel:DoanhThuAdminViewModel x:Key="DoanhThu"></viewModel:DoanhThuAdminViewModel>
+	<viewModel:TaiKhoanViewModel x:Key="TK"></viewModel:TaiKhoanViewModel>
+	
+	<SolidColorBrush x:Key="Tab" Color="#FF585E6E"/>
     <SolidColorBrush x:Key="TabActive" Color="#FF2C3345"/>
     <SolidColorBrush x:Key="Border" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="Font" Color="#FFFAFAFA"/>

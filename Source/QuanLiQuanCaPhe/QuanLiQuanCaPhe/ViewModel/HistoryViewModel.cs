@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using QuanLiQuanCaPhe.Models;
 using System.Windows;
-namespace QuanLiQuanCaPhe.ViewModels
+namespace QuanLiQuanCaPhe.ViewModel
 {
     public class HistoryViewModel : NhanVienLayoutViewModelInterface
     {
@@ -38,11 +38,13 @@ namespace QuanLiQuanCaPhe.ViewModels
             get
             {
                 if (_ListOrder == null)
-                    _ListOrder = OrderService.GetOrderByCategory(new Category() { ID = "day" });
+                    _ListOrder = OrderService.GetOrderByCategory(new Category() { ID = "day"});
                 return _ListOrder;
             }
             set
             {
+                //_ListOrder = value;
+                //OnPropertyChanged(null);
                 OnPropertyChanged(ref _ListOrder, value);
             }
         }

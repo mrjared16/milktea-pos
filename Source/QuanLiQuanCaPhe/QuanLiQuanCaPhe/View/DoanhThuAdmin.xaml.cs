@@ -14,16 +14,15 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace QuanLiQuanCaPhe.View
-
 {
-	/// <summary>
-	/// Interaction logic for MonAn.xaml
-	/// </summary>
-	public partial class MonAn : UserControl
-	{
-		public MonAn()
-		{
-			InitializeComponent();
-		}
-	}
+    /// <summary>
+    /// Interaction logic for DoanhThuAdmin.xaml
+    /// </summary>
+    public partial class DoanhThuAdmin : UserControl
+    {
+        public DoanhThuAdmin()
+        {
+            InitializeComponent();
+        }
+    }
 }

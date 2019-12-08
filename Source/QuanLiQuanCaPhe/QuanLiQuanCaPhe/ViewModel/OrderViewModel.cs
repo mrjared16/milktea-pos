@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using QuanLiQuanCaPhe.Models;
 
-namespace QuanLiQuanCaPhe.ViewModels
+namespace QuanLiQuanCaPhe.ViewModel
 {
     public class OrderViewModel : NhanVienLayoutViewModelInterface
     {
@@ -223,9 +223,10 @@ namespace QuanLiQuanCaPhe.ViewModels
         {
            
             this.Date = DateTime.Now;
+            //this.Username = OrderService.GetUser();
             this.Coupon = 0;
             items = new ObservableCollection<OrderItem>();
-            this.User = UserService.GetCurrentUser();
+            this.User = UserService.GetCurrentUser;
         }
         public Order(DonHang DonHang)
         {

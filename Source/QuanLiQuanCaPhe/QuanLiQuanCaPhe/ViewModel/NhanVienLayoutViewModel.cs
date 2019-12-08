@@ -8,7 +8,7 @@ using System.Windows.Input;
 using System.Windows;
 using QuanLiQuanCaPhe.Models;
 
-namespace QuanLiQuanCaPhe.ViewModels
+namespace QuanLiQuanCaPhe.ViewModel
 {
     public class NhanVienLayoutViewModelInterface : BaseViewModel
     {
@@ -17,7 +17,7 @@ namespace QuanLiQuanCaPhe.ViewModels
     public class NhanVienLayoutViewModel : BaseViewModel
     {
         #region commands
-        public ICommand HomeView { get; set; }
+        public ICommand LoadHomeView { get; set; }
         public ICommand LoadOrderView { get; set; }
         public ICommand LoadHistoryView { get; set; }
         public ICommand LoadLogoutView { get; set; }
@@ -33,6 +33,9 @@ namespace QuanLiQuanCaPhe.ViewModels
                 OnPropertyChanged(ref _currentView, value);
             }
         }
+
+
+
         private OrderViewModel _orderVM = null;
         private OrderViewModel OrderVM
         {
@@ -58,9 +61,23 @@ namespace QuanLiQuanCaPhe.ViewModels
                 }
                 return _historyVM;
             }
-            set { OnPropertyChanged(ref _historyVM, value); }
+            set { OnPropertyChanged(ref _historyVM, value, null); }
         }
-        private string _Title;
+
+		private TaiKhoanNhanVienViewModel _taikhoanVM = null;
+		private TaiKhoanNhanVienViewModel TaikhoanVM
+		{
+			get
+			{
+				if (_taikhoanVM == null)
+				{
+					_taikhoanVM = new TaiKhoanNhanVienViewModel();
+				}
+				return _taikhoanVM;
+			}
+			set { OnPropertyChanged(ref _taikhoanVM, value, null); }
+		}
+		private string _Title;
         public string Title
         {
             get
@@ -77,9 +94,19 @@ namespace QuanLiQuanCaPhe.ViewModels
             CurrentView = OrderVM;
             LoadOrderView = new RelayCommand<object>((p) => { return CurrentView != OrderVM; }, (p) => { CurrentView = OrderVM; });
             LoadHistoryView = new RelayCommand<object>((p) => { return CurrentView != HistoryVM; }, (p) => { CurrentView = HistoryVM; });
-            //{
-            //    
-            //});
-        }
+			LoadHomeView = new RelayCommand<object>((p) => { return CurrentView != TaikhoanVM; }, (p) => { CurrentView = TaikhoanVM; });
+			LoadLogoutView = new RelayCommand<object>((p) => { return true; }, (p) => 
+			{
+				//MessageBox.Show(p.ToString());
+				Login login = new Login();
+				login.Show();
+				((Window)p).Close();
+			});
+
+			
+			//{
+			//    
+			//});
+		}
     }
 }
