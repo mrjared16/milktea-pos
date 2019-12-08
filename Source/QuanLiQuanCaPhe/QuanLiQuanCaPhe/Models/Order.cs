@@ -9,31 +9,56 @@ namespace QuanLiQuanCaPhe.Models
     public class Category
     {
         public string Name { get; set; }
+        public string ID { get; set; }
+        public Category(LoaiMonAn a)
+        {
+            this.Name = a.TENLOAI;
+            this.ID = a.MALOAI;
+        }
+        public Category()
+        {
+        }
     }
     public class Drink
     {
-        private float price;
+        private double price;
         private string name;
-        private string img_source;
-
+        private byte[] img;
+        private string _ID;
         public Drink(string name, float price, string img_source)
         {
             this.price = price;
             this.name = name;
-            this.img_source = img_source;
+            this.img = null;
+        }
+        public Drink(MonAn monan)
+        {
+            this.price = Convert.ToDouble(monan.GIA);
+            this.name = monan.TENMON;
+            this.img = monan.HINHANH;
+            this.ID = monan.MAMON;
         }
 
+        public string ID
+        {
+            get { return _ID; }
+            set { _ID = value; }
+        }
         public string Name
         {
             get { return name; }
         }
-        public float Price
+        public string Label
+        {
+            get { return (name.Length > 15) ? name.Substring(0, 12) + "..." : name; }
+        }
+        public double Price
         {
             get { return price; }
         }
-        public string ImgSource()
+        public byte[] Image
         {
-            return img_source;
+            get { return img; }
         }
     }
 
