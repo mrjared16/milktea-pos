@@ -10,10 +10,22 @@ using System.Windows.Input;
 
 namespace QuanLiQuanCaPhe.ViewModel
 {
-	public class MainViewModel:BaseViewModel
-	{
-		public MainViewModel()
-		{
-		}
-	}
+    public class MainViewModel : BaseViewModel
+    {
+        private string _a;
+        public string a
+        {
+            get { return _a; }
+            set
+            {
+                _a = value;
+                OnPropertyChanged("a");
+            }
+        }
+        public MainViewModel()
+        {
+            a = @"D:\save.png";
+
+        }
+    }
 }

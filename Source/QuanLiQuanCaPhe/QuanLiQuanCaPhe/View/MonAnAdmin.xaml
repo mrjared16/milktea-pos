@@ -54,9 +54,20 @@
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         BorderThickness="2"
                         CornerRadius="10">
-                        <TextBox Width="300" materialDesign:HintAssist.Hint="Tìm kiếm món ăn" />
+                        <TextBox
+                            Width="300"
+                            materialDesign:HintAssist.Hint="Tìm kiếm món ăn"
+                            Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            TextWrapping="Wrap" />
                     </Border>
-                    <Button Height="40" Margin="5,0,0,0">
+                    <Button
+                        x:Name="btnSearch"
+                        Height="40"
+                        Margin="5,0,0,0"
+                        Command="{Binding SearchMonAnCommand}"
+                        CommandParameter="{Binding ElementName=btnSearch}"
+                        DataContext="{StaticResource Menu}"
+                        IsDefault="True">
                         <materialDesign:PackIcon
                             Width="30"
                             Height="30"
@@ -66,40 +77,36 @@
                     </Button>
                 </StackPanel>
             </StackPanel>
-            <!--<Border
-                Width="250"
-                Height="50"
-                Margin="20,0,0,0"
-                Padding="8"
-                HorizontalAlignment="Left"
-                Background="PeachPuff">
-                <ComboBox ItemsSource="{Binding Path=MilkteaCategories}" SelectedValuePath="Name">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Path=Name}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </Border>-->
             <Border
                 Width="250"
-                Height="80"
+                Height="70"
                 Margin="20,0,0,0"
-                Padding="8"
+                Padding="5"
                 HorizontalAlignment="Left"
-                Background="PeachPuff"
-                BorderBrush="LightBlue"
-                BorderThickness="2">
+                Background="#616161"
+                CornerRadius="5">
                 <ComboBox
                     materialDesign:HintAssist.FloatingOffset="0, -24"
                     materialDesign:HintAssist.FloatingScale="1"
-                    materialDesign:HintAssist.Hint="LOẠI MÓN"
+                    materialDesign:HintAssist.Foreground="AntiqueWhite"
+                    materialDesign:HintAssist.Hint="LOẠI THỨC UỐNG"
                     ItemsSource="{Binding MilkteaCategories}"
+                    SelectedItem="{Binding selectedLoai, Mode=TwoWay}"
                     SelectedValuePath="Name"
                     Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Path=Name}" />
+                            <Border
+                                Padding="5"
+                                Background="#373737"
+                                BorderBrush="WhiteSmoke"
+                                BorderThickness="0,0,0,1">
+                                <TextBlock
+                                    Cursor="Hand"
+                                    FontFamily="Courier New"
+                                    Foreground="WhiteSmoke"
+                                    Text="{Binding Path=TENLOAI}" />
+                            </Border>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
@@ -130,53 +137,67 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <ListView
+            <Border
                 Grid.Row="0"
                 Grid.RowSpan="6"
                 Grid.ColumnSpan="3"
                 Margin="10,0,10,0"
-                Grid.IsSharedSizeScope="True"
-                ItemsSource="{Binding _listMilkteaInfo}"
-                ScrollViewer.CanContentScroll="True"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                SelectedItem="{Binding selectItem_Menu, Mode=TwoWay}">
+                BorderBrush="#FF322F2F"
+                BorderThickness="0,0,1,0"
+                Grid.IsSharedSizeScope="True">
+                <ListView
+                    ItemsSource="{Binding listMonAn}"
+                    ScrollViewer.CanContentScroll="True"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    SelectedItem="{Binding selectItem_Menu}">
 
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
 
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Border
-                            x:Name="Border"
-                            Margin="3"
-                            Padding="5"
-                            Background="#ffecb3"
-                            CornerRadius="8">
-                            <Grid Width="180" Height="60">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition SharedSizeGroup="Checkerz" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image
-                                    Width="50"
-                                    Height="50"
-                                    Source="{Binding imgUrl}" />
-                                <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                                    <TextBlock
-                                        HorizontalAlignment="Right"
-                                        FontWeight="Bold"
-                                        Text="{Binding tenMon}"
-                                        TextWrapping="Wrap" />
-                                    <TextBlock HorizontalAlignment="Right" Text="{Binding gia}" />
-                                </StackPanel>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                x:Name="Border"
+                                Margin="2"
+                                Padding="4"
+                                Background="#FFFFECEC"
+                                BorderBrush="#FF404040"
+                                BorderThickness="0.5"
+                                Cursor="Hand">
+                                <Grid Width="185" Height="60">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition SharedSizeGroup="Checkerz" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Image
+                                        Width="60"
+                                        Height="60"
+                                        HorizontalAlignment="Left"
+                                        Source="{Binding HINHANH}" />
+                                    <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            FontFamily="Consolas"
+                                            FontSize="14"
+                                            FontWeight="Bold"
+                                            Foreground="Black"
+                                            Text="{Binding TENMON}"
+                                            TextWrapping="Wrap" />
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            FontFamily="Consolas"
+                                            FontSize="11"
+                                            Text="{Binding GIA}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
             <Button
                 Grid.Row="6"
                 Grid.RowSpan="2"
@@ -202,7 +223,7 @@
                     Width="400"
                     VerticalAlignment="Center"
                     Background="PeachPuff"
-                    DataContext="{Binding milkTeaInfoCha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    DataContext="{Binding MonAnChiTiet}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -215,8 +236,8 @@
                         Grid.ColumnSpan="2"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
-                        <Image Margin="5" Source="{Binding imgUrl}" />
-                        <Button Margin="15">CHỌN ẢNH</Button>
+                        <Image Margin="5" Source="{Binding HINHANH}" />
+                        <Button DataContext="{StaticResource Menu}" Margin="15" Command="{Binding ChooseImgMonAn}">CHỌN ẢNH</Button>
                     </StackPanel>
 
                     <Grid
@@ -256,7 +277,8 @@
                             <TextBox
                                 Grid.ColumnSpan="2"
                                 Margin="0,0,5,5"
-                                Text="{Binding tenMon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{Binding TENMON}"
+                                TextWrapping="Wrap" />
                         </Border>
                         <Label
                             Grid.Row="1"
@@ -275,7 +297,10 @@
                             BorderBrush="LightBlue"
                             BorderThickness="2"
                             CornerRadius="5">
-                            <TextBox Margin="0,0,5,5" Text="{Binding loai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox
+                                Margin="0,0,5,5"
+                                Text="{Binding MAMON}"
+                                TextWrapping="Wrap" />
                         </Border>
                         <Label
                             Grid.Row="2"
@@ -297,7 +322,8 @@
                             <TextBox
                                 Grid.ColumnSpan="2"
                                 Margin="0,0,5,5"
-                                Text="{Binding loai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{Binding MALOAI}"
+                                TextWrapping="Wrap" />
                         </Border>
                         <Label
                             Grid.Row="3"
@@ -319,7 +345,8 @@
                             <TextBox
                                 Grid.ColumnSpan="2"
                                 Margin="0,0,5,5"
-                                Text="{Binding moTa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{Binding MOTA}"
+                                TextWrapping="Wrap" />
                         </Border>
                         <Label
                             Grid.Row="4"
@@ -338,7 +365,10 @@
                             BorderBrush="LightBlue"
                             BorderThickness="2"
                             CornerRadius="5">
-                            <TextBox Margin="0,0,5,5" Text="{Binding gia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox
+                                Margin="0,0,5,5"
+                                Text="{Binding GIA}"
+                                TextWrapping="Wrap" />
                         </Border>
                         <StackPanel
                             Grid.Row="5"
@@ -347,12 +377,16 @@
                             Margin="0,20,0,0"
                             Orientation="Horizontal">
                             <Button
+                                Name="btnAddSave"
                                 Margin="0,0,5,0"
                                 Command="{Binding Add_SaveCommand}"
+                                CommandParameter="{Binding ElementName=btnAddSave}"
                                 Content="{Binding btnAdd_Save}"
                                 DataContext="{StaticResource Menu}" />
                             <Button
+                                x:Name="btnDeleteCancel"
                                 Command="{Binding Delete_CancelCommand}"
+                                CommandParameter="{Binding ElementName=btnDeleteCancel}"
                                 Content="{Binding btnDelete_Cancel}"
                                 DataContext="{StaticResource Menu}" />
                         </StackPanel>

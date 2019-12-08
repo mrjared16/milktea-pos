@@ -1,172 +1,169 @@
-﻿<Window x:Class="QuanLiQuanCaPhe.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:QuanLiQuanCaPhe"
-        mc:Ignorable="d"
-		xmlns:uc="clr-namespace:QuanLiQuanCaPhe.View"
-		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-		TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-		xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-		ResizeMode="NoResize"
-        WindowStyle="None"
-        WindowStartupLocation="CenterScreen"
-		xmlns:ViewModelss="clr-namespace:QuanLiQuanCaPhe.ViewModel"
-		xmlns:View="clr-namespace:QuanLiQuanCaPhe.View"
-        Name="mainWindow"
-        DataContext="{StaticResource MainVM}"
-        Title="Phần mềm quản lý kho" Height="800" Width="1500">
+﻿<Window
+    x:Class="QuanLiQuanCaPhe.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:View="clr-namespace:QuanLiQuanCaPhe.View"
+    xmlns:ViewModelss="clr-namespace:QuanLiQuanCaPhe.ViewModel"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:QuanLiQuanCaPhe"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:QuanLiQuanCaPhe.View"
+    Name="mainWindow"
+    Title="Phần mềm quản lý kho"
+    Width="1500"
+    Height="800"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    ResizeMode="NoResize"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
 
     <Window.Resources>
-        <DataTemplate 
-			x:Name="homeTempalte"
-			DataType ="{x:Type ViewModelss:HomeViewModel}"
-			>
-            <View:Home DataContext="{Binding}"></View:Home>
+        <DataTemplate x:Name="homeTempalte" DataType="{x:Type ViewModelss:HomeViewModel}">
+            <View:Home DataContext="{Binding}" />
         </DataTemplate>
-        <DataTemplate 
-			x:Name="taiKhoanTempalte"
-			DataType ="{x:Type ViewModelss:TaiKhoanViewModel}"
-			>
-            <View:TaiKhoan DataContext="{Binding}"></View:TaiKhoan>
+        <DataTemplate x:Name="taiKhoanTempalte" DataType="{x:Type ViewModelss:TaiKhoanViewModel}">
+            <View:TaiKhoan DataContext="{Binding}" />
         </DataTemplate>
-        <DataTemplate 
-			x:Name="MonAnAdminTempalte"
-			DataType ="{x:Type ViewModelss:MonAnAdminViewModel}"
-			>
-            <View:MonAn DataContext="{Binding}"></View:MonAn>
+        <DataTemplate x:Name="MonAnAdminTempalte" DataType="{x:Type ViewModelss:MonAnAdminViewModel}">
+            <View:MonAn DataContext="{Binding}" />
         </DataTemplate>
 
-        <DataTemplate 
-			x:Name="DoanhThuAdminTemplate"
-			DataType ="{x:Type ViewModelss:DoanhThuAdminViewModel}"
-			>
-            <View:DoanhThuAdmin DataContext="{Binding}"></View:DoanhThuAdmin>
+        <DataTemplate x:Name="DoanhThuAdminTemplate" DataType="{x:Type ViewModelss:DoanhThuAdminViewModel}">
+            <View:DoanhThuAdmin DataContext="{Binding}" />
         </DataTemplate>
     </Window.Resources>
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}"
-								   CommandParameter="{Binding ElementName=mainWindow}"/>
+            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" CommandParameter="{Binding ElementName=mainWindow}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
         <Grid.Background>
-            <ImageBrush x:Name="igridnen" Stretch="Fill"></ImageBrush>
+            <ImageBrush x:Name="igridnen" Stretch="Fill" />
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <uc:UserControlBarUC Tag="{Binding Title, ElementName=mainWindow}"></uc:UserControlBarUC>
+            <View:UserControlBarUC Tag="{Binding Title, ElementName=mainWindow}" />
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
-            <Grid
-				Grid.Row="0"
-				Background="Aquamarine">
-                <Ellipse 
-				HorizontalAlignment="Center"
-				Width="150"
-				Height="150">
+            <Grid Grid.Row="0" Background="Aquamarine">
+                <Image DataContext="{StaticResource TK}" Source="{Binding a, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                <Ellipse
+                    Width="150"
+                    Height="150"
+                    HorizontalAlignment="Center"
+                    DataContext="{StaticResource TK}">
                     <Ellipse.Fill>
-                        <ImageBrush
-						ImageSource="{Binding DisplayedImagePath}"
-						>
-                        </ImageBrush>
+                        <ImageBrush ImageSource="{Binding DisplayedImagePath}" />
                     </Ellipse.Fill>
                 </Ellipse>
             </Grid>
-            <DockPanel Background="Aquamarine" Grid.Row="1" Grid.Column="0" Grid.RowSpan="5">
+            <DockPanel
+                Grid.Row="1"
+                Grid.RowSpan="5"
+                Grid.Column="0"
+                Background="Aquamarine">
                 <StackPanel>
                     <Button
-						Padding="5,5,5,5"
-						HorizontalAlignment="Stretch"
-						VerticalAlignment="Stretch"
-						Margin="0,0,0,0"
-						FontSize="20"
-						Content="Tài khoản"
-						Visibility="Visible"
-						Style="{StaticResource MaterialDesignRaisedButton}"
-						ToolTip="Resource name: MaterialDesignRaisedButton" 
-						Click="taiKhoan">
-                    </Button>
+                        Margin="0,0,0,0"
+                        Padding="5,5,5,5"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Click="taiKhoan"
+                        Content="Tài khoản"
+                        FontSize="20"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        ToolTip="Resource name: MaterialDesignRaisedButton"
+                        Visibility="Visible" />
                     <Button
-						Padding="5,5,5,5"
-						FontSize="20"
-						HorizontalAlignment="Stretch"
-						VerticalAlignment="Stretch"
-						Margin="0,0,0,0"
-						Style="{StaticResource MaterialDesignRaisedButton}"
-						ToolTip="Resource name: MaterialDesignRaisedButton">
+                        Margin="0,0,0,0"
+                        Padding="5,5,5,5"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        FontSize="20"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        ToolTip="Resource name: MaterialDesignRaisedButton">
                         _Đơn hàng
                     </Button>
                     <Button
-						FontSize="20"
-						Padding="5,5,5,5"
-						HorizontalAlignment="Stretch"
-						VerticalAlignment="Stretch"
-						Margin="0,0,0,0"
-						Style="{StaticResource MaterialDesignRaisedButton}"
-						ToolTip="Resource name: MaterialDesignRaisedButton" Click="MonAnAdmin">
+                        Margin="0,0,0,0"
+                        Padding="5,5,5,5"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Click="MonAnAdmin"
+                        FontSize="20"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        ToolTip="Resource name: MaterialDesignRaisedButton">
                         _Món ăn
                     </Button>
                     <Button
-						FontSize="20"
-						Padding="5,5,5,5"
-						HorizontalAlignment="Stretch"
-						VerticalAlignment="Stretch"
-						Margin="0,0,0,0"
-						Style="{StaticResource MaterialDesignRaisedButton}"
-						ToolTip="Resource name: MaterialDesignRaisedButton">
+                        Margin="0,0,0,0"
+                        Padding="5,5,5,5"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        FontSize="20"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        ToolTip="Resource name: MaterialDesignRaisedButton">
                         _Loại món ăn
                     </Button>
                     <Button
-						Padding="5,5,5,5"
-						FontSize="20"
-						HorizontalAlignment="Stretch"
-						VerticalAlignment="Stretch"
-						Margin="0,0,0,0"
-						Style="{StaticResource MaterialDesignRaisedButton}"
-						ToolTip="Resource name: MaterialDesignRaisedButton" Click="DoanhThu">
+                        Margin="0,0,0,0"
+                        Padding="5,5,5,5"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Click="DoanhThu"
+                        FontSize="20"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        ToolTip="Resource name: MaterialDesignRaisedButton">
                         Doanh Thu
                     </Button>
                     <Button
-						Padding="5,5,5,5"
-						FontSize="20"
-						HorizontalAlignment="Stretch"
-						VerticalAlignment="Stretch"
-						Margin="0,0,0,0"
-						Style="{StaticResource MaterialDesignRaisedButton}"
-						ToolTip="Resource name: MaterialDesignRaisedButton" Click="DangXuat">
+                        Margin="0,0,0,0"
+                        Padding="5,5,5,5"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Click="DangXuat"
+                        FontSize="20"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        ToolTip="Resource name: MaterialDesignRaisedButton">
                         Đăng xuất
                     </Button>
 
                 </StackPanel>
             </DockPanel>
-            <ContentControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="4" Content="{Binding}"/>
+            <ContentControl
+                Grid.Row="0"
+                Grid.RowSpan="4"
+                Grid.Column="1"
+                Grid.ColumnSpan="5"
+                Content="{Binding}" />
         </Grid>
     </Grid>
 </Window>

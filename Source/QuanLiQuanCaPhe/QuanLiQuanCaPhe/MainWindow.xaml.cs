@@ -23,15 +23,20 @@ namespace QuanLiQuanCaPhe
     /// </summary>
     public partial class MainWindow : Window
     {
+        public TaiKhoanViewModel home { get; set; }
         public MainWindow()
         {
+
             InitializeComponent();
-            DataContext = new TaiKhoanViewModel();
+            home = new TaiKhoanViewModel();
+            this.DataContext = home;
+
         }
 
         private void taiKhoan(object sender, RoutedEventArgs e)
         {
-            DataContext = new TaiKhoanViewModel();
+            home = new TaiKhoanViewModel();
+            this.DataContext = home;
         }
 
         private void MonAnAdmin(object sender, RoutedEventArgs e)

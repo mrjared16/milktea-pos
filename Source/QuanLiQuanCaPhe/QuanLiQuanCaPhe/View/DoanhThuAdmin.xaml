@@ -119,7 +119,7 @@
             Margin="0,0,0,30"
             HorizontalAlignment="Center"
             Grid.IsSharedSizeScope="True"
-            ItemsSource="{Binding _listMilkteaInfo}"
+            ItemsSource="{Binding listDoanhThu}"
             ScrollViewer.CanContentScroll="True"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemContainerStyle>
@@ -151,46 +151,62 @@
                                 <Image
                                     Width="50"
                                     Height="50"
-                                    Source="{Binding imgUrl}" />
+                                    Source="{Binding monAn.HINHANH}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn
                         Width="250"
-                        DisplayMemberBinding="{Binding tenMon}"
+                        DisplayMemberBinding="{Binding monAn.TENMON}"
                         Header="Sản phẩm" />
                     <GridViewColumn
                         Width="150"
-                        DisplayMemberBinding="{Binding Name}"
+                        DisplayMemberBinding="{Binding monAn.MALOAI}"
                         Header="Loại" />
                     <GridViewColumn
                         Width="200"
-                        DisplayMemberBinding="{Binding gia}"
+                        DisplayMemberBinding="{Binding TongTienThu}"
                         Header="Doanh thu" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <StackPanel Grid.Row="7" Grid.RowSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 250 0">
+        <StackPanel
+            Grid.Row="7"
+            Grid.RowSpan="2"
+            Margin="0,0,250,0"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
             <materialDesign:Card
-                Padding="5"
                 Width="200"
-
-                Background="#2979ff"
-                Margin="0 0 20 0"
                 Height="40"
-                materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                materialDesign:ShadowAssist.ShadowEdges="All">
-                TỔNG DOANH THU:
-            </materialDesign:Card>
-            <materialDesign:Card
+                Margin="0,0,20,0"
                 Padding="5"
-                Width="100"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                materialDesign:ShadowAssist.ShadowEdges="All"
+                Background="#2979ff">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    FontSize="16"
+                    Text="TỔNG DOANH THU:" />
+            </materialDesign:Card>
 
+            <materialDesign:Card
+                Width="100"
                 Height="40"
+                Padding="5"
                 materialDesign:ShadowAssist.ShadowDepth="Depth3"
                 materialDesign:ShadowAssist.ShadowEdges="All">
-                10.500.000đ
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Foreground="Red"
+                    Text="{Binding TongDoanhThu}" />
             </materialDesign:Card>
+
+
         </StackPanel>
 
     </Grid>

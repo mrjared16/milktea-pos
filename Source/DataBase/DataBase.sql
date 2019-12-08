@@ -14,23 +14,24 @@ create table NhanVien
 	HOTEN nvarchar(100) NOT NULL,
 	LUONG float,
 	NGSINH date,    
-	PHAI varchar(5) Check (PHAI IN('Nam','Nu')),                                                                           
+	PHAI nvarchar(5) Check (PHAI IN('Nam','Nữ')),                                                                           
 	CMND varchar(30),
+	DIACHI nvarchar(100),
 	DIENTHOAI varchar(30),
 	CHUCVU nvarchar(30),
 	TAIKHOAN varchar(30),
 	MATKHAU varchar(50),
-	ISDEL int,
-	ISADMIN int,
-	CREATEDAT datetime
+	ISDEL int DEFAULT 0,
+	CREADTEDAT datetime,
+	UPDATEDAT datetime
 )
 
 create table MonAn
 (
 	MAMON varchar(30) primary key,
-	TENMON nvarchar(30),
+	TENMON nvarchar(100),
 	GIA float,
-	MOTA nvarchar(30),
+	MOTA nvarchar(200),
 	MALOAI varchar(30),
 	HINHANH image,
 	TTSP nvarchar(30),
@@ -41,7 +42,7 @@ create table MonAn
 create table LoaiMonAn
 (
 	MALOAI varchar(30) primary key,
-	TENLOAI nvarchar(30),
+	TENLOAI nvarchar(100),
 	ISDEL int,
 	CREADTEDAT datetime,
 	UPDATEDAT datetime
@@ -126,8 +127,77 @@ alter table MonAn add
 GO	
 
 
-insert into NhanVien (MANV,HOTEN,LUONG,NGSINH,PHAI,CMND,DIENTHOAI,CHUCVU,TAIKHOAN ,MATKHAU,ISDEL,ISADMIN,CREATEDAT)
-values ('NV01',N'Trương Văn Tú',2000,CAST(N'1959-06-20' AS Date),'Nam','123456','0978966563','Admin','tumeotl@gmail.com','db69fc039dcbd2962cb4d28f5891aae1',1,1,CAST(N'1959-06-20' AS Date))
+
+insert into NhanVien (MANV,HOTEN,LUONG,NGSINH,PHAI,DIACHI,CMND,DIENTHOAI,CHUCVU,TAIKHOAN ,MATKHAU,ISDEL,CREADTEDAT,UPDATEDAT)
+values ('NV02',N'Nguyễn Hoàng Quyên',2000,CAST(N'1959-06-20' AS Date),'Nam',N'167 Lương Nhữ Học Phường 11 Quận 5 HCM','1','0978966563','Admin','1','6fd742a61bd034804c00c49b18045020',1,CAST(N'1959-06-20' AS Date),CAST(N'1959-06-20' AS Date)),
+('NV01',N'Trương Văn Tú',2000,CAST(N'1959-06-20' AS Date),'Nam',N'167 Lương Nhữ Học Phường 11 Quận 5 HCM','123456','0978966563','Admin','admin','db69fc039dcbd2962cb4d28f5891aae1',1,CAST(N'1959-06-20' AS Date),CAST(N'1959-06-20' AS Date))
+
+--newest
+--SELECT*FROM LoaiMonAn
+--DELETE TOP(25) FROM MonAn
+--DELETE TOP(4) FROM LoaiMonAn
+--SELECT*FROM MonAn
+insert into LoaiMonAn(MALOAI, TENLOAI, ISDEL, CREADTEDAT, UPDATEDAT)
+values ('L001', N'TRÀ SỮA', NULL, CAST(N'2017-06-20' AS Date), CAST(N'2017-07-20' AS Date)),
+('L002', N'TRÀ NGUYÊN CHẤT', NULL,CAST(N'2017-06-20' AS Date), CAST(N'2017-07-20' AS Date)),
+('L003', N'THỨC UỐNG ĐÁ XAY', NULL, CAST(N'2017-06-20' AS Date), CAST(N'2017-07-20' AS Date)),
+('L004', N'CÁC LOẠI HẠT', NULL, CAST(N'2017-06-20' AS Date), CAST(N'2017-07-20' AS Date))
+
+insert into MonAn (MAMON,TENMON, GIA, MOTA, MALOAI, TTSP, ISDEL, CREADTEDAT, UPDATEDAT,HINHANH) 
+values
+( 'TS001',N'Trà Sữa Trà Xanh',39000, N'Trà sữa được làm từ nguyên liệu trà đen cao cấp kết hợp vị béo ngậy của Caramel, sữa và thạch caramel mềm dẻo','L001',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS002',N'Trà Sữa Trà Đen',60000, N'Trà sữa được làm từ nguyên liệu trà đen cao cấp kết hợp vị béo ngậy của Caramel, sữa và thạch caramel mềm dẻo','L001',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS003',N'Trà Sữa Cà phê',59000, N'Trà sữa được làm từ nguyên liệu trà đen cao cấp kết hợp vị béo ngậy của Caramel, sữa và thạch caramel mềm dẻo','L001',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS019',N'Trà Sữa Sương Sáo',49000, N'Trà sữa được làm từ nguyên liệu trà đen cao cấp kết hợp vị béo ngậy của Caramel, sữa và thạch caramel mềm dẻo','L001',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS020',N'Trà Sữa Earl grey',43000, N'Trà sữa được làm từ nguyên liệu trà đen cao cấp kết hợp vị béo ngậy của Caramel, sữa và thạch caramel mềm dẻo','L001',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
 
 
+( 'TS004',N'Trà Olong',59000, N'Trà sữa được làm từ nguyên liệu trà đen cao cấp kết hợp vị béo ngậy của Caramel, sữa và thạch caramel mềm dẻo','L002',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS005',N'Trà Bí Đao',42000, N'Trà sữa được làm từ nguyên liệu trà đen cao cấp kết hợp vị béo ngậy của Caramel, sữa và thạch caramel mềm dẻo','L002',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS021',N'Trà Đen',36000, N'Trà sữa được làm từ nguyên liệu trà đen cao cấp kết hợp vị béo ngậy của Caramel, sữa và thạch caramel mềm dẻo','L002',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS022',N'Trà Xanh',33000, N'Trà sữa được làm từ nguyên liệu trà đen cao cấp kết hợp vị béo ngậy của Caramel, sữa và thạch caramel mềm dẻo','L002',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
 
+( 'TS006',N'Trà sữa Olong đá xay',54000, N'Trà sữa được làm từ nguyên liệu trà đen cao cấp kết hợp vị béo ngậy của Caramel, sữa và thạch caramel mềm dẻo','L003',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS007',N'Xoài đá xay',54000, N'Trà sữa được làm từ nguyên liệu trà đen cao cấp kết hợp vị béo ngậy của Caramel, sữa và thạch caramel mềm dẻo','L003',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS008',N'Yakult đào đá xay',59000, N'Trà sữa được làm từ nguyên liệu trà đen cao cấp kết hợp vị béo ngậy của Caramel, sữa và thạch caramel mềm dẻo','L003',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS009',N'Matcha đá xay',59000, N'Trà sữa được làm từ nguyên liệu trà đen cao cấp kết hợp vị béo ngậy của Caramel, sữa và thạch caramel mềm dẻo','L003',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS010',N'Khoai môn đá xay',49000, N'Trà sữa được làm từ nguyên liệu trà đen cao cấp kết hợp vị béo ngậy của Caramel, sữa và thạch caramel mềm dẻo','L003',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+
+( 'TS011',N'Kem sữa',16000, N'Hạt ngọc trai có mùi vị đặc biệt, vị ngọt và khi ăn có cảm giác dai giòn sật sật tạo nên cảm giác âm thanh thú vị thích thú.','L004',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS012',N'Pudding',10000, N'Hạt ngọc trai có mùi vị đặc biệt, vị ngọt và khi ăn có cảm giác dai giòn sật sật tạo nên cảm giác âm thanh thú vị thích thú.','L004',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS013',N'Thạch dừa',10000, N'Hạt ngọc trai có mùi vị đặc biệt, vị ngọt và khi ăn có cảm giác dai giòn sật sật tạo nên cảm giác âm thanh thú vị thích thú.','L004',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS014',N'Thạch trái cây',10000, N'Vị thơm ngon và dẻo ăn hoài không ngán','L004',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS015',N'Thạch cà phê',10000, N'Vị thơm ngon và dẻo ăn hoài không ngán','L004',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS023',N'Sương Sáo',10000, N'Hạt ngọc trai có mùi vị đặc biệt, vị ngọt và khi ăn có cảm giác dai giòn sật sật tạo nên cảm giác âm thanh thú vị thích thú.','L004',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS024',N'Đậu đỏ',10000, N'Vị thơm ngon và dẻo ăn hoài không ngán','L004',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS025',N'Trân trâu trắng',10000, N'Vị thơm ngon và dẻo ăn hoài không ngán','L004',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS016',N'Trân trâu đen',10000, N'Hạt ngọc trai có mùi vị đặc biệt, vị ngọt và khi ăn có cảm giác dai giòn sật sật tạo nên cảm giác âm thanh thú vị thích thú.','L004',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS017',N'Hạt é',10000, N'Vị thơm ngon và dẻo ăn hoài không ngán','L004',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img)),
+( 'TS018',N'Nha đam',10000, N'Vị thơm ngon và dẻo ăn hoài không ngán','L004',NULL, NULL, CAST(N'2017-06-20' AS Date),CAST(N'2017-07-20' AS Date), (SELECT BulkColumn 
+FROM Openrowset( Bulk 'D:\trasua.jpg', Single_Blob) as img))
+
+--MAMON TS025

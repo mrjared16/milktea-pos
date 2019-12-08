@@ -1,6 +1,11 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using QuanLiQuanCaPhe.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,9 +20,34 @@ namespace QuanLiQuanCaPhe.ViewModel
         public ICommand addMilkteaCommand { get; set; }
         public ICommand LoadedMenuUCCommand { get; set; }
         public ICommand Add_SaveCommand { get; set; }
+        public ICommand Delete_CancelCommand { get; set; }
+        public ICommand SearchMonAnCommand { get; set; }
+        public ICommand ChooseImgMonAn { get; set; }
 
-        public List<Category> MilkteaCategories { get; set; }
-        public BindingList<MilkteaInfo> _listMilkteaInfo { get; set; }
+        public List<LoaiMonAn> MilkteaCategories { get; set; }
+
+        private BindingList<MonAn> _listMonAn;
+        public BindingList<MonAn> listMonAn
+        {
+            get { return _listMonAn; }
+            set
+            {
+                _listMonAn = value;
+                OnPropertyChanged("listMonAn");
+            }
+        }
+
+        private string _searchMonAnStr;
+        public string searchMonAnStr
+        {
+            get { return _searchMonAnStr; }
+            set
+            {
+                _searchMonAnStr = value;
+                OnPropertyChanged("searchMonAnStr");
+            }
+
+        }
 
 
         #region Binding
@@ -32,17 +62,17 @@ namespace QuanLiQuanCaPhe.ViewModel
             }
         }
 
-        private MilkteaInfo _milkTeaInfoCha;
-        public MilkteaInfo milkTeaInfoCha
+        private MonAn _MonAnChiTiet;
+        public MonAn MonAnChiTiet
         {
             get
             {
-                return _milkTeaInfoCha;
+                return _MonAnChiTiet;
             }
             set
             {
-                _milkTeaInfoCha = value;
-                OnPropertyChanged("milkTeaInfoCha");
+                _MonAnChiTiet = value;
+                OnPropertyChanged("MonAnChiTiet");
             }
         }
 
@@ -71,8 +101,8 @@ namespace QuanLiQuanCaPhe.ViewModel
 
 
         //itemlistView click
-        private MilkteaInfo temp { get; set; }
-        public MilkteaInfo selectItem_Menu
+        private MonAn temp { get; set; }
+        public MonAn selectItem_Menu
         {
             get { return temp; }
             set
@@ -80,7 +110,6 @@ namespace QuanLiQuanCaPhe.ViewModel
                 if (temp != value)
                 {
                     temp = value;
-
                     showDetails();
                 }
             }
@@ -88,23 +117,128 @@ namespace QuanLiQuanCaPhe.ViewModel
 
         public void showDetails()
         {
-            milkTeaInfoCha = new MilkteaInfo();
-            milkTeaInfoCha = selectItem_Menu;
+            MonAnChiTiet = new MonAn();
+            MonAnChiTiet.TENMON = selectItem_Menu.TENMON;
+            MonAnChiTiet.MALOAI = selectItem_Menu.MALOAI;
+            MonAnChiTiet.MAMON = selectItem_Menu.MAMON;
+            MonAnChiTiet.GIA = selectItem_Menu.GIA;
+            MonAnChiTiet.MOTA = selectItem_Menu.MOTA;
+            MonAnChiTiet.HINHANH = selectItem_Menu.HINHANH;
+            //còn create date, updatedate
+
             ButtonVisibility = true;
             btnDelete_Cancel = "XÓA";
             btnAdd_Save = "LƯU";
+        }
 
+        //itemCombobox loaiMonAn click
+        private LoaiMonAn _selectedLoai { get; set; }
+        public LoaiMonAn selectedLoai
+        {
+            get { return _selectedLoai; }
+            set
+            {
+                if (_selectedLoai != value)
+                {
+                    _selectedLoai = value;
+
+                    showListMonAnTheoLoai();
+                }
+            }
+        }
+
+        public void showListMonAnTheoLoai()
+        {
+            listMonAn = new BindingList<MonAn>(SeviceData.getListMonAnLoai(selectedLoai.MALOAI));
+            ButtonVisibility = false;
         }
 
         public MonAnAdminViewModel()
         {
 
-            Add_SaveCommand = new RelayCommand<Object>((x) => { return true; }, (x) =>
-            {
-                MessageBox.Show("hihi");
-            });
             //khi khoi tao thi man hinh chi tiet null
             ButtonVisibility = false;
+
+            //DTO
+            MilkteaCategories = new List<LoaiMonAn>();
+            MilkteaCategories = SeviceData.getLoaiMonAn();// get from database
+
+            listMonAn = SeviceData.getListMonAn();
+
+
+            //command  command  command
+            Add_SaveCommand = new RelayCommand<Button>((x) =>
+            {
+                if (string.IsNullOrEmpty(MonAnChiTiet.TENMON)) return false;
+                return true;
+            },
+            (x) =>
+            {
+                if (x.Content.ToString() == "THÊM")//ADD MON ĂN
+                {
+                    string res = SeviceData.themMonAn(MonAnChiTiet);
+                    MessageBox.Show(res);//xử lí thêm vào
+
+                    if (res.ToString() == "Thành công")
+                    {
+                        listMonAn.Add(MonAnChiTiet);
+                        MonAnChiTiet = new MonAn();
+                    }
+                }
+                else if (x.Content.ToString() == "LƯU")///UPDATE MÓN ĂN
+                {
+                    string res = SeviceData.suaMonAn(MonAnChiTiet);
+                    MessageBox.Show(res);//xử lí thêm vào
+
+                    if (res.ToString() == "Thành công")
+                    {
+                        selectItem_Menu.TENMON = MonAnChiTiet.TENMON;
+                        selectItem_Menu.MAMON = MonAnChiTiet.MAMON;
+                        selectItem_Menu.MALOAI = MonAnChiTiet.MALOAI;
+                        selectItem_Menu.MOTA = MonAnChiTiet.MOTA;
+                        selectItem_Menu.GIA = MonAnChiTiet.GIA;
+                        selectItem_Menu.HINHANH = MonAnChiTiet.HINHANH;
+                    }
+                }
+
+            });
+            Delete_CancelCommand = new RelayCommand<Button>((x) => { return true; }, (x) =>
+            {
+                if (x.Content.ToString() == "HỦY")
+                {
+                    MonAnChiTiet = new MonAn();
+                    ButtonVisibility = false;
+                }
+                else if (x.Content.ToString() == "XÓA")
+                {
+                    string res = SeviceData.XoaMonAn(MonAnChiTiet);
+                    MessageBox.Show(res);//xử lí thêm vào
+
+                    if (res.ToString() == "Thành công")
+                        listMonAn.Remove(selectItem_Menu);
+                }
+
+            });
+
+            SearchMonAnCommand = new RelayCommand<Button>((x) =>
+            {
+                if (string.IsNullOrEmpty(searchMonAnStr)) return false;
+                return true;
+            },
+            (x) =>
+            {
+                listMonAn = SeviceData.getListMonAnTenMon(searchMonAnStr);
+                ButtonVisibility = false;
+            });
+
+            ChooseImgMonAn = new RelayCommand<Button>((x) => { return true; }, (x) =>
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    MonAnChiTiet.HINHANH = File.ReadAllBytes(openFileDialog.FileName);
+                }
+            });
 
             //click vao them mon
             addMilkteaCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
@@ -112,111 +246,9 @@ namespace QuanLiQuanCaPhe.ViewModel
                 ButtonVisibility = true;
                 btnDelete_Cancel = "HỦY";
                 btnAdd_Save = "THÊM";
-                milkTeaInfoCha = new MilkteaInfo();
-                Add_SaveCommand = new RelayCommand<Object>((x) => { return true; }, (x) =>
-                {
-                    MessageBox.Show(milkTeaInfoCha.tenMon);
-                });
+                MonAnChiTiet = new MonAn();
             });
 
-
-
-
-            MilkteaCategories = new List<Category>
-            {
-                new Category
-                {
-                    Name="Tra sua",
-
-                },
-                new Category
-                {
-                    Name="Hong tra",
-
-                }
-            };
-            _listMilkteaInfo = new BindingList<MilkteaInfo>();
-            for (int i = 0; i < 15; i++)
-            {
-                MilkteaInfo a = new MilkteaInfo();
-                a.tenMon = "Tra sua tran chau " + i.ToString();
-                a.gia = 50000 + i * 5000;
-                a.imgUrl = "../Image/trasua.jpg";
-                _listMilkteaInfo.Add(a);
-            }
-        }
-
-
-        public class Category
-        {
-            public string Name { get; set; }
-        }
-
-
-        public class MilkteaInfo : BaseViewModel
-        {
-            public string _tenMon;
-            public string tenMon
-            {
-                get { return _tenMon; }
-                set
-                {
-                    _tenMon = value;
-                    OnPropertyChanged("tenMon");
-                }
-            }
-
-
-            public string _maMon;
-            public string maMon
-            {
-                get { return _maMon; }
-                set
-                {
-                    _maMon = value;
-                    OnPropertyChanged("maMon");
-                }
-            }
-            public string _maLoai;
-            public string maLoai
-            {
-                get { return _maLoai; }
-                set
-                {
-                    _maLoai = value;
-                    OnPropertyChanged("maLoai");
-                }
-            }
-            public string _moTa;
-            public string moTa
-            {
-                get { return _moTa; }
-                set
-                {
-                    _moTa = value;
-                    OnPropertyChanged("moTa");
-                }
-            }
-            public float _gia;
-            public float gia
-            {
-                get { return _gia; }
-                set
-                {
-                    _gia = value;
-                    OnPropertyChanged("gia");
-                }
-            }
-            public string _imgUrl;
-            public string imgUrl
-            {
-                get { return _imgUrl; }
-                set
-                {
-                    _imgUrl = value;
-                    OnPropertyChanged("imgUrl");
-                }
-            }
         }
     }
 }

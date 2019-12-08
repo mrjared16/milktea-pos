@@ -7,4 +7,5 @@
     <viewModel:LoginViewModel x:Key="LoginVM"></viewModel:LoginViewModel>
     <viewModel:MonAnAdminViewModel x:Key="Menu"></viewModel:MonAnAdminViewModel>
     <viewModel:DoanhThuAdminViewModel x:Key="DoanhThu"></viewModel:DoanhThuAdminViewModel>
+    <viewModel:TaiKhoanViewModel x:Key="TK"></viewModel:TaiKhoanViewModel>
 </ResourceDictionary>
