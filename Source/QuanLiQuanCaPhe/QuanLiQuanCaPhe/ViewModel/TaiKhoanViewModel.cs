@@ -190,17 +190,6 @@ namespace QuanLiQuanCaPhe.ViewModel
 		}
 		public void loadData()
 		{
-			//using (var fs1 = new FileStream("tumeo.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite))
-			//{
-			//	byte[] atemp = new byte[100];
-			//	UTF8Encoding encoding = new UTF8Encoding(true);
-			//	int len = 0;
-			//	while(0<(len=fs1.Read(atemp,0,atemp.Length)))
-			//	{
-			//		 tumeo= encoding.GetString(atemp, 0, len);
-			//	}
-			//	fs1.Close();
-			//}
 
 			NhanVien item = UserService.GetCurrentUser;
 			//ho ten

@@ -85,7 +85,7 @@
 					Height="150">
 					<Ellipse.Fill>
 						<ImageBrush
-							ImageSource="{Binding DisplayedImagePath,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+							ImageSource="{Binding DisplayedImagePath2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
 							>
 						</ImageBrush>
 					</Ellipse.Fill>

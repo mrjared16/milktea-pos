@@ -12,82 +12,82 @@ using System.Windows.Media.Imaging;
 
 namespace QuanLiQuanCaPhe.ViewModel
 {
-	public class TaiKhoanNhanVienViewModel: NhanVienLayoutViewModelInterface
+	public class TaiKhoanNhanVienViewModel:BaseViewModel
 	{
 		public static string tumeo = "";
 		
-		private string _NgaySinh;
-		public string NgaySinh
+		private string _NgaySinhNhanVien;
+		public string NgaySinhNhanVien
 		{
-			get => _NgaySinh;
+			get => _NgaySinhNhanVien;
 			set
 			{
-				_NgaySinh = value;
+				_NgaySinhNhanVien = value;
 				OnPropertyChanged();
 			}
 		}
 
-		private string _CMND;
-		public string CMND
+		private string _CMNDNhanVien;
+		public string CMNDNhanVien
 		{
-			get => _CMND;
+			get => _CMNDNhanVien;
 			set
 			{
-				_CMND = value;
+				_CMNDNhanVien = value;
 				OnPropertyChanged();
 			}
 		}
 
-		public string _DiaChi;
-		public string DiaChi
+		public string _DiaChiNhanVien;
+		public string DiaChiNhanVien
 		{
-			get => _DiaChi;
+			get => _DiaChiNhanVien;
 			set
 			{
-				_DiaChi = value;
+				_DiaChiNhanVien = value;
 				OnPropertyChanged();
 			}
 		}
 
-		private string _SDT;
-		public string SDT
+		private string _SDTNhanVien;
+		public string SDTNhanVien
 		{
-			get => _SDT;
+			get => _SDTNhanVien;
 			set
 			{
-				_SDT = value;
+				_SDTNhanVien = value;
 				OnPropertyChanged();
 			}
 		}
 
-		private string _ChucVu;
-		public string ChucVu
+		private string _ChucVuNhanVien;
+		public string ChucVuNhanVien
 		{
-			get => _ChucVu;
+			get => _ChucVuNhanVien;
 			set
 			{
-				_ChucVu = value;
+				_ChucVuNhanVien = value;
 				OnPropertyChanged();
 			}
 		}
-		private string _HoTen;
-		public string HoTen
+		private string _HoTenNhanVien;
+		public string HoTenNhanVien
 		{
-			get => _HoTen;
+			get => _HoTenNhanVien;
 			set
 			{
-				_HoTen = value;
+				_HoTenNhanVien = value;
 				OnPropertyChanged();
 			}
 		}
 
-		private string _GioiTinh;
-		public string GioiTinh
+		private string _GioiTinhNhanVien;
+		public string GioiTinhNhanVien
 		{
-			get => _GioiTinh;
+			get => _GioiTinhNhanVien;
 			set
 			{
-				_GioiTinh = value;
+				_GioiTinhNhanVien = value;
 				OnPropertyChanged();
 			}
 		}
@@ -102,44 +102,30 @@ namespace QuanLiQuanCaPhe.ViewModel
 
 		public TaiKhoanNhanVienViewModel()
 		{
-			Title = "Nhan vien";
 			loadData();
 		}
 
 		public void loadData()
 		{
-			using (var fs1 = new FileStream("tumeo.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite))
-			{
-				byte[] atemp = new byte[100];
-				UTF8Encoding encoding = new UTF8Encoding(true);
-				int len = 0;
-				while (0 < (len = fs1.Read(atemp, 0, atemp.Length)))
-				{
-					tumeo = encoding.GetString(atemp, 0, len);
-				}
-				fs1.Close();
-			}
-			var nhanVien = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN.Equals(tumeo));
-			foreach (var item in nhanVien)
-			{
-				//ho ten
-				HoTen = item.HOTEN;
-				//ngay sinh
-				DateTime a = item.NGSINH;
-				NgaySinh = a.ToString("dd/MM/yyyy");
-				//dia chi
-				DiaChi = item.DIACHI;
-				// so dien thoai
-				SDT = item.DIENTHOAI;
-				//mat khau
-				GioiTinh = item.PHAI;
-				//chuc vu
-				ChucVu = item.CHUCVU;
-				//CMND
-				CMND = item.CMND;
-				//hinh anh ca nhan
-				DisplayedImagePath1 = LoadImage(item.HINHANH);
-			}
+
+			NhanVien item = UserService.GetCurrentUser;
+			//ho ten
+			HoTenNhanVien = item.HOTEN;
+			//ngay sinh
+			DateTime a = item.NGSINH;
+			NgaySinhNhanVien = a.ToString("dd/MM/yyyy");
+			//dia chi
+			DiaChiNhanVien = item.DIACHI;
+			// so dien thoai
+			SDTNhanVien = item.DIENTHOAI;
+			//mat khau
+			GioiTinhNhanVien = item.PHAI;
+			//chuc vu
+			ChucVuNhanVien = item.CHUCVU;
+			//CMND
+			CMNDNhanVien = item.CMND;
+			//hinh anh ca nhan
+			DisplayedImagePath1 = LoadImage(item.HINHANH);
 			File.Delete("tumeo.txt");
 		}
 		private static BitmapImage LoadImage(byte[] imageData)

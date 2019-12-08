@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace QuanLiQuanCaPhe.ViewModel
 {
-	public class HomeNhanVienViewModel
+	public class HomeNhanVienViewModel: NhanVienLayoutViewModelInterface
 	{
+		public HomeNhanVienViewModel()
+		{
+			Title = "Trang ca nhan";
+		}
 	}
 }

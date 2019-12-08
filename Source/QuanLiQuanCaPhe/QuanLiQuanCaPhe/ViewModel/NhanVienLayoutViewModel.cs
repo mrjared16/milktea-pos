@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows;
 using QuanLiQuanCaPhe.Models;
+using QuanLiQuanCaPhe.View;
 
 namespace QuanLiQuanCaPhe.ViewModel
 {
@@ -64,14 +65,14 @@ namespace QuanLiQuanCaPhe.ViewModel
             set { OnPropertyChanged(ref _historyVM, value, null); }
         }
 
-		private TaiKhoanNhanVienViewModel _taikhoanVM = null;
-		private TaiKhoanNhanVienViewModel TaikhoanVM
+		private HomeNhanVienViewModel _taikhoanVM = null;
+		private HomeNhanVienViewModel TaikhoanVM
 		{
 			get
 			{
 				if (_taikhoanVM == null)
 				{
-					_taikhoanVM = new TaiKhoanNhanVienViewModel();
+					_taikhoanVM = new HomeNhanVienViewModel();
 				}
 				return _taikhoanVM;
 			}
@@ -91,7 +92,7 @@ namespace QuanLiQuanCaPhe.ViewModel
         }
         public NhanVienLayoutViewModel()
         {
-            CurrentView = OrderVM;
+            CurrentView = TaikhoanVM;
             LoadOrderView = new RelayCommand<object>((p) => { return CurrentView != OrderVM; }, (p) => { CurrentView = OrderVM; });
             LoadHistoryView = new RelayCommand<object>((p) => { return CurrentView != HistoryVM; }, (p) => { CurrentView = HistoryVM; });
 			LoadHomeView = new RelayCommand<object>((p) => { return CurrentView != TaikhoanVM; }, (p) => { CurrentView = TaikhoanVM; });

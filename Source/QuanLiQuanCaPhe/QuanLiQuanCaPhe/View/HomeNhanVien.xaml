@@ -25,68 +25,40 @@
 	</UserControl.Resources>
 
 
-	<Grid Background="Aqua">
+	<Grid Background="{DynamicResource BackgroundColor}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="auto"></RowDefinition>
 			<RowDefinition></RowDefinition>
 		</Grid.RowDefinitions>
-		<Grid
-			Margin="0,10,0,0"
-					Grid.Row="0">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="auto"></RowDefinition>
-				<RowDefinition></RowDefinition>
-				<RowDefinition></RowDefinition>
-			</Grid.RowDefinitions>
-			<TextBlock 
-				Margin="10"
-				Grid.Row="0"   
-				Width="220"  
-				Text="Trang cá nhân"
-				FontSize="30"
-				TextAlignment="Center"
-				ToolTip="Resource name: MaterialDesignRaisedButton" 
-				>
-			</TextBlock>
-			<Button
-				Margin="10"
-				Grid.Row="1"  
-				Width="220"  
-				Command="{Binding BatDauLamViecCommand}"
-				CommandParameter="{Binding ElementName=BatDauLamviecWindow}"
-				Content="Bắt đầu phiên làm việc">
-			</Button>
-			<Grid
-				Grid.Row="2"
-				>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="312*"></ColumnDefinition>
-					<ColumnDefinition Width="249*"></ColumnDefinition>
-					<ColumnDefinition Width="64*"/>
-					<ColumnDefinition Width="312*"></ColumnDefinition>
-					<ColumnDefinition Width="312*"></ColumnDefinition>
-				</Grid.ColumnDefinitions>
-				<Button 
-				Margin="46.547,10,45.906,9.623"
+		<Grid Grid.Row="0" Margin="20">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="312*"></ColumnDefinition>
+				<ColumnDefinition Width="249*"></ColumnDefinition>
+				<ColumnDefinition Width="64*"/>
+				<ColumnDefinition Width="312*"></ColumnDefinition>
+				<ColumnDefinition Width="312*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Button 
+				x:Name="TaiKhoan"
 				Grid.Column="1"
+				Background="{StaticResource TabActive}"
 				IsDefault="True"
 				Style="{StaticResource MaterialDesignRaisedButton}"    
 				Width="220"  
-				Click="TaiKhoanNhanVien"
 				ToolTip="Resource name: MaterialDesignRaisedButton" 
-				Content="Tài khoản" Grid.ColumnSpan="2">
-				</Button>
-				<Button 
-				Margin="46.094,10,46.359,9.623"
+				Content="Tài khoản" Grid.ColumnSpan="2" 
+				Click="TaiKhoan_Click">
+			</Button>
+			<Button 
+				x:Name="LichLamViec"
 				Grid.Column="3"
 				IsDefault="True"
+				Background="{StaticResource Tab}"
 				Style="{StaticResource MaterialDesignRaisedButton}"    
 				Width="220"  
 				ToolTip="Resource name: MaterialDesignRaisedButton" 
-				Click="LichLamViecNhanVien"
-				Content="Lịch làm việc">
-				</Button>
-			</Grid>
+				Content="Lịch làm việc" Click="LichLamViec_Click">
+			</Button>
 		</Grid>
 		<ContentControl Grid.Row="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Content="{Binding}"/>
 	</Grid>
