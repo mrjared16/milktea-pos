@@ -98,11 +98,12 @@ namespace QuanLiQuanCaPhe.Models
 
         public static bool tonTaiLoaiMonAn(string MaLoai)
         {
-            var MonAn = DataProvider.ISCreated.DB.LoaiMonAns.Where(x => x.MALOAI == MaLoai);
+            var MonAn = DataProvider.ISCreated.DB.LoaiMonAns.Where(x => x.MALOAI == MaLoai && x.ISDEL != 1);
+
             int count = 0;
             foreach (var item in MonAn)
             {
-                if (item.ISDEL == 0)
+                if (item.ISDEL == 0 || item.ISDEL == null)
                 {
                     count++;
                 }

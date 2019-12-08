@@ -77,40 +77,54 @@
                     </Button>
                 </StackPanel>
             </StackPanel>
-            <Border
-                Width="250"
-                Height="70"
-                Margin="20,0,0,0"
-                Padding="5"
-                HorizontalAlignment="Left"
-                Background="#616161"
-                CornerRadius="5">
-                <ComboBox
-                    materialDesign:HintAssist.FloatingOffset="0, -24"
-                    materialDesign:HintAssist.FloatingScale="1"
-                    materialDesign:HintAssist.Foreground="AntiqueWhite"
-                    materialDesign:HintAssist.Hint="LOẠI THỨC UỐNG"
-                    ItemsSource="{Binding MilkteaCategories}"
-                    SelectedItem="{Binding selectedLoai, Mode=TwoWay}"
-                    SelectedValuePath="Name"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border
-                                Padding="5"
-                                Background="#373737"
-                                BorderBrush="WhiteSmoke"
-                                BorderThickness="0,0,0,1">
-                                <TextBlock
-                                    Cursor="Hand"
-                                    FontFamily="Courier New"
-                                    Foreground="WhiteSmoke"
-                                    Text="{Binding Path=TENLOAI}" />
-                            </Border>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </Border>
+            <StackPanel Orientation="Horizontal">
+                <Border
+                    Width="250"
+                    Height="70"
+                    Margin="20,0,0,0"
+                    Padding="5"
+                    HorizontalAlignment="Left"
+                    Background="#616161"
+                    CornerRadius="5">
+                    <ComboBox
+                        Name="loaiCombobox"
+                        materialDesign:HintAssist.FloatingOffset="0, -24"
+                        materialDesign:HintAssist.FloatingScale="1"
+                        materialDesign:HintAssist.Foreground="AntiqueWhite"
+                        materialDesign:HintAssist.Hint="LOẠI THỨC UỐNG"
+                        ItemsSource="{Binding MilkteaCategories}"
+                        SelectedItem="{Binding selectedLoai, Mode=TwoWay}"
+                        SelectedValuePath="Name"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Padding="5"
+                                    Background="#373737"
+                                    BorderBrush="WhiteSmoke"
+                                    BorderThickness="0,0,0,1">
+                                    <TextBlock
+                                        Cursor="Hand"
+                                        FontFamily="Courier New"
+                                        Foreground="WhiteSmoke"
+                                        Text="{Binding Path=TENLOAI}" />
+                                </Border>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Border>
+                <Button
+                    Margin="15"
+                    Background="{Binding btnAllMonAnColor, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Command="{Binding ShowAllMonAn}"
+                    CommandParameter="{Binding ElementName=loaiCombobox}"
+                    Cursor="Hand"
+                    FontFamily="Courier New"
+                    Foreground="WhiteSmoke">
+                    TẤT CẢ THỨC UỐNG
+                </Button>
+            </StackPanel>
+
 
         </StackPanel>
 
@@ -237,7 +251,12 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                         <Image Margin="5" Source="{Binding HINHANH}" />
-                        <Button DataContext="{StaticResource Menu}" Margin="15" Command="{Binding ChooseImgMonAn}">CHỌN ẢNH</Button>
+                        <Button
+                            Margin="15"
+                            Command="{Binding ChooseImgMonAn}"
+                            DataContext="{StaticResource Menu}">
+                            CHỌN ẢNH
+                        </Button>
                     </StackPanel>
 
                     <Grid

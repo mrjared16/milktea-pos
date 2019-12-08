@@ -23,8 +23,22 @@ namespace QuanLiQuanCaPhe.ViewModel
         public ICommand Delete_CancelCommand { get; set; }
         public ICommand SearchMonAnCommand { get; set; }
         public ICommand ChooseImgMonAn { get; set; }
+        public ICommand ShowAllMonAn { get; set; }
+
 
         public List<LoaiMonAn> MilkteaCategories { get; set; }
+
+        public string _btnButtonAllColor;
+        public string btnAllMonAnColor
+        {
+            get { return _btnButtonAllColor; }
+            set
+            {
+                _btnButtonAllColor = value;
+
+
+            }
+        }
 
         private BindingList<MonAn> _listMonAn;
         public BindingList<MonAn> listMonAn
@@ -141,7 +155,8 @@ namespace QuanLiQuanCaPhe.ViewModel
                 if (_selectedLoai != value)
                 {
                     _selectedLoai = value;
-
+                    btnAllMonAnColor = "#002171";
+                    OnPropertyChanged("btnAllMonAnColor");
                     showListMonAnTheoLoai();
                 }
             }
@@ -149,8 +164,17 @@ namespace QuanLiQuanCaPhe.ViewModel
 
         public void showListMonAnTheoLoai()
         {
-            listMonAn = new BindingList<MonAn>(SeviceData.getListMonAnLoai(selectedLoai.MALOAI));
+            if (selectedLoai != null)
+                listMonAn = new BindingList<MonAn>(SeviceData.getListMonAnLoai(selectedLoai.MALOAI));
             ButtonVisibility = false;
+        }
+
+        private void MyMessageBox(string messageBoxText)
+        {
+            string caption = "Notification";
+            MessageBoxButton button = MessageBoxButton.OK;
+            MessageBoxImage icon = MessageBoxImage.Information;
+            MessageBox.Show(messageBoxText, caption, button, icon);
         }
 
         public MonAnAdminViewModel()
@@ -158,6 +182,8 @@ namespace QuanLiQuanCaPhe.ViewModel
 
             //khi khoi tao thi man hinh chi tiet null
             ButtonVisibility = false;
+            btnAllMonAnColor = "#002171";
+            OnPropertyChanged("btnAllMonAnColor");
 
             //DTO
             MilkteaCategories = new List<LoaiMonAn>();
@@ -177,18 +203,21 @@ namespace QuanLiQuanCaPhe.ViewModel
                 if (x.Content.ToString() == "THÊM")//ADD MON ĂN
                 {
                     string res = SeviceData.themMonAn(MonAnChiTiet);
-                    MessageBox.Show(res);//xử lí thêm vào
+                    MyMessageBox(res);//xử lí thêm vào
 
                     if (res.ToString() == "Thành công")
                     {
-                        listMonAn.Add(MonAnChiTiet);
+                        if (selectedLoai == null)
+                            listMonAn.Add(MonAnChiTiet);
+                        else if (MonAnChiTiet.MALOAI == selectedLoai.MALOAI) listMonAn.Add(MonAnChiTiet);
+
                         MonAnChiTiet = new MonAn();
                     }
                 }
                 else if (x.Content.ToString() == "LƯU")///UPDATE MÓN ĂN
                 {
                     string res = SeviceData.suaMonAn(MonAnChiTiet);
-                    MessageBox.Show(res);//xử lí thêm vào
+                    MyMessageBox(res);
 
                     if (res.ToString() == "Thành công")
                     {
@@ -212,7 +241,7 @@ namespace QuanLiQuanCaPhe.ViewModel
                 else if (x.Content.ToString() == "XÓA")
                 {
                     string res = SeviceData.XoaMonAn(MonAnChiTiet);
-                    MessageBox.Show(res);//xử lí thêm vào
+                    MyMessageBox(res);//xử lí thêm vào
 
                     if (res.ToString() == "Thành công")
                         listMonAn.Remove(selectItem_Menu);
@@ -231,9 +260,21 @@ namespace QuanLiQuanCaPhe.ViewModel
                 ButtonVisibility = false;
             });
 
+            ShowAllMonAn = new RelayCommand<ComboBox>((x) => { return true; }, (x) =>
+             {
+                 btnAllMonAnColor = "#0277bd";
+                 OnPropertyChanged("btnAllMonAnColor");
+                 OnPropertyChanged("btnAllMonAnColor");
+                 selectedLoai = null;
+                 x.SelectedIndex = -1;
+                 listMonAn = SeviceData.getListMonAn();
+             });
+
             ChooseImgMonAn = new RelayCommand<Button>((x) => { return true; }, (x) =>
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Images File(*.png;*.jpg;*.jpeg;*.bmp*)|*.png;*.jpg;*.jpeg;*.bmp*";
+                //openFileDialog.FilterIndex = 1;
                 if (openFileDialog.ShowDialog() == true)
                 {
                     MonAnChiTiet.HINHANH = File.ReadAllBytes(openFileDialog.FileName);
