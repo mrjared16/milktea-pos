@@ -19,6 +19,7 @@ create table NhanVien
 	DIACHI nvarchar(100),
 	DIENTHOAI varchar(30),
 	CHUCVU nvarchar(30),
+	HINHANh image,
 	TAIKHOAN varchar(30),
 	MATKHAU varchar(50),
 	ISDEL int DEFAULT 0,
@@ -30,12 +31,12 @@ create table MonAn
 (
 	MAMON varchar(30) primary key,
 	TENMON nvarchar(100),
-	GIA float,
-	MOTA nvarchar(200),
-	MALOAI varchar(30),
+	GIA float not null,
+	MOTA nvarchar(200) not null,
+	MALOAI varchar(30) not null,
 	HINHANH image,
 	TTSP nvarchar(30),
-	ISDEL int,
+	ISDEL int DEFAULT 0,
 	CREADTEDAT datetime,
 	UPDATEDAT datetime
 )
@@ -43,7 +44,7 @@ create table LoaiMonAn
 (
 	MALOAI varchar(30) primary key,
 	TENLOAI nvarchar(100),
-	ISDEL int,
+	ISDEL int DEFAULT 0,
 	CREADTEDAT datetime,
 	UPDATEDAT datetime
 )
@@ -52,9 +53,9 @@ create table DonHang
 	MADH varchar(30) primary key,
 	MANV varchar(30),
 	THOIGIAN datetime,
-	TONGTIEN float,
+	TONGTIEN float not null,
 	TENKH nvarchar(30),
-	ISDEL int,
+	ISDEL int DEFAULT 0,
 	CREADTEDAT datetime,
 	UPDATEDAT datetime
 )
@@ -62,11 +63,11 @@ create table ChiTietDonhang
 (
 	MADH VARCHAR(30) not null,
 	MAMON VARCHAR(30) not null,
-	SOLUONG  FLOAT,
-	DONGIA FLOAT ,
-	THANHTIEN  FLOAT,
-	GIAMGIA FLOAT,
-	ISDEL int,
+	SOLUONG  FLOAT not null,
+	DONGIA FLOAT not null,
+	THANHTIEN  FLOAT not null,
+	GIAMGIA FLOAT not null,
+	ISDEL int DEFAULT 0,
 	CREADTEDAT datetime,
 	UPDATEDAT datetime
 )
@@ -76,7 +77,7 @@ create table LichLamViec
 	THU nvarchar(30) not null,
 	MACALV varchar(30) not null,
 	PHUCAP float,
-	ISDEL int,
+	ISDEL int DEFAULT 0,
 	CREADTEDAT datetime,
 	UPDATEDAT datetime
 )
@@ -86,7 +87,7 @@ create table CaLamViec
 	TENCA nvarchar(30),
 	GIOBATDAU time,
 	GIOKETTHUC time,
-	ISDEL int,
+	ISDEL int DEFAULT 0,
 	CREADTEDAT datetime,
 	UPDATEDAT datetime
 )
@@ -129,14 +130,20 @@ GO
 
 
 insert into NhanVien (MANV,HOTEN,LUONG,NGSINH,PHAI,DIACHI,CMND,DIENTHOAI,CHUCVU,TAIKHOAN ,MATKHAU,ISDEL,CREADTEDAT,UPDATEDAT)
-values ('NV02',N'Nguyễn Hoàng Quyên',2000,CAST(N'1959-06-20' AS Date),'Nam',N'167 Lương Nhữ Học Phường 11 Quận 5 HCM','1','0978966563','Admin','1','6fd742a61bd034804c00c49b18045020',1,CAST(N'1959-06-20' AS Date),CAST(N'1959-06-20' AS Date)),
-('NV01',N'Trương Văn Tú',2000,CAST(N'1959-06-20' AS Date),'Nam',N'167 Lương Nhữ Học Phường 11 Quận 5 HCM','123456','0978966563','Admin','admin','db69fc039dcbd2962cb4d28f5891aae1',1,CAST(N'1959-06-20' AS Date),CAST(N'1959-06-20' AS Date))
+values ('NV02',N'Nguyễn Hoàng Quyên',2000,CAST(N'1959-06-20' AS Date),'Nam',N'167 Lương Nhữ Học Phường 11 Quận 5 HCM','1','0978966563','Admin','1','6fd742a61bd034804c00c49b18045020',0,CAST(N'1959-06-20' AS Date),CAST(N'1959-06-20' AS Date)),
+('NV01',N'Trương Văn Tú',2000,CAST(N'1959-06-20' AS Date),'Nam',N'167 Lương Nhữ Học Phường 11 Quận 5 HCM','123456','0978966563','Admin','admin','db69fc039dcbd2962cb4d28f5891aae1',0,CAST(N'1959-06-20' AS Date),CAST(N'1959-06-20' AS Date))
+
+insert into NhanVien (MANV,HOTEN,LUONG,NGSINH,PHAI,DIACHI,CMND,DIENTHOAI,CHUCVU,TAIKHOAN ,MATKHAU,ISDEL,CREADTEDAT,UPDATEDAT)
+values ('NV03',N'Nguyễn Chánh Anh Tuấn',2000,CAST(N'1959-06-20' AS Date),'Nam',N'167 Lương Nhữ Học Phường 11 Quận 5 HCM','123456','0978966563','Nhân viên','nhanvien','db69fc039dcbd2962cb4d28f5891aae1',0,CAST(N'1959-06-20' AS Date),CAST(N'1959-06-20' AS Date))
+
+
 
 --newest
 --SELECT*FROM LoaiMonAn
---DELETE TOP(50) FROM MonAn
+--DELETE TOP(25) FROM MonAn
 --DELETE TOP(4) FROM LoaiMonAn
 --SELECT*FROM MonAn
+
 insert into LoaiMonAn(MALOAI, TENLOAI, ISDEL, CREADTEDAT, UPDATEDAT)
 values ('1', N'TRÀ SỮA', NULL, CAST(N'2017-06-20' AS Date), CAST(N'2017-07-20' AS Date)),
 ('2', N'TRÀ NGUYÊN CHẤT', NULL,CAST(N'2017-06-20' AS Date), CAST(N'2017-07-20' AS Date)),

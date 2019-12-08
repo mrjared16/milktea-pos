@@ -25,16 +25,17 @@ namespace QuanLiQuanCaPhe
 	public partial class MainWindow : Window
 	{
 		string tumeo;
-		private BitmapImage _DisplayedImagePath;
-		public BitmapImage DisplayedImagePath
+		private BitmapImage _DisplayedImagePath2;
+		public BitmapImage DisplayedImagePath2
 		{
-			get { return _DisplayedImagePath; }
-			set { _DisplayedImagePath = value; }
+			get { return _DisplayedImagePath2; }
+			set { _DisplayedImagePath2 = value; }
 		}
 		public MainWindow()
 		{
 			InitializeComponent();
 			DataContext = new TaiKhoanViewModel();
+			_DisplayedImagePath2 = LoadImage(UserService.GetCurrentUser.HINHANH);
 		}
 
 		private void taiKhoan(object sender, RoutedEventArgs e)
@@ -44,6 +45,8 @@ namespace QuanLiQuanCaPhe
 			DonHang.Background = Brushes.ForestGreen;
 			MonAn.Background = Brushes.ForestGreen;
 			LoaiMonAn.Background = Brushes.ForestGreen;
+			_DisplayedImagePath2 = LoadImage(UserService.GetCurrentUser.HINHANH);
+
 			DoanhThu.Background = Brushes.ForestGreen;
 		}
 
@@ -56,6 +59,7 @@ namespace QuanLiQuanCaPhe
 			LoaiMonAn.Background = Brushes.ForestGreen;
 			DoanhThu.Background = Brushes.ForestGreen;
 			loadData();
+			_DisplayedImagePath2 = LoadImage(UserService.GetCurrentUser.HINHANH);
 
 		}
 
@@ -65,7 +69,6 @@ namespace QuanLiQuanCaPhe
 			login.Show();
 			this.Close();
 		}
-
 		private void doanhThu(object sender, RoutedEventArgs e)
 		{
 			DataContext = new DoanhThuAdminViewModel();
@@ -75,6 +78,8 @@ namespace QuanLiQuanCaPhe
 			LoaiMonAn.Background = Brushes.ForestGreen;
 			DoanhThu.Background = Brushes.LightGreen ;
 			loadData();
+			_DisplayedImagePath2 = LoadImage(UserService.GetCurrentUser.HINHANH);
+
 		}
 		public void loadData()
 		{
@@ -94,7 +99,7 @@ namespace QuanLiQuanCaPhe
 			foreach (var item in nhanVien)
 			{
 				//hinh anh ca nhan
-				DisplayedImagePath = LoadImage(item.HINHANH);
+				_DisplayedImagePath2 = LoadImage(item.HINHANH);
 			}
 			File.Delete("tumeo.txt");
 		}

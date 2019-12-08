@@ -12,8 +12,8 @@
         mc:Ignorable="d"
         Title="Layout" Height="768" Width="960" Margin="0">
     <Window.Resources>
-		<DataTemplate x:Name="HomeViewTemplate" DataType="{x:Type viewModels:TaiKhoanNhanVienViewModel}">
-			<views:TaiKhoanNhanVien/>
+		<DataTemplate x:Name="HomeViewTemplate" DataType="{x:Type viewModels:HomeNhanVienViewModel }">
+			<views:HomeNhanVien/>
 		</DataTemplate>
 
 
