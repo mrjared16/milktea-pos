@@ -10,10 +10,22 @@ namespace QuanLiQuanCaPhe.Models
 {
     public class UserService
     {
-        public static NhanVien GetCurrentUser()
-        {
-            return DataProvider.ISCreated.DB.NhanViens.FirstOrDefault();
-        }
+		private static NhanVien _CurrentUser = null;
+		public static NhanVien GetCurrentUser
+		{
+			get
+			{
+				return _CurrentUser;
+			}
+			set
+			{
+				_CurrentUser = value;
+			}
+		}
+        //public static NhanVien GetCurrentUser()
+        //{
+        //    return DataProvider.ISCreated.DB.NhanViens.FirstOrDefault();
+        //}
     }
     public class OrderService
     {

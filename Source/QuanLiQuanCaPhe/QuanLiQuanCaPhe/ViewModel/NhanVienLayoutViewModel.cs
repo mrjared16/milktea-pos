@@ -95,9 +95,18 @@ namespace QuanLiQuanCaPhe.ViewModel
             LoadOrderView = new RelayCommand<object>((p) => { return CurrentView != OrderVM; }, (p) => { CurrentView = OrderVM; });
             LoadHistoryView = new RelayCommand<object>((p) => { return CurrentView != HistoryVM; }, (p) => { CurrentView = HistoryVM; });
 			LoadHomeView = new RelayCommand<object>((p) => { return CurrentView != TaikhoanVM; }, (p) => { CurrentView = TaikhoanVM; });
-            //{
-            //    
-            //});
-        }
+			LoadLogoutView = new RelayCommand<object>((p) => { return true; }, (p) => 
+			{
+				//MessageBox.Show(p.ToString());
+				Login login = new Login();
+				login.Show();
+				((Window)p).Close();
+			});
+
+			
+			//{
+			//    
+			//});
+		}
     }
 }

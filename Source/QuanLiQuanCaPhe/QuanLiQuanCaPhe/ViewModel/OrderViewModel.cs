@@ -226,7 +226,7 @@ namespace QuanLiQuanCaPhe.ViewModel
             //this.Username = OrderService.GetUser();
             this.Coupon = 0;
             items = new ObservableCollection<OrderItem>();
-            this.User = UserService.GetCurrentUser();
+            this.User = UserService.GetCurrentUser;
         }
         public Order(DonHang DonHang)
         {

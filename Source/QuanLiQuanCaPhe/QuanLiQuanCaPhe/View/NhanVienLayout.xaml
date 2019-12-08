@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:QuanLiQuanCaPhe.Views"
+        xmlns:local="clr-namespace:QuanLiQuanCaPhe.View"
         xmlns:System="clr-namespace:System;assembly=mscorlib" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         x:Class="QuanLiQuanCaPhe.View.NhanVienLayout"
@@ -44,8 +44,11 @@
                 <Button Command="{Binding LoadHomeView}" Style="{StaticResource SideTab}" Content="Tài khoản"/>
                 <Button Command="{Binding LoadOrderView}" Style="{StaticResource SideTab}" Content="Bán hàng"/>
                 <Button Command="{Binding LoadHistoryView}" Style="{StaticResource SideTab}" Content="Lịch sử bán hàng"/>
-                <Button Command="{Binding LoadLogoutView}" Style="{StaticResource SideTab}" Content="Đăng xuất"/>
-            </StackPanel>
+				<Button Command="{Binding LoadLogoutView}"
+						CommandParameter="{Binding RelativeSource={
+             RelativeSource AncestorType={x:Type Window}}}"
+						Style="{StaticResource SideTab}" Content="Đăng xuất"/>
+			</StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,21.538">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Text="{Binding Title}" FontWeight="Bold" Foreground="{DynamicResource Header}" FontSize="{DynamicResource BigFont}"/>

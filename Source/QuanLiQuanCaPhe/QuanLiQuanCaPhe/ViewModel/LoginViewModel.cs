@@ -15,7 +15,7 @@ using System.Windows.Input;
 
 namespace QuanLiQuanCaPhe.ViewModel
 {
-	class LoginViewModel: BaseViewModel
+	class LoginViewModel : BaseViewModel
 	{
 		public string tendangnhap { get; set; }
 
@@ -45,45 +45,29 @@ namespace QuanLiQuanCaPhe.ViewModel
 				return;
 
 			string passEncode = MD5Hash(Base64Encode(Password));
-			var accCount = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN == UserName && x.MATKHAU == passEncode);
-			
-			if (UserName.Equals("")||Password.Equals(""))
+			var accCount = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN == UserName && x.MATKHAU == passEncode && x.ISDEL == 0);
+
+			if (UserName.Equals("") || Password.Equals(""))
 			{
 				MessageBox.Show("Bạn chưa điền đầy đủ thông tin đăng nhập!!!");
 			}
-			else if(accCount.Count()>0)
+			else if (accCount.Count() > 0)
 			{
-				foreach (var item in accCount)
+				UserService.GetCurrentUser = accCount.First();
+				if (UserService.GetCurrentUser.CHUCVU.Equals("Admin"))
 				{
-					if (item.ISDEL==0)
-					{
-						FileStream fileStream = new FileStream("tumeo.txt",FileMode.OpenOrCreate, FileAccess.ReadWrite);
-						byte[] temp = Encoding.UTF8.GetBytes(UserName);
-						fileStream.Write(temp, 0, temp.Length);
-						fileStream.Close();
-						IsLogin = true;
-						tendangnhap = UserName;
-
-						if (item.CHUCVU.Equals("Admin"))
-						{
-							MainWindow mainWindow = new MainWindow();
-							mainWindow.Show();
-						}
-						else
-						{
-							NhanVienLayout nhanVienLayout = new NhanVienLayout();
-							nhanVienLayout.Show();
-
-
-							//NhanVienMainWindow nhanVienMainWindow = new NhanVienMainWindow();
-							//nhanVienMainWindow.Show();
-						}
-					
-						UserName = "";
-						Password = "";
-						p.Close();
-					}
+					MainWindow mainWindow = new MainWindow();
+					mainWindow.Show();
 				}
+				else
+				{
+					NhanVienLayout nhanVienLayout = new NhanVienLayout();
+					nhanVienLayout.Show();
+				}
+
+				UserName = "";
+				Password = "";
+				p.Close();
 			}
 			else
 			{

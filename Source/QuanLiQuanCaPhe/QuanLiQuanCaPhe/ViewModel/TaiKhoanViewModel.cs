@@ -126,6 +126,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 			loadData();
 			ChonAnhCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
 			{
+
 				seviceData = new SeviceData();
 				//string temo = DataProvider.ISCreated.DB.NhanViens.First().HOTEN;
 				OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -190,20 +191,19 @@ namespace QuanLiQuanCaPhe.ViewModel
 		}
 		public void loadData()
 		{
-			using (var fs1 = new FileStream("tumeo.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite))
-			{
-				byte[] atemp = new byte[100];
-				UTF8Encoding encoding = new UTF8Encoding(true);
-				int len = 0;
-				while(0<(len=fs1.Read(atemp,0,atemp.Length)))
-				{
-					 tumeo= encoding.GetString(atemp, 0, len);
-				}
-				fs1.Close();
-			}
-			var nhanVien = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN.Equals(tumeo));
-			foreach (var item in nhanVien)
-			{
+			//using (var fs1 = new FileStream("tumeo.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite))
+			//{
+			//	byte[] atemp = new byte[100];
+			//	UTF8Encoding encoding = new UTF8Encoding(true);
+			//	int len = 0;
+			//	while(0<(len=fs1.Read(atemp,0,atemp.Length)))
+			//	{
+			//		 tumeo= encoding.GetString(atemp, 0, len);
+			//	}
+			//	fs1.Close();
+			//}
+
+			NhanVien item = UserService.GetCurrentUser;
 				//ho ten
 				HoTen = item.HOTEN;
 				//
@@ -223,7 +223,6 @@ namespace QuanLiQuanCaPhe.ViewModel
 				CMND = item.CMND;
 				//hinh anh ca nhan
 				DisplayedImagePath = LoadImage(item.HINHANH);
-			}
 			File.Delete("tumeo.txt");
 		}
 		private static BitmapImage LoadImage(byte[] imageData)
