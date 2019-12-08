@@ -13,16 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiQuanCaPhe.Views
+namespace QuanLiQuanCaPhe.UserControlWPF
 {
-    /// <summary>
-    /// Interaction logic for Order.xaml
-    /// </summary>
-    public partial class Order : UserControl
-    {
-        public Order()
-        {
-            InitializeComponent();
-        }
-    }
+	/// <summary>
+	/// Interaction logic for Order.xaml
+	/// </summary>
+	public partial class Order : UserControl
+	{
+		public Order()
+		{
+			InitializeComponent();
+		}
+	}
 }

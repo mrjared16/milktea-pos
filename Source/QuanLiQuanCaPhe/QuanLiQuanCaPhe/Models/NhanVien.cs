@@ -23,11 +23,12 @@ namespace QuanLiQuanCaPhe.Models
     
         public string MANV { get; set; }
         public string HOTEN { get; set; }
-        public Nullable<double> LUONG { get; set; }
-        public Nullable<System.DateTime> NGSINH { get; set; }
+        public double LUONG { get; set; }
+        public System.DateTime NGSINH { get; set; }
         public string PHAI { get; set; }
         public string CMND { get; set; }
         public string DIACHI { get; set; }
+        public byte[] HINHANH { get; set; }
         public string DIENTHOAI { get; set; }
         public string CHUCVU { get; set; }
         public string TAIKHOAN { get; set; }

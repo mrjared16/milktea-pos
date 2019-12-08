@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="QuanLiQuanCaPhe.View.HomeNhanVien"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QuanLiQuanCaPhe.View"
+             mc:Ignorable="d" 
+			 		xmlns:ViewModelss="clr-namespace:QuanLiQuanCaPhe.ViewModel"
+		xmlns:View="clr-namespace:QuanLiQuanCaPhe.View"
+			  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="800" d:DesignWidth="1250"  >
+	<UserControl.Resources>
+		<DataTemplate 
+			x:Name="TaiKhoanTempalte"
+			DataType ="{x:Type ViewModelss:TaiKhoanNhanVienViewModel}"
+			>
+			<View:TaiKhoanNhanVien DataContext="{Binding}"></View:TaiKhoanNhanVien>
+		</DataTemplate>
+		<DataTemplate 
+			x:Name="LichLamviecTempalte"
+			DataType ="{x:Type ViewModelss:LichLamViecNhanVienViewModel}"
+			>
+			<View:LichLamViecNhanVien DataContext="{Binding}"></View:LichLamViecNhanVien>
+		</DataTemplate>
+	</UserControl.Resources>
+
+
+	<Grid Background="Aqua">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"></RowDefinition>
+			<RowDefinition></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid
+			Margin="0,10,0,0"
+					Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto"></RowDefinition>
+				<RowDefinition></RowDefinition>
+				<RowDefinition></RowDefinition>
+			</Grid.RowDefinitions>
+			<TextBlock 
+				Margin="10"
+				Grid.Row="0"   
+				Width="220"  
+				Text="Trang cá nhân"
+				FontSize="30"
+				TextAlignment="Center"
+				ToolTip="Resource name: MaterialDesignRaisedButton" 
+				>
+			</TextBlock>
+			<Button
+				Margin="10"
+				Grid.Row="1"  
+				Width="220"  
+				Command="{Binding BatDauLamViecCommand}"
+				CommandParameter="{Binding ElementName=BatDauLamviecWindow}"
+				Content="Bắt đầu phiên làm việc">
+			</Button>
+			<Grid
+				Grid.Row="2"
+				>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="312*"></ColumnDefinition>
+					<ColumnDefinition Width="249*"></ColumnDefinition>
+					<ColumnDefinition Width="64*"/>
+					<ColumnDefinition Width="312*"></ColumnDefinition>
+					<ColumnDefinition Width="312*"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Button 
+				Margin="46.547,10,45.906,9.623"
+				Grid.Column="1"
+				IsDefault="True"
+				Style="{StaticResource MaterialDesignRaisedButton}"    
+				Width="220"  
+				Click="TaiKhoanNhanVien"
+				ToolTip="Resource name: MaterialDesignRaisedButton" 
+				Content="Tài khoản" Grid.ColumnSpan="2">
+				</Button>
+				<Button 
+				Margin="46.094,10,46.359,9.623"
+				Grid.Column="3"
+				IsDefault="True"
+				Style="{StaticResource MaterialDesignRaisedButton}"    
+				Width="220"  
+				ToolTip="Resource name: MaterialDesignRaisedButton" 
+				Click="LichLamViecNhanVien"
+				Content="Lịch làm việc">
+				</Button>
+			</Grid>
+		</Grid>
+		<ContentControl Grid.Row="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Content="{Binding}"/>
+	</Grid>
+</UserControl>

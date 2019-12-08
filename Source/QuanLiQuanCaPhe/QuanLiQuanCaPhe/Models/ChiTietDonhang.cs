@@ -16,10 +16,10 @@ namespace QuanLiQuanCaPhe.Models
     {
         public string MADH { get; set; }
         public string MAMON { get; set; }
-        public Nullable<double> SOLUONG { get; set; }
-        public Nullable<double> DONGIA { get; set; }
-        public Nullable<double> THANHTIEN { get; set; }
-        public Nullable<double> GIAMGIA { get; set; }
+        public double SOLUONG { get; set; }
+        public double DONGIA { get; set; }
+        public double THANHTIEN { get; set; }
+        public double GIAMGIA { get; set; }
         public Nullable<int> ISDEL { get; set; }
         public Nullable<System.DateTime> CREADTEDAT { get; set; }
         public Nullable<System.DateTime> UPDATEDAT { get; set; }

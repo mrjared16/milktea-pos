@@ -4,28 +4,61 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using QuanLiQuanCaPhe.ViewModels;
+using QuanLiQuanCaPhe.ViewModel;
 
 namespace QuanLiQuanCaPhe.Models
 {
     public class UserService
     {
-        public static NhanVien GetCurrentUser()
-        {
-            return DataProvider.IsCreated.DB.NhanViens.FirstOrDefault();
-        }
+		private static NhanVien _CurrentUser = null;
+		public static NhanVien GetCurrentUser
+		{
+			get
+			{
+				return _CurrentUser;
+			}
+			set
+			{
+				_CurrentUser = value;
+			}
+		}
+        //public static NhanVien GetCurrentUser()
+        //{
+        //    return DataProvider.ISCreated.DB.NhanViens.FirstOrDefault();
+        //}
     }
     public class OrderService
     {
         // API
+        public static string GetUser()
+        {
+            return "Phúc";
+        }
         public static void AddOrder(Order item)
         {
+            //GetListOrder.Add(item);
             DataAccess.AddOrder(item);
         }
         public static string GetNextOrderID()
         {
             return DataAccess.GetNextOrderID();
         }
+
+
+        //private static List<Order> ListOrder = null;
+        //public static List<Order> GetListOrder
+        //{
+        //    get
+        //    {
+
+        //        if (ListOrder == null)
+        //        {
+        //            ListOrder = new List<Order>();
+        //        }
+        //        return ListOrder;
+        //    }
+        //}
+
         public static List<Category> GetCategories()
         {
             List<Category> _ListCategory = new List<Category>();
@@ -63,10 +96,12 @@ namespace QuanLiQuanCaPhe.Models
         // API
         public static List<Category> GetCategories()
         {
+            //return FakeData.GetCategories();
             return DataAccess.GetCategories();
         }
         public static List<Drink> GetDrinkFromCategory(Category category)
         {
+            //return FakeData.GetDrinkFromCategory(_ListCategory.Name);
             return DataAccess.GetDrinkFromCategory(category);
         }
     }
@@ -74,19 +109,19 @@ namespace QuanLiQuanCaPhe.Models
     {
         public static List<Category> GetCategories()
         {
-            List<Category> list = DataProvider.IsCreated.DB.LoaiMonAns.ToList().Where(x => x.ISDEL != 1).Select(x => new Category(x)).ToList();
+            List<Category> list =new List<Category> (DataProvider.ISCreated.DB.LoaiMonAns.ToList().Where(x => x.ISDEL != 1).Select(x => new Category(x)));
             list.Insert(0, new Category() { Name = "Tất cả", ID = null });
             return list;
         }
         public static List<Drink> GetDrinkFromCategory(Category category)
         {
-            List<Drink> list = DataProvider.IsCreated.DB.MonAns.ToList().Where(x => x.ISDEL != 1 && (category.ID == null || x.MALOAI == category.ID)).Select(x => new Drink(x)).ToList();
+            List<Drink> list = DataProvider.ISCreated.DB.MonAns.ToList().Where(x => x.ISDEL != 1 && (category.ID == null || x.MALOAI == category.ID)).Select(x => new Drink(x)).ToList();
             return list;
         }
 
         public static string GetNextOrderID()
         {
-            DonHang LastID = DataProvider.IsCreated.DB.DonHangs.OrderByDescending(a => a.MADH).FirstOrDefault();
+            DonHang LastID = DataProvider.ISCreated.DB.DonHangs.OrderByDescending(a => a.MADH).FirstOrDefault();
             int id = 0;
             if (LastID == null || !Int32.TryParse(LastID.MADH, out id))
             {
@@ -97,14 +132,14 @@ namespace QuanLiQuanCaPhe.Models
         }
         public static void AddOrder(Order order)
         {
-            DataProvider.IsCreated.DB.DonHangs.Add(order.ToDonHang());
-            DataProvider.IsCreated.DB.ChiTietDonhangs.AddRange(order.ToChiTietDonHangs());
-            DataProvider.IsCreated.DB.SaveChanges();
+            DataProvider.ISCreated.DB.DonHangs.Add(order.ToDonHang());
+            DataProvider.ISCreated.DB.ChiTietDonhangs.AddRange(order.ToChiTietDonHangs());
+            DataProvider.ISCreated.DB.SaveChanges();
         }
         private static List<Order> GetOrderBy(Func<DonHang, bool> Condition)
         {
             List<Order> list =
-                DataProvider.IsCreated.DB.DonHangs.ToList()
+                DataProvider.ISCreated.DB.DonHangs.ToList()
                 .Where(x => Condition(x) && x.ISDEL != 1)
                 .Select(x => new Order(x))
                 .ToList();

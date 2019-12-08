@@ -8,18 +8,18 @@ namespace QuanLiQuanCaPhe.Models
 {
 	class DataProvider
 	{
-		private static DataProvider isCreated;
-		public static DataProvider IsCreated
+		private static DataProvider _ISCreated;
+		public static DataProvider ISCreated
 		{
 			get
 			{
-				if (isCreated == null)
-					isCreated = new DataProvider();
-				return isCreated;
+				if (_ISCreated == null)
+					_ISCreated = new DataProvider();
+				return _ISCreated;
 			}
 			set
 			{
-				isCreated = value;
+				_ISCreated = value;
 			}
 		}
 		public QUAN_LY_QUAN_CAPHEEntities DB { get; set; }

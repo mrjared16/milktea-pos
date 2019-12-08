@@ -86,13 +86,15 @@
     <EntitySetMapping Name="NhanViens">
       <EntityTypeMapping TypeName="QUAN_LY_QUAN_CAPHEModel.NhanVien">
         <MappingFragment StoreEntitySet="NhanVien">
-          <ScalarProperty Name="CREATEDAT" ColumnName="CREATEDAT" />
-          <ScalarProperty Name="ISADMIN" ColumnName="ISADMIN" />
+          <ScalarProperty Name="UPDATEDAT" ColumnName="UPDATEDAT" />
+          <ScalarProperty Name="CREADTEDAT" ColumnName="CREADTEDAT" />
           <ScalarProperty Name="ISDEL" ColumnName="ISDEL" />
           <ScalarProperty Name="MATKHAU" ColumnName="MATKHAU" />
           <ScalarProperty Name="TAIKHOAN" ColumnName="TAIKHOAN" />
           <ScalarProperty Name="CHUCVU" ColumnName="CHUCVU" />
           <ScalarProperty Name="DIENTHOAI" ColumnName="DIENTHOAI" />
+          <ScalarProperty Name="HINHANH" ColumnName="HINHANH" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
           <ScalarProperty Name="CMND" ColumnName="CMND" />
           <ScalarProperty Name="PHAI" ColumnName="PHAI" />
           <ScalarProperty Name="NGSINH" ColumnName="NGSINH" />
