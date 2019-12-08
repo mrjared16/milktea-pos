@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using QuanLiQuanCaPhe.Models;
 using System.Windows;
+using System.Data.Entity;
+
 namespace QuanLiQuanCaPhe.ViewModel
 {
     public class HistoryViewModel : NhanVienLayoutViewModelInterface
@@ -15,7 +17,6 @@ namespace QuanLiQuanCaPhe.ViewModel
         public HistoryViewModel()
         {
             Title = "Lịch sử bán hàng";
-            //SelectedOrder = (_ListOrder == null) ? null : ListOrder[0];
             SelectedCategory = ListCategory[0];
             LoadOrderByCategory = new RelayCommand<Category>((category) => { return (category != SelectedCategory); }, (category) =>
            {
@@ -26,7 +27,10 @@ namespace QuanLiQuanCaPhe.ViewModel
         private Order _SelectedOrder;
         public Order SelectedOrder
         {
-            get { return _SelectedOrder; }
+            get
+            {
+                return _SelectedOrder;
+            }
             set
             {
                 OnPropertyChanged(ref _SelectedOrder, value);
@@ -37,8 +41,10 @@ namespace QuanLiQuanCaPhe.ViewModel
         {
             get
             {
-                if (_ListOrder == null)
-                    _ListOrder = OrderService.GetOrderByCategory(new Category() { ID = "day"});
+                if (_ListOrder == null || OrderService.HasChanges())
+                {
+                    _ListOrder = OrderService.GetOrderByCategory(SelectedCategory);
+                }
                 return _ListOrder;
             }
             set

@@ -10,18 +10,18 @@ namespace QuanLiQuanCaPhe.Models
 {
     public class UserService
     {
-		private static NhanVien _CurrentUser = null;
-		public static NhanVien GetCurrentUser
-		{
-			get
-			{
-				return _CurrentUser;
-			}
-			set
-			{
-				_CurrentUser = value;
-			}
-		}
+        private static NhanVien _CurrentUser = null;
+        public static NhanVien GetCurrentUser
+        {
+            get
+            {
+                return _CurrentUser;
+            }
+            set
+            {
+                _CurrentUser = value;
+            }
+        }
         //public static NhanVien GetCurrentUser()
         //{
         //    return DataProvider.ISCreated.DB.NhanViens.FirstOrDefault();
@@ -34,9 +34,18 @@ namespace QuanLiQuanCaPhe.Models
         {
             return "Phúc";
         }
+        private static bool _HasChanges = false;
+        public static bool HasChanges()
+        {
+            if (!_HasChanges)
+                return false;
+
+            _HasChanges = false;
+            return true;
+        }
         public static void AddOrder(Order item)
         {
-            //GetListOrder.Add(item);
+            _HasChanges = true;
             DataAccess.AddOrder(item);
         }
         public static string GetNextOrderID()
@@ -52,20 +61,6 @@ namespace QuanLiQuanCaPhe.Models
             }
             return 0;
         }
-        
-        //private static List<Order> ListOrder = null;
-        //public static List<Order> GetListOrder
-        //{
-        //    get
-        //    {
-
-        //        if (ListOrder == null)
-        //        {
-        //            ListOrder = new List<Order>();
-        //        }
-        //        return ListOrder;
-        //    }
-        //}
 
         public static List<Category> GetCategories()
         {
@@ -117,7 +112,7 @@ namespace QuanLiQuanCaPhe.Models
     {
         public static List<Category> GetCategories()
         {
-            List<Category> list =new List<Category> (DataProvider.ISCreated.DB.LoaiMonAns.ToList().Where(x => x.ISDEL != 1).Select(x => new Category(x)));
+            List<Category> list = new List<Category>(DataProvider.ISCreated.DB.LoaiMonAns.ToList().Where(x => x.ISDEL != 1).Select(x => new Category(x)));
             list.Insert(0, new Category() { Name = "Tất cả", ID = null });
             return list;
         }
