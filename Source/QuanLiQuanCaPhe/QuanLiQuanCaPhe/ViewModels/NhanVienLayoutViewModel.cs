@@ -58,7 +58,7 @@ namespace QuanLiQuanCaPhe.ViewModels
                 }
                 return _historyVM;
             }
-            set { OnPropertyChanged(ref _historyVM, value); }
+            set { OnPropertyChanged(ref _historyVM, value, null); }
         }
         private string _Title;
         public string Title
@@ -75,7 +75,7 @@ namespace QuanLiQuanCaPhe.ViewModels
         public NhanVienLayoutViewModel()
         {
             CurrentView = OrderVM;
-            LoadOrderView = new RelayCommand<object>((p) => { return CurrentView != OrderVM; }, (p) => { CurrentView = OrderVM;  /*var a = DataProvider.ISCreated.DB.NhanViens.First(); */});
+            LoadOrderView = new RelayCommand<object>((p) => { return CurrentView != OrderVM; }, (p) => { CurrentView = OrderVM; });
             LoadHistoryView = new RelayCommand<object>((p) => { return CurrentView != HistoryVM; }, (p) => { CurrentView = HistoryVM; });
             //{
             //    

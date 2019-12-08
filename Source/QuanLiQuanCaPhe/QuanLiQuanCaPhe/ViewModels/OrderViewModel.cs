@@ -15,7 +15,7 @@ namespace QuanLiQuanCaPhe.ViewModels
     {
 
         #region commands
-        public ICommand LoadCategory { get; set; }
+        public ICommand LoadDrinkByCategory { get; set; }
         public ICommand AddDrink { get; set; }
         public ICommand IncreaseAmount { get; set; }
         public ICommand DecreaseAmount { get; set; }
@@ -29,7 +29,7 @@ namespace QuanLiQuanCaPhe.ViewModels
             Title = "Bán hàng";
             // commands
             SelectedCategory = ListCategory[0];
-            LoadCategory = new RelayCommand<Category>((category) => { return (category != SelectedCategory); }, (category) =>
+            LoadDrinkByCategory = new RelayCommand<Category>((category) => { return (category != SelectedCategory); }, (category) =>
             {
                 SelectedCategory = category;
             });
@@ -51,11 +51,11 @@ namespace QuanLiQuanCaPhe.ViewModels
             {
                 CurrentOrder.Remove(orderitem);
             });
-            ClearOrder = new RelayCommand<OrderItem>((drink) => { return true; }, (orderitem) =>
+            ClearOrder = new RelayCommand<OrderItem>((drink) => { return CurrentOrder.items.Any(); }, (orderitem) =>
             {
                 CurrentOrder.RemoveAll();
             });
-            CheckoutOrder = new RelayCommand<OrderItem>((drink) => { return true; }, (orderitem) =>
+            CheckoutOrder = new RelayCommand<OrderItem>((drink) => { return CurrentOrder.items.Any(); }, (orderitem) =>
             {
                 CurrentOrder.SaveOrder();
                 CurrentOrder = new Order();
@@ -173,7 +173,7 @@ namespace QuanLiQuanCaPhe.ViewModels
                 return ((this.Note != "") ? " (" + this.Note + ")" : "");
             }
         }
-        public float ItemTotal
+        public double ItemTotal
         {
             get
             {
@@ -187,6 +187,27 @@ namespace QuanLiQuanCaPhe.ViewModels
             Number = number;
             Note = note;
         }
+        public OrderItem(ChiTietDonhang ChiTiet)
+        {
+            this._Item = new Drink(ChiTiet.MonAn);
+            this.Number = (int)ChiTiet.SOLUONG;
+
+            //this.Note = "";
+        }
+        public ChiTietDonhang ToChiTietDonHang(string OrderID, DateTime Now)
+        {
+            return new ChiTietDonhang()
+            {
+                MADH = OrderID,
+                MAMON = this.Item.ID,
+                SOLUONG = this.Number,
+                THANHTIEN = this.ItemTotal,
+                ISDEL = 0,
+                CREADTEDAT = Now,
+                UPDATEDAT = Now
+
+            };
+        }
     }
     public class Order : BaseViewModel
     {
@@ -194,17 +215,26 @@ namespace QuanLiQuanCaPhe.ViewModels
         {
             this.ID = ID;
             this.Date = date;
-            this.Username = username;
+            //this.Username = username;
             this.Coupon = coupon;
             items = new ObservableCollection<OrderItem>();
         }
         public Order()
         {
-            this.ID = OrderService.GetNextID();
+           
             this.Date = DateTime.Now;
-            this.Username = OrderService.GetUser();
+            //this.Username = OrderService.GetUser();
             this.Coupon = 0;
             items = new ObservableCollection<OrderItem>();
+            this.User = UserService.GetCurrentUser();
+        }
+        public Order(DonHang DonHang)
+        {
+            this.ID = DonHang.MADH;
+            this.User = DonHang.NhanVien;
+            this.Date = (DateTime)DonHang.CREADTEDAT;
+            this.Coupon = 0;
+            this.items = new ObservableCollection<OrderItem>(OrderService.GetOrderItems(DonHang));
         }
         public void Add(OrderItem item)
         {
@@ -236,14 +266,21 @@ namespace QuanLiQuanCaPhe.ViewModels
         // public binding data
         public ObservableCollection<OrderItem> items { get; set; }
         public string ID { get; set; }
-        public float Coupon { get; set; }
+        public double Coupon { get; set; }
         public DateTime Date { get; set; }
-        public string Username { get; set; }
-        public float OrderSubTotal
+        public NhanVien User { get; set; }
+        public string Username
         {
             get
             {
-                float s = 0;
+                return this.User.HOTEN;
+            }
+        }
+        public double OrderSubTotal
+        {
+            get
+            {
+                double s = 0;
                 foreach (OrderItem orderitem in items)
                 {
                     s += orderitem.ItemTotal;
@@ -251,19 +288,46 @@ namespace QuanLiQuanCaPhe.ViewModels
                 return s;
             }
         }
-        public float CouponAmount
+        public double CouponAmount
         {
             get
             {
                 return (OrderSubTotal * Coupon / 100);
             }
         }
-        public float OrderTotal
+        public double OrderTotal
         {
             get
             {
                 return OrderSubTotal * (1 - Coupon / 100);
             }
+        }
+
+        public DonHang ToDonHang()
+        {
+            DateTime Now = DateTime.Now;
+            this.ID = OrderService.GetNextOrderID();
+            return new DonHang()
+            {
+                MADH = this.ID,
+                MANV = this.User.MANV,
+                THOIGIAN = Now,
+                TONGTIEN = this.OrderTotal,
+                ISDEL = 0,
+                CREADTEDAT = Now,
+                UPDATEDAT = Now
+
+            };
+        }
+        public List<ChiTietDonhang> ToChiTietDonHangs()
+        {
+            DateTime Now = DateTime.Now;
+            List<ChiTietDonhang> list = new List<ChiTietDonhang>();
+            foreach (OrderItem item in items)
+            {
+                list.Add(item.ToChiTietDonHang(this.ID, Now));
+            }
+            return list;
         }
     }
 }
