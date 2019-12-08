@@ -10,7 +10,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="{Binding OrderSideBar}"/>
         </Grid.ColumnDefinitions>
         <!--Main Content-->
         <StackPanel Grid.Column="0" HorizontalAlignment="Center">
@@ -68,8 +68,8 @@
         <Grid Grid.Column="1" Background="{DynamicResource SideBar}" DataContext="{Binding SelectedOrder}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
-                <RowDefinition Height="400"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="180"/>
             </Grid.RowDefinitions>
             <!--Header-->
             <StackPanel Grid.Row="0" Margin="15,5,10,0">

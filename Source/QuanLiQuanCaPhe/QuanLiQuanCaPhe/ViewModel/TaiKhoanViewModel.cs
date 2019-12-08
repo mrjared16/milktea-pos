@@ -24,7 +24,6 @@ namespace QuanLiQuanCaPhe.ViewModel
 		public ICommand LuuThongTinAdminCommand { get; set; }
 
 		public bool IsLoaded { get; set; }
-		public static string tumeo = "";
 
 		private static string _TaiKhoan;
 		public string TaiKhoan

@@ -24,11 +24,21 @@ namespace QuanLiQuanCaPhe.ViewModel
            });
 
         }
+        private int _OrderSideBar = 0;
+        public int OrderSideBar { get => _OrderSideBar; set { OnPropertyChanged(ref _OrderSideBar, value); } }
         private Order _SelectedOrder;
         public Order SelectedOrder
         {
             get
             {
+                if (_SelectedOrder != null)
+                {
+                    OrderSideBar = 320;
+                }
+                else
+                {
+                    OrderSideBar = 0;
+                }
                 return _SelectedOrder;
             }
             set

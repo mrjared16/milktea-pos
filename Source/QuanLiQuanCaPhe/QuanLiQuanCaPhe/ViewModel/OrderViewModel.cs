@@ -343,7 +343,7 @@ namespace QuanLiQuanCaPhe.ViewModel
             }
             set
             {
-                OnPropertyChanged(ref _Coupon, value);
+                OnPropertyChanged(ref _Coupon, value, null);
             }
         }
         public DateTime Date { get; set; }
