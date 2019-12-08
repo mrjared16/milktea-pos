@@ -10,7 +10,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="{Binding OrderSideBar}"/>
         </Grid.ColumnDefinitions>
         <!--Main Content-->
         <Grid Grid.Column="0">
@@ -44,7 +44,7 @@
             <!--End Categories-->
 
             <!--Product Items-->
-            <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding ListDrink}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True">
+            <ListView Margin="20" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding ListDrink}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"/>
@@ -55,7 +55,7 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
-                                    <Button Height="100" Width="100" Background="Transparent" Margin="20,15,0,0"
+                                    <Button Height="100" Width="100" Background="Transparent" Margin="10,15,10,0"
                                             HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                                             Padding="0" BorderBrush="Transparent"
                                             Command="{Binding DataContext.AddDrink, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"

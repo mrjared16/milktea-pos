@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -93,6 +95,9 @@ namespace QuanLiQuanCaPhe.ViewModel
         private string _CouponCode;
         public string CouponCode { get => _CouponCode; set { OnPropertyChanged(ref _CouponCode, value); } }
 
+        private int _OrderSideBar = 0;
+        public int OrderSideBar { get => _OrderSideBar; set { OnPropertyChanged(ref _OrderSideBar, value); } }
+
         private bool _IsAddCouponDiaglogOpen = false;
         public bool IsAddCouponDialogOpen
         {
@@ -154,11 +159,24 @@ namespace QuanLiQuanCaPhe.ViewModel
                 if (_CurrentOrder == null)
                 {
                     _CurrentOrder = new Order();
+                    _CurrentOrder.items.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
+                    {
+                        if (_CurrentOrder.items.Any())
+                        {
+                            OrderSideBar = 320;
+                        }
+                        else
+                        {
+                            OrderSideBar = 0;
+                        }
+                    };
+
                 }
                 return _CurrentOrder;
             }
             set
             {
+
                 OnPropertyChanged(ref _CurrentOrder, value);
             }
         }
