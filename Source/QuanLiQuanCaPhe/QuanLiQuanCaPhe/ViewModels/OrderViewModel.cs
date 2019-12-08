@@ -223,7 +223,6 @@ namespace QuanLiQuanCaPhe.ViewModels
         {
            
             this.Date = DateTime.Now;
-            //this.Username = OrderService.GetUser();
             this.Coupon = 0;
             items = new ObservableCollection<OrderItem>();
             this.User = UserService.GetCurrentUser();

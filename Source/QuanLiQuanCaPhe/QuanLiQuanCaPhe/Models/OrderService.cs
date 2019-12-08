@@ -18,35 +18,14 @@ namespace QuanLiQuanCaPhe.Models
     public class OrderService
     {
         // API
-        public static string GetUser()
-        {
-            return "Phúc";
-        }
         public static void AddOrder(Order item)
         {
-            //GetListOrder.Add(item);
             DataAccess.AddOrder(item);
         }
         public static string GetNextOrderID()
         {
             return DataAccess.GetNextOrderID();
         }
-
-
-        //private static List<Order> ListOrder = null;
-        //public static List<Order> GetListOrder
-        //{
-        //    get
-        //    {
-
-        //        if (ListOrder == null)
-        //        {
-        //            ListOrder = new List<Order>();
-        //        }
-        //        return ListOrder;
-        //    }
-        //}
-
         public static List<Category> GetCategories()
         {
             List<Category> _ListCategory = new List<Category>();
@@ -84,12 +63,10 @@ namespace QuanLiQuanCaPhe.Models
         // API
         public static List<Category> GetCategories()
         {
-            //return FakeData.GetCategories();
             return DataAccess.GetCategories();
         }
         public static List<Drink> GetDrinkFromCategory(Category category)
         {
-            //return FakeData.GetDrinkFromCategory(_ListCategory.Name);
             return DataAccess.GetDrinkFromCategory(category);
         }
     }

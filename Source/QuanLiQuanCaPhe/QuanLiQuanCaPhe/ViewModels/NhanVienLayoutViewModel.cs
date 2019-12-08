@@ -58,7 +58,7 @@ namespace QuanLiQuanCaPhe.ViewModels
                 }
                 return _historyVM;
             }
-            set { OnPropertyChanged(ref _historyVM, value, null); }
+            set { OnPropertyChanged(ref _historyVM, value); }
         }
         private string _Title;
         public string Title
