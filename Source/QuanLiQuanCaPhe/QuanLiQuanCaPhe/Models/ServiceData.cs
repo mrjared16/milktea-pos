@@ -99,7 +99,6 @@ namespace QuanLiQuanCaPhe.Models
         public static bool tonTaiLoaiMonAn(string MaLoai)
         {
             var MonAn = DataProvider.ISCreated.DB.LoaiMonAns.Where(x => x.MALOAI == MaLoai && x.ISDEL != 1);
-
             int count = 0;
             foreach (var item in MonAn)
             {
@@ -182,14 +181,19 @@ namespace QuanLiQuanCaPhe.Models
         }
 
 
-
-        public List<DoanhThu> DoanhThuTheoLoaiMonHomNay(string maLoai, string mode)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="maLoai"></param>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        public static BindingList<DoanhThu> DoanhThuTheoLoaiMonHomNay(string maLoai, int mode)
         {
-            List<DoanhThu> doanhThu = new List<DoanhThu>();
+            BindingList<DoanhThu> doanhThu = new BindingList<DoanhThu>();
             BindingList<MonAn> MonAn;
-            if (mode.Equals("Sản phẩm"))
+            if (mode == 1)
             {
-                MonAn = danhSachMonAnTheoLoaiMonAn(maLoai);
+                MonAn = new BindingList<MonAn>(danhSachMonAnTheoLoaiMonAn(maLoai));
             }
             else
             {
@@ -221,51 +225,92 @@ namespace QuanLiQuanCaPhe.Models
             }
             return doanhThu;
         }
-        public List<DoanhThu> DoanhThuTheoLoaiMonTuanNay(string maLoai, string mode)
+        public static double tongDoanhThu(BindingList<DoanhThu> list)
         {
-            List<DoanhThu> doanhThu = new List<DoanhThu>();
-            BindingList<MonAn> MonAn;
-            if (mode.Equals("Sản phẩm"))
+            double tong = 0;
+            foreach (var x in list)
             {
-                MonAn = danhSachMonAnTheoLoaiMonAn(maLoai);
+                tong += x.TongTienThu;
             }
-            else
+            return tong;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="maLoai"></param>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        // don hang
+        public static BindingList<DonHang> danhSachDonHangHomNay(DateTime date)
+        {
+            BindingList<DonHang> donHangs = new BindingList<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.Day == date.Day).ToArray());
+            int count = 0;
+            foreach (var item in donHangs)
             {
-                MonAn = getListMonAn();
-            }
-            string maDon;
-            DateTime date = DateTime.Now;
-            var ListDonHang = danhSachDonHangTuanNay();
-            foreach (var item in MonAn)
-            {
-                var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
+                if (item.ISDEL == 0)
                 {
-                    double SL = 0;
-                    double TongTien = 0;
-                    foreach (var item1 in CTMonAn)
-                    {
-                        foreach (var item2 in ListDonHang)
-                        {
-                            if (item1.MADH == item2.MADH)
-                            {
-                                SL += item1.SOLUONG;
-                                TongTien += item1.THANHTIEN;
-                            }
-                        }
-                    }
-                    DoanhThu doanh = new DoanhThu(item, SL, TongTien);
-                    doanhThu.Add(doanh);
+                    count++;
                 }
             }
-            return doanhThu;
+            //if (count > 0)
+            return donHangs;
+            //else
+            //	return null;
         }
-        public List<DoanhThu> DoanhThuTheoLoaiMonThangNay(string maLoai, string mode)
+
+
+        //public BindingList<DoanhThu> DoanhThuTheoLoaiMonTuanNay(string maLoai, int mode)
+        //{
+        //    BindingList<DoanhThu> doanhThu = new BindingList<DoanhThu>();
+        //    BindingList<MonAn> MonAn;
+        //    if (mode == 1)
+        //    {
+        //        MonAn = new BindingList<MonAn>(danhSachMonAnTheoLoaiMonAn(maLoai));
+        //    }
+        //    else
+        //    {
+        //        MonAn = getListMonAn();
+        //    }
+        //    string maDon;
+        //    DateTime date = DateTime.Now;
+        //    var ListDonHang = danhSachDonHangTuanNay();
+        //    foreach (var item in MonAn)
+        //    {
+        //        var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
+        //        {
+        //            double SL = 0;
+        //            double TongTien = 0;
+        //            foreach (var item1 in CTMonAn)
+        //            {
+        //                foreach (var item2 in ListDonHang)
+        //                {
+        //                    if (item1.MADH == item2.MADH)
+        //                    {
+        //                        SL += item1.SOLUONG;
+        //                        TongTien += item1.THANHTIEN;
+        //                    }
+        //                }
+        //            }
+        //            DoanhThu doanh = new DoanhThu(item, SL, TongTien);
+        //            doanhThu.Add(doanh);
+        //        }
+        //    }
+        //    return doanhThu;
+        //}
+
+        /// <summary>
+        /// /////////////////////////////THÁNG 
+        /// </summary>
+        /// <param name="maLoai"></param>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        public static BindingList<DoanhThu> DoanhThuTheoLoaiMonThangNay(string maLoai, int mode)
         {
-            List<DoanhThu> doanhThu = new List<DoanhThu>();
+            BindingList<DoanhThu> doanhThu = new BindingList<DoanhThu>();
             BindingList<MonAn> MonAn;
-            if (mode.Equals("Sản phẩm"))
+            if (mode == 1)
             {
-                MonAn = danhSachMonAnTheoLoaiMonAn(maLoai);
+                MonAn = new BindingList<MonAn>(danhSachMonAnTheoLoaiMonAn(maLoai));
             }
             else
             {
@@ -297,13 +342,20 @@ namespace QuanLiQuanCaPhe.Models
             }
             return doanhThu;
         }
-        public List<DoanhThu> DoanhThuTheoLoaiMonQuyNay(string maLoai, string mode)
+
+        /// <summary>
+        /// /////////////////////////QUÍIIII
+        /// </summary>
+        /// <param name="maLoai"></param>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        public static BindingList<DoanhThu> DoanhThuTheoLoaiMonQuyNay(string maLoai, int mode)
         {
-            List<DoanhThu> doanhThu = new List<DoanhThu>();
+            BindingList<DoanhThu> doanhThu = new BindingList<DoanhThu>();
             BindingList<MonAn> MonAn;
-            if (mode.Equals("Sản phẩm"))
+            if (mode == 1)
             {
-                MonAn = danhSachMonAnTheoLoaiMonAn(maLoai);
+                MonAn = new BindingList<MonAn>(danhSachMonAnTheoLoaiMonAn(maLoai));
             }
             else
             {
@@ -311,7 +363,6 @@ namespace QuanLiQuanCaPhe.Models
             }
             string maDon;
             DateTime date = DateTime.Now;
-
             var ListDonHang = danhSachDonHangQuyNay(GetQuarter(date));
             foreach (var item in MonAn)
             {
@@ -336,13 +387,20 @@ namespace QuanLiQuanCaPhe.Models
             }
             return doanhThu;
         }
-        public List<DoanhThu> DoanhThuTheoLoaiMonNamNay(string maLoai, string mode)
+
+        /// <summary>
+        /// //////////////////////////////NĂM NÀYYYYYYYYYYYYY
+        /// </summary>
+        /// <param name="maLoai"></param>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        public static BindingList<DoanhThu> DoanhThuTheoLoaiMonNamNay(string maLoai, int mode)
         {
-            List<DoanhThu> doanhThu = new List<DoanhThu>();
+            BindingList<DoanhThu> doanhThu = new BindingList<DoanhThu>();
             BindingList<MonAn> MonAn;
-            if (mode.Equals("Sản phẩm"))
+            if (mode == 1)
             {
-                MonAn = danhSachMonAnTheoLoaiMonAn(maLoai);
+                MonAn = new BindingList<MonAn>(danhSachMonAnTheoLoaiMonAn(maLoai));
             }
             else
             {
@@ -374,7 +432,7 @@ namespace QuanLiQuanCaPhe.Models
             }
             return doanhThu;
         }
-        public BindingList<MonAn> danhSachMonAnTheoLoaiMonAn(string maLoai)
+        public static BindingList<MonAn> danhSachMonAnTheoLoaiMonAn(string maLoai)
         {
 
             if (!tonTaiLoaiMonAn(maLoai))
@@ -383,11 +441,119 @@ namespace QuanLiQuanCaPhe.Models
             }
             return new BindingList<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.MALOAI == maLoai).ToList());
         }
+        public static List<DonHang> danhSachDonHangTuanNay()
+        {
+            List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs);
+            foreach (var item in donHangs)
+            {
+                if (GetIso8601WeekOfYear(item.CREADTEDAT.Value) != GetIso8601WeekOfYear(DateTime.Now))
+                {
+                    donHangs.Remove(item);
+                }
+            }
+            int count = 0;
+            foreach (var item in donHangs)
+            {
+                if (item.ISDEL == 0)
+                {
+                    count++;
+                }
+            }
+            if (count > 0)
+                return donHangs;
+            else
+                return null;
+        }
+
+        public static int GetIso8601WeekOfYear(DateTime time)
+        {
+            // Seriously cheat.  If its Monday, Tuesday or Wednesday, then it'll 
+            // be the same week# as whatever Thursday, Friday or Saturday are,
+            // and we always get those right
+            DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(time);
+            if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
+            {
+                time = time.AddDays(3);
+            }
+
+            // Return the week of our adjusted day
+            return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+        }
+
+        public static List<DonHang> danhSachDonHangThangNay(DateTime date)
+        {
+            List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.Month == date.Month));
+            int count = 0;
+            foreach (var item in donHangs)
+            {
+                if (item.ISDEL == 0)
+                {
+                    count++;
+                }
+            }
+            //if (count > 0)
+            return donHangs;
+            //else
+            //	return null;
+        }
+
+        public static List<DonHang> danhSachDonHangQuyNay(int quy)
+        {
+            List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs);
+            foreach (var item in donHangs)
+            {
+                if (GetQuarter(item.CREADTEDAT.Value) != GetQuarter(DateTime.Now))
+                {
+                    donHangs.Remove(item);
+                }
+            }
+            int count = 0;
+            foreach (var item in donHangs)
+            {
+                if (item.ISDEL == 0)
+                {
+                    count++;
+                }
+            }
+            //if (count > 0)
+            return donHangs;
+            //else
+            //	return null;
+        }
+        public static int GetQuarter(DateTime date)
+        {
+            if (date.Month >= 4 && date.Month <= 6)
+                return 1;
+            else if (date.Month >= 7 && date.Month <= 9)
+                return 2;
+            else if (date.Month >= 10 && date.Month <= 12)
+                return 3;
+            else
+                return 4;
+        }
+        public static List<DonHang> danhSachDonHangNamNay(DateTime date)
+        {
+            List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.Year == date.Year));
+            int count = 0;
+            foreach (var item in donHangs)
+            {
+                if (item.ISDEL == 0)
+                {
+                    count++;
+                }
+            }
+            //if (count > 0)
+            return donHangs;
+            //else
+            //	return null;
+        }
 
 
-
-
-        // nhan vien
+        ///////////////////////////////////NHAN VIEN
+        /// <summary>
+        /// ////////////////////////////////////////////////////////////////////////
+        /// </summary>
+        /// <returns></returns>
         public List<NhanVien> danhsachNhanVien()
         {
             List<NhanVien> nhanViens = new List<NhanVien>(DataProvider.ISCreated.DB.NhanViens);
@@ -481,129 +647,8 @@ namespace QuanLiQuanCaPhe.Models
             }
         }
 
-        // don hang
-        public List<DonHang> danhSachDonHangHomNay(DateTime date)
-        {
-            List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.Day == date.Day));
-            int count = 0;
-            foreach (var item in donHangs)
-            {
-                if (item.ISDEL == 0)
-                {
-                    count++;
-                }
-            }
-            if (count > 0)
-                return donHangs;
-            else
-                return null;
-        }
-        public List<DonHang> danhSachDonHangTuanNay()
-        {
-            List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs);
-            foreach (var item in donHangs)
-            {
-                if (GetIso8601WeekOfYear(item.CREADTEDAT.Value) != GetIso8601WeekOfYear(DateTime.Now))
-                {
-                    donHangs.Remove(item);
-                }
-            }
-            int count = 0;
-            foreach (var item in donHangs)
-            {
-                if (item.ISDEL == 0)
-                {
-                    count++;
-                }
-            }
-            if (count > 0)
-                return donHangs;
-            else
-                return null;
-        }
 
-        public static int GetIso8601WeekOfYear(DateTime time)
-        {
-            // Seriously cheat.  If its Monday, Tuesday or Wednesday, then it'll 
-            // be the same week# as whatever Thursday, Friday or Saturday are,
-            // and we always get those right
-            DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(time);
-            if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
-            {
-                time = time.AddDays(3);
-            }
 
-            // Return the week of our adjusted day
-            return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
-        }
-
-        public List<DonHang> danhSachDonHangThangNay(DateTime date)
-        {
-            List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.Month == date.Month));
-            int count = 0;
-            foreach (var item in donHangs)
-            {
-                if (item.ISDEL == 0)
-                {
-                    count++;
-                }
-            }
-            if (count > 0)
-                return donHangs;
-            else
-                return null;
-        }
-
-        public List<DonHang> danhSachDonHangQuyNay(int quy)
-        {
-            List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs);
-            foreach (var item in donHangs)
-            {
-                if (GetQuarter(item.CREADTEDAT.Value) != GetQuarter(DateTime.Now))
-                {
-                    donHangs.Remove(item);
-                }
-            }
-            int count = 0;
-            foreach (var item in donHangs)
-            {
-                if (item.ISDEL == 0)
-                {
-                    count++;
-                }
-            }
-            if (count > 0)
-                return donHangs;
-            else
-                return null;
-        }
-        public int GetQuarter(DateTime date)
-        {
-            if (date.Month >= 4 && date.Month <= 6)
-                return 1;
-            else if (date.Month >= 7 && date.Month <= 9)
-                return 2;
-            else if (date.Month >= 10 && date.Month <= 12)
-                return 3;
-            else
-                return 4;
-        }
-        public List<DonHang> danhSachDonHangNamNay(DateTime date)
-        {
-            List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.Year == date.Year));
-            int count = 0;
-            foreach (var item in donHangs)
-            {
-                if (item.ISDEL == 0)
-                {
-                    count++;
-                }
-            }
-            if (count > 0)
-                return donHangs;
-            else
-                return null;
-        }
 
         public List<ChiTietDonhang> danhSachChiTietDonhang(string maDH)
         {

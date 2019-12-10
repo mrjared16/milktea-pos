@@ -40,8 +40,41 @@
                 DOANH THU
             </TextBlock>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-
-                <Button
+                <Border
+                    Width="250"
+                    Height="70"
+                    Margin="0,0,20,0"
+                    Padding="5"
+                    HorizontalAlignment="Left"
+                    Background="{Binding colorBtnSP, UpdateSourceTrigger=PropertyChanged}"
+                    CornerRadius="5">
+                    <ComboBox
+                        Name="loaiCombobox"
+                        materialDesign:HintAssist.FloatingOffset="0, -24"
+                        materialDesign:HintAssist.FloatingScale="1"
+                        materialDesign:HintAssist.Foreground="AntiqueWhite"
+                        materialDesign:HintAssist.Hint="LOẠI THỨC UỐNG"
+                        ItemsSource="{Binding MilkteaCategories}"
+                        SelectedItem="{Binding selectedLoai, Mode=TwoWay}"
+                        SelectedValuePath="Name"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Padding="5"
+                                    Background="#26c6da"
+                                    BorderBrush="WhiteSmoke"
+                                    BorderThickness="0,0,0,1">
+                                    <TextBlock
+                                        Cursor="Hand"
+                                        FontFamily="Courier New"
+                                        Text="{Binding Path=TENLOAI}" />
+                                </Border>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Border>
+                <!--<Button
                     Height="40"
                     Margin="0,0,30,0"
                     materialDesign:ButtonAssist.CornerRadius="10"
@@ -50,15 +83,16 @@
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     ToolTip="MaterialDesignRaisedButton with Round Corners">
                     Loại sản phẩm
-                </Button>
+                </Button>-->
                 <Button
-                    Height="40"
+                    Width="250"
+                    Height="70"
                     materialDesign:ButtonAssist.CornerRadius="10"
                     Background="{Binding colorBtnTong}"
                     Command="{Binding btnTongDoanhThuCommand}"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     ToolTip="MaterialDesignRaisedButton with Round Corners">
-                    Tổng doanh thu
+                    TỔNG DOANH THU
                 </Button>
 
             </StackPanel>
@@ -125,6 +159,7 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="Background" Value="#4ebaaa" />
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemsPanel>
@@ -164,6 +199,10 @@
                         DisplayMemberBinding="{Binding monAn.MALOAI}"
                         Header="Loại" />
                     <GridViewColumn
+                        Width="150"
+                        DisplayMemberBinding="{Binding SoLuotMua}"
+                        Header="Số Lượng" />
+                    <GridViewColumn
                         Width="200"
                         DisplayMemberBinding="{Binding TongTienThu}"
                         Header="Doanh thu" />
@@ -173,7 +212,7 @@
         <StackPanel
             Grid.Row="7"
             Grid.RowSpan="2"
-            Margin="0,0,250,0"
+            Margin="0,0,190,0"
             HorizontalAlignment="Right"
             Orientation="Horizontal">
             <materialDesign:Card
@@ -187,8 +226,8 @@
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    FontWeight="Bold"
                     FontSize="16"
+                    FontWeight="Bold"
                     Text="TỔNG DOANH THU:" />
             </materialDesign:Card>
 
@@ -205,9 +244,6 @@
                     Foreground="Red"
                     Text="{Binding TongDoanhThu}" />
             </materialDesign:Card>
-
-
         </StackPanel>
-
     </Grid>
 </UserControl>

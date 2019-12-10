@@ -14,10 +14,41 @@ namespace QuanLiQuanCaPhe.ViewModel
         public string txtDoanhThu { get; set; }
         public BindingList<DoanhThu> listDoanhThu { get; set; }
         public int loaiDoanhThu = -1;//1=>SAN PHAM, 2=> TONG
+
+        private double _tongDoanhThu;
         public double TongDoanhThu
-        { get; set; }
+        { get => _tongDoanhThu; set { _tongDoanhThu = value; OnPropertyChanged("TongDoanhThu"); } }
         public string colorBtnSP { get; set; }
         public string colorBtnTong { get; set; }
+        public List<LoaiMonAn> MilkteaCategories { get; set; }
+        private LoaiMonAn _selectedLoai { get; set; }
+        public LoaiMonAn selectedLoai
+        {
+            get { return _selectedLoai; }
+            set
+            {
+                if (_selectedLoai != value)
+                {
+                    _selectedLoai = value;
+                    listDoanhThu = new BindingList<DoanhThu>();
+                    OnPropertyChanged("listDoanhThu");
+                    loaiDoanhThu = Constants.DOANHTHU_SP;//////////////
+                    if (loaiDoanhThu == Constants.DOANHTHU_SP)
+                    {
+                        colorBtnSP = "#1A237E";
+                        colorBtnTong = "#2962FF";
+                    }
+                    else
+                    {
+                        colorBtnSP = "#2962FF";
+                        colorBtnTong = "#1A237E";
+                    }
+                    OnPropertyChanged("colorBtnSP");
+                    OnPropertyChanged("colorBtnTong");
+
+                }
+            }
+        }
 
         public ICommand btnSanPhamCommand { get; set; }
         public ICommand btnTongDoanhThuCommand { get; set; }
@@ -28,7 +59,9 @@ namespace QuanLiQuanCaPhe.ViewModel
 
         public DoanhThuAdminViewModel()
         {
-            TongDoanhThu = 1000000;
+            MilkteaCategories = new List<LoaiMonAn>();
+            MilkteaCategories = SeviceData.getLoaiMonAn();// get from database
+            TongDoanhThu = 0;
             colorBtnTong = colorBtnSP = "#2962FF";
             OnPropertyChanged("colorBtnSP");
             OnPropertyChanged("colorBtnTong");
@@ -39,7 +72,8 @@ namespace QuanLiQuanCaPhe.ViewModel
             {
                 listDoanhThu = new BindingList<DoanhThu>();
                 OnPropertyChanged("listDoanhThu");
-                loaiDoanhThu = Constants.DOANHTHU_SP;
+                loaiDoanhThu = Constants.DOANHTHU_SP;//////////////
+                TongDoanhThu = 0;
                 if (loaiDoanhThu == Constants.DOANHTHU_SP)
                 {
                     colorBtnSP = "#1A237E";
@@ -59,6 +93,8 @@ namespace QuanLiQuanCaPhe.ViewModel
                 listDoanhThu = new BindingList<DoanhThu>();
                 OnPropertyChanged("listDoanhThu");
                 loaiDoanhThu = Constants.DOANHTHU_TONG;
+                TongDoanhThu = 0;
+
 
                 if (loaiDoanhThu == Constants.DOANHTHU_TONG)
                 {
@@ -79,34 +115,22 @@ namespace QuanLiQuanCaPhe.ViewModel
             {
                 txtDoanhThu = "Doanh thu theo ngày";
                 OnPropertyChanged("txtDoanhThu");
-                listDoanhThu = new BindingList<DoanhThu>();
+
                 if (loaiDoanhThu == Constants.DOANHTHU_SP)// truy van CSDL de lay doanh thu san pham theo ngay
                 {
-                    string maLoai = "L001";
-                    BindingList<MonAn> items = new BindingList<MonAn>(SeviceData.getListMonAnLoai(maLoai));
-                    double SL = 0;
-                    double TongTien = 0;
-                    foreach (var item in items)
-                    {
 
-                        DoanhThu a = new DoanhThu(item, SL, TongTien);
-                        listDoanhThu.Add(a);
-                    }
+                    listDoanhThu = SeviceData.DoanhThuTheoLoaiMonHomNay(selectedLoai.MALOAI, 1);
+                    listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+
+                    TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
                     OnPropertyChanged("listDoanhThu");
                     OnPropertyChanged("color");
                 }
                 if (loaiDoanhThu == Constants.DOANHTHU_TONG)// truy van CSDL de lay TONG DOANH THU theo ngay
                 {
-                    string maLoai = "L001";
-                    BindingList<MonAn> items = new BindingList<MonAn>(SeviceData.getListMonAnLoai(maLoai));
-                    double SL = 0;
-                    double TongTien = 0;
-                    foreach (var item in items)
-                    {
-
-                        DoanhThu a = new DoanhThu(item, SL, TongTien);
-                        listDoanhThu.Add(a);
-                    }
+                    listDoanhThu = SeviceData.DoanhThuTheoLoaiMonHomNay("", 2);
+                    listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+                    TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
                     OnPropertyChanged("listDoanhThu");
                     OnPropertyChanged("color");
                 }
@@ -116,34 +140,18 @@ namespace QuanLiQuanCaPhe.ViewModel
             {
                 txtDoanhThu = "Doanh thu theo tháng";
                 OnPropertyChanged("txtDoanhThu");
-                listDoanhThu = new BindingList<DoanhThu>();
+
                 if (loaiDoanhThu == Constants.DOANHTHU_SP)// truy van CSDL de lay doanh thu san pham theo ngay
                 {
-                    string maLoai = "L003";
-                    BindingList<MonAn> items = new BindingList<MonAn>(SeviceData.getListMonAnLoai(maLoai));
-                    double SL = 0;
-                    double TongTien = 0;
-                    foreach (var item in items)
-                    {
-
-                        DoanhThu a = new DoanhThu(item, SL, TongTien);
-                        listDoanhThu.Add(a);
-                    }
+                    listDoanhThu = SeviceData.DoanhThuTheoLoaiMonThangNay(selectedLoai.MALOAI, 1);
+                    TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
                     OnPropertyChanged("listDoanhThu");
                     OnPropertyChanged("color");
                 }
                 if (loaiDoanhThu == Constants.DOANHTHU_TONG)// truy van CSDL de lay TONG DOANH THU theo ngay
                 {
-                    string maLoai = "L003";
-                    BindingList<MonAn> items = new BindingList<MonAn>(SeviceData.getListMonAnLoai(maLoai));
-                    double SL = 0;
-                    double TongTien = 0;
-                    foreach (var item in items)
-                    {
-
-                        DoanhThu a = new DoanhThu(item, SL, TongTien);
-                        listDoanhThu.Add(a);
-                    }
+                    listDoanhThu = SeviceData.DoanhThuTheoLoaiMonThangNay("", 2);
+                    TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
                     OnPropertyChanged("listDoanhThu");
                     OnPropertyChanged("color");
                 }
@@ -156,31 +164,15 @@ namespace QuanLiQuanCaPhe.ViewModel
                 listDoanhThu = new BindingList<DoanhThu>();
                 if (loaiDoanhThu == Constants.DOANHTHU_SP)// truy van CSDL de lay doanh thu san pham theo ngay
                 {
-                    string maLoai = "L004";
-                    BindingList<MonAn> items = new BindingList<MonAn>(SeviceData.getListMonAnLoai(maLoai));
-                    double SL = 0;
-                    double TongTien = 0;
-                    foreach (var item in items)
-                    {
-
-                        DoanhThu a = new DoanhThu(item, SL, TongTien);
-                        listDoanhThu.Add(a);
-                    }
+                    listDoanhThu = SeviceData.DoanhThuTheoLoaiMonNamNay(selectedLoai.MALOAI, 1);
+                    TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
                     OnPropertyChanged("listDoanhThu");
                     OnPropertyChanged("color");
                 }
                 if (loaiDoanhThu == Constants.DOANHTHU_TONG)// truy van CSDL de lay TONG DOANH THU theo ngay
                 {
-                    string maLoai = "L002";
-                    BindingList<MonAn> items = new BindingList<MonAn>(SeviceData.getListMonAnLoai(maLoai));
-                    double SL = 0;
-                    double TongTien = 0;
-                    foreach (var item in items)
-                    {
-
-                        DoanhThu a = new DoanhThu(item, SL, TongTien);
-                        listDoanhThu.Add(a);
-                    }
+                    listDoanhThu = SeviceData.DoanhThuTheoLoaiMonNamNay("", 2);
+                    TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
                     OnPropertyChanged("listDoanhThu");
                     OnPropertyChanged("color");
                 }
@@ -193,31 +185,15 @@ namespace QuanLiQuanCaPhe.ViewModel
                 listDoanhThu = new BindingList<DoanhThu>();
                 if (loaiDoanhThu == Constants.DOANHTHU_SP)// truy van CSDL de lay doanh thu san pham theo ngay
                 {
-                    string maLoai = "L001";
-                    BindingList<MonAn> items = new BindingList<MonAn>(SeviceData.getListMonAnLoai(maLoai));
-                    double SL = 0;
-                    double TongTien = 0;
-                    foreach (var item in items)
-                    {
-
-                        DoanhThu a = new DoanhThu(item, SL, TongTien);
-                        listDoanhThu.Add(a);
-                    }
+                    listDoanhThu = SeviceData.DoanhThuTheoLoaiMonQuyNay(selectedLoai.MALOAI, 1);
+                    TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
                     OnPropertyChanged("listDoanhThu");
                     OnPropertyChanged("color");
                 }
                 if (loaiDoanhThu == Constants.DOANHTHU_TONG)// truy van CSDL de lay TONG DOANH THU theo ngay
                 {
-                    string maLoai = "L003";
-                    BindingList<MonAn> items = new BindingList<MonAn>(SeviceData.getListMonAnLoai(maLoai));
-                    double SL = 0;
-                    double TongTien = 0;
-                    foreach (var item in items)
-                    {
-
-                        DoanhThu a = new DoanhThu(item, SL, TongTien);
-                        listDoanhThu.Add(a);
-                    }
+                    listDoanhThu = SeviceData.DoanhThuTheoLoaiMonQuyNay("", 2);
+                    TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
                     OnPropertyChanged("listDoanhThu");
                     OnPropertyChanged("color");
                 }
