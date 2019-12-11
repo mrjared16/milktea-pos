@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'H:\NAM 3\NM CONG NGHE PHAN MEM\DO AN CUOI KY\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\Models\Database.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\GitHub Repo (ISE)\milktea-pos\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\Models\Database.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

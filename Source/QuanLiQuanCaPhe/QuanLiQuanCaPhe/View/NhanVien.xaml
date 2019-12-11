@@ -20,9 +20,9 @@
                 Background="WhiteSmoke"
                 CornerRadius="10"
                 BorderBrush="{DynamicResource MaterialDesignDivider}">
-                <TextBox materialDesign:HintAssist.Hint="Search here" Width="300"></TextBox>
+                <TextBox materialDesign:HintAssist.Hint="Search here" Width="300" Text="{Binding queryString, Mode=TwoWay}"></TextBox>
             </Border>
-            <materialDesign:PackIcon Kind="Search" VerticalAlignment="Center" Width="30" Height="30" Margin="5"/>
+            <Button Content="{materialDesign:PackIcon Search}" Margin="5" Command="{Binding findNhanVienCommand}"/>
         </StackPanel>
         
         <Grid>
@@ -31,13 +31,14 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <ScrollViewer Grid.Row="0" Height="560">
-                <ListView x:Name="listViewNhanvien" Margin="10">
+                <ListView x:Name="listViewNhanvien" Margin="10"
+                          ItemsSource="{Binding listNhanVien}"
+                          SelectedItem="{Binding selectItem, Mode=TwoWay}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"/>
-                            <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding HOTEN}"/>
-                            <GridViewColumn Header="SĐT" DisplayMemberBinding="{Binding DIENTHOAI}"/>
-                            <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding CHUCVU}"/>
+                            <GridViewColumn Width="200" Header="Họ tên" DisplayMemberBinding="{Binding HOTEN}"/>
+                            <GridViewColumn Width="200" Header="SĐT" DisplayMemberBinding="{Binding DIENTHOAI}"/>
+                            <GridViewColumn Width="200" Header="Chức vụ" DisplayMemberBinding="{Binding CHUCVU}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -46,70 +47,97 @@
                 <TextBlock Text="CHI TIẾT NHÂN VIÊN" HorizontalAlignment="Center" FontSize="25"/>
                 <ScrollViewer Height="500" VerticalScrollBarVisibility="Visible">
                     <StackPanel>
-                        <TextBox
-                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
-                            VerticalAlignment="Top"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap"
-                            materialDesign:HintAssist.Hint="Mã nhân viên:" 
-                            Text="mã nhân viên tại đây"
-                            x:Name="textBlockMANV"/>
-                        <TextBox
-                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
-                            VerticalAlignment="Top"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap"
-                            materialDesign:HintAssist.Hint="Họ tên:" 
-                            Text="tên nhân viên tại đây"
-                            x:Name="textBlockHOTEN"/>
-                        <TextBox
-                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
-                            VerticalAlignment="Top"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap"
-                            materialDesign:HintAssist.Hint="Lương:" 
-                            Text="lương nhân viên tại đây"
-                            x:Name="textBlockLUONG"/>
-                        <TextBox
-                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
-                            VerticalAlignment="Top"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap"
-                            materialDesign:HintAssist.Hint="Ngày sinh:" 
-                            Text="ngày sinh tại đây"
-                            x:Name="textBlockNGSINH"/>
-                        <TextBox
-                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
-                            VerticalAlignment="Top"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap"
-                            materialDesign:HintAssist.Hint="Giới tính:" 
-                            Text="giới tính nhân viên tại đây"
-                            x:Name="textBlockPHAI"/>
-                        <TextBox
-                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
-                            VerticalAlignment="Top"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap"
-                            materialDesign:HintAssist.Hint="Số CMND:" 
-                            Text="số CMND tại đây"
-                            x:Name="textBlockCMND"/>
-                        <TextBox
-                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
-                            VerticalAlignment="Top"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap"
-                            materialDesign:HintAssist.Hint="Số điện thoại:" 
-                            Text="sđt nhân viên tại đây"
-                            x:Name="textBlockDIENTHOAI"/>
-                        <TextBox
-                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
-                            VerticalAlignment="Top"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap"
-                            materialDesign:HintAssist.Hint="Chức vụ:" 
-                            Text="chức vụ nhân viên tại đây"
-                            x:Name="textBlockCHUCVU"/>
+                        <StackPanel Margin="10">
+                            <Ellipse 
+				                HorizontalAlignment="Center"
+				                Width="150"
+				                Height="150">
+                                <Ellipse.Fill>
+                                    <ImageBrush
+						                ImageSource="{Binding DisplayedImagePath}"
+						            ></ImageBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <Button 
+				                Margin="10"
+				                IsDefault="True"
+				                Style="{StaticResource MaterialDesignRaisedButton}"    
+				                Width="110"  
+				                Command="{Binding ChonAnhCommand}"
+				                CommandParameter="{Binding ElementName=chonAnhWindow}"
+				                ToolTip="Resource name: MaterialDesignRaisedButton" Content="Chọn ảnh">
+                            </Button>
+                        </StackPanel>
+                        <StackPanel DataContext="{Binding ChiTietNhanVien, Mode=TwoWay}">
+                            <TextBox
+                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                VerticalAlignment="Top"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                materialDesign:HintAssist.Hint="Mã nhân viên:" 
+                                Text="{Binding MANV, Mode=TwoWay}" />
+                            <TextBox
+                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                VerticalAlignment="Top"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                materialDesign:HintAssist.Hint="Họ tên:" 
+                                Text="{Binding HOTEN, Mode=TwoWay}"/>
+                            <TextBox
+                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                VerticalAlignment="Top"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                materialDesign:HintAssist.Hint="Lương:" 
+                                Text="{Binding LUONG, Mode=TwoWay}"/>
+                            <TextBox
+                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                VerticalAlignment="Top"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                materialDesign:HintAssist.Hint="Ngày sinh:" 
+                                Text="{Binding NGSINH, StringFormat=dd-MM-yyyy, Mode=TwoWay}"/>
+                            <TextBox
+                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                VerticalAlignment="Top"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                materialDesign:HintAssist.Hint="Giới tính:" 
+                                Text="{Binding PHAI, Mode=TwoWay}"/>
+                            <TextBox
+                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                VerticalAlignment="Top"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                materialDesign:HintAssist.Hint="Số CMND:" 
+                                Text="{Binding CMND, Mode=TwoWay}"/>
+                            <TextBox
+                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                VerticalAlignment="Top"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                materialDesign:HintAssist.Hint="Số điện thoại:" 
+                                Text="{Binding DIENTHOAI, Mode=TwoWay}"/>
+                            <TextBox
+                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                VerticalAlignment="Top"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                materialDesign:HintAssist.Hint="Chức vụ:" 
+                                Text="{Binding CHUCVU, Mode=TwoWay}"/>
+                        </StackPanel>
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Margin="20 0 10 0"
+                                Command="{Binding cancelButtonCommmand}"
+                                   Content="{Binding cancelButtonName}"/>
+                            <Button Grid.Column="1" Margin="20 0 10 0"
+                                Command="{Binding confirmButtonCommmand}"
+                                    Content="{Binding confirmButtonName}"/>
+                        </Grid>
                     </StackPanel>
                 </ScrollViewer>
             </StackPanel>
@@ -119,10 +147,12 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="20 0 10 0">Thêm</Button>
-            <Button Grid.Column="1" Margin="10 0 10 0">Xóa</Button>
-            <Button Grid.Column="2" Margin="10 0 10 0">Sửa</Button>
+            <Button Grid.Column="0" Margin="20 0 10 0"
+                    Command="{Binding addNhanVienCommand}">
+                Thêm
+            </Button>
         </Grid>
     </StackPanel>
 </UserControl>

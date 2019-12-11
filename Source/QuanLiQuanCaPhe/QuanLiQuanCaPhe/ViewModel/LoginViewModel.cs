@@ -54,7 +54,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 			{
 				foreach (var item in accCount)
 				{
-					if(item.ISDEL==1)
+					if(item.ISDEL==0)
 					{
 						FileStream fileStream = new FileStream("tumeo.txt",FileMode.OpenOrCreate, FileAccess.ReadWrite);
 						byte[] temp = Encoding.UTF8.GetBytes(UserName);

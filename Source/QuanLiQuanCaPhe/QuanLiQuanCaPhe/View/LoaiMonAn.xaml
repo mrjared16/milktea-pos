@@ -22,7 +22,7 @@
                 BorderBrush="{DynamicResource MaterialDesignDivider}">
                 <TextBox materialDesign:HintAssist.Hint="Search here" Width="300"></TextBox>
             </Border>
-            <materialDesign:PackIcon Kind="Search" VerticalAlignment="Center" Width="30" Height="30" Margin="5"/>
+            <Button Content="{materialDesign:PackIcon Search}" Margin="5" Command="{Binding findLoaiMonAnCommand}"/>
         </StackPanel>
 
         <Grid>
@@ -31,10 +31,11 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <ScrollViewer Grid.Row="0" Height="560">
-                <ListView x:Name="listViewLoaiMonAn" Margin="10">
+                <ListView x:Name="listViewLoaiMonAn" Margin="10"
+                          ItemsSource="{Binding listLoaiMonAn}"
+                          SelectedItem="{Binding selectItem, Mode=TwoWay}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"/>
                             <GridViewColumn Header="Tên loại món ăn" DisplayMemberBinding="{Binding TENLOAI}"/>
                         </GridView>
                     </ListView.View>
@@ -50,7 +51,7 @@
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
                             materialDesign:HintAssist.Hint="Mã loại món ăn:" 
-                            Text="mã loại món ăn tại đây"
+                            Text="{Binding chiTietLoaiMonAn.MALOAI}"
                             x:Name="textBlockMALOAI"/>
                         <TextBox
                             Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
@@ -58,9 +59,21 @@
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
                             materialDesign:HintAssist.Hint="Tên loại món ăn:" 
-                            Text="tên loại món ăn tại đây"
+                            Text="{Binding chiTietLoaiMonAn.TENLOAI}"
                             x:Name="textBlockTENLOAI"/>
-                        </StackPanel>
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Margin="10 0 10 0" 
+                                    Content="{Binding cancelNameButton}"
+                                    Command="{Binding cancelButtonCommand}"></Button>
+                            <Button Grid.Column="1" Margin="10 0 10 0" 
+                                    Content="{Binding confirmNameButton}"
+                                    Command="{Binding confirmButtonCommand}"></Button>
+                        </Grid>
+                    </StackPanel>
                 </ScrollViewer>
             </StackPanel>
         </Grid>
@@ -70,9 +83,8 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="20 0 10 0">Thêm</Button>
-            <Button Grid.Column="1" Margin="10 0 10 0">Xóa</Button>
-            <Button Grid.Column="2" Margin="10 0 10 0">Sửa</Button>
+            <Button Grid.Column="0" Margin="20 0 10 0"
+                    Command="{Binding addButtonCommand}">Thêm</Button>
         </Grid>
     </StackPanel>
 </UserControl>

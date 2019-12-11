@@ -30,5 +30,5 @@ namespace QuanLiQuanCaPhe.View
 			home = new TaiKhoanViewModel();
 			this.DataContext = home;
 		}
-	}
+    }
 }

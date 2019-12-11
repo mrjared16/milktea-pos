@@ -120,6 +120,7 @@
     <Compile Include="Models\NhanVien.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SeviceData.cs" />
     <Compile Include="NhanVienMainWindow.xaml.cs">
       <DependentUpon>NhanVienMainWindow.xaml</DependentUpon>
     </Compile>
