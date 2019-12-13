@@ -139,6 +139,7 @@
     <Compile Include="ViewModel\NhanVienLayoutViewModel.cs" />
     <Compile Include="ViewModel\NhanVienViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
+    <Compile Include="ViewModel\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModel\TaiKhoanNhanVienViewModel.cs" />
     <Compile Include="View\DoanhThuAdmin.xaml.cs">
       <DependentUpon>DoanhThuAdmin.xaml</DependentUpon>
@@ -158,14 +159,17 @@
     <Compile Include="View\LoaiMonAn.xaml.cs">
       <DependentUpon>LoaiMonAn.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\NhanVien.xaml.cs">
-      <DependentUpon>NhanVien.xaml</DependentUpon>
+    <Compile Include="View\NhanVienAdmin.xaml.cs">
+      <DependentUpon>NhanVienAdmin.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LichLamViecNhanVien.xaml.cs">
       <DependentUpon>LichLamViecNhanVien.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NhanVienLayout.xaml.cs">
       <DependentUpon>NhanVienLayout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ResetPassword.xaml.cs">
+      <DependentUpon>ResetPassword.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TaiKhoan.xaml.cs">
       <DependentUpon>TaiKhoan.xaml</DependentUpon>
@@ -239,7 +243,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\NhanVien.xaml">
+    <Page Include="View\NhanVienAdmin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -250,6 +254,10 @@
     <Page Include="View\Order.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ResetPassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TaiKhoan.xaml">
       <SubType>Designer</SubType>
@@ -308,8 +316,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Resource Include="Image\HomeBackground.jpg" />
     <Resource Include="Image\trasua.jpg" />
+    <Resource Include="Image\abc.jpg" />
+    <Resource Include="Image\rsz_tra.jpg" />
+    <Resource Include="Image\tra.jpg" />
     <Content Include="Models\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Database.Context.cs</LastGenOutput>

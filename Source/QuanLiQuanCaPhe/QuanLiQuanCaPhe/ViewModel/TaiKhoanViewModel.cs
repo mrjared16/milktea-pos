@@ -14,6 +14,7 @@ using QuanLiQuanCaPhe.Models;
 using System.IO;
 using System.Globalization;
 using System.Drawing;
+using QuanLiQuanCaPhe.View;
 
 namespace QuanLiQuanCaPhe.ViewModel
 {
@@ -22,6 +23,8 @@ namespace QuanLiQuanCaPhe.ViewModel
 		public bool Isloaded = false;
 		public ICommand LoadedWindowCommand { get; set; }
 		public ICommand LuuThongTinAdminCommand { get; set; }
+		public ICommand DoiThongTinAdminCommand { get; set; }
+
 
 		public bool IsLoaded { get; set; }
 		public static string tumeo = "";
@@ -174,19 +177,36 @@ namespace QuanLiQuanCaPhe.ViewModel
 
 				;
 			}, (p) =>
-		  {
-			  var nhanvien = UserService.GetCurrentUser;
-			  nhanvien.PHAI = GioiTinh;
-			  nhanvien.HINHANH = ImageToByte2(DisplayedImagePath);
-			  nhanvien.CMND = CMND;
-			  nhanvien.CHUCVU = ChucVu;
-			  nhanvien.DIENTHOAI = SDT;
-			  nhanvien.HOTEN = HoTen;
-			  nhanvien.NGSINH = DateTime.ParseExact(NgaySinh, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-			  nhanvien.DIACHI = DiaChi;
-			  DataProvider.ISCreated.DB.SaveChangesAsync();
-		  }
-			);
+			{
+				try
+				{
+					var nhanvien = UserService.GetCurrentUser;
+					nhanvien.PHAI = GioiTinh;
+					nhanvien.HINHANH = ImageToByte2(DisplayedImagePath);
+					nhanvien.CMND = CMND;
+					nhanvien.CHUCVU = ChucVu;
+					nhanvien.DIENTHOAI = SDT;
+					nhanvien.HOTEN = HoTen;
+					nhanvien.NGSINH = DateTime.ParseExact(NgaySinh, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+					nhanvien.DIACHI = DiaChi;
+					DataProvider.ISCreated.DB.SaveChangesAsync();
+					MessageBox.Show("Lưu thành công!!!");
+
+				}
+				catch
+				{
+					MessageBox.Show("Lưu không thành công :(((");
+				}
+			}
+);
+			DoiThongTinAdminCommand = new RelayCommand<Window>((p) =>
+			{
+				return true;
+			}, (p) =>
+			{
+				ResetPassword resetPassword = new ResetPassword();
+				resetPassword.ShowDialog();
+			});
 		}
 		public void loadData()
 		{

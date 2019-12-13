@@ -19,10 +19,10 @@ namespace QuanLiQuanCaPhe.View
     /// <summary>
     /// Interaction logic for NhanVien.xaml
     /// </summary>
-    public partial class NhanVien : UserControl
+    public partial class NhanVienAdmin : UserControl
     {
         public NhanVienViewModel home { get; set; }
-        public NhanVien()
+        public NhanVienAdmin()
         {
             InitializeComponent();
             home = new NhanVienViewModel();

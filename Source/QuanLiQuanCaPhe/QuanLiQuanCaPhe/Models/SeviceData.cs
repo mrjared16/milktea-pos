@@ -20,7 +20,7 @@ namespace QuanLiQuanCaPhe.Models
 		//them vao/////////////////////////////////////////////////////////////////////////////
 		public static List<LoaiMonAn> getLoaiMonAn()
 		{
-			return new List<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns);
+			return new List<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns.Where(x=>x.ISDEL!=1));
 		}
 		public static List<LoaiMonAn> getLoaiMonAn(int maLoai)
 		{
@@ -34,7 +34,25 @@ namespace QuanLiQuanCaPhe.Models
 		/// <returns></returns>
 		public static BindingList<MonAn> getListMonAnTenMon(string searchStr)
 		{
-			BindingList<MonAn> monAns = new BindingList<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.TENMON.Contains(searchStr) && x.ISDEL != 1).ToList());
+			BindingList<MonAn> monAns = new BindingList<MonAn>();
+			var temp = new BindingList<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.ISDEL != 1).ToList());
+			foreach (var item in temp)
+			{
+				if(item.TENMON.ToLower().Contains(searchStr.ToLower()))
+				{
+					if(!monAns.Contains(item))
+					{
+						monAns.Add(item);
+					}
+				}
+				if (item.GIA.ToString().ToLower().Contains(searchStr.ToLower()))
+				{
+					if (!monAns.Contains(item))
+					{
+						monAns.Add(item);
+					}
+				}
+			}
 			return monAns;
 		}
 
@@ -50,17 +68,9 @@ namespace QuanLiQuanCaPhe.Models
 		}
 		public static string themMonAn(MonAn monAn)
 		{
-			if (!tonTaiLoaiMonAn(monAn.MALOAI))
-			{
-				return "Mã loại không tồn tại";
-			}
 			if (string.IsNullOrEmpty(monAn.TENMON))
 			{
 				return "Tên món ăn rỗng";
-			}
-			if (tonTaiMonAn(monAn.MAMON))
-			{
-				return "Mã món đã tồn tại";
 			}
 			else
 			{
@@ -106,10 +116,8 @@ namespace QuanLiQuanCaPhe.Models
 		}
 		public static string suaMonAn(MonAn monAn)
 		{
-			if (!tonTaiMonAn(monAn.MAMON))
-			{
-				return "Món ăn không tồn tại!!!";
-			}
+
+			MessageBox.Show(monAn.MALOAI.ToString());
 			if (!tonTaiLoaiMonAn(monAn.MALOAI))
 			{
 				return "Mã loại không tồn tại";
@@ -143,10 +151,6 @@ namespace QuanLiQuanCaPhe.Models
 			if (!tonTaiMonAn(monAn.MAMON))
 			{
 				return "Mã món ăn không tồn tại!!!";
-			}
-			if (string.IsNullOrEmpty(monAn.TENMON))
-			{
-				return "Tên món ăn rỗng!!!";
 			}
 			else
 			{
@@ -717,7 +721,7 @@ namespace QuanLiQuanCaPhe.Models
 		}
 		public List<LoaiMonAn> danhSachLoaiMonAn()
 		{
-			List<LoaiMonAn> loaiMonAns = new List<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns.Where(x=>x.ISDEL!=1));
+			List<LoaiMonAn> loaiMonAns = new List<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns.Where(x => x.ISDEL != 1));
 			return loaiMonAns;
 		}
 
@@ -827,11 +831,41 @@ namespace QuanLiQuanCaPhe.Models
 					}
 
 				}
-				if (TimKiemNhanVien(value)!=null)
+				if (TimKiemNhanVien(value) != null)
 				{
 					foreach (var item1 in TimKiemNhanVien(value))
 					{
-						if(item1.MANV==item.MANV)
+						if (item1.MANV == item.MANV)
+						{
+							if (!donHangs.Contains(item))
+							{
+								donHangs.Add(item);
+							}
+						}
+					}
+				}
+			}
+			return donHangs;
+		}
+		public static BindingList<DonHang> TimKiemDonHang(string value,int MANV)
+		{
+			BindingList<DonHang> donHangs = new BindingList<DonHang>();
+			BindingList<DonHang> temp = new BindingList<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x=>x.MANV==MANV).ToArray());
+			foreach (var item in temp)
+			{
+				if (item.CREADTEDAT.Value.ToString("dd/mm/yyyy").ToLower().Contains(value.ToLower()))
+				{
+					if (!donHangs.Contains(item))
+					{
+						donHangs.Add(item);
+					}
+
+				}
+				if (TimKiemNhanVien(value) != null)
+				{
+					foreach (var item1 in TimKiemNhanVien(value))
+					{
+						if (item1.MANV == item.MANV)
 						{
 							if (!donHangs.Contains(item))
 							{
@@ -896,7 +930,7 @@ namespace QuanLiQuanCaPhe.Models
 
 				}
 			}
-			if(nhanViens!=null)
+			if (nhanViens != null)
 				return nhanViens;
 			return null;
 		}
@@ -909,7 +943,7 @@ namespace QuanLiQuanCaPhe.Models
 			{
 				if (item.MALOAI.ToString().ToLower().Contains(value.ToLower()))
 				{
-					if(!loaiMonAns.Contains(item))
+					if (!loaiMonAns.Contains(item))
 					{
 						loaiMonAns.Add(item);
 					}
@@ -947,11 +981,11 @@ namespace QuanLiQuanCaPhe.Models
 						monAns.Add(item);
 					}
 				}
-				else if(TimKiemLoaiMonAn(value)!=null)
+				else if (TimKiemLoaiMonAn(value) != null)
 				{
 					foreach (var item1 in TimKiemLoaiMonAn(value))
 					{
-						if(item.MALOAI==item1.MALOAI)
+						if (item.MALOAI == item1.MALOAI)
 						{
 							if (!monAns.Contains(item))
 							{

@@ -50,7 +50,7 @@
 			x:Name="NhanVien"
 			DataType ="{x:Type ViewModelss:NhanVienViewModel}"
 			>
-			<View:NhanVien DataContext="{Binding}"></View:NhanVien>
+			<View:NhanVienAdmin DataContext="{Binding}"></View:NhanVienAdmin>
 		</DataTemplate>
 
 
@@ -102,17 +102,11 @@
 				Grid.Column="0"
 				Background="Orange"
 				>
-				<Ellipse 
-					HorizontalAlignment="Center"
-					Width="150"
-					Height="150">
-					<Ellipse.Fill>
-						<ImageBrush
-							ImageSource="{Binding HinhAnhAdmin,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-							>
-						</ImageBrush>
-					</Ellipse.Fill>
-				</Ellipse>
+				<Image
+					Margin="30"
+					Source="Image/tra.jpg"
+					/>
+
 			</Grid>
 			<DockPanel Background="Orange" Grid.Row="1" Grid.Column="0" Grid.RowSpan="5">
 				<StackPanel>

@@ -93,6 +93,14 @@
 							 Text="{Binding GioiTinhNhanVien, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 						</Grid>
+						<Button   
+							Margin="0,20,0,0"
+							Grid.Row="7"
+							Style="{StaticResource MaterialDesignRaisedButton}"    
+							Width="120"    
+							Command="{Binding DoiThongTinNhanVienCommand}"
+							ToolTip="Resource name: MaterialDesignRaisedButton" 
+							Content="Đổi mật khẩu"></Button>
 					</Grid>
 				</materialDesign:Card>
 			</Grid>

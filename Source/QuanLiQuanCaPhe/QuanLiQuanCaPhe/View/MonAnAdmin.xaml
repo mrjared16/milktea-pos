@@ -84,14 +84,15 @@
                     Margin="20,0,0,0"
                     Padding="5"
                     HorizontalAlignment="Left"
-                    Background="#616161"
+                    Background="White"
                     CornerRadius="5">
 					<ComboBox
                         Name="loaiCombobox"
                         materialDesign:HintAssist.FloatingOffset="0, -24"
                         materialDesign:HintAssist.FloatingScale="1"
-                        materialDesign:HintAssist.Foreground="AntiqueWhite"
+                        materialDesign:HintAssist.Foreground="Black"
                         materialDesign:HintAssist.Hint="LOẠI THỨC UỐNG"
+						
                         ItemsSource="{Binding MilkteaCategories}"
                         SelectedItem="{Binding selectedLoai, Mode=TwoWay}"
                         SelectedValuePath="Name"
@@ -100,13 +101,13 @@
 							<DataTemplate>
 								<Border
                                     Padding="5"
-                                    Background="#373737"
+                                    Background="White"
                                     BorderBrush="WhiteSmoke"
                                     BorderThickness="0,0,0,1">
 									<TextBlock
                                         Cursor="Hand"
-                                        FontFamily="Courier New"
-                                        Foreground="WhiteSmoke"
+                                        FontFamily="Arial"
+                                        Foreground="Black"
                                         Text="{Binding Path=TENLOAI}" />
 								</Border>
 							</DataTemplate>
@@ -194,17 +195,17 @@
 									<StackPanel Grid.Column="1" Margin="8,0,0,0">
 										<TextBlock
                                             HorizontalAlignment="Left"
-                                            FontFamily="Consolas"
+                                            FontFamily="Arial"
                                             FontSize="14"
                                             FontWeight="Bold"
                                             Foreground="Black"
-                                            Text="{Binding TENMON}"
+                                            Text="{Binding TENMON,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                             TextWrapping="Wrap" />
 										<TextBlock
                                             HorizontalAlignment="Left"
-                                            FontFamily="Consolas"
+                                            FontFamily="Arial"
                                             FontSize="11"
-                                            Text="{Binding GIA}" />
+                                            Text="{Binding GIA,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
 									</StackPanel>
 								</Grid>
 							</Border>
@@ -297,7 +298,7 @@
 							<TextBox
                                 Grid.ColumnSpan="2"
                                 Margin="0,0,5,5"
-                                Text="{Binding TENMON}"
+                                Text="{Binding TENMON,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 TextWrapping="Wrap" />
 						</Border>
 						<Label
@@ -319,7 +320,7 @@
                             CornerRadius="5">
 							<TextBox
                                 Margin="0,0,5,5"
-                                
+                                IsEnabled="False"
                                 Text="{Binding MAMON}"
                                 TextWrapping="Wrap" />
 						</Border>
@@ -334,9 +335,8 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
-                            Height="65"
                             Margin="0,0,0,5"
-                            Background="#cfcfcf"
+                            Background="White"
                             BorderBrush="LightBlue"
                             BorderThickness="2"
                             CornerRadius="5">
@@ -350,7 +350,6 @@
                                 materialDesign:HintAssist.FloatingOffset="0, -24"
                                 materialDesign:HintAssist.FloatingScale="1"
                                 materialDesign:HintAssist.Foreground="Black"
-                                materialDesign:HintAssist.Hint="LOẠI THỨC UỐNG"
                                 DataContext="{StaticResource Menu}"
                                 ItemsSource="{Binding MilkteaCategoriesDetails}"
                                 SelectedItem="{Binding selectedLoaiChiTiet, Mode=TwoWay}"
@@ -359,15 +358,13 @@
 								<ComboBox.ItemTemplate>
 									<DataTemplate>
 										<Border
-                                            Padding="5"
-                                            Background="#707070"
+											Padding="5,0,0,0"
                                             BorderBrush="WhiteSmoke"
                                             BorderThickness="0,0,0,1">
 											<TextBlock
                                                 Cursor="Hand"
-                                                FontFamily="Courier New"
-                                                Foreground="WhiteSmoke"
-                                                Text="{Binding Path=TENLOAI}" />
+                                                FontFamily="Arial"
+                                                Text="{Binding Path=TENLOAI,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
 										</Border>
 									</DataTemplate>
 								</ComboBox.ItemTemplate>
@@ -415,7 +412,7 @@
                             CornerRadius="5">
 							<TextBox
                                 Margin="0,0,5,5"
-                                Text="{Binding GIA}"
+                                Text="{Binding GIA,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 TextWrapping="Wrap" />
 						</Border>
 						<StackPanel

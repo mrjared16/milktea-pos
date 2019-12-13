@@ -154,7 +154,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 			if (selectItem_Menu != null)
 			{
 				MonAnChiTiet.TENMON = selectItem_Menu.TENMON;
-				//MonAnChiTiet.MALOAI = selectItem_Menu.MALOAI;
+				MonAnChiTiet.MALOAI = selectItem_Menu.MALOAI;
 				MonAnChiTiet.MAMON = selectItem_Menu.MAMON;
 				MonAnChiTiet.GIA = selectItem_Menu.GIA;
 				MonAnChiTiet.MOTA = selectItem_Menu.MOTA;
@@ -230,10 +230,9 @@ namespace QuanLiQuanCaPhe.ViewModel
 			{
 				if (string.IsNullOrEmpty(MonAnChiTiet.TENMON) ||
 				string.IsNullOrEmpty(MonAnChiTiet.MALOAI.ToString()) ||
-				string.IsNullOrEmpty(MonAnChiTiet.MAMON.ToString()) ||
-				string.IsNullOrEmpty(MonAnChiTiet.MOTA) ||
-				string.IsNullOrEmpty(MonAnChiTiet.GIA.ToString()) ||
-				string.IsNullOrEmpty(MonAnChiTiet.HINHANH.ToString())
+				string.IsNullOrEmpty(MonAnChiTiet.MALOAI.ToString()) ||
+				MonAnChiTiet.MALOAI==-1||
+				string.IsNullOrEmpty(MonAnChiTiet.GIA.ToString())
 				)
 					return false;
 				return true;
@@ -242,6 +241,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 			{
 				if (x.Content.ToString() == "THÊM")//ADD MON ĂN
 				{
+				
 					string res = SeviceData.themMonAn(MonAnChiTiet);
 					MyMessageBox(res);//xử lí thêm vào
 
@@ -322,7 +322,6 @@ namespace QuanLiQuanCaPhe.ViewModel
 					MonAnChiTiet.HINHANH = File.ReadAllBytes(openFileDialog.FileName);
 				}
 			});
-
 			//click vao them mon
 			addMilkteaCommand = new RelayCommand<ComboBox>((p) => { return true; }, (p) =>
 			{
@@ -332,6 +331,9 @@ namespace QuanLiQuanCaPhe.ViewModel
 
 				searchMonAnStr = "";
 				MonAnChiTiet = new MonAn();
+				MonAnChiTiet.MALOAI = -1;
+				var temp = DataProvider.ISCreated.DB.MonAns.ToList();
+				MonAnChiTiet.MAMON=temp.Last().MAMON+1;
 				p.SelectedIndex = -1;
 			});
 
