@@ -51,7 +51,7 @@ namespace QuanLiQuanCaPhe.ViewModel
         {
             get
             {
-                if (_ListOrder == null || OrderService.HasChanges())
+                if (_ListOrder == null || OrderService.HistoryHasModified())
                 {
                     _ListOrder = OrderService.GetOrderByCategory(SelectedCategory);
                 }

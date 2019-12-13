@@ -112,7 +112,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 			//ho ten
 			HoTenNhanVien = item.HOTEN;
 			//ngay sinh
-			DateTime a = item.NGSINH;
+			DateTime a = (DateTime)item.NGSINH;
 			NgaySinhNhanVien = a.ToString("dd/MM/yyyy");
 			//dia chi
 			DiaChiNhanVien = item.DIACHI;

@@ -650,7 +650,7 @@ namespace QuanLiQuanCaPhe.Models
 
 
 
-		public List<ChiTietDonhang> danhSachChiTietDonhang(string maDH)
+		public List<ChiTietDonhang> danhSachChiTietDonhang(int maDH)
 		{
 			List<ChiTietDonhang> chiTietDonhangs = new List<ChiTietDonhang>(DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MADH == maDH));
 			int count = 0;
@@ -687,7 +687,7 @@ namespace QuanLiQuanCaPhe.Models
 				return true;
 			}
 		}
-		public bool tonTaiDonHang(string MaDH)
+		public bool tonTaiDonHang(int MaDH)
 		{
 			var MonAn = DataProvider.ISCreated.DB.DonHangs.Where(x => x.MADH == MaDH);
 			int count = 0;
@@ -703,7 +703,7 @@ namespace QuanLiQuanCaPhe.Models
 			else
 				return false;
 		}
-		public bool xoaDonHang(string maDH)
+		public bool xoaDonHang(int maDH)
 		{
 			if (!tonTaiDonHang(maDH))
 				return false;

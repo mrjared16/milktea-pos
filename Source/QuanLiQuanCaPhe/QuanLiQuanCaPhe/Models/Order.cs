@@ -25,7 +25,7 @@ namespace QuanLiQuanCaPhe.Models
         private string name;
         private byte[] img;
         private string _ID;
-        public Drink(string name, float price, string img_source)
+        public Drink(string name, float price)
         {
             this.price = price;
             this.name = name;
@@ -61,5 +61,11 @@ namespace QuanLiQuanCaPhe.Models
             get { return img; }
         }
     }
+    // public class Topping : Drink
+    //{
+    //    public Topping(MonAn MonAn) : base(MonAn)
+    //    {
 
+    //    }
+    //}
 }
