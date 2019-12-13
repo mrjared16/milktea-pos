@@ -108,6 +108,70 @@ namespace QuanLiQuanCaPhe.Models
         }
     }
 
+    public class Option
+    {
+        public Option(MonAn MonAn)
+        {
+            Item = new Drink(MonAn);
+        }
+        public Option(Drink Drink)
+        {
+            Item = Drink;
+        }
+
+        private Drink _Item = null;
+        public Drink Item
+        {
+            get
+            {
+                return _Item;
+            }
+            set
+            {
+                _Item = value;
+            }
+        }
+        private bool _Checked = false;
+
+        public bool Checked
+        {
+            get
+            {
+                return _Checked;
+            }
+            set
+            {
+                _Checked = value;
+            }
+        }
+
+        public Option Clone()
+        {
+            return new Option(Item);
+        }
+    }
+
+    //public class OptionGroup
+    //{
+    //    public List<Option> Options { get; set; }
+    //    public string GroupName { get; set; }
+    //    public OptionGroup(List<Option> option, string Name)
+    //    {
+    //        Options = new List<Option>(option);
+    //        GroupName = Name;
+    //    }
+    //    public OptionGroup(List<MonAn> monAns, string Name)
+    //    {
+    //        Options = new List<Option>(monAns.Select(x => new Option(x)));
+    //        Options[0].Checked = true;
+    //        GroupName = Name;
+    //    }
+    //    public OptionGroup Clone()
+    //    {
+    //        List<Option> newOption = Options.ConvertAll(x => x.Clone()).ToList();
+    //        return new OptionGroup(newOption, GroupName);
+    //    }
+    //}
 
     public class Order : BaseViewModel
     {
@@ -132,6 +196,7 @@ namespace QuanLiQuanCaPhe.Models
             this.Date = (DateTime)DonHang.CREADTEDAT;
             this.Coupon = 0;
             this.items = new ObservableCollection<OrderItem>(OrderService.GetOrderItems(DonHang));
+
         }
         // Add order detail to database
         public DonHang ToDonHang()
@@ -164,6 +229,13 @@ namespace QuanLiQuanCaPhe.Models
                         list.Add(topping.ToChiTietDonHang(this.ID, Now));
                     }
                 }
+                //if (item.HasOptions())
+                //{
+                //    foreach (OrderItem option in item.OptionsOfItem)
+                //    {
+                //        list.Add(option.ToChiTietDonHang(this.ID, Now));
+                //    }
+                //}
             }
             return list;
         }
@@ -235,20 +307,23 @@ namespace QuanLiQuanCaPhe.Models
 
             Parent = null;
             ToppingsOfItem = null;
+            //OptionsOfItem = null;
         }
 
         // Retrieve order item in database
         public OrderItem(ChiTietDonhang ChiTiet)
         {
             this.ID = ChiTiet.ID;
+
             this._Item = new Drink(ChiTiet.MonAn);
+            //MessageBox.Show(_Item.Price + "-");
             this.Number = (int)ChiTiet.SOLUONG;
             //this.Note 
 
             if (HasToppings(ChiTiet))
             {
                 // TODO: need refactor
-                List<OrderItem> Option = ChiTiet.ChiTietDonhang1.Select(x => new OrderItem(x)).ToList();
+                List<OrderItem> Option = ChiTiet.ChiTietDonhang1.Where(x => OrderService.IsTopping(x.MonAn.LoaiMonAn)).Select(x => new OrderItem(x)).ToList();
                 this.ToppingsOfItem = new ObservableCollection<OrderItem>(Option);
                 this.Parent = null;
             }
@@ -257,6 +332,18 @@ namespace QuanLiQuanCaPhe.Models
                 ToppingsOfItem = null;
                 //Parent = ...
             }
+            //if (HasOptions(ChiTiet))
+            //{
+            //    // TODO: need refactor
+            //    List<OrderItem> Option = ChiTiet.ChiTietDonhang1.Where(x => OrderService.IsOption(x.MonAn.LoaiMonAn)).Select(x => new OrderItem(x)).ToList();
+            //    this.OptionsOfItem = new ObservableCollection<OrderItem>(Option);
+            //    this.Parent = null;
+            //}
+            //else
+            //{
+            //    OptionsOfItem = null;
+            //    //Parent = ...
+            //}
         }
 
         // Save order item, if it is topping or option, reference to Parent ID
@@ -268,7 +355,7 @@ namespace QuanLiQuanCaPhe.Models
                 MAMON = this.Item.ID,
                 MADH = OrderID,
                 SOLUONG = this.Number,
-                THANHTIEN = this.ItemTotal,
+                THANHTIEN = this.Price,
                 ISDEL = 0,
                 CREADTEDAT = Now,
                 UPDATEDAT = Now,
@@ -307,6 +394,7 @@ namespace QuanLiQuanCaPhe.Models
                 if (_ToppingOfItems == null)
                 {
                     _ToppingOfItems = new ObservableCollection<OrderItem>();
+                    _ToppingOfItems.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs e) => { OnPropertyChanged(null); };
                 }
                 return _ToppingOfItems;
             }
@@ -315,6 +403,24 @@ namespace QuanLiQuanCaPhe.Models
                 OnPropertyChanged(ref _ToppingOfItems, value);
             }
         }
+
+        //private ObservableCollection<OrderItem> _OptionsOfItem = null;
+        //public ObservableCollection<OrderItem> OptionsOfItem
+        //{
+        //    get
+        //    {
+        //        if (_OptionsOfItem == null)
+        //        {
+        //            _OptionsOfItem = new ObservableCollection<OrderItem>();
+        //            _OptionsOfItem.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs e) => { OnPropertyChanged(null); };
+        //        }
+        //        return _OptionsOfItem;
+        //    }
+        //    set
+        //    {
+        //        OnPropertyChanged(ref _OptionsOfItem, value);
+        //    }
+        //}
 
         private int _Number = 0;
         public int Number
@@ -331,10 +437,14 @@ namespace QuanLiQuanCaPhe.Models
             }
         }
 
+        private string _Note = "";
         public string Note
         {
             get
             {
+                //if (!OptionsOfItem.Any())
+                //    return _Note;
+                //return String.Join(", ", OptionsOfItem.Select(p => p.Item.Name));
                 return "";
             }
         }
@@ -348,6 +458,19 @@ namespace QuanLiQuanCaPhe.Models
             }
         }
 
+        public double Price
+        {
+            get
+            {
+                double option = 0;
+                //foreach (OrderItem optionItem in OptionsOfItem)
+                //{
+                //    option += optionItem.ItemTotal;
+                //}
+
+                return option + Item.Price;
+            }
+        }
         public double ItemTotal
         {
             get
@@ -357,7 +480,12 @@ namespace QuanLiQuanCaPhe.Models
                 {
                     topping += toppingItem.ItemTotal;
                 }
-                return (Item.Price + topping) * Number;
+                double option = 0;
+                //foreach (OrderItem optionItem in OptionsOfItem)
+                //{
+                //    option += optionItem.ItemTotal;
+                //}
+                return (Item.Price + topping + option) * Number;
             }
         }
 
@@ -375,22 +503,42 @@ namespace QuanLiQuanCaPhe.Models
         {
             ToppingsOfItem.Remove(child);
         }
+        //public void AddOption(OrderItem child)
+        //{
+
+        //    OptionsOfItem.Add(child);
+        //}
+        //public void RemoveOption(OrderItem child)
+        //{
+        //    OptionsOfItem.Remove(child);
+        //}
 
         public bool HasToppings()
         {
             return (ToppingsOfItem.Count > 0);
         }
+        //public bool HasOptions()
+        //{
+        //    return (OptionsOfItem.Count > 0);
+        //}
+
         private bool HasToppings(ChiTietDonhang chiTietDonhang)
         {
             return chiTietDonhang.ChiTietDonhang1.Count > 0;
         }
+        //private bool HasOptions(ChiTietDonhang chiTietDonhang)
+        //{
+        //    return chiTietDonhang.ChiTietDonhang1.Count > 0;
+        //    //return OrderSer
+        //    //return false;
+        //}
     }
 
     public class ToppingItem : BaseViewModel
     {
         public ToppingItem(OrderItem orderItem)
         {
-            CurentToppingList = new ObservableCollection<Topping>(ListTopping.ConvertAll(topping => topping.Clone()));
+            CurrentToppingList = new ObservableCollection<Topping>(ListTopping.ConvertAll(topping => topping.Clone()));
             // TODO: refactor
             if (orderItem == null || orderItem.ToppingsOfItem == null)
                 return;
@@ -400,7 +548,7 @@ namespace QuanLiQuanCaPhe.Models
             }
         }
         // Fields
-        public ObservableCollection<Topping> CurentToppingList { get; set; }
+        public ObservableCollection<Topping> CurrentToppingList { get; set; }
         // public ObservableCollection<Option> Toppings;
 
         private static List<Topping> _ListTopping = null;
@@ -418,7 +566,7 @@ namespace QuanLiQuanCaPhe.Models
         // Functions
         public void CheckAnTopping(OrderItem currentTopping)
         {
-            Topping topping = CurentToppingList.FirstOrDefault(x => x.Item.ID == currentTopping.Item.ID);
+            Topping topping = CurrentToppingList.FirstOrDefault(x => x.Item.ID == currentTopping.Item.ID);
 
             if (topping == null)
             {
@@ -427,10 +575,87 @@ namespace QuanLiQuanCaPhe.Models
             }
             topping.Checked = true;
         }
-
-        private void LoadTopping()
-        {
-
-        }
     }
+    //public class OptionGroupList : BaseViewModel
+    //{
+    //     public OptionGroupList(OrderItem orderItem)
+    //    {
+    //        CurrentOptionList = new ObservableCollection<OptionGroup>(ListOptionGroup.ConvertAll(option => option.Clone()));
+    //        // TODO: refactor
+    //        if (orderItem == null || orderItem.OptionsOfItem == null)
+    //            return;
+    //        foreach (OrderItem toppingItem in orderItem.OptionsOfItem)
+    //        {
+    //            CheckOptions(toppingItem);
+    //        }
+    //    }
+    //    public ObservableCollection<OptionGroup> CurrentOptionList { get; set; }
+    //    private static List<OptionGroup> _ListOptionGroup = null;
+    //    private static List<OptionGroup> ListOptionGroup
+    //    {
+    //        get
+    //        {
+    //            if (_ListOptionGroup == null)
+    //                _ListOptionGroup = OrderService.GetGroupsOption();
+    //            return _ListOptionGroup;
+    //        }
+
+    //    }
+    //    public void CheckOptions(OrderItem currentOption)
+    //    {
+    //        Option topping = CurrentOptionList.Select(x => x.Options)
+    //            .Select(x => x.FirstOrDefault(y => y.Item.ID == currentOption.Item.ID)).FirstOrDefault();
+
+    //        if (topping == null)
+    //        {
+    //            MessageBox.Show("Not found!");
+    //            return;
+    //        }
+    //        topping.Checked = true;
+    //    }
+    //}
+    //public class OptionItem : BaseViewModel
+    //{
+    //    public OptionItem(OrderItem orderItem)
+    //    {
+    //        CurrentOptionList = new ObservableCollection<Option>(ListOption.ConvertAll(option => option.Clone()));
+    //        // TODO: refactor
+    //        if (orderItem == null || orderItem.OptionsOfItem == null)
+    //            return;
+    //        foreach (OrderItem toppingItem in orderItem.OptionsOfItem)
+    //        {
+    //            CheckAnOption(toppingItem);
+    //        }
+    //    }
+    //    // Fields
+    //    public ObservableCollection<Option> CurrentOptionList { get; set; }
+    //    // public ObservableCollection<Option> Options;
+
+    //    private static List<Option> _ListOption = null;
+    //    public static List<Option> ListOption
+    //    {
+    //        get
+    //        {
+    //            if (_ListOption == null)
+    //                _ListOption = OrderService.GetOptions();
+    //            return _ListOption;
+    //        }
+
+    //    }
+
+    //    // Functions
+    //    public void CheckAnOption(OrderItem currentOption)
+    //    {
+    //        Option topping = CurrentOptionList.FirstOrDefault(x => x.Item.ID == currentOption.Item.ID);
+
+    //        if (topping == null)
+    //        {
+    //            MessageBox.Show("Not found!");
+    //            return;
+    //        }
+    //        topping.Checked = true;
+    //    }
+
+    //}
+
 }

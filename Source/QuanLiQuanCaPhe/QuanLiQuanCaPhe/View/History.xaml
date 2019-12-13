@@ -124,7 +124,7 @@
                                                            >
                                                     <TextBlock.Text>
                                                         <MultiBinding StringFormat="{}{0:N0}đ{1}">
-                                                            <Binding Path="ItemTotal" />
+                                                            <Binding Path="Price" />
                                                             <Binding Path="Info" />
                                                         </MultiBinding>
                                                     </TextBlock.Text>

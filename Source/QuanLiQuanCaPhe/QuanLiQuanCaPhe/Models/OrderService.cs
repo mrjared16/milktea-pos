@@ -56,7 +56,15 @@ namespace QuanLiQuanCaPhe.Models
             return DataAccess.GetToppings();
         }
 
+        //public static List<Option> GetOptions()
+        //{
+        //    return DataAccess.GetOptions();
+        //}
 
+        //public static List<OptionGroup> GetGroupsOption()
+        //{
+        //    return DataAccess.GetGroupsOption();
+        //}
         public static bool HistoryHasModified()
         {
             if (!_HistoryHasModified)
@@ -93,6 +101,8 @@ namespace QuanLiQuanCaPhe.Models
             order.items.Remove(item);
             order.OnPropertyChanged(null);
         }
+
+
 
         public static void SetItemAmount(Order order, OrderItem orderitem, int amount)
         {
@@ -135,6 +145,48 @@ namespace QuanLiQuanCaPhe.Models
             order.OnPropertyChanged(null);
         }
 
+        // Option
+        //public static void SelectOption(Order currentOrder, Option drink, OrderItem option)
+        //{
+        //    // TODO: refactor
+        //    if (drink == null || option == null)
+        //    {
+        //        MessageBox.Show("Co loi xay ra");
+        //        return;
+        //    }
+        //    OrderItem old = option.OptionsOfItem.FirstOrDefault(x => HasSameCategory(drink.Item, x.Item));
+        //    if (old != null)
+        //        RemoveOption(currentOrder, old.Item, option);
+        //    //TODO: refactor
+        //    OrderItem orderItem = new OrderItem(drink.Item);
+
+        //    option.AddOption(orderItem);
+        //    orderItem.AddParent(option);
+        //    currentOrder.OnPropertyChanged(null);
+        //}
+
+        //public static void RemoveOption(Order currentOrder, Drink drink, OrderItem parent)
+        //{
+        //    // TODO: refactor
+        //    if (drink == null || parent == null)
+        //    {
+        //        MessageBox.Show("Co loi xay ra");
+        //        return;
+        //    }
+        //    // TODO: refactor
+        //    OrderItem orderItem = parent.OptionsOfItem.FirstOrDefault(x => x.Item.ID == drink.ID);
+        //    parent.RemoveOption(orderItem);
+        //    currentOrder.OnPropertyChanged(null);
+        //}
+
+        //private static bool HasSameCategory(Drink a, Drink b)
+        //{
+        //    return GetMonAn(a).MALOAI == GetMonAn(b).MALOAI;
+        //}
+        //private static MonAn GetMonAn(Drink a)
+        //{
+        //    return DataProvider.ISCreated.DB.MonAns.FirstOrDefault(x => x.MAMON == a.ID);
+        //}
         // coupon
         public static bool AddCoupon(Order order, string Coupon)
         {
@@ -153,6 +205,18 @@ namespace QuanLiQuanCaPhe.Models
         public static bool HasCoupon(Order order)
         {
             return order.Coupon > 0;
+        }
+        public static bool IsTopping(LoaiMonAn loaiMonAn)
+        {
+            return (loaiMonAn.TENLOAI.Equals("CÁC LOẠI HẠT"));
+        }
+        public static bool IsOption(LoaiMonAn loaiMonAn)
+        {
+            return (loaiMonAn.TENLOAI.Equals("SIZE") || loaiMonAn.TENLOAI.Equals("TYPE"));
+        }
+        public static bool IsDrink(LoaiMonAn loaiMonAn)
+        {
+            return (!IsTopping(loaiMonAn) && !IsOption(loaiMonAn));
         }
 
 

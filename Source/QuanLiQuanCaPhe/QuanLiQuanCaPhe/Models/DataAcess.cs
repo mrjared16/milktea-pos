@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using QuanLiQuanCaPhe.ViewModel;
 
 namespace QuanLiQuanCaPhe.Models
@@ -11,37 +12,61 @@ namespace QuanLiQuanCaPhe.Models
     {
         public static List<Category> GetCategories()
         {
-            List<Category> list = new List<Category>(DataProvider.ISCreated.DB.LoaiMonAns.ToList().Where(x => x.ISDEL != 1 && IsDrink(x)).Select(x => new Category(x)));
+            //MessageBox.Show("Query category");
+            List<Category> list = new List<Category>(DataProvider.ISCreated.DB.LoaiMonAns.ToList()
+                .Where(x => x.ISDEL != 1 && OrderService.IsDrink(x))
+                .Select(x => new Category(x)));
             list.Insert(0, new Category() { Name = "Tất cả", ID = null });
             return list;
         }
 
         public static List<Drink> GetDrinkFromCategory(Category category)
         {
-            List<Drink> list = DataProvider.ISCreated.DB.MonAns.ToList().Where(x => x.ISDEL != 1 && (category.ID == null || x.MALOAI == category.ID) && IsDrink(x.LoaiMonAn)).Select(x => new Drink(x)).ToList();
+            //MessageBox.Show("Query Drink from Category");
+            List<Drink> list = DataProvider.ISCreated.DB.MonAns.ToList()
+                .Where(x => x.ISDEL != 1 && (category.ID == null || x.MALOAI == category.ID) && OrderService.IsDrink(x.LoaiMonAn))
+                .Select(x => new Drink(x)).ToList();
             return list;
         }
 
         public static List<Topping> GetToppings()
         {
-            List<Topping> result = DataProvider.ISCreated.DB.LoaiMonAns
-                .Where(x => x.ISDEL != 1 && x.TENLOAI.Equals("CÁC LOẠI HẠT"))
+            //MessageBox.Show("Query Topping");
+            List<Topping> result = DataProvider.ISCreated.DB.LoaiMonAns.ToList()
+                .Where(x => x.ISDEL != 1 && OrderService.IsTopping(x))
                 .Join(DataProvider.ISCreated.DB.MonAns, a => a.MALOAI, b => b.MALOAI, (a, b) => b).ToList()
                 .Select(x => new Topping(x)).ToList();
             return result;
         }
 
+        //public static List<Option> GetOptions()
+        //{
+        //    List<Option> result = DataProvider.ISCreated.DB.LoaiMonAns.ToList()
+        //        .Where(x => x.ISDEL != 1 && OrderService.IsOption(x))
+        //        .Join(DataProvider.ISCreated.DB.MonAns, a => a.MALOAI, b => b.MALOAI, (a, b) => b).ToList()
+        //        .Select(x => new Option(x)).ToList();
+        //    return result;
+        //}
+        //public static List<OptionGroup> GetGroupsOption()
+        //{
+        //    List<List<MonAn>> result = DataProvider.ISCreated.DB.LoaiMonAns.ToList()
+        //        .Where(x => x.ISDEL != 1 && OrderService.IsOption(x))
+        //        .Join(DataProvider.ISCreated.DB.MonAns, a => a.MALOAI, b => b.MALOAI, (a, b) => b).ToList()
+        //        .GroupBy(x => x.MALOAI)
+        //        .Select(x => x.ToList()).ToList();
+        //    List<OptionGroup> result2 = result.Select(x => new OptionGroup(x, GetTenLoai(x))).ToList();
+        //    return result2;
+        //}
+        //private static string GetTenLoai(List<MonAn> list)
+        //{
+        //    string MaLoai = list.FirstOrDefault().MALOAI;
+        //    return DataProvider.ISCreated.DB.LoaiMonAns.FirstOrDefault(x => x.MALOAI == MaLoai).TENLOAI;
+        //}
         public static int GetNextOrderID()
         {
+            //MessageBox.Show("Query Order ID");
             DonHang LastID = DataProvider.ISCreated.DB.DonHangs.OrderByDescending(a => a.MADH).FirstOrDefault();
             return (LastID == null) ? 0 : LastID.MADH + 1;
-            //int id = 0;
-            //if (LastID == null || !Int32.TryParse(LastID.MADH, out id))
-            //{
-            //    return "0";
-            //}
-            //id++;
-            //return id + "";
         }
 
         public static List<Order> GetOrderToday()
@@ -63,6 +88,7 @@ namespace QuanLiQuanCaPhe.Models
 
         public static void AddOrder(Order order)
         {
+            //MessageBox.Show("Add order");
             DataProvider.ISCreated.DB.DonHangs.Add(order.ToDonHang());
             DataProvider.ISCreated.DB.ChiTietDonhangs.AddRange(order.ToChiTietDonHangs());
             DataProvider.ISCreated.DB.SaveChanges();
@@ -71,6 +97,7 @@ namespace QuanLiQuanCaPhe.Models
         // private
         private static List<Order> GetOrderBy(Func<DonHang, bool> Condition)
         {
+            //MessageBox.Show("Query Order");
             List<Order> list =
                 DataProvider.ISCreated.DB.DonHangs.ToList()
                 .Where(x => Condition(x) && x.ISDEL != 1)
@@ -111,17 +138,6 @@ namespace QuanLiQuanCaPhe.Models
             return (date1.Year == date2.Year && date1.Month == date2.Month);
         }
 
-        private static bool IsTopping(LoaiMonAn loaiMonAn)
-        {
-            return (loaiMonAn.TENLOAI.Equals("CÁC LOẠI HẠT"));
-        }
-        private static bool IsOption(LoaiMonAn loaiMonAn)
-        {
-            return false;
-        }
-        private static bool IsDrink(LoaiMonAn loaiMonAn)
-        {
-            return (!IsTopping(loaiMonAn) && !IsOption(loaiMonAn));
-        }
+
     }
 }

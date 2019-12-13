@@ -104,9 +104,44 @@
                             <RadioButton GroupName="ABC" Content="Windows 7" />
                         </WrapPanel>
                     </StackPanel>-->
+                    <!--<ListView ItemsSource="{Binding DrinkOption.CurrentOptionList}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListViewItem">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding GroupName}"></TextBlock>
+                                                <ListView ItemsSource="{Binding Options}">
+                                                    <ListView.ItemContainerStyle>
+                                                        <Style TargetType="ListViewItem">
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="ListViewItem">
+                                                                        <RadioButton
+                                                                                    IsChecked="{Binding Checked, Mode=TwoWay}"
+                                                                                     GroupName="{Binding DataContext.GroupName, RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListView}}}"
+                                                                                     Tag="{Binding Item.Name}"  Content="{Binding Item.Name}"
+                                                                                     Command="{Binding DataContext.ToggleOptionForDrink,
+                                                    RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                                             CommandParameter="{Binding}"
+                                                             />
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Style>
+                                                    </ListView.ItemContainerStyle>
+                                                </ListView>
+                                            </StackPanel>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>-->
                     <StackPanel>
                         <TextBlock>Topping</TextBlock>
-                        <ListView ItemsSource="{Binding DrinkTopping.CurentToppingList}">
+                        <ListView ItemsSource="{Binding DrinkTopping.CurrentToppingList}">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="Template">
@@ -128,6 +163,7 @@
                             </ListView.ItemContainerStyle>
                         </ListView>
                     </StackPanel>
+
                 </StackPanel>
                 <!--End of Option View-->
             </Grid>
@@ -213,7 +249,7 @@
                                                            >
                                                     <TextBlock.Text>
                                                         <MultiBinding StringFormat="{}{0:N0}đ{1}">
-                                                            <Binding Path="ItemTotal" />
+                                                            <Binding Path="Price" />
                                                             <Binding Path="Info" />
                                                         </MultiBinding>
                                                     </TextBlock.Text>
@@ -272,7 +308,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="0" Margin="15,5,10,0">
                         <DockPanel>
-                            <TextBlock FontSize="{DynamicResource SmallFont}" FontWeight="Bold"  HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <TextBlock Style="{DynamicResource StrongTitle}" FontSize="{DynamicResource SmallFont}" FontWeight="Bold"  HorizontalAlignment="Left" VerticalAlignment="Top">
                                 Tổng cộng</TextBlock>
                             <TextBlock Style="{DynamicResource LightContent}" HorizontalAlignment="Right" VerticalAlignment="Top" 
                                        Text="{Binding OrderSubTotal, StringFormat={}{0:N0}đ}"></TextBlock>
