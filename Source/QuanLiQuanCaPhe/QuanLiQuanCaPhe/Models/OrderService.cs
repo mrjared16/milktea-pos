@@ -81,7 +81,6 @@ namespace QuanLiQuanCaPhe.Models
             _OrderItemID = 0;
             _HistoryHasModified = true;
             DataAccess.AddOrder(item);
-            item.OnPropertyChanged(null);
         }
         // order item
         public static void AddItem(Order order, OrderItem item)
@@ -151,7 +150,7 @@ namespace QuanLiQuanCaPhe.Models
         {
             return !order.items.Any();
         }
-        public static bool hasCoupon(Order order)
+        public static bool HasCoupon(Order order)
         {
             return order.Coupon > 0;
         }

@@ -20,7 +20,7 @@ namespace QuanLiQuanCaPhe.Models
         }
         public static OrderItem FindDrink(Order order, Drink Drink)
         {
-            return order.items.Where(x => x.Item.ID == Drink.ID).FirstOrDefault();
+            return order.items.Where(x => x.Item.ID == Drink.ID).LastOrDefault();
         }
     }
 }

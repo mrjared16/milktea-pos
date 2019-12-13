@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -100,19 +101,28 @@ namespace QuanLiQuanCaPhe.Models
                 _Checked = value;
             }
         }
+
+        public Topping Clone()
+        {
+            return new Topping(Item);
+        }
     }
 
 
     public class Order : BaseViewModel
     {
         // Create new order
-        public Order()
+        public Order(OrderViewModel notification = null)
         {
             this.ID = OrderService.GetNextOrderID();
             this.User = UserService.GetCurrentUser;
             this.Date = DateTime.Now;
             this.Coupon = 0;
             this.items = new ObservableCollection<OrderItem>();
+            if (notification != null)
+            {
+                this.items.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs e) => { notification.ToggleOrderView(); };
+            }
         }
         // Retrieve order from database
         public Order(DonHang DonHang)
@@ -147,7 +157,7 @@ namespace QuanLiQuanCaPhe.Models
             {
                 list.Add(item.ToChiTietDonHang(this.ID, Now));
                 // TODO: refactor
-                if (item.ToppingsOfItem.Count > 0)
+                if (item.HasToppings())
                 {
                     foreach (OrderItem topping in item.ToppingsOfItem)
                     {
@@ -157,7 +167,6 @@ namespace QuanLiQuanCaPhe.Models
             }
             return list;
         }
-
 
         // Fields
         public ObservableCollection<OrderItem> items { get; set; }
@@ -235,8 +244,8 @@ namespace QuanLiQuanCaPhe.Models
             this._Item = new Drink(ChiTiet.MonAn);
             this.Number = (int)ChiTiet.SOLUONG;
             //this.Note 
-            
-            if (ChiTiet.ChiTietDonhang1.Count > 0)
+
+            if (HasToppings(ChiTiet))
             {
                 // TODO: need refactor
                 List<OrderItem> Option = ChiTiet.ChiTietDonhang1.Select(x => new OrderItem(x)).ToList();
@@ -366,17 +375,25 @@ namespace QuanLiQuanCaPhe.Models
         {
             ToppingsOfItem.Remove(child);
         }
+
+        public bool HasToppings()
+        {
+            return (ToppingsOfItem.Count > 0);
+        }
+        private bool HasToppings(ChiTietDonhang chiTietDonhang)
+        {
+            return chiTietDonhang.ChiTietDonhang1.Count > 0;
+        }
     }
 
     public class ToppingItem : BaseViewModel
     {
         public ToppingItem(OrderItem orderItem)
         {
-            CurentToppingList = new ObservableCollection<Topping>(ListTopping);
+            CurentToppingList = new ObservableCollection<Topping>(ListTopping.ConvertAll(topping => topping.Clone()));
             // TODO: refactor
             if (orderItem == null || orderItem.ToppingsOfItem == null)
                 return;
-            //MessageBox.Show(Toppings[0].Item.Name + " - " + Toppings[1].Item.Name);
             foreach (OrderItem toppingItem in orderItem.ToppingsOfItem)
             {
                 CheckAnTopping(toppingItem);
@@ -391,7 +408,8 @@ namespace QuanLiQuanCaPhe.Models
         {
             get
             {
-                _ListTopping = OrderService.GetToppings();
+                if (_ListTopping == null)
+                    _ListTopping = OrderService.GetToppings();
                 return _ListTopping;
             }
 

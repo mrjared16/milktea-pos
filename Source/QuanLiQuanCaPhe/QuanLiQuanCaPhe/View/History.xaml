@@ -13,8 +13,13 @@
             <ColumnDefinition Width="{Binding OrderSideBar}"/>
         </Grid.ColumnDefinitions>
         <!--Main Content-->
-        <StackPanel Grid.Column="0" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+        <Grid Grid.Column="0" Height="Auto" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center"
                     Margin="20">
                 <Border
                 Padding="8"
@@ -28,7 +33,7 @@
                     <materialDesign:PackIcon Kind="Search" VerticalAlignment="Center" Width="30" Height="30" Margin="5"/>
                 </Button>
             </StackPanel>
-            <ListBox  Margin="0" Padding="0" ItemsSource="{Binding ListCategory}" SelectedItem="{Binding SelectedCategory}">
+            <ListBox Grid.Row="1" Margin="0" Padding="0" ItemsSource="{Binding ListCategory}" SelectedItem="{Binding SelectedCategory}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel/>
@@ -50,7 +55,7 @@
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListBox>
-            <ListView ItemsSource="{Binding ListOrder}" SelectedItem="{Binding SelectedOrder}">
+            <ListView Grid.Row="2" ItemsSource="{Binding ListOrder}" SelectedItem="{Binding SelectedOrder}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="Auto" Header="ID" DisplayMemberBinding="{Binding ID, StringFormat={}#{0}}"  />
@@ -60,7 +65,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-        </StackPanel>
+        </Grid>
         <!--End of Main Content-->
 
         <!--Order Content-->
@@ -113,7 +118,7 @@
                                                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="{StaticResource Font}" FontSize="{DynamicResource MediumFont}" Text="{Binding Number}"></TextBlock>
                                                     </Border>
                                                 </Grid>
-                                                
+
                                                 <!--Info and total-->
                                                 <TextBlock  Grid.Row="1" Grid.Column="0" Style="{DynamicResource LightContent}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31.92" Width="150.293" 
                                                            >
