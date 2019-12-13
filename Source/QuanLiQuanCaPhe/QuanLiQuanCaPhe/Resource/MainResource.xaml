@@ -4,31 +4,53 @@
                     xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="QuanLiQuanCaPhe.Views.Layout"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     >
-	<viewModel:MainViewModel x:Key="MainVM"></viewModel:MainViewModel>
-	<viewModel:MainViewModel x:Key="NhanVienMainVM"></viewModel:MainViewModel>
-	<viewModel:LoginViewModel x:Key="LoginVM"></viewModel:LoginViewModel>
+    <viewModel:MainViewModel x:Key="MainVM"></viewModel:MainViewModel>
+    <viewModel:MainViewModel x:Key="NhanVienMainVM"></viewModel:MainViewModel>
+    <viewModel:LoginViewModel x:Key="LoginVM"></viewModel:LoginViewModel>
     <viewModel:MainViewModel x:Key="NhanVienLayoutVM"></viewModel:MainViewModel>
-	<viewModel:MonAnAdminViewModel x:Key="Menu"></viewModel:MonAnAdminViewModel>
-	<viewModel:DoanhThuAdminViewModel x:Key="DoanhThu"></viewModel:DoanhThuAdminViewModel>
-	<viewModel:TaiKhoanViewModel x:Key="TK"></viewModel:TaiKhoanViewModel>
-	
-	<SolidColorBrush x:Key="Tab" Color="#FF585E6E"/>
+    <viewModel:MonAnAdminViewModel x:Key="Menu"></viewModel:MonAnAdminViewModel>
+    <viewModel:DoanhThuAdminViewModel x:Key="DoanhThu"></viewModel:DoanhThuAdminViewModel>
+    <viewModel:TaiKhoanViewModel x:Key="TK"></viewModel:TaiKhoanViewModel>
+
+    <!--Color Palette-->
+    <SolidColorBrush x:Key="Tab" Color="#FF585E6E"/>
     <SolidColorBrush x:Key="TabActive" Color="#FF2C3345"/>
+    <SolidColorBrush x:Key="LightSideBar" Color="#FF2D3245"/>
+    <SolidColorBrush x:Key="SideBar" Color="#FF01091E"/>
+    <SolidColorBrush x:Key="BgNull"/>
+    <SolidColorBrush x:Key="BackgroundColor" Color="#FFE8F1FB"/>
+
     <SolidColorBrush x:Key="Border" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="Font" Color="#FFFAFAFA"/>
-    <SolidColorBrush x:Key="LightButton" Color="#FFC4C4C4"/>
     <SolidColorBrush x:Key="ContentFont" Color="#FFADBDDB"/>
-    <SolidColorBrush x:Key="BgNull"/>
     <SolidColorBrush x:Key="Header" Color="#FF4C4C4C"/>
+    <SolidColorBrush x:Key="StrongContent" Color="#FFFF5588"/>
+    <SolidColorBrush x:Key="LightContentColor" Color="#FFC4C4C4"/>
+    
+    <!--Theme Color-->
+    <!-- primary -->
+    <!--Border-->
+    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#FF585E6E"/>
+    <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FFFAFAFA"/>
+
+    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#FF2D3245"/>
+    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FFFAFAFA"/>
+
+    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#FF01091E"/>
+    <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFAFAFA"/>
+
+    <!-- accent -->
+    <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#FFFF5588"/>
+    <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#FFFAFAFA"/>
+
+    <!--Font Size-->
     <System:Double x:Key="BigFont">24</System:Double>
     <System:Double x:Key="SemiBigFont">21</System:Double>
     <System:Double x:Key="MediumFont">18</System:Double>
     <System:Double x:Key="SemiMediumFont">15</System:Double>
     <System:Double x:Key="SmallFont">12</System:Double>
-    <SolidColorBrush x:Key="BackgroundColor" Color="#FFE8F1FB"/>
-    <SolidColorBrush x:Key="StrongContent" Color="#FFFF5588"/>
-    <SolidColorBrush x:Key="LightSideBar" Color="#FF2D3245"/>
-    <SolidColorBrush x:Key="SideBar" Color="#FF01091E"/>
+    
+    <!--Custom TextBlock-->
     <Style x:Key="StrongTitle" TargetType="{x:Type TextBlock}">
         <Setter Property="TextWrapping" Value="NoWrap"/>
         <Setter Property="TextTrimming" Value="None"/>
@@ -42,24 +64,11 @@
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="Foreground" Value="{DynamicResource ContentFont}"/>
     </Style>
-    <Style x:Key="SimpleButton" TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="{StaticResource BgNull}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BgNull}"/>
-        <Setter Property="Padding" Value="0,-8,0,0"/>
-        <Setter Property="FontSize" Value="22"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Foreground" Value="{DynamicResource LightButton}"/>
-        <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Opacity" Value="0"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
+    
+    
+    <!--Custom Button-->
+    <!--Category button-->
     <Style x:Key="TabButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-        <Setter Property="Background" Value="{StaticResource Tab}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource Tab}"/>
-        <Setter Property="Foreground" Value="{DynamicResource Font}"/>
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Background" Value="{StaticResource TabActive}"/>
@@ -68,12 +77,39 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
     <Style x:Key="SideTab" TargetType="{x:Type Button}" BasedOn="{StaticResource TabButton}">
-        <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
         <Setter Property="Height" Value="60"/>
-        <Style.Triggers>
+        <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
+        <!--<Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
+            </Trigger>
+        </Style.Triggers>-->
+    </Style>
+
+    <!--Action button-->
+    <Style x:Key="LightButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedAccentButton}">
+        <Setter Property="Width" Value="120"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value="0"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--X, +, - button-->
+    <Style x:Key="SimpleButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="{StaticResource BgNull}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BgNull}"/>
+        <Setter Property="Padding" Value="0,-8,0,0"/>
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{DynamicResource LightContentColor}"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value="0"/>
             </Trigger>
         </Style.Triggers>
     </Style>
