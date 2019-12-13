@@ -62,13 +62,12 @@
 							<DataTemplate>
 								<Border
                                     Padding="5"
-                                    Background="#087f23"
+                                    Background="#26c6da"
                                     BorderBrush="WhiteSmoke"
                                     BorderThickness="0,0,0,1">
 									<TextBlock
                                         Cursor="Hand"
                                         FontFamily="Courier New"
-                                        Foreground="WhiteSmoke"
                                         Text="{Binding Path=TENLOAI}" />
 								</Border>
 							</DataTemplate>
@@ -160,6 +159,7 @@
 			<ListView.ItemContainerStyle>
 				<Style TargetType="ListViewItem">
 					<Setter Property="HorizontalContentAlignment" Value="Center" />
+					<Setter Property="Background" Value="#4ebaaa" />
 				</Style>
 			</ListView.ItemContainerStyle>
 			<ListView.ItemsPanel>
@@ -199,6 +199,10 @@
                         DisplayMemberBinding="{Binding monAn.MALOAI}"
                         Header="Loại" />
 					<GridViewColumn
+                        Width="150"
+                        DisplayMemberBinding="{Binding SoLuotMua}"
+                        Header="Số Lượng" />
+					<GridViewColumn
                         Width="200"
                         DisplayMemberBinding="{Binding TongTienThu}"
                         Header="Doanh thu" />
@@ -208,7 +212,7 @@
 		<StackPanel
             Grid.Row="7"
             Grid.RowSpan="2"
-            Margin="0,0,250,0"
+            Margin="0,0,190,0"
             HorizontalAlignment="Right"
             Orientation="Horizontal">
 			<materialDesign:Card

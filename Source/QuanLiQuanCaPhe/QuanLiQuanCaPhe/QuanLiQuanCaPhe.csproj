@@ -89,7 +89,6 @@
     <Compile Include="Models\ChiTietDonhang.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataAcess.cs" />
     <Compile Include="Models\Database.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -110,7 +109,6 @@
     <Compile Include="Models\DonHang.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DrinkService.cs" />
     <Compile Include="Models\Home.cs" />
     <Compile Include="Models\LichLamViec.cs">
       <DependentUpon>Database.tt</DependentUpon>
@@ -126,17 +124,22 @@
     <Compile Include="Models\NhanVien.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BusinessModel.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderService.cs" />
     <Compile Include="Models\SeviceData.cs" />
-    <Compile Include="Models\UserService.cs" />
-    <Compile Include="ViewModel\detailsInfoMilkteaViewModel.cs" />
+    <Compile Include="NhanVienMainWindow.xaml.cs">
+      <DependentUpon>NhanVienMainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\DoanhThuAdminViewModel.cs" />
     <Compile Include="ViewModel\HistoryViewModel.cs" />
+    <Compile Include="ViewModel\HoaDonViewModel.cs" />
     <Compile Include="ViewModel\HomeNhanVienViewModel.cs" />
     <Compile Include="ViewModel\LichLamViecNhanVienViewModel.cs" />
+    <Compile Include="ViewModel\LoaiMonAnViewModel.cs" />
     <Compile Include="ViewModel\NhanVienLayoutViewModel.cs" />
+    <Compile Include="ViewModel\NhanVienViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
+    <Compile Include="ViewModel\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModel\TaiKhoanNhanVienViewModel.cs" />
     <Compile Include="View\DoanhThuAdmin.xaml.cs">
       <DependentUpon>DoanhThuAdmin.xaml</DependentUpon>
@@ -144,14 +147,29 @@
     <Compile Include="View\History.xaml.cs">
       <DependentUpon>History.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\HomeNhanVien.xaml.cs">
       <DependentUpon>HomeNhanVien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\HoaDon.xaml.cs">
+      <DependentUpon>HoaDon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoaiMonAn.xaml.cs">
+      <DependentUpon>LoaiMonAn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NhanVienAdmin.xaml.cs">
+      <DependentUpon>NhanVienAdmin.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LichLamViecNhanVien.xaml.cs">
       <DependentUpon>LichLamViecNhanVien.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NhanVienLayout.xaml.cs">
       <DependentUpon>NhanVienLayout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ResetPassword.xaml.cs">
+      <DependentUpon>ResetPassword.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TaiKhoan.xaml.cs">
       <DependentUpon>TaiKhoan.xaml</DependentUpon>
@@ -174,6 +192,9 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MonAnAdminViewModel.cs" />
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -186,6 +207,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NhanVienMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resource\MainResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -198,6 +223,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\HoaDon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Home.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\HomeNhanVien.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -206,6 +239,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\LoaiMonAn.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\NhanVienAdmin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\NhanVienLayout.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -213,6 +254,10 @@
     <Page Include="View\Order.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ResetPassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TaiKhoan.xaml">
       <SubType>Designer</SubType>
@@ -227,6 +272,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControlBarUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -249,7 +298,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="App.Config" />
     <EntityDeploy Include="Models\Database.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Database.Designer.cs</LastGenOutput>
@@ -264,23 +312,27 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Image\HomeBackground.jpg" />
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
     <Resource Include="Image\trasua.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
+    <Resource Include="Image\abc.jpg" />
+    <Resource Include="Image\rsz_tra.jpg" />
+    <Resource Include="Image\tra.jpg" />
     <Content Include="Models\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.Context.cs</LastGenOutput>
+      <DependentUpon>Database.edmx</DependentUpon>
     </Content>
     <Content Include="Models\Database.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

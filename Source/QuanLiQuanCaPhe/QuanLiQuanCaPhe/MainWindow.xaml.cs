@@ -25,28 +25,29 @@ namespace QuanLiQuanCaPhe
 	public partial class MainWindow : Window
 	{
 		string tumeo;
-		private BitmapImage _DisplayedImagePath2;
-		public BitmapImage DisplayedImagePath2
+		private BitmapImage _HinhAnhAdmin;
+		public BitmapImage HinhAnhAdmin
 		{
-			get { return _DisplayedImagePath2; }
-			set { _DisplayedImagePath2 = value; }
+			get { return _HinhAnhAdmin; }
+			set { _HinhAnhAdmin = value; }
 		}
 		public MainWindow()
 		{
+			_HinhAnhAdmin = LoadImage(UserService.GetCurrentUser.HINHANH);
 			InitializeComponent();
 			DataContext = new TaiKhoanViewModel();
-			_DisplayedImagePath2 = LoadImage(UserService.GetCurrentUser.HINHANH);
+			
 		}
 
 		private void taiKhoan(object sender, RoutedEventArgs e)
 		{
 			DataContext = new TaiKhoanViewModel();
 			TaiKhoan.Background = Brushes.LightGreen;
-			DonHang.Background = Brushes.ForestGreen;
+			donhang.Background = Brushes.ForestGreen;
 			MonAn.Background = Brushes.ForestGreen;
-			LoaiMonAn.Background = Brushes.ForestGreen;
-			_DisplayedImagePath2 = LoadImage(UserService.GetCurrentUser.HINHANH);
-
+			loaimonan.Background = Brushes.ForestGreen;
+			nhanvien.Background = Brushes.ForestGreen;
+			_HinhAnhAdmin = LoadImage(UserService.GetCurrentUser.HINHANH);
 			DoanhThu.Background = Brushes.ForestGreen;
 		}
 
@@ -54,12 +55,14 @@ namespace QuanLiQuanCaPhe
 		{
 			DataContext = new MonAnAdminViewModel();
 			TaiKhoan.Background = Brushes.ForestGreen;
-			DonHang.Background = Brushes.ForestGreen;
+			donhang.Background = Brushes.ForestGreen;
 			MonAn.Background = Brushes.LightGreen;
-			LoaiMonAn.Background = Brushes.ForestGreen;
+			loaimonan.Background = Brushes.ForestGreen;
 			DoanhThu.Background = Brushes.ForestGreen;
+			nhanvien.Background = Brushes.ForestGreen;
+
 			loadData();
-			_DisplayedImagePath2 = LoadImage(UserService.GetCurrentUser.HINHANH);
+			_HinhAnhAdmin = LoadImage(UserService.GetCurrentUser.HINHANH);
 
 		}
 
@@ -73,14 +76,29 @@ namespace QuanLiQuanCaPhe
 		{
 			DataContext = new DoanhThuAdminViewModel();
 			TaiKhoan.Background = Brushes.ForestGreen;
-			DonHang.Background = Brushes.ForestGreen;
+			donhang.Background = Brushes.ForestGreen;
 			MonAn.Background = Brushes.ForestGreen;
-			LoaiMonAn.Background = Brushes.ForestGreen;
+			loaimonan.Background = Brushes.ForestGreen;
 			DoanhThu.Background = Brushes.LightGreen ;
+			nhanvien.Background = Brushes.ForestGreen;
+
 			loadData();
-			_DisplayedImagePath2 = LoadImage(UserService.GetCurrentUser.HINHANH);
+			_HinhAnhAdmin = LoadImage(UserService.GetCurrentUser.HINHANH);
 
 		}
+
+		private void NhanVien(object sender, RoutedEventArgs e)
+		{
+			DataContext = new NhanVienViewModel();
+			TaiKhoan.Background = Brushes.ForestGreen;
+			donhang.Background = Brushes.ForestGreen;
+			MonAn.Background = Brushes.ForestGreen;
+			loaimonan.Background = Brushes.ForestGreen;
+			DoanhThu.Background = Brushes.ForestGreen;
+			nhanvien.Background = Brushes.LightGreen;
+		}
+
+
 		public void loadData()
 		{
 			
@@ -99,7 +117,7 @@ namespace QuanLiQuanCaPhe
 			foreach (var item in nhanVien)
 			{
 				//hinh anh ca nhan
-				_DisplayedImagePath2 = LoadImage(item.HINHANH);
+				_HinhAnhAdmin = LoadImage(item.HINHANH);
 			}
 			File.Delete("tumeo.txt");
 		}
@@ -119,6 +137,28 @@ namespace QuanLiQuanCaPhe
 			}
 			image.Freeze();
 			return image;
+		}
+
+		private void DonHang(object sender, RoutedEventArgs e)
+		{
+			DataContext = new HoaDonViewModel();
+			TaiKhoan.Background = Brushes.ForestGreen;
+			donhang.Background = Brushes.LightGreen;
+			MonAn.Background = Brushes.ForestGreen;
+			loaimonan.Background = Brushes.ForestGreen;
+			DoanhThu.Background = Brushes.ForestGreen;
+			nhanvien.Background = Brushes.ForestGreen;
+		}
+
+		private void LoaiMonAn(object sender, RoutedEventArgs e)
+		{
+			DataContext = new LoaiMonAnViewModel();
+			TaiKhoan.Background = Brushes.ForestGreen;
+			donhang.Background = Brushes.ForestGreen;
+			MonAn.Background = Brushes.ForestGreen;
+			loaimonan.Background = Brushes.LightGreen;
+			DoanhThu.Background = Brushes.ForestGreen;
+			nhanvien.Background = Brushes.ForestGreen;
 		}
 	}
 }

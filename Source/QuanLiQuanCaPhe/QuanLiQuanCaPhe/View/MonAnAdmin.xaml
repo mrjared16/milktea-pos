@@ -20,47 +20,47 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
 
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedMenuUCCommand}" CommandParameter="{Binding ElementName=homeMenu}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-    <Grid Background="LightGreen">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+	<i:Interaction.Triggers>
+		<i:EventTrigger EventName="Loaded">
+			<i:InvokeCommandAction Command="{Binding LoadedMenuUCCommand}" CommandParameter="{Binding ElementName=homeMenu}" />
+		</i:EventTrigger>
+	</i:Interaction.Triggers>
+	<Grid Background="LightGreen">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
 
-        <StackPanel
+		<StackPanel
             Grid.Row="0"
             Grid.Column="0"
             Grid.ColumnSpan="3"
             Orientation="Vertical">
-            <StackPanel
+			<StackPanel
                 Margin="0,10,0,10"
                 HorizontalAlignment="Center"
                 Orientation="Vertical">
-                <TextBlock Margin="0,0,0,20" FontSize="36">DANH SÁCH MÓN ĂN</TextBlock>
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Border
+				<TextBlock Margin="0,0,0,20" FontSize="36">DANH SÁCH MÓN ĂN</TextBlock>
+				<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+					<Border
                         Padding="8"
                         Background="WhiteSmoke"
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         BorderThickness="2"
                         CornerRadius="10">
-                        <TextBox
+						<TextBox
                             Width="300"
                             materialDesign:HintAssist.Hint="Tìm kiếm món ăn"
                             Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             TextWrapping="Wrap" />
-                    </Border>
-                    <Button
+					</Border>
+					<Button
                         x:Name="btnSearch"
                         Height="40"
                         Margin="5,0,0,0"
@@ -68,52 +68,53 @@
                         CommandParameter="{Binding ElementName=btnSearch}"
                         DataContext="{StaticResource Menu}"
                         IsDefault="True">
-                        <materialDesign:PackIcon
+						<materialDesign:PackIcon
                             Width="30"
                             Height="30"
                             Margin="5"
                             VerticalAlignment="Center"
                             Kind="Search" />
-                    </Button>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Border
+					</Button>
+				</StackPanel>
+			</StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<Border
                     Width="250"
                     Height="70"
                     Margin="20,0,0,0"
                     Padding="5"
                     HorizontalAlignment="Left"
-                    Background="#616161"
+                    Background="White"
                     CornerRadius="5">
-                    <ComboBox
+					<ComboBox
                         Name="loaiCombobox"
                         materialDesign:HintAssist.FloatingOffset="0, -24"
                         materialDesign:HintAssist.FloatingScale="1"
-                        materialDesign:HintAssist.Foreground="AntiqueWhite"
+                        materialDesign:HintAssist.Foreground="Black"
                         materialDesign:HintAssist.Hint="LOẠI THỨC UỐNG"
+						
                         ItemsSource="{Binding MilkteaCategories}"
                         SelectedItem="{Binding selectedLoai, Mode=TwoWay}"
                         SelectedValuePath="Name"
                         Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<Border
                                     Padding="5"
-                                    Background="#373737"
+                                    Background="White"
                                     BorderBrush="WhiteSmoke"
                                     BorderThickness="0,0,0,1">
-                                    <TextBlock
+									<TextBlock
                                         Cursor="Hand"
-                                        FontFamily="Courier New"
-                                        Foreground="WhiteSmoke"
+                                        FontFamily="Arial"
+                                        Foreground="Black"
                                         Text="{Binding Path=TENLOAI}" />
-                                </Border>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </Border>
-                <Button
+								</Border>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</Border>
+				<Button
                     Margin="15"
                     Background="{Binding btnAllMonAnColor, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Command="{Binding ShowAllMonAn}"
@@ -121,37 +122,37 @@
                     Cursor="Hand"
                     FontFamily="Courier New"
                     Foreground="WhiteSmoke">
-                    TẤT CẢ THỨC UỐNG
-                </Button>
-            </StackPanel>
+					TẤT CẢ THỨC UỐNG
+				</Button>
+			</StackPanel>
 
 
-        </StackPanel>
+		</StackPanel>
 
-        <Grid
+		<Grid
             Grid.Row="1"
             Grid.RowSpan="2"
             Grid.Column="0"
             Grid.ColumnSpan="3"
             HorizontalAlignment="Stretch">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Border
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Border
                 Grid.Row="0"
                 Grid.RowSpan="6"
                 Grid.ColumnSpan="3"
@@ -159,21 +160,21 @@
                 BorderBrush="#FF322F2F"
                 BorderThickness="0,0,1,0"
                 Grid.IsSharedSizeScope="True">
-                <ListView
+				<ListView
                     ItemsSource="{Binding listMonAn}"
                     ScrollViewer.CanContentScroll="True"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     SelectedItem="{Binding selectItem_Menu}">
 
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
+					<ListView.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapPanel Orientation="Horizontal" />
+						</ItemsPanelTemplate>
+					</ListView.ItemsPanel>
 
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border
+					<ListView.ItemTemplate>
+						<DataTemplate>
+							<Border
                                 x:Name="Border"
                                 Margin="2"
                                 Padding="4"
@@ -181,110 +182,111 @@
                                 BorderBrush="#FF404040"
                                 BorderThickness="0.5"
                                 Cursor="Hand">
-                                <Grid Width="185" Height="60">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition SharedSizeGroup="Checkerz" />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Image
+								<Grid Width="185" Height="60">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition SharedSizeGroup="Checkerz" />
+										<ColumnDefinition />
+									</Grid.ColumnDefinitions>
+									<Image
                                         Width="60"
                                         Height="60"
                                         HorizontalAlignment="Left"
                                         Source="{Binding HINHANH}" />
-                                    <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                                        <TextBlock
+									<StackPanel Grid.Column="1" Margin="8,0,0,0">
+										<TextBlock
                                             HorizontalAlignment="Left"
-                                            FontFamily="Consolas"
+                                            FontFamily="Arial"
                                             FontSize="14"
                                             FontWeight="Bold"
                                             Foreground="Black"
-                                            Text="{Binding TENMON}"
+                                            Text="{Binding TENMON,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                             TextWrapping="Wrap" />
-                                        <TextBlock
+										<TextBlock
                                             HorizontalAlignment="Left"
-                                            FontFamily="Consolas"
+                                            FontFamily="Arial"
                                             FontSize="11"
-                                            Text="{Binding GIA}" />
-                                    </StackPanel>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Border>
-            <Button
+                                            Text="{Binding GIA,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+									</StackPanel>
+								</Grid>
+							</Border>
+						</DataTemplate>
+					</ListView.ItemTemplate>
+				</ListView>
+			</Border>
+			<Button
                 Grid.Row="6"
                 Grid.RowSpan="2"
                 Margin="30,0,0,10"
                 HorizontalAlignment="Left"
                 Command="{Binding addMilkteaCommand}"
+                CommandParameter="{Binding ElementName=loaiEditCombobox}"
                 DockPanel.Dock="Bottom"
                 Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                 ToolTip="MaterialDesignFloatingActionMiniDarkButton">
-                <materialDesign:PackIcon
+				<materialDesign:PackIcon
                     Width="24"
                     Height="24"
                     Kind="Add" />
-            </Button>
-            <Grid
+			</Button>
+			<Grid
                 Grid.Row="0"
                 Grid.RowSpan="6"
                 Grid.Column="3"
                 Grid.ColumnSpan="2"
                 Visibility="{Binding ButtonVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Grid
+				<Grid
                     x:Name="details"
                     Width="400"
                     VerticalAlignment="Center"
                     Background="PeachPuff"
                     DataContext="{Binding MonAnChiTiet}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <StackPanel
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<StackPanel
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
-                        <Image Margin="5" Source="{Binding HINHANH}" />
-                        <Button
+						<Image Margin="5" Source="{Binding HINHANH}" />
+						<Button
                             Margin="15"
                             Command="{Binding ChooseImgMonAn}"
                             DataContext="{StaticResource Menu}">
-                            CHỌN ẢNH
-                        </Button>
-                    </StackPanel>
+							CHỌN ẢNH
+						</Button>
+					</StackPanel>
 
-                    <Grid
+					<Grid
                         Grid.Column="2"
                         Grid.ColumnSpan="3"
                         Margin="0,10,0,10"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="80" />
-                            <ColumnDefinition Width="80" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Label
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="80" />
+							<ColumnDefinition Width="80" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Label
                             FontFamily="Cambria"
                             FontSize="14"
                             FontWeight="Bold">
-                            Tên món:
-                        </Label>
-                        <Border
+							Tên món:
+						</Label>
+						<Border
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
                             Margin="0,0,0,5"
@@ -293,20 +295,20 @@
                             BorderBrush="LightBlue"
                             BorderThickness="2"
                             CornerRadius="5">
-                            <TextBox
+							<TextBox
                                 Grid.ColumnSpan="2"
                                 Margin="0,0,5,5"
-                                Text="{Binding TENMON}"
+                                Text="{Binding TENMON,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 TextWrapping="Wrap" />
-                        </Border>
-                        <Label
+						</Border>
+						<Label
                             Grid.Row="1"
                             FontFamily="Cambria"
                             FontSize="14"
                             FontWeight="Bold">
-                            Mã món:
-                        </Label>
-                        <Border
+							Mã món:
+						</Label>
+						<Border
                             Grid.Row="1"
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
@@ -316,42 +318,66 @@
                             BorderBrush="LightBlue"
                             BorderThickness="2"
                             CornerRadius="5">
-                            <TextBox
+							<TextBox
                                 Margin="0,0,5,5"
+                                IsEnabled="False"
                                 Text="{Binding MAMON}"
                                 TextWrapping="Wrap" />
-                        </Border>
-                        <Label
+						</Border>
+						<Label
                             Grid.Row="2"
                             FontFamily="Cambria"
                             FontSize="14"
                             FontWeight="Bold">
-                            Mã loại:
-                        </Label>
-                        <Border
+							Loại:
+						</Label>
+						<Border
                             Grid.Row="2"
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
                             Margin="0,0,0,5"
-                            Padding="4,0,4,0"
-                            Background="WhiteSmoke"
+                            Background="White"
                             BorderBrush="LightBlue"
                             BorderThickness="2"
                             CornerRadius="5">
-                            <TextBox
+							<!--<TextBox
                                 Grid.ColumnSpan="2"
                                 Margin="0,0,5,5"
                                 Text="{Binding MALOAI}"
-                                TextWrapping="Wrap" />
-                        </Border>
-                        <Label
+                                TextWrapping="Wrap" />-->
+							<ComboBox
+                                Name="loaiEditCombobox"
+                                materialDesign:HintAssist.FloatingOffset="0, -24"
+                                materialDesign:HintAssist.FloatingScale="1"
+                                materialDesign:HintAssist.Foreground="Black"
+                                DataContext="{StaticResource Menu}"
+                                ItemsSource="{Binding MilkteaCategoriesDetails}"
+                                SelectedItem="{Binding selectedLoaiChiTiet, Mode=TwoWay}"
+                                SelectedValuePath="Name"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+								<ComboBox.ItemTemplate>
+									<DataTemplate>
+										<Border
+											Padding="5,0,0,0"
+                                            BorderBrush="WhiteSmoke"
+                                            BorderThickness="0,0,0,1">
+											<TextBlock
+                                                Cursor="Hand"
+                                                FontFamily="Arial"
+                                                Text="{Binding Path=TENLOAI,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+										</Border>
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+						</Border>
+						<Label
                             Grid.Row="3"
                             FontFamily="Cambria"
                             FontSize="14"
                             FontWeight="Bold">
-                            Mô tả:
-                        </Label>
-                        <Border
+							Mô tả:
+						</Label>
+						<Border
                             Grid.Row="3"
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
@@ -361,20 +387,20 @@
                             BorderBrush="LightBlue"
                             BorderThickness="2"
                             CornerRadius="5">
-                            <TextBox
+							<TextBox
                                 Grid.ColumnSpan="2"
                                 Margin="0,0,5,5"
                                 Text="{Binding MOTA}"
                                 TextWrapping="Wrap" />
-                        </Border>
-                        <Label
+						</Border>
+						<Label
                             Grid.Row="4"
                             FontFamily="Cambria"
                             FontSize="14"
                             FontWeight="Bold">
-                            Giá:
-                        </Label>
-                        <Border
+							Giá:
+						</Label>
+						<Border
                             Grid.Row="4"
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
@@ -384,38 +410,35 @@
                             BorderBrush="LightBlue"
                             BorderThickness="2"
                             CornerRadius="5">
-                            <TextBox
+							<TextBox
                                 Margin="0,0,5,5"
-                                Text="{Binding GIA}"
+                                Text="{Binding GIA,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 TextWrapping="Wrap" />
-                        </Border>
-                        <StackPanel
+						</Border>
+						<StackPanel
                             Grid.Row="5"
                             Grid.Column="0"
                             Grid.ColumnSpan="3"
                             Margin="0,20,0,0"
                             Orientation="Horizontal">
-                            <Button
+							<Button
                                 Name="btnAddSave"
                                 Margin="0,0,5,0"
                                 Command="{Binding Add_SaveCommand}"
                                 CommandParameter="{Binding ElementName=btnAddSave}"
                                 Content="{Binding btnAdd_Save}"
                                 DataContext="{StaticResource Menu}" />
-                            <Button
+							<Button
                                 x:Name="btnDeleteCancel"
                                 Command="{Binding Delete_CancelCommand}"
                                 CommandParameter="{Binding ElementName=btnDeleteCancel}"
                                 Content="{Binding btnDelete_Cancel}"
                                 DataContext="{StaticResource Menu}" />
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-            </Grid>
-
-
-        </Grid>
-
-        <!--<uc:detailsInfoMilktea x:Name="details" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" detailInfoCon="{Binding milkTeaInfoCha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></uc:detailsInfoMilktea>-->
-    </Grid>
+						</StackPanel>
+					</Grid>
+				</Grid>
+			</Grid>
+		</Grid>
+		<!--<uc:detailsInfoMilktea x:Name="details" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" detailInfoCon="{Binding milkTeaInfoCha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></uc:detailsInfoMilktea>-->
+	</Grid>
 </UserControl>

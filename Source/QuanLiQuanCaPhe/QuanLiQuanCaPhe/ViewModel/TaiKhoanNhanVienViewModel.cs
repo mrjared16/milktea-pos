@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using QuanLiQuanCaPhe.Models;
+using QuanLiQuanCaPhe.View;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +16,8 @@ namespace QuanLiQuanCaPhe.ViewModel
 	public class TaiKhoanNhanVienViewModel:BaseViewModel
 	{
 		public static string tumeo = "";
-		
+		public ICommand DoiThongTinNhanVienCommand { get; set; }
+
 		private string _NgaySinhNhanVien;
 		public string NgaySinhNhanVien
 		{
@@ -92,6 +94,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 			}
 		}
 		public ICommand ChonAnhNhanVienCommand { get; set; }
+		String temp;
 		private BitmapImage _DisplayedImagePath1;
 		public BitmapImage DisplayedImagePath1
 		{
@@ -102,6 +105,14 @@ namespace QuanLiQuanCaPhe.ViewModel
 		public TaiKhoanNhanVienViewModel()
 		{
 			loadData();
+			DoiThongTinNhanVienCommand = new RelayCommand<Window>((p) =>
+			{
+				return true;
+			}, (p) =>
+			{
+				ResetPassword resetPassword = new ResetPassword();
+				resetPassword.ShowDialog();
+			});
 		}
 
 		public void loadData()
@@ -111,7 +122,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 			//ho ten
 			HoTenNhanVien = item.HOTEN;
 			//ngay sinh
-			DateTime a = (DateTime)item.NGSINH;
+			DateTime a = item.NGSINH.Value;
 			NgaySinhNhanVien = a.ToString("dd/MM/yyyy");
 			//dia chi
 			DiaChiNhanVien = item.DIACHI;

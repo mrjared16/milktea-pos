@@ -20,7 +20,7 @@ namespace QuanLiQuanCaPhe.Models
             this.LichLamViecs = new HashSet<LichLamViec>();
         }
     
-        public string MACALV { get; set; }
+        public int MACALV { get; set; }
         public string TENCA { get; set; }
         public Nullable<System.TimeSpan> GIOBATDAU { get; set; }
         public Nullable<System.TimeSpan> GIOKETTHUC { get; set; }
