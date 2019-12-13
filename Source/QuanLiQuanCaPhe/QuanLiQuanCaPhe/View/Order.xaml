@@ -9,7 +9,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="658" d:DesignWidth="720">
-    <Grid Background="White">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="{Binding OrderSideBar}"/>
@@ -118,7 +118,7 @@
                                                     </Trigger>
                                                 </ControlTemplate.Triggers>-->
                                                 <CheckBox IsChecked="{Binding Checked}" CommandParameter="{Binding}"
-                                                          Command="{Binding DataContext.AddToppingForDrink,
+                                                          Command="{Binding DataContext.ToggleToppingForDrink,
                                                     RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                                                          Content="{Binding Item.Name}"/>
                                             </ControlTemplate>
@@ -153,7 +153,8 @@
             <!--BINDING TO LIST OF ITEM ORDER-->
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                 <StackPanel Background="{DynamicResource LightSideBar}" >
-                    <ListView SelectedItem="{Binding DataContext.SelectedOrderItem, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}" ItemsSource="{Binding items}" >
+                    <ListView SelectedItem="{Binding DataContext.SelectedOrderItem, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}" 
+                              ItemsSource="{Binding items}" >
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="Template">
