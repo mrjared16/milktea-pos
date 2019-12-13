@@ -9,26 +9,17 @@
 
 namespace QuanLiQuanCaPhe.Models
 {
-	using QuanLiQuanCaPhe.ViewModel;
-	using System;
-	using System.Collections.Generic;
-
-	public partial class MonAn : BaseViewModel
-	{
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-		public MonAn()
-		{
-			this.ChiTietDonhangs = new HashSet<ChiTietDonhang>();
-		}
-		//public string MAMON { get; set; }
-		//public string TENMON { get; set; }
-		//public Nullable<double> GIA { get; set; }
-		//public string MOTA { get; set; }
-		//public string MALOAI { get; set; }
-		//public string TTSP { get; set; }
-		//public Nullable<int> ISDEL { get; set; }
-		//public Nullable<System.DateTime> CREADTEDAT { get; set; }
-		//public Nullable<System.DateTime> UPDATEDAT { get; set; }
+    using QuanLiQuanCaPhe.ViewModel;
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class MonAn: BaseViewModel
+    {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MonAn()
+        {
+            this.ChiTietDonhangs = new HashSet<ChiTietDonhang>();
+        }
 
 		private Nullable<System.DateTime> _UPDATEDAT;
 		public Nullable<System.DateTime> UPDATEDAT
@@ -80,8 +71,8 @@ namespace QuanLiQuanCaPhe.Models
 				OnPropertyChanged("TTSP");
 			}
 		}
-		private string _MALOAI;
-		public string MALOAI
+		private int _MALOAI;
+		public int MALOAI
 		{
 			get { return _MALOAI; }
 			set
@@ -100,8 +91,8 @@ namespace QuanLiQuanCaPhe.Models
 				OnPropertyChanged("MOTA");
 			}
 		}
-		private string _maMon;
-		public string MAMON
+		private int _maMon;
+		public int MAMON
 		{
 			get { return _maMon; }
 			set
@@ -136,9 +127,8 @@ namespace QuanLiQuanCaPhe.Models
 			}
 		}
 
-
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<ChiTietDonhang> ChiTietDonhangs { get; set; }
-		public virtual LoaiMonAn LoaiMonAn { get; set; }
-	}
+        public virtual ICollection<ChiTietDonhang> ChiTietDonhangs { get; set; }
+        public virtual LoaiMonAn LoaiMonAn { get; set; }
+    }
 }

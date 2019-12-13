@@ -13,7 +13,7 @@ namespace QuanLiQuanCaPhe.Models
         public Category(LoaiMonAn a)
         {
             this.Name = a.TENLOAI;
-            this.ID = a.MALOAI;
+            this.ID = a.MALOAI.ToString();
         }
         public Category()
         {
@@ -24,7 +24,7 @@ namespace QuanLiQuanCaPhe.Models
         private double price;
         private string name;
         private byte[] img;
-        private string _ID;
+        private int _ID;
         public Drink(string name, float price, string img_source)
         {
             this.price = price;
@@ -39,7 +39,7 @@ namespace QuanLiQuanCaPhe.Models
             this.ID = monan.MAMON;
         }
 
-        public string ID
+        public int ID
         {
             get { return _ID; }
             set { _ID = value; }

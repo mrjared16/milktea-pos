@@ -14,8 +14,8 @@ namespace QuanLiQuanCaPhe.Models
     
     public partial class ChiTietDonhang
     {
-        public string MADH { get; set; }
-        public string MAMON { get; set; }
+        public int MADH { get; set; }
+        public int MAMON { get; set; }
         public double SOLUONG { get; set; }
         public double DONGIA { get; set; }
         public double THANHTIEN { get; set; }

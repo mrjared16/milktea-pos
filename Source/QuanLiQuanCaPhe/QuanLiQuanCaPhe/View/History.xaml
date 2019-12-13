@@ -22,10 +22,18 @@
                 Background="WhiteSmoke"
                 CornerRadius="10"
                 BorderBrush="{DynamicResource MaterialDesignDivider}">
-                    <TextBox materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource TabActive}" materialDesign:HintAssist.Hint="Tìm kiếm" Width="250"></TextBox>
+					<TextBox 
+						materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource TabActive}" 
+						materialDesign:HintAssist.Hint="Tìm kiếm" Width="250"
+						Text="{Binding QueryStringLichSuDonhang}"
+						>
+					</TextBox>
                 </Border>
-                <Button Background="{StaticResource TabActive}" Height="40" Width="40" Margin="5" Padding="0">
-                    <materialDesign:PackIcon Kind="Search" VerticalAlignment="Center" Width="30" Height="30" Margin="5"/>
+                <Button Background="{StaticResource TabActive}" Height="40" Width="40" Margin="5" Padding="0"
+					Command="{Binding SearchDonhang}"
+					>
+                    <materialDesign:PackIcon Kind="Search" VerticalAlignment="Center" Width="30" Height="30" Margin="5"
+					/>
                 </Button>
             </StackPanel>
             <ListBox  Margin="0" Padding="0" ItemsSource="{Binding ListCategory}" SelectedItem="{Binding SelectedCategory}">

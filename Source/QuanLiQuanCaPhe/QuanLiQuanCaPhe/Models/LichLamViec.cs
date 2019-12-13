@@ -14,9 +14,9 @@ namespace QuanLiQuanCaPhe.Models
     
     public partial class LichLamViec
     {
-        public string MANV { get; set; }
+        public int MANV { get; set; }
         public string THU { get; set; }
-        public string MACALV { get; set; }
+        public int MACALV { get; set; }
         public Nullable<double> PHUCAP { get; set; }
         public Nullable<int> ISDEL { get; set; }
         public Nullable<System.DateTime> CREADTEDAT { get; set; }

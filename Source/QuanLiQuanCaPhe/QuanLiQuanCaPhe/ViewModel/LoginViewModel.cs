@@ -45,7 +45,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 				return;
 
 			string passEncode = MD5Hash(Base64Encode(Password));
-			var accCount = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN == UserName && x.MATKHAU == passEncode && x.ISDEL == 0);
+			var accCount = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN == UserName && x.MATKHAU == passEncode && x.ISDEL != 1);
 
 			if (UserName.Equals("") || Password.Equals(""))
 			{

@@ -150,7 +150,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 				if (!HoTen.Equals(item.HOTEN))
 					return true;
 				//ngay sinh
-				DateTime a = item.NGSINH;
+				DateTime a = item.NGSINH.Value;
 				if (!NgaySinh.Equals(a.ToString("dd/MM/yyyy")))
 					return true;
 				//dia chi
@@ -197,7 +197,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 			//
 			TaiKhoan = item.TAIKHOAN;
 			//ngay sinh
-			DateTime a = item.NGSINH;
+			DateTime a = item.NGSINH.Value;
 			NgaySinh = a.ToString("dd/MM/yyyy");
 			//dia chi
 			DiaChi = item.DIACHI;

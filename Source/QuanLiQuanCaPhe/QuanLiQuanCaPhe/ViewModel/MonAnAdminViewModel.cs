@@ -195,7 +195,14 @@ namespace QuanLiQuanCaPhe.ViewModel
             //command  command  command
             Add_SaveCommand = new RelayCommand<Button>((x) =>
             {
-                if (string.IsNullOrEmpty(MonAnChiTiet.TENMON)) return false;
+                if (string.IsNullOrEmpty(MonAnChiTiet.TENMON)||
+				string.IsNullOrEmpty(MonAnChiTiet.MALOAI.ToString())||
+				string.IsNullOrEmpty(MonAnChiTiet.MAMON.ToString()) ||
+				string.IsNullOrEmpty(MonAnChiTiet.MOTA) ||
+				string.IsNullOrEmpty(MonAnChiTiet.GIA.ToString()) ||
+				string.IsNullOrEmpty(MonAnChiTiet.HINHANH.ToString())
+				)
+				return false;
                 return true;
             },
             (x) =>
@@ -252,7 +259,7 @@ namespace QuanLiQuanCaPhe.ViewModel
             SearchMonAnCommand = new RelayCommand<Button>((x) =>
             {
                 if (string.IsNullOrEmpty(searchMonAnStr)) return false;
-                return true;
+				return true;
             },
             (x) =>
             {

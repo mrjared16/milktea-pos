@@ -112,24 +112,34 @@ namespace QuanLiQuanCaPhe.ViewModel
 			{
 				txtDoanhThu = "Doanh thu theo ngày";
 				OnPropertyChanged("txtDoanhThu");
-
+				listDoanhThu = new BindingList<DoanhThu>();
 				if (loaiDoanhThu == Constants.DOANHTHU_SP)// truy van CSDL de lay doanh thu san pham theo ngay
 				{
-
-					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonHomNay(selectedLoai.MALOAI, 1);
-					listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
-
-					TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+					listDoanhThu.Clear();
 					OnPropertyChanged("listDoanhThu");
-					OnPropertyChanged("color");
+					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonHomNay(selectedLoai.MALOAI, 1);
+					if (listDoanhThu != null)
+					{
+						listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+
+						TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+						OnPropertyChanged("listDoanhThu");
+						OnPropertyChanged("color");
+					}
 				}
 				if (loaiDoanhThu == Constants.DOANHTHU_TONG)// truy van CSDL de lay TONG DOANH THU theo ngay
 				{
-					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonHomNay("", 2);
-					listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
-					TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+					listDoanhThu.Clear();
 					OnPropertyChanged("listDoanhThu");
-					OnPropertyChanged("color");
+					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonHomNay(1, 2);
+					if (listDoanhThu != null)
+					{
+						listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+
+						TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+						OnPropertyChanged("listDoanhThu");
+						OnPropertyChanged("color");
+					}
 				}
 			});
 
@@ -137,20 +147,35 @@ namespace QuanLiQuanCaPhe.ViewModel
 			{
 				txtDoanhThu = "Doanh thu theo tháng";
 				OnPropertyChanged("txtDoanhThu");
-
+				listDoanhThu = new BindingList<DoanhThu>();
 				if (loaiDoanhThu == Constants.DOANHTHU_SP)// truy van CSDL de lay doanh thu san pham theo ngay
 				{
-					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonThangNay(selectedLoai.MALOAI, 1);
-					TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+					listDoanhThu.Clear();
 					OnPropertyChanged("listDoanhThu");
-					OnPropertyChanged("color");
+					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonThangNay(selectedLoai.MALOAI, 1);
+					if (listDoanhThu != null)
+					{
+	
+						listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+
+						TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+						OnPropertyChanged("listDoanhThu");
+						OnPropertyChanged("color");
+					}
 				}
 				if (loaiDoanhThu == Constants.DOANHTHU_TONG)// truy van CSDL de lay TONG DOANH THU theo ngay
 				{
-					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonThangNay("", 2);
-					TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+					listDoanhThu.Clear();
 					OnPropertyChanged("listDoanhThu");
-					OnPropertyChanged("color");
+					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonThangNay(1, 2);
+					if (listDoanhThu != null)
+					{
+						listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+
+						TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+						OnPropertyChanged("listDoanhThu");
+						OnPropertyChanged("color");
+					}
 				}
 			});
 
@@ -161,17 +186,31 @@ namespace QuanLiQuanCaPhe.ViewModel
 				listDoanhThu = new BindingList<DoanhThu>();
 				if (loaiDoanhThu == Constants.DOANHTHU_SP)// truy van CSDL de lay doanh thu san pham theo ngay
 				{
-					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonNamNay(selectedLoai.MALOAI, 1);
-					TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+					listDoanhThu.Clear();
 					OnPropertyChanged("listDoanhThu");
-					OnPropertyChanged("color");
+					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonNamNay(selectedLoai.MALOAI, 1);
+					if (listDoanhThu != null)
+					{
+						listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+
+						TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+						OnPropertyChanged("listDoanhThu");
+						OnPropertyChanged("color");
+					}
 				}
 				if (loaiDoanhThu == Constants.DOANHTHU_TONG)// truy van CSDL de lay TONG DOANH THU theo ngay
 				{
-					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonNamNay("", 2);
-					TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+					listDoanhThu.Clear();
 					OnPropertyChanged("listDoanhThu");
-					OnPropertyChanged("color");
+					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonNamNay(1, 2);
+					if (listDoanhThu != null)
+					{
+						listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+
+						TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+						OnPropertyChanged("listDoanhThu");
+						OnPropertyChanged("color");
+					}
 				}
 			});
 
@@ -182,17 +221,31 @@ namespace QuanLiQuanCaPhe.ViewModel
 				listDoanhThu = new BindingList<DoanhThu>();
 				if (loaiDoanhThu == Constants.DOANHTHU_SP)// truy van CSDL de lay doanh thu san pham theo ngay
 				{
-					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonQuyNay(selectedLoai.MALOAI, 1);
-					TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+					listDoanhThu.Clear();
 					OnPropertyChanged("listDoanhThu");
-					OnPropertyChanged("color");
+					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonQuyNay(selectedLoai.MALOAI, 1);
+					if (listDoanhThu != null)
+					{
+						listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+
+						TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+						OnPropertyChanged("listDoanhThu");
+						OnPropertyChanged("color");
+					}
 				}
 				if (loaiDoanhThu == Constants.DOANHTHU_TONG)// truy van CSDL de lay TONG DOANH THU theo ngay
 				{
-					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonQuyNay("", 2);
-					TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+					listDoanhThu.Clear();
 					OnPropertyChanged("listDoanhThu");
-					OnPropertyChanged("color");
+					listDoanhThu = SeviceData.DoanhThuTheoLoaiMonQuyNay(1, 2);
+					if (listDoanhThu != null)
+					{
+						listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+
+						TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
+						OnPropertyChanged("listDoanhThu");
+						OnPropertyChanged("color");
+					}
 				}
 			});
 			////

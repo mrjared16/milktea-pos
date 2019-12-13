@@ -130,12 +130,14 @@
     <Compile Include="NhanVienMainWindow.xaml.cs">
       <DependentUpon>NhanVienMainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\detailsInfoMilkteaViewModel.cs" />
     <Compile Include="ViewModel\DoanhThuAdminViewModel.cs" />
     <Compile Include="ViewModel\HistoryViewModel.cs" />
+    <Compile Include="ViewModel\HoaDonViewModel.cs" />
     <Compile Include="ViewModel\HomeNhanVienViewModel.cs" />
     <Compile Include="ViewModel\LichLamViecNhanVienViewModel.cs" />
+    <Compile Include="ViewModel\LoaiMonAnViewModel.cs" />
     <Compile Include="ViewModel\NhanVienLayoutViewModel.cs" />
+    <Compile Include="ViewModel\NhanVienViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\TaiKhoanNhanVienViewModel.cs" />
     <Compile Include="View\DoanhThuAdmin.xaml.cs">
@@ -149,6 +151,15 @@
     </Compile>
     <Compile Include="View\HomeNhanVien.xaml.cs">
       <DependentUpon>HomeNhanVien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\HoaDon.xaml.cs">
+      <DependentUpon>HoaDon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoaiMonAn.xaml.cs">
+      <DependentUpon>LoaiMonAn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NhanVien.xaml.cs">
+      <DependentUpon>NhanVien.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LichLamViecNhanVien.xaml.cs">
       <DependentUpon>LichLamViecNhanVien.xaml</DependentUpon>
@@ -208,6 +219,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\HoaDon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Home.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -219,6 +234,14 @@
     <Page Include="View\LichLamViecNhanVien.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoaiMonAn.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\NhanVien.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\NhanVienLayout.xaml">
       <Generator>MSBuild:Compile</Generator>

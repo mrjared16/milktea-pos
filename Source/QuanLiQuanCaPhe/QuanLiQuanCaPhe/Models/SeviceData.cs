@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace QuanLiQuanCaPhe.Models
 {
@@ -29,13 +31,6 @@ namespace QuanLiQuanCaPhe.Models
 		public static BindingList<MonAn> getListMonAnTenMon(string searchStr)
 		{
 			BindingList<MonAn> monAns = new BindingList<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.TENMON.Contains(searchStr) && x.ISDEL != 1).ToList());
-			foreach (var item in monAns)
-			{
-				if (item.ISDEL == 1)
-				{
-					monAns.Remove(item);
-				}
-			}
 			return monAns;
 		}
 
@@ -44,16 +39,9 @@ namespace QuanLiQuanCaPhe.Models
 			BindingList<MonAn> monAns = new BindingList<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.ISDEL != 1).ToList());
 			return monAns;
 		}
-		public static List<MonAn> getListMonAnLoai(string MaLoai)
+		public static List<MonAn> getListMonAnLoai(int MaLoai)
 		{
 			List<MonAn> monAns = new List<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.MALOAI == MaLoai && x.ISDEL != 1));
-			foreach (var item in monAns)
-			{
-				if (item.ISDEL == 1)
-				{
-					monAns.Remove(item);
-				}
-			}
 			return monAns;
 		}
 		public static string themMonAn(MonAn monAn)
@@ -78,7 +66,7 @@ namespace QuanLiQuanCaPhe.Models
 				return "Thành công";
 			}
 		}
-		public static bool tonTaiMonAn(string MaMon)
+		public static bool tonTaiMonAn(int MaMon)
 		{
 			//MessageBox.Show(MaMon);
 			var MonAn = DataProvider.ISCreated.DB.MonAns.Where(x => x.MAMON == MaMon && x.ISDEL != 1);
@@ -96,7 +84,7 @@ namespace QuanLiQuanCaPhe.Models
 				return false;
 		}
 
-		public static bool tonTaiLoaiMonAn(string MaLoai)
+		public static bool tonTaiLoaiMonAn(int MaLoai)
 		{
 			var MonAn = DataProvider.ISCreated.DB.LoaiMonAns.Where(x => x.MALOAI == MaLoai && x.ISDEL != 1);
 			int count = 0;
@@ -125,17 +113,21 @@ namespace QuanLiQuanCaPhe.Models
 			else
 			{
 				var temp = DataProvider.ISCreated.DB.MonAns.Where(x => x.MAMON == monAn.MAMON && x.ISDEL != 1).SingleOrDefault();
-				temp.ISDEL = monAn.ISDEL;
-				temp.TENMON = monAn.TENMON;
-				temp.MAMON = monAn.MAMON;
-				temp.HINHANH = monAn.HINHANH;
-				temp.MALOAI = monAn.MALOAI;
-				temp.GIA = monAn.GIA;
-				temp.MOTA = monAn.MOTA;
-				temp.TTSP = monAn.TTSP;
-				temp.UPDATEDAT = DateTime.Now;
-				DataProvider.ISCreated.DB.SaveChanges();
-				return "Thành công";
+				if (temp != null)
+				{
+					temp.ISDEL = monAn.ISDEL;
+					temp.TENMON = monAn.TENMON;
+					temp.MAMON = monAn.MAMON;
+					temp.HINHANH = monAn.HINHANH;
+					temp.MALOAI = monAn.MALOAI;
+					temp.GIA = monAn.GIA;
+					temp.MOTA = monAn.MOTA;
+					temp.TTSP = monAn.TTSP;
+					temp.UPDATEDAT = DateTime.Now;
+					DataProvider.ISCreated.DB.SaveChanges();
+					return "Thành công";
+				}
+				return "Thất bại";
 			}
 		}
 		public static string XoaMonAn(MonAn monAn)
@@ -155,7 +147,6 @@ namespace QuanLiQuanCaPhe.Models
 			else
 			{
 				var temp = DataProvider.ISCreated.DB.MonAns.Where(x => x.MAMON == monAn.MAMON && x.ISDEL != 1).SingleOrDefault();
-
 				temp.ISDEL = 1;
 				DataProvider.ISCreated.DB.SaveChanges();
 				return "Thành công";
@@ -167,16 +158,9 @@ namespace QuanLiQuanCaPhe.Models
 
 
 
-		public List<MonAn> getListMonAnMaMon(string MaMon)
+		public List<MonAn> getListMonAnMaMon(int MaMon)
 		{
-			List<MonAn> monAns = new List<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.MALOAI == MaMon));
-			foreach (var item in monAns)
-			{
-				if (item.ISDEL == 1)
-				{
-					monAns.Remove(item);
-				}
-			}
+			List<MonAn> monAns = new List<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.MALOAI == MaMon && x.ISDEL != 1));
 			return monAns;
 		}
 
@@ -187,7 +171,7 @@ namespace QuanLiQuanCaPhe.Models
 		/// <param name="maLoai"></param>
 		/// <param name="mode"></param>
 		/// <returns></returns>
-		public static BindingList<DoanhThu> DoanhThuTheoLoaiMonHomNay(string maLoai, int mode)
+		public static BindingList<DoanhThu> DoanhThuTheoLoaiMonHomNay(int maLoai, int mode)
 		{
 			BindingList<DoanhThu> doanhThu = new BindingList<DoanhThu>();
 			BindingList<MonAn> MonAn;
@@ -202,6 +186,8 @@ namespace QuanLiQuanCaPhe.Models
 			string maDon;
 			DateTime date = DateTime.Now;
 			var ListDonHang = danhSachDonHangHomNay(date);
+			if (ListDonHang == null)
+				return null;
 			foreach (var item in MonAn)
 			{
 				var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
@@ -243,7 +229,7 @@ namespace QuanLiQuanCaPhe.Models
 		// don hang
 		public static BindingList<DonHang> danhSachDonHangHomNay(DateTime date)
 		{
-			BindingList<DonHang> donHangs = new BindingList<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.Day == date.Day).ToArray());
+			BindingList<DonHang> donHangs = new BindingList<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.Day == date.Day && x.CREADTEDAT.Value.Month == date.Month && x.CREADTEDAT.Value.Year == date.Year && x.ISDEL != 1).ToArray());
 			int count = 0;
 			foreach (var item in donHangs)
 			{
@@ -304,7 +290,7 @@ namespace QuanLiQuanCaPhe.Models
 		/// <param name="maLoai"></param>
 		/// <param name="mode"></param>
 		/// <returns></returns>
-		public static BindingList<DoanhThu> DoanhThuTheoLoaiMonThangNay(string maLoai, int mode)
+		public static BindingList<DoanhThu> DoanhThuTheoLoaiMonThangNay(int maLoai, int mode)
 		{
 			BindingList<DoanhThu> doanhThu = new BindingList<DoanhThu>();
 			BindingList<MonAn> MonAn;
@@ -319,6 +305,8 @@ namespace QuanLiQuanCaPhe.Models
 			string maDon;
 			DateTime date = DateTime.Now;
 			var ListDonHang = danhSachDonHangThangNay(date);
+			if (ListDonHang == null)
+				return null;
 			foreach (var item in MonAn)
 			{
 				var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
@@ -349,7 +337,7 @@ namespace QuanLiQuanCaPhe.Models
 		/// <param name="maLoai"></param>
 		/// <param name="mode"></param>
 		/// <returns></returns>
-		public static BindingList<DoanhThu> DoanhThuTheoLoaiMonQuyNay(string maLoai, int mode)
+		public static BindingList<DoanhThu> DoanhThuTheoLoaiMonQuyNay(int maLoai, int mode)
 		{
 			BindingList<DoanhThu> doanhThu = new BindingList<DoanhThu>();
 			BindingList<MonAn> MonAn;
@@ -364,6 +352,8 @@ namespace QuanLiQuanCaPhe.Models
 			string maDon;
 			DateTime date = DateTime.Now;
 			var ListDonHang = danhSachDonHangQuyNay(GetQuarter(date));
+			if (ListDonHang == null)
+				return null;
 			foreach (var item in MonAn)
 			{
 				var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
@@ -394,7 +384,7 @@ namespace QuanLiQuanCaPhe.Models
 		/// <param name="maLoai"></param>
 		/// <param name="mode"></param>
 		/// <returns></returns>
-		public static BindingList<DoanhThu> DoanhThuTheoLoaiMonNamNay(string maLoai, int mode)
+		public static BindingList<DoanhThu> DoanhThuTheoLoaiMonNamNay(int maLoai, int mode)
 		{
 			BindingList<DoanhThu> doanhThu = new BindingList<DoanhThu>();
 			BindingList<MonAn> MonAn;
@@ -409,6 +399,8 @@ namespace QuanLiQuanCaPhe.Models
 			string maDon;
 			DateTime date = DateTime.Now;
 			var ListDonHang = danhSachDonHangNamNay(date);
+			if (ListDonHang == null)
+				return null;
 			foreach (var item in MonAn)
 			{
 				var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
@@ -432,7 +424,7 @@ namespace QuanLiQuanCaPhe.Models
 			}
 			return doanhThu;
 		}
-		public static BindingList<MonAn> danhSachMonAnTheoLoaiMonAn(string maLoai)
+		public static BindingList<MonAn> danhSachMonAnTheoLoaiMonAn(int maLoai)
 		{
 
 			if (!tonTaiLoaiMonAn(maLoai))
@@ -547,7 +539,10 @@ namespace QuanLiQuanCaPhe.Models
 			else
 				return null;
 		}
-
+		public List<DonHang> TatCaDonHang()
+		{
+			return new List<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.ISDEL != 1));
+		}
 
 		///////////////////////////////////NHAN VIEN
 		/// <summary>
@@ -566,12 +561,7 @@ namespace QuanLiQuanCaPhe.Models
 			}
 			return nhanViens;
 		}
-		public List<NhanVien> timKiemNhanVien(string value)
-		{
-			List<NhanVien> nhanViens = new List<NhanVien>();
-			return nhanViens;
-		}
-		public bool tontaiNhanVien(string maNV)
+		public bool tontaiNhanVien(int maNV)
 		{
 			var MonAn = DataProvider.ISCreated.DB.NhanViens.Where(x => x.MANV == maNV);
 			int count = 0;
@@ -622,6 +612,7 @@ namespace QuanLiQuanCaPhe.Models
 					temp.LUONG = nhanVien.LUONG;
 					temp.NGSINH = nhanVien.NGSINH;
 					temp.PHAI = nhanVien.PHAI;
+					temp.HINHANH = nhanVien.HINHANH;
 					temp.CHUCVU = nhanVien.CHUCVU;
 					temp.CMND = nhanVien.CMND;
 					temp.DIENTHOAI = nhanVien.DIENTHOAI;
@@ -631,7 +622,7 @@ namespace QuanLiQuanCaPhe.Models
 				}
 			}
 		}
-		public bool xoaNhanVien(string maNV)
+		public bool xoaNhanVien(int maNV)
 		{
 			if (!tontaiNhanVien(maNV))
 			{
@@ -647,10 +638,7 @@ namespace QuanLiQuanCaPhe.Models
 			}
 		}
 
-
-
-
-		public List<ChiTietDonhang> danhSachChiTietDonhang(string maDH)
+		public List<ChiTietDonhang> danhSachChiTietDonhang(int maDH)
 		{
 			List<ChiTietDonhang> chiTietDonhangs = new List<ChiTietDonhang>(DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MADH == maDH));
 			int count = 0;
@@ -687,7 +675,7 @@ namespace QuanLiQuanCaPhe.Models
 				return true;
 			}
 		}
-		public bool tonTaiDonHang(string MaDH)
+		public bool tonTaiDonHang(int MaDH)
 		{
 			var MonAn = DataProvider.ISCreated.DB.DonHangs.Where(x => x.MADH == MaDH);
 			int count = 0;
@@ -703,7 +691,7 @@ namespace QuanLiQuanCaPhe.Models
 			else
 				return false;
 		}
-		public bool xoaDonHang(string maDH)
+		public bool xoaDonHang(int maDH)
 		{
 			if (!tonTaiDonHang(maDH))
 				return false;
@@ -725,14 +713,7 @@ namespace QuanLiQuanCaPhe.Models
 		}
 		public List<LoaiMonAn> danhSachLoaiMonAn()
 		{
-			List<LoaiMonAn> loaiMonAns = new List<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns);
-			foreach (var item in loaiMonAns)
-			{
-				if (item.ISDEL == 1)
-				{
-					loaiMonAns.Remove(item);
-				}
-			}
+			List<LoaiMonAn> loaiMonAns = new List<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns.Where(x=>x.ISDEL!=1));
 			return loaiMonAns;
 		}
 
@@ -750,7 +731,7 @@ namespace QuanLiQuanCaPhe.Models
 		}
 		public bool themLoaiMonAn(LoaiMonAn loaiMon)
 		{
-			if (!tonTaiLoaiMonAn(loaiMon.MALOAI))
+			if (tonTaiLoaiMonAn(loaiMon.MALOAI))
 			{
 				return false;
 			}
@@ -762,7 +743,7 @@ namespace QuanLiQuanCaPhe.Models
 				return true;
 			}
 		}
-		public bool xoaLoaiMonAn(string maLoai)
+		public bool xoaLoaiMonAn(int maLoai)
 		{
 			if (!tonTaiLoaiMonAn(maLoai))
 			{
@@ -800,6 +781,185 @@ namespace QuanLiQuanCaPhe.Models
 				return true;
 			}
 		}
+		public static BitmapImage LoadImage(byte[] imageData)
+		{
+			if (imageData == null || imageData.Length == 0) return null;
+			var image = new BitmapImage();
+			using (var mem = new MemoryStream(imageData))
+			{
+				mem.Position = 0;
+				image.BeginInit();
+				image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+				image.CacheOption = BitmapCacheOption.OnLoad;
+				image.UriSource = null;
+				image.StreamSource = mem;
+				image.EndInit();
+			}
+			image.Freeze();
+			return image;
+		}
+		public static byte[] ImageToByte2(BitmapImage img)
+		{
+			JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+			encoder.Frames.Add(BitmapFrame.Create(img));
+			using (MemoryStream ms = new MemoryStream())
+			{
+				encoder.Save(ms);
+				return ms.ToArray();
+			}
+		}
 
+		public static BindingList<DonHang> TimKiemDonHang(string value)
+		{
+			BindingList<DonHang> donHangs = new BindingList<DonHang>();
+			BindingList<DonHang> temp = new BindingList<DonHang>(DataProvider.ISCreated.DB.DonHangs.ToArray());
+			foreach (var item in temp)
+			{
+				if (item.CREADTEDAT.Value.ToString("dd/mm/yyyy").ToLower().Contains(value.ToLower()))
+				{
+					if (!donHangs.Contains(item))
+					{
+						donHangs.Add(item);
+					}
+
+				}
+				if (TimKiemNhanVien(value)!=null)
+				{
+					foreach (var item1 in TimKiemNhanVien(value))
+					{
+						if(item1.MANV==item.MANV)
+						{
+							if (!donHangs.Contains(item))
+							{
+								donHangs.Add(item);
+							}
+						}
+					}
+				}
+			}
+			return donHangs;
+		}
+		public static BindingList<NhanVien> TimKiemNhanVien(string value)
+		{
+			BindingList<NhanVien> nhanViens = new BindingList<NhanVien>();
+			BindingList<NhanVien> temp = new BindingList<NhanVien>(DataProvider.ISCreated.DB.NhanViens.ToArray());
+			foreach (var item in temp)
+			{
+				if (item.HOTEN.ToLower().Contains(value.ToLower()))
+				{
+					if (!nhanViens.Contains(item))
+					{
+						nhanViens.Add(item);
+					}
+				}
+				else if (item.DIACHI.ToLower().Contains(value.ToLower()))
+				{
+					if (!nhanViens.Contains(item))
+					{
+						nhanViens.Add(item);
+					}
+
+				}
+				else if (item.CMND.ToLower().Contains(value.ToLower()))
+				{
+					if (!nhanViens.Contains(item))
+					{
+						nhanViens.Add(item);
+					}
+
+				}
+				else if (item.NGSINH.Value.ToString("dd/mm/yyyy").ToLower().Contains(value.ToLower()))
+				{
+					if (!nhanViens.Contains(item))
+					{
+						nhanViens.Add(item);
+					}
+
+				}
+				else if (item.DIENTHOAI.ToLower().Contains(value.ToLower()))
+				{
+					if (!nhanViens.Contains(item))
+					{
+						nhanViens.Add(item);
+					}
+				}
+				else if (item.MANV.ToString().ToLower().Contains(value.ToLower()))
+				{
+					if (!nhanViens.Contains(item))
+					{
+						nhanViens.Add(item);
+					}
+
+				}
+			}
+			if(nhanViens!=null)
+				return nhanViens;
+			return null;
+		}
+		public static BindingList<LoaiMonAn> TimKiemLoaiMonAn(string value)
+		{
+			BindingList<LoaiMonAn> loaiMonAns = new BindingList<LoaiMonAn>();
+			BindingList<LoaiMonAn> temp = new BindingList<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns.ToArray());
+
+			foreach (var item in temp)
+			{
+				if (item.MALOAI.ToString().ToLower().Contains(value.ToLower()))
+				{
+					if(!loaiMonAns.Contains(item))
+					{
+						loaiMonAns.Add(item);
+					}
+				}
+				if (item.TENLOAI.ToLower().Contains(value.ToLower()))
+				{
+					if (!loaiMonAns.Contains(item))
+					{
+						loaiMonAns.Add(item);
+					}
+				}
+			}
+			if (loaiMonAns.Count > 0)
+				return loaiMonAns;
+			return null;
+		}
+		public static BindingList<MonAn> TimKiemMonAn(string value)
+		{
+			BindingList<MonAn> monAns = new BindingList<MonAn>();
+			BindingList<MonAn> temp = new BindingList<MonAn>(DataProvider.ISCreated.DB.MonAns.ToArray());
+
+			foreach (var item in temp)
+			{
+				if (item.TENMON.ToLower().Contains(value.ToLower()))
+				{
+					if (!monAns.Contains(item))
+					{
+						monAns.Add(item);
+					}
+				}
+				else if (item.GIA.ToString().ToLower().Contains(value.ToLower()))
+				{
+					if (!monAns.Contains(item))
+					{
+						monAns.Add(item);
+					}
+				}
+				else if(TimKiemLoaiMonAn(value)!=null)
+				{
+					foreach (var item1 in TimKiemLoaiMonAn(value))
+					{
+						if(item.MALOAI==item1.MALOAI)
+						{
+							if (!monAns.Contains(item))
+							{
+								monAns.Add(item);
+							}
+						}
+					}
+				}
+			}
+			if (monAns.Count > 0)
+				return monAns;
+			return null;
+		}
 	}
 }

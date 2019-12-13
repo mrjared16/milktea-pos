@@ -194,24 +194,23 @@ namespace QuanLiQuanCaPhe.ViewModel
 
             //this.Note = "";
         }
-        public ChiTietDonhang ToChiTietDonHang(string OrderID, DateTime Now)
+        public ChiTietDonhang ToChiTietDonHang(int OrderID, DateTime Now)
         {
             return new ChiTietDonhang()
             {
-                MADH = OrderID,
+				MADH= OrderID,
                 MAMON = this.Item.ID,
                 SOLUONG = this.Number,
                 THANHTIEN = this.ItemTotal,
                 ISDEL = 0,
                 CREADTEDAT = Now,
                 UPDATEDAT = Now
-
             };
         }
     }
     public class Order : BaseViewModel
     {
-        public Order(string ID, DateTime date, string username, float coupon)
+        public Order(int ID, DateTime date, string username, float coupon)
         {
             this.ID = ID;
             this.Date = date;
@@ -265,7 +264,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 
         // public binding data
         public ObservableCollection<OrderItem> items { get; set; }
-        public string ID { get; set; }
+        public int ID { get; set; }
         public double Coupon { get; set; }
         public DateTime Date { get; set; }
         public NhanVien User { get; set; }
@@ -307,9 +306,9 @@ namespace QuanLiQuanCaPhe.ViewModel
         {
             DateTime Now = DateTime.Now;
             this.ID = OrderService.GetNextOrderID();
-            return new DonHang()
-            {
-                MADH = this.ID,
+			return new DonHang()
+			{
+				MADH = this.ID,
                 MANV = this.User.MANV,
                 THOIGIAN = Now,
                 TONGTIEN = this.OrderTotal,

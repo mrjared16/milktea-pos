@@ -9,39 +9,65 @@
 
 namespace QuanLiQuanCaPhe.Models
 {
-	using QuanLiQuanCaPhe.ViewModel;
-	using System;
-	using System.Collections.Generic;
+    using QuanLiQuanCaPhe.ViewModel;
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class LoaiMonAn:BaseViewModel
+    {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LoaiMonAn()
+        {
+            this.MonAns = new HashSet<MonAn>();
+        }
 
-	public partial class LoaiMonAn : BaseViewModel
-	{
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-		public LoaiMonAn()
+		private int _MALOAI;
+		public int MALOAI
 		{
-			this.MonAns = new HashSet<MonAn>();
+			get => _MALOAI; set
+			{
+				_MALOAI = value; OnPropertyChanged();
+			}
 		}
 
-		public string MALOAI { get; set; }
-
-		private string _tenLoai;
+		private string _TENLOAI;
 		public string TENLOAI
 		{
-			get
+			get => _TENLOAI; set
 			{
-				return _tenLoai;
-			}
-			set
-			{
-				_tenLoai = value;
-				OnPropertyChanged("TENLOAI");
+				_TENLOAI = value; OnPropertyChanged();
 			}
 		}
-		//public string TENLOAI { get; set; }
-		public Nullable<int> ISDEL { get; set; }
-		public Nullable<System.DateTime> CREADTEDAT { get; set; }
-		public Nullable<System.DateTime> UPDATEDAT { get; set; }
+
+		private Nullable<int> _ISDEL;
+		public Nullable<int> ISDEL
+		{
+			get => _ISDEL; set
+			{
+				_ISDEL = value; OnPropertyChanged();
+			}
+		}
+
+		private Nullable<System.DateTime> _CREADTEDAT;
+		public Nullable<System.DateTime> CREADTEDAT
+		{
+			get => _CREADTEDAT; set
+			{
+				_CREADTEDAT = value; OnPropertyChanged();
+			}
+		}
+
+		private Nullable<System.DateTime> _UPDATEDAT;
+		public Nullable<System.DateTime> UPDATEDAT
+		{
+			get => _UPDATEDAT; set
+			{
+				_UPDATEDAT = value; OnPropertyChanged();
+			}
+		}
+
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<MonAn> MonAns { get; set; }
-	}
+        public virtual ICollection<MonAn> MonAns { get; set; }
+    }
 }

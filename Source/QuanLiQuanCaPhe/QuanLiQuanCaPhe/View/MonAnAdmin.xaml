@@ -77,8 +77,8 @@
                     </Button>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Border
+			<StackPanel Orientation="Horizontal">
+				<Border
                     Width="250"
                     Height="70"
                     Margin="20,0,0,0"
@@ -86,7 +86,7 @@
                     HorizontalAlignment="Left"
                     Background="#616161"
                     CornerRadius="5">
-                    <ComboBox
+					<ComboBox
                         Name="loaiCombobox"
                         materialDesign:HintAssist.FloatingOffset="0, -24"
                         materialDesign:HintAssist.FloatingScale="1"
@@ -96,24 +96,24 @@
                         SelectedItem="{Binding selectedLoai, Mode=TwoWay}"
                         SelectedValuePath="Name"
                         Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<Border
                                     Padding="5"
                                     Background="#373737"
                                     BorderBrush="WhiteSmoke"
                                     BorderThickness="0,0,0,1">
-                                    <TextBlock
+									<TextBlock
                                         Cursor="Hand"
                                         FontFamily="Courier New"
                                         Foreground="WhiteSmoke"
                                         Text="{Binding Path=TENLOAI}" />
-                                </Border>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </Border>
-                <Button
+								</Border>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</Border>
+				<Button
                     Margin="15"
                     Background="{Binding btnAllMonAnColor, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Command="{Binding ShowAllMonAn}"
@@ -121,12 +121,10 @@
                     Cursor="Hand"
                     FontFamily="Courier New"
                     Foreground="WhiteSmoke">
-                    TẤT CẢ THỨC UỐNG
-                </Button>
-            </StackPanel>
-
-
-        </StackPanel>
+					TẤT CẢ THỨC UỐNG
+				</Button>
+			</StackPanel>
+		</StackPanel>
 
         <Grid
             Grid.Row="1"

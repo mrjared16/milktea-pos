@@ -31,6 +31,29 @@
 			>
 			<View:TaiKhoan DataContext="{Binding}"></View:TaiKhoan>
 		</DataTemplate>
+
+		<DataTemplate 
+			x:Name="HoaDon"
+			DataType ="{x:Type ViewModelss:HoaDonViewModel}"
+			>
+			<View:HoaDon DataContext="{Binding}"></View:HoaDon>
+		</DataTemplate>
+
+		<DataTemplate 
+			x:Name="LoaiMonAn"
+			DataType ="{x:Type ViewModelss:LoaiMonAnViewModel}"
+			>
+			<View:LoaiMonAn DataContext="{Binding}"></View:LoaiMonAn>
+		</DataTemplate>
+
+		<DataTemplate 
+			x:Name="NhanVien"
+			DataType ="{x:Type ViewModelss:NhanVienViewModel}"
+			>
+			<View:NhanVien DataContext="{Binding}"></View:NhanVien>
+		</DataTemplate>
+
+
 		<DataTemplate 
 			x:Name="MonAnAdminTempalte"
 			DataType ="{x:Type ViewModelss:MonAnAdminViewModel}"
@@ -85,7 +108,7 @@
 					Height="150">
 					<Ellipse.Fill>
 						<ImageBrush
-							ImageSource="{Binding DisplayedImagePath2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+							ImageSource="{Binding HinhAnhAdmin,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
 							>
 						</ImageBrush>
 					</Ellipse.Fill>
@@ -109,16 +132,18 @@
 						Click="taiKhoan">
 					</Button>
 					<Button
-						x:Name="DonHang"
+						x:Name="donhang"
 						Background="ForestGreen"
 						Grid.Row="1"
 						Padding="5,5,5,5"
 						FontSize="20"
 						HorizontalAlignment="Stretch"
 						VerticalAlignment="Stretch"
+						Click="DonHang"
 						Margin="0,0,0,0"
 						Style="{StaticResource MaterialDesignRaisedButton}"
 						ToolTip="Resource name: MaterialDesignRaisedButton">
+						
 						_Đơn hàng
 					</Button>
 					<Button
@@ -135,7 +160,7 @@
 						_Món ăn
 					</Button>
 					<Button
-						x:Name="LoaiMonAn"
+						x:Name="loaimonan"
 						Background="ForestGreen"
 						Grid.Row="3"
 						FontSize="20"
@@ -143,6 +168,7 @@
 						HorizontalAlignment="Stretch"
 						VerticalAlignment="Stretch"
 						Margin="0,0,0,0"
+						Click="LoaiMonAn"
 						Style="{StaticResource MaterialDesignRaisedButton}"
 						ToolTip="Resource name: MaterialDesignRaisedButton">
 						_Loại món ăn
@@ -160,6 +186,20 @@
 						ToolTip="Resource name: MaterialDesignRaisedButton"
 						Click="doanhThu">
 						_Doanh thu
+					</Button>
+					<Button
+						x:Name="nhanvien"
+						Grid.Row="5"
+						Padding="5,5,5,5"
+						FontSize="20"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
+						Margin="0,0,0,0"
+						Background="ForestGreen"
+						Style="{StaticResource MaterialDesignRaisedButton}"
+						ToolTip="Resource name: MaterialDesignRaisedButton" 
+						Click="NhanVien">
+						_Nhân viên
 					</Button>
 					<Button
 						Grid.Row="5"
