@@ -30,27 +30,34 @@ namespace QuanLiQuanCaPhe.Models
     public class OrderService
     {
         // API
-        public static string GetUser()
+        private static bool _HistoryHasModified = false;
+
+        public static bool HistoryHasModified()
         {
-            return "Phúc";
-        }
-        private static bool _HasChanges = false;
-        public static bool HasChanges()
-        {
-            if (!_HasChanges)
+            if (!_HistoryHasModified)
                 return false;
 
-            _HasChanges = false;
+            _HistoryHasModified = false;
             return true;
         }
         public static void AddOrder(Order item)
         {
-            _HasChanges = true;
+            _OrderItemID = 0;
+            _HistoryHasModified = true;
             DataAccess.AddOrder(item);
         }
-        public static string GetNextOrderID()
+        public static int GetNextOrderID()
         {
             return DataAccess.GetNextOrderID();
+        }
+        private static int _OrderItemID = 0;
+        public static int GetNextOrderItemID()
+        {
+            return _OrderItemID++;
+        }
+        public static List<ToppingItem> GetToppings()
+        {
+            return DataAccess.GetToppings();
         }
 
         public static double ValidateCoupon(string CouponCode)
@@ -90,7 +97,12 @@ namespace QuanLiQuanCaPhe.Models
         }
         public static List<OrderItem> GetOrderItems(DonHang DonHang)
         {
-            return DonHang.ChiTietDonhangs.ToList().Where(x => x.ISDEL != 1).Select(x => new OrderItem(x)).ToList();
+            List<OrderItem> result = DonHang.ChiTietDonhangs.ToList().Where(x => x.ISDEL != 1 && IsDrink(x)).Select(x => new OrderItem(x)).ToList();
+            return result;
+        }
+        private static bool IsDrink(ChiTietDonhang chiTietDonhang)
+        {
+            return chiTietDonhang.ChiTietDonhang2 == null;
         }
     }
 
@@ -110,28 +122,50 @@ namespace QuanLiQuanCaPhe.Models
     }
     public class DataAccess
     {
+
+        public static bool IsTopping(LoaiMonAn loaiMonAn)
+        {
+            return (loaiMonAn.TENLOAI.Equals("CÁC LOẠI HẠT"));
+        }
+        public static bool IsOption(LoaiMonAn loaiMonAn)
+        {
+            return false;
+        }
+        public static bool IsDrink(LoaiMonAn loaiMonAn)
+        {
+            return (!IsTopping(loaiMonAn) && !IsOption(loaiMonAn));
+        }
         public static List<Category> GetCategories()
         {
-            List<Category> list = new List<Category>(DataProvider.ISCreated.DB.LoaiMonAns.ToList().Where(x => x.ISDEL != 1).Select(x => new Category(x)));
+            List<Category> list = new List<Category>(DataProvider.ISCreated.DB.LoaiMonAns.ToList().Where(x => x.ISDEL != 1 && IsDrink(x)).Select(x => new Category(x)));
             list.Insert(0, new Category() { Name = "Tất cả", ID = null });
             return list;
         }
+        public static List<ToppingItem> GetToppings()
+        {
+            List<ToppingItem> result = DataProvider.ISCreated.DB.LoaiMonAns
+                .Where(x => x.ISDEL != 1 && x.TENLOAI.Equals("CÁC LOẠI HẠT"))
+                .Join(DataProvider.ISCreated.DB.MonAns, a => a.MALOAI, b => b.MALOAI, (a, b) => b).ToList()
+                .Select(x => new ToppingItem(x)).ToList();
+            return result;
+        }
         public static List<Drink> GetDrinkFromCategory(Category category)
         {
-            List<Drink> list = DataProvider.ISCreated.DB.MonAns.ToList().Where(x => x.ISDEL != 1 && (category.ID == null || x.MALOAI == category.ID)).Select(x => new Drink(x)).ToList();
+            List<Drink> list = DataProvider.ISCreated.DB.MonAns.ToList().Where(x => x.ISDEL != 1 && (category.ID == null || x.MALOAI == category.ID) && IsDrink(x.LoaiMonAn)).Select(x => new Drink(x)).ToList();
             return list;
         }
 
-        public static string GetNextOrderID()
+        public static int GetNextOrderID()
         {
             DonHang LastID = DataProvider.ISCreated.DB.DonHangs.OrderByDescending(a => a.MADH).FirstOrDefault();
-            int id = 0;
-            if (LastID == null || !Int32.TryParse(LastID.MADH, out id))
-            {
-                return "0";
-            }
-            id++;
-            return id + "";
+            return (LastID == null) ? 0 : LastID.MADH + 1;
+            //int id = 0;
+            //if (LastID == null || !Int32.TryParse(LastID.MADH, out id))
+            //{
+            //    return "0";
+            //}
+            //id++;
+            //return id + "";
         }
         public static void AddOrder(Order order)
         {
@@ -165,6 +199,12 @@ namespace QuanLiQuanCaPhe.Models
         {
             return GetOrderBy((DonHang) => { return true; });
         }
+
+
+
+
+
+        // private functions
         private static bool IsInToday(DonHang DonHang)
         {
             return AreInSameDay(DonHang.CREADTEDAT.Value, DateTime.Now);
@@ -177,6 +217,8 @@ namespace QuanLiQuanCaPhe.Models
         {
             return AreInSameMonth(DonHang.CREADTEDAT.Value, DateTime.Now);
         }
+
+
         private static bool AreInSameDay(DateTime date1, DateTime date2)
         {
             return (date1.Year == date2.Year && date1.Month == date2.Month & date1.Day == date2.Day);
