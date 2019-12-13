@@ -14,15 +14,19 @@ namespace QuanLiQuanCaPhe.ViewModel
     public class HistoryViewModel : NhanVienLayoutViewModelInterface
     {
         public ICommand LoadOrderByCategory { get; set; }
+        public ICommand SearchOrder { get; set; }
         public HistoryViewModel()
         {
             Title = "Lịch sử bán hàng";
             SelectedCategory = ListCategory[0];
             LoadOrderByCategory = new RelayCommand<Category>((category) => { return (category != SelectedCategory); }, (category) =>
-           {
-               SelectedCategory = category;
-           });
-
+            {
+                SelectedCategory = category;
+            });
+            SearchOrder = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                ListOrder = OrderService.GetOrderByQueryString(QueryString);
+            });
         }
         private int _OrderSideBar = 0;
         public int OrderSideBar { get => _OrderSideBar; set { OnPropertyChanged(ref _OrderSideBar, value); } }
@@ -93,6 +97,16 @@ namespace QuanLiQuanCaPhe.ViewModel
                 return _ListCategory;
             }
             set { OnPropertyChanged(ref _ListCategory, value); }
+        }
+
+        private string _QueryString;
+        public string QueryString
+        {
+            get { return _QueryString; }
+            set
+            {
+                OnPropertyChanged(ref _QueryString, value);
+            }
         }
     }
 }

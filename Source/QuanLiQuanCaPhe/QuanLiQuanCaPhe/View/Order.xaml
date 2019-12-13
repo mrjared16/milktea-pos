@@ -155,7 +155,7 @@
                                                 <CheckBox IsChecked="{Binding Checked}" CommandParameter="{Binding}"
                                                           Command="{Binding DataContext.ToggleToppingForDrink,
                                                     RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                                                         Content="{Binding Item.Name}"/>
+                                                         Content="{Binding Item.CustomName}"/>
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>

@@ -39,6 +39,27 @@ namespace QuanLiQuanCaPhe.Models
             return result;
         }
 
+        public static List<Order> GetOrderByQueryString(string QueryString)
+        {
+            List<Order> result = DataProvider.ISCreated.DB.DonHangs.ToList()
+                 .Where(x => ContainDate(x, QueryString) || ContainID(x, QueryString) || ContainStaffName(x, QueryString))
+                 .Select(x => new Order(x)).ToList();
+            return result;
+        }
+        private static bool ContainDate(DonHang donhang, string date)
+        {
+            string OrderDate = donhang.CREADTEDAT.Value.ToString("dd/MM/yyyy").ToLower();
+            return OrderDate.Contains(date);
+        }
+
+        private static bool ContainID(DonHang donhang, string ID)
+        {
+            return donhang.MADH.ToString().Contains(ID);
+        }
+        private static bool ContainStaffName(DonHang donhang, string name)
+        {
+            return (donhang.NhanVien.HOTEN.ToLower().Contains(name.ToLower()));
+        }
         //public static List<Option> GetOptions()
         //{
         //    List<Option> result = DataProvider.ISCreated.DB.LoaiMonAns.ToList()

@@ -52,6 +52,10 @@ namespace QuanLiQuanCaPhe.Models
         {
             get { return name; }
         }
+        public string CustomName
+        {
+            get { return Name + " (" + String.Format("{0:n0}", Price) + "đ)"; }
+        }
         public string Label
         {
             get { return (name.Length > 15) ? name.Substring(0, 12) + "..." : name; }

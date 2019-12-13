@@ -23,8 +23,8 @@ namespace QuanLiQuanCaPhe.Models
         public static List<Category> GetCategories()
         {
             List<Category> _ListCategory = new List<Category>();
-            _ListCategory.Add(new Category() { Name = "Hôm nay", ID = 1});
-            _ListCategory.Add(new Category() { Name = "Tuần này", ID = 2});
+            _ListCategory.Add(new Category() { Name = "Hôm nay", ID = 1 });
+            _ListCategory.Add(new Category() { Name = "Tuần này", ID = 2 });
             _ListCategory.Add(new Category() { Name = "Tháng này", ID = 3 });
             _ListCategory.Add(new Category() { Name = "Tất cả", ID = null });
             return _ListCategory;
@@ -45,6 +45,11 @@ namespace QuanLiQuanCaPhe.Models
                     return DataAccess.GetAllOrder();
             }
         }
+        public static List<Order> GetOrderByQueryString(string QueryString)
+        {
+            return DataAccess.GetOrderByQueryString(QueryString);
+        }
+        
         public static List<OrderItem> GetOrderItems(DonHang DonHang)
         {
             List<OrderItem> result = DonHang.ChiTietDonhangs.ToList().Where(x => x.ISDEL != 1 && IsDrink(x)).Select(x => new OrderItem(x)).ToList();

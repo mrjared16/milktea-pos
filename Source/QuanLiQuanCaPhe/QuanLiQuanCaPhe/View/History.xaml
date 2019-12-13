@@ -30,12 +30,12 @@
 					<TextBox 
 						materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource TabActive}" 
 						materialDesign:HintAssist.Hint="Tìm kiếm" Width="250"
-						Text="{Binding QueryStringLichSuDonhang}"
+						Text="{Binding QueryString}"
 						>
 					</TextBox>
                 </Border>
                 <Button Background="{StaticResource TabActive}" Height="40" Width="40" Margin="5" Padding="0"
-					Command="{Binding SearchDonhang}"
+					Command="{Binding SearchOrder}"
 					>
                     <materialDesign:PackIcon Kind="Search" VerticalAlignment="Center" Width="30" Height="30" Margin="5"
 					/>
