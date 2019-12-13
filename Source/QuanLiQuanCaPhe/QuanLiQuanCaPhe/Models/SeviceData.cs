@@ -20,7 +20,7 @@ namespace QuanLiQuanCaPhe.Models
 		//them vao/////////////////////////////////////////////////////////////////////////////
 		public static List<LoaiMonAn> getLoaiMonAn()
 		{
-			return new List<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns.Where(x=>x.ISDEL!=1));
+			return new List<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns.Where(x => x.ISDEL != 1));
 		}
 		public static List<LoaiMonAn> getLoaiMonAn(int maLoai)
 		{
@@ -38,9 +38,9 @@ namespace QuanLiQuanCaPhe.Models
 			var temp = new BindingList<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.ISDEL != 1).ToList());
 			foreach (var item in temp)
 			{
-				if(item.TENMON.ToLower().Contains(searchStr.ToLower()))
+				if (item.TENMON.ToLower().Contains(searchStr.ToLower()))
 				{
-					if(!monAns.Contains(item))
+					if (!monAns.Contains(item))
 					{
 						monAns.Add(item);
 					}
@@ -71,6 +71,10 @@ namespace QuanLiQuanCaPhe.Models
 			if (string.IsNullOrEmpty(monAn.TENMON))
 			{
 				return "Tên món ăn rỗng";
+			}
+			if(!tonTaiLoaiMonAn(monAn.MALOAI))
+			{
+				return "Loại món ăn không tồn tại";
 			}
 			else
 			{
@@ -648,19 +652,8 @@ namespace QuanLiQuanCaPhe.Models
 
 		public List<ChiTietDonhang> danhSachChiTietDonhang(int maDH)
 		{
-			List<ChiTietDonhang> chiTietDonhangs = new List<ChiTietDonhang>(DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MADH == maDH));
-			int count = 0;
-			foreach (var item in chiTietDonhangs)
-			{
-				if (item.ISDEL == 0)
-				{
-					count++;
-				}
-			}
-			if (count > 0)
-				return chiTietDonhangs;
-			else
-				return null;
+			List<ChiTietDonhang> chiTietDonhangs = new List<ChiTietDonhang>(DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MADH == maDH && x.ISDEL != 1));
+			return chiTietDonhangs;
 		}
 		public bool themDonHang(DonHang donHang)
 		{
@@ -847,10 +840,10 @@ namespace QuanLiQuanCaPhe.Models
 			}
 			return donHangs;
 		}
-		public static BindingList<DonHang> TimKiemDonHang(string value,int MANV)
+		public static BindingList<DonHang> TimKiemDonHang(string value, int MANV)
 		{
 			BindingList<DonHang> donHangs = new BindingList<DonHang>();
-			BindingList<DonHang> temp = new BindingList<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x=>x.MANV==MANV).ToArray());
+			BindingList<DonHang> temp = new BindingList<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.MANV == MANV).ToArray());
 			foreach (var item in temp)
 			{
 				if (item.CREADTEDAT.Value.ToString("dd/mm/yyyy").ToLower().Contains(value.ToLower()))

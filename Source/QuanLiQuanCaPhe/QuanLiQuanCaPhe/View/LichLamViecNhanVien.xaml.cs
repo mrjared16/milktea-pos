@@ -25,8 +25,6 @@ namespace QuanLiQuanCaPhe.View
 		public LichLamViecNhanVien()
 		{
 			InitializeComponent();
-			Home = new LichLamViecNhanVienViewModel();
-			this.DataContext = Home;
 		}
 	}
 }

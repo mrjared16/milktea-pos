@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,11 +19,17 @@ namespace QuanLiQuanCaPhe.ViewModel
         #region commands
         public ICommand LoadDrinkByCategory { get; set; }
         public ICommand AddDrink { get; set; }
+        public ICommand ToggleToppingForDrink { get; set; }
+        public ICommand ToggleOptionForDrink { get; set; }
         public ICommand IncreaseAmount { get; set; }
         public ICommand DecreaseAmount { get; set; }
         public ICommand RemoveDrink { get; set; }
         public ICommand ClearOrder { get; set; }
         public ICommand CheckoutOrder { get; set; }
+        public ICommand AddCoupon { get; set; }
+        public ICommand ShowAddCouponDialog { get; set; }
+        public ICommand ToggleOptionView { get; set; }
+        public ICommand HideAddCouponDialog { get; set; }
         #endregion
 
         public OrderViewModel()
@@ -29,39 +37,114 @@ namespace QuanLiQuanCaPhe.ViewModel
             Title = "Bán hàng";
             // commands
             SelectedCategory = ListCategory[0];
+            CurrentOrder = new Order(this);
+
             LoadDrinkByCategory = new RelayCommand<Category>((category) => { return (category != SelectedCategory); }, (category) =>
             {
                 SelectedCategory = category;
             });
+
             AddDrink = new RelayCommand<Drink>((drink) => { return true; }, (drink) =>
             {
-                CurrentOrder.Add(new OrderItem(drink, 1, ""));
+                OrderItem ItemOfCurrentDrink = DrinkService.FindDrink(CurrentOrder, drink);
+
+                // only increase amount if item already exist and not having topping or option yet
+                // TODO: refactor
+                if (ItemOfCurrentDrink != null && !ItemOfCurrentDrink.HasToppings()/* && !ItemOfCurrentDrink.HasOptions()*/)
+                {
+                    OrderService.SetItemAmount(CurrentOrder, ItemOfCurrentDrink, ItemOfCurrentDrink.Number + 1);
+                    return;
+                }
+                OrderService.AddItem(CurrentOrder, new OrderItem(drink));
             });
+
+            ToggleToppingForDrink = new RelayCommand<Topping>((drink) => { return true; }, (drink) =>
+            {
+                if (drink.Checked)
+                {
+                    OrderService.AddTopping(CurrentOrder, drink, SelectedOrderItem);
+                }
+                else
+                {
+                    OrderService.RemoveTopping(CurrentOrder, drink, SelectedOrderItem);
+                }
+            });
+            ToggleOptionForDrink = new RelayCommand<Option>((drink) => { return true; }, (drink) =>
+            {
+                //MessageBox.Show(drink.Item.ID);
+                //OrderService.SelectOption(CurrentOrder, drink, SelectedOrderItem);
+            });
+
             IncreaseAmount = new RelayCommand<OrderItem>((drink) => { return true; }, (OrderItem) =>
             {
-                CurrentOrder.SetAmount(OrderItem, OrderItem.Number + 1);
-                //OrderItem.Number++;
+                OrderService.SetItemAmount(CurrentOrder, OrderItem, OrderItem.Number + 1);
             });
+
             DecreaseAmount = new RelayCommand<OrderItem>((drink) => { return (drink.Number > 1); }, (OrderItem) =>
             {
-                CurrentOrder.SetAmount(OrderItem, OrderItem.Number - 1);
-                //OrderItem.Number--;
+                OrderService.SetItemAmount(CurrentOrder, OrderItem, OrderItem.Number - 1);
             });
+
             RemoveDrink = new RelayCommand<OrderItem>((drink) => { return true; }, (orderitem) =>
             {
-                CurrentOrder.Remove(orderitem);
+                OrderService.RemoveItem(CurrentOrder, orderitem);
             });
-            ClearOrder = new RelayCommand<OrderItem>((drink) => { return CurrentOrder.items.Any(); }, (orderitem) =>
+
+            ClearOrder = new RelayCommand<OrderItem>((drink) => { return !OrderService.IsEmpty(CurrentOrder); }, (orderitem) =>
             {
-                CurrentOrder.RemoveAll();
+                OrderService.RemoveAllItems(CurrentOrder);
             });
-            CheckoutOrder = new RelayCommand<OrderItem>((drink) => { return CurrentOrder.items.Any(); }, (orderitem) =>
+
+            CheckoutOrder = new RelayCommand<OrderItem>((drink) => { return !OrderService.IsEmpty(CurrentOrder); }, (orderitem) =>
             {
-                CurrentOrder.SaveOrder();
+                OrderService.AddOrder(CurrentOrder);
+                CurrentOrder.OnPropertyChanged(null);
                 CurrentOrder = new Order();
             });
 
+            ShowAddCouponDialog = new RelayCommand<object>((p) => { return !OrderService.IsEmpty(CurrentOrder); }, (p) =>
+            {
+                IsAddCouponDialogOpen = true;
+            });
+
+            HideAddCouponDialog = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                OrderService.RemoveCoupon(CurrentOrder);
+                IsAddCouponDialogOpen = false;
+            });
+
+            AddCoupon = new RelayCommand<object>((p) => { return !OrderService.HasCoupon(CurrentOrder); }, (p) =>
+            {
+                if (!OrderService.AddCoupon(CurrentOrder, CouponCode))
+                {
+                    MessageBox.Show("Mã không hợp lệ");
+                    return;
+                }
+                IsAddCouponDialogOpen = false;
+            });
+
+            ToggleOptionView = new RelayCommand<OrderItem>((p) => { return true; }, (p) =>
+            {
+                //if (p == SelectedOrderItem)
+                //{
+                //    MessageBox.Show("Toggle" + SelectedOrderItem.Item.Name + " - " + p.Item.Name);
+                //    OptionSideBar = (OptionSideBar == 0) ? OptionSideBarWidth : 0;
+                //}
+            });
         }
+
+        // Coupon Dialog
+        private string _CouponCode;
+        public string CouponCode { get => _CouponCode; set { OnPropertyChanged(ref _CouponCode, value); } }
+
+
+        private bool _IsAddCouponDiaglogOpen = false;
+        public bool IsAddCouponDialogOpen
+        {
+            get => _IsAddCouponDiaglogOpen;
+            set => OnPropertyChanged(ref _IsAddCouponDiaglogOpen, value);
+        }
+
         // danh muc hien tai
         private Category _SelectedCategory = null;
         public Category SelectedCategory
@@ -72,6 +155,7 @@ namespace QuanLiQuanCaPhe.ViewModel
             }
             set
             {
+
                 ListDrink = DrinkService.GetDrinkFromCategory(value);
                 OnPropertyChanged(ref _SelectedCategory, value);
             }
@@ -107,17 +191,45 @@ namespace QuanLiQuanCaPhe.ViewModel
                 OnPropertyChanged(ref _ListDrink, value);
             }
         }
+        // Order SideBar toggle
+        private int _OrderSideBar = 0;
+        private const int OrderSideBarWidth = 320;
+        public int OrderSideBar { get => _OrderSideBar; set { OnPropertyChanged(ref _OrderSideBar, value); } }
+        private void HideOrderView()
+        {
+            OrderSideBar = 0;
+        }
 
+        private void ShowOrderView()
+        {
+            OrderSideBar = OrderSideBarWidth;
 
-        private Order _CurrentOrder = null;
+        }
+
+        public void ToggleOrderView()
+        {
+            if (CurrentOrder.items.Any())
+            {
+                //MessageBox.Show("Has an1y");
+                this.ShowOrderView();
+            }
+            else
+            {
+                //MessageBox.Show("Has nothing");
+                this.HideOrderView();
+            }
+        }
+        // Option sidebar toggle
+        private int _OptionSideBar = 0;
+        private const int OptionSideBarWidth = 200;
+        public int OptionSideBar { get => _OptionSideBar; set { OnPropertyChanged(ref _OptionSideBar, value); } }
+
+        // Order hien tai
+        private Order _CurrentOrder;
         public Order CurrentOrder
         {
             get
             {
-                if (_CurrentOrder == null)
-                {
-                    _CurrentOrder = new Order();
-                }
                 return _CurrentOrder;
             }
             set
@@ -125,208 +237,65 @@ namespace QuanLiQuanCaPhe.ViewModel
                 OnPropertyChanged(ref _CurrentOrder, value);
             }
         }
-    }
-    public class OrderItem : BaseViewModel
-    {
-        private Drink _Item;
-        public Drink Item
+
+
+        // Selected Item to add or remove topping
+        private OrderItem _SelectedOrderItem = null;
+        public OrderItem SelectedOrderItem
         {
             get
             {
-                return _Item;
+                return _SelectedOrderItem;
             }
             set
             {
-                OnPropertyChanged(ref _Item, value);
-            }
-        }
-        private int _Number = 0;
-        public int Number
-        {
-            get
-            {
-                return _Number;
-            }
-            set
-            {
-                _Number = value;
-                //OnPropertyChanged(ref _Number, value);
-                OnPropertyChanged("");
-            }
-        }
-        private string _Note = "";
-        public string Note
-        {
-            get
-            {
-                return _Note;
-            }
-            set
-            {
-                OnPropertyChanged(ref _Note, value);
-            }
-        }
-        public string Info
-        {
-            get
-            {
-                return ((this.Note != "") ? " (" + this.Note + ")" : "");
-            }
-        }
-        public double ItemTotal
-        {
-            get
-            {
-                return Item.Price * Number;
-            }
-        }
-
-        public OrderItem(Drink item, int number, string note)
-        {
-            Item = item;
-            Number = number;
-            Note = note;
-        }
-        public OrderItem(ChiTietDonhang ChiTiet)
-        {
-            this._Item = new Drink(ChiTiet.MonAn);
-            this.Number = (int)ChiTiet.SOLUONG;
-
-            //this.Note = "";
-        }
-        public ChiTietDonhang ToChiTietDonHang(int OrderID, DateTime Now)
-        {
-            return new ChiTietDonhang()
-            {
-				MADH= OrderID,
-                MAMON = this.Item.ID,
-                SOLUONG = this.Number,
-                THANHTIEN = this.ItemTotal,
-                ISDEL = 0,
-                CREADTEDAT = Now,
-                UPDATEDAT = Now
-            };
-        }
-    }
-    public class Order : BaseViewModel
-    {
-        public Order(int ID, DateTime date, string username, float coupon)
-        {
-            this.ID = ID;
-            this.Date = date;
-            //this.Username = username;
-            this.Coupon = coupon;
-            items = new ObservableCollection<OrderItem>();
-        }
-        public Order()
-        {
-           
-            this.Date = DateTime.Now;
-            //this.Username = OrderService.GetUser();
-            this.Coupon = 0;
-            items = new ObservableCollection<OrderItem>();
-            this.User = UserService.GetCurrentUser;
-        }
-        public Order(DonHang DonHang)
-        {
-            this.ID = DonHang.MADH;
-            this.User = DonHang.NhanVien;
-            this.Date = (DateTime)DonHang.CREADTEDAT;
-            this.Coupon = 0;
-            this.items = new ObservableCollection<OrderItem>(OrderService.GetOrderItems(DonHang));
-        }
-        public void Add(OrderItem item)
-        {
-            items.Add(item);
-            OnPropertyChanged(null);
-        }
-        public void Remove(OrderItem item)
-        {
-            items.Remove(item);
-            OnPropertyChanged(null);
-        }
-        public void RemoveAll()
-        {
-            items.Clear();
-            OnPropertyChanged(null);
-        }
-        public void SaveOrder()
-        {
-            OrderService.AddOrder(this);
-            OnPropertyChanged(null);
-        }
-        // TODO: need refactor
-        public void SetAmount(OrderItem orderitem, int amount)
-        {
-            orderitem.Number = amount;
-            OnPropertyChanged(null);
-        }
-
-        // public binding data
-        public ObservableCollection<OrderItem> items { get; set; }
-        public int ID { get; set; }
-        public double Coupon { get; set; }
-        public DateTime Date { get; set; }
-        public NhanVien User { get; set; }
-        public string Username
-        {
-            get
-            {
-                return this.User.HOTEN;
-            }
-        }
-        public double OrderSubTotal
-        {
-            get
-            {
-                double s = 0;
-                foreach (OrderItem orderitem in items)
+                if (value == null)
                 {
-                    s += orderitem.ItemTotal;
+                    OptionSideBar = 0;
                 }
-                return s;
-            }
-        }
-        public double CouponAmount
-        {
-            get
-            {
-                return (OrderSubTotal * Coupon / 100);
-            }
-        }
-        public double OrderTotal
-        {
-            get
-            {
-                return OrderSubTotal * (1 - Coupon / 100);
+                else
+                {
+                    OptionSideBar = OptionSideBarWidth;
+                }
+                _SelectedOrderItem = value;
+                // trigger checked items
+                OnPropertyChanged(null);
             }
         }
 
-        public DonHang ToDonHang()
+        // Topping option data and binding
+        private ToppingItem _DrinkTopping = null;
+        public ToppingItem DrinkTopping
         {
-            DateTime Now = DateTime.Now;
-            this.ID = OrderService.GetNextOrderID();
-			return new DonHang()
-			{
-				MADH = this.ID,
-                MANV = this.User.MANV,
-                THOIGIAN = Now,
-                TONGTIEN = this.OrderTotal,
-                ISDEL = 0,
-                CREADTEDAT = Now,
-                UPDATEDAT = Now
-
-            };
-        }
-        public List<ChiTietDonhang> ToChiTietDonHangs()
-        {
-            DateTime Now = DateTime.Now;
-            List<ChiTietDonhang> list = new List<ChiTietDonhang>();
-            foreach (OrderItem item in items)
+            get
             {
-                list.Add(item.ToChiTietDonHang(this.ID, Now));
+                _DrinkTopping = new ToppingItem(SelectedOrderItem);
+                return _DrinkTopping;
             }
-            return list;
         }
+        //private OptionGroupList _DrinkOption = null;
+        //public OptionGroupList DrinkOption
+        //{
+        //    get
+        //    {
+        //        _DrinkOption = new OptionGroupList(SelectedOrderItem);
+        //        return _DrinkOption;
+        //    }
+        //}
+
+        //public List<OptionGroup> _ListGroup = null;
+        //public List<OptionGroup> ListGroup
+        //{
+        //    get
+        //    {
+        //        if (_ListGroup == null)
+        //        {
+        //            _ListGroup = OrderService.GetGroupsOption();
+        //        }
+        //        return _ListGroup;
+        //    }
+        //}
     }
+
+
 }

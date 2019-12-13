@@ -20,9 +20,10 @@
         <EntityType Name="ChiTietDonhang">
           <Key>
             <PropertyRef Name="MADH" />
-            <PropertyRef Name="MAMON" />
+            <PropertyRef Name="ID" />
           </Key>
           <Property Name="MADH" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="MAMON" Type="int" Nullable="false" />
           <Property Name="SOLUONG" Type="float" Nullable="false" />
           <Property Name="DONGIA" Type="float" Nullable="false" />
@@ -31,6 +32,8 @@
           <Property Name="ISDEL" Type="int" />
           <Property Name="CREADTEDAT" Type="datetime" />
           <Property Name="UPDATEDAT" Type="datetime" />
+          <Property Name="PARENTID" Type="int" />
+          <Property Name="PARENTMADH" Type="int" />
         </EntityType>
         <EntityType Name="DonHang">
           <Key>
@@ -128,6 +131,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CTDH_OPTION_CTDH">
+          <End Role="ChiTietDonhang" Type="Self.ChiTietDonhang" Multiplicity="0..1" />
+          <End Role="ChiTietDonhang1" Type="Self.ChiTietDonhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChiTietDonhang">
+              <PropertyRef Name="MADH" />
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ChiTietDonhang1">
+              <PropertyRef Name="PARENTMADH" />
+              <PropertyRef Name="PARENTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DH_NV">
           <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
           <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
@@ -192,6 +209,10 @@
             <End Role="MonAn" EntitySet="MonAn" />
             <End Role="ChiTietDonhang" EntitySet="ChiTietDonhang" />
           </AssociationSet>
+          <AssociationSet Name="FK_CTDH_OPTION_CTDH" Association="Self.FK_CTDH_OPTION_CTDH">
+            <End Role="ChiTietDonhang" EntitySet="ChiTietDonhang" />
+            <End Role="ChiTietDonhang1" EntitySet="ChiTietDonhang" />
+          </AssociationSet>
           <AssociationSet Name="FK_DH_NV" Association="Self.FK_DH_NV">
             <End Role="NhanVien" EntitySet="NhanVien" />
             <End Role="DonHang" EntitySet="DonHang" />
@@ -233,6 +254,10 @@
             <End Role="MonAn" EntitySet="MonAns" />
             <End Role="ChiTietDonhang" EntitySet="ChiTietDonhangs" />
           </AssociationSet>
+          <AssociationSet Name="FK_CTDH_OPTION_CTDH" Association="QUAN_LY_QUAN_CAPHEModel.FK_CTDH_OPTION_CTDH">
+            <End Role="ChiTietDonhang" EntitySet="ChiTietDonhangs" />
+            <End Role="ChiTietDonhang1" EntitySet="ChiTietDonhangs" />
+          </AssociationSet>
           <AssociationSet Name="FK_DH_NV" Association="QUAN_LY_QUAN_CAPHEModel.FK_DH_NV">
             <End Role="NhanVien" EntitySet="NhanViens" />
             <End Role="DonHang" EntitySet="DonHangs" />
@@ -262,9 +287,10 @@
         <EntityType Name="ChiTietDonhang">
           <Key>
             <PropertyRef Name="MADH" />
-            <PropertyRef Name="MAMON" />
+            <PropertyRef Name="ID" />
           </Key>
           <Property Name="MADH" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="MAMON" Type="Int32" Nullable="false" />
           <Property Name="SOLUONG" Type="Double" Nullable="false" />
           <Property Name="DONGIA" Type="Double" Nullable="false" />
@@ -273,8 +299,12 @@
           <Property Name="ISDEL" Type="Int32" />
           <Property Name="CREADTEDAT" Type="DateTime" Precision="3" />
           <Property Name="UPDATEDAT" Type="DateTime" Precision="3" />
+          <Property Name="PARENTID" Type="Int32" />
+          <Property Name="PARENTMADH" Type="Int32" />
           <NavigationProperty Name="DonHang" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_CTDH_DH" FromRole="ChiTietDonhang" ToRole="DonHang" />
           <NavigationProperty Name="MonAn" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_CTDH_MA" FromRole="ChiTietDonhang" ToRole="MonAn" />
+          <NavigationProperty Name="ChiTietDonhang1" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_CTDH_OPTION_CTDH" FromRole="ChiTietDonhang" ToRole="ChiTietDonhang1" />
+          <NavigationProperty Name="ChiTietDonhang2" Relationship="QUAN_LY_QUAN_CAPHEModel.FK_CTDH_OPTION_CTDH" FromRole="ChiTietDonhang1" ToRole="ChiTietDonhang" />
         </EntityType>
         <EntityType Name="DonHang">
           <Key>
@@ -393,6 +423,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CTDH_OPTION_CTDH">
+          <End Type="QUAN_LY_QUAN_CAPHEModel.ChiTietDonhang" Role="ChiTietDonhang" Multiplicity="0..1" />
+          <End Type="QUAN_LY_QUAN_CAPHEModel.ChiTietDonhang" Role="ChiTietDonhang1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChiTietDonhang">
+              <PropertyRef Name="MADH" />
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ChiTietDonhang1">
+              <PropertyRef Name="PARENTMADH" />
+              <PropertyRef Name="PARENTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DH_NV">
           <End Type="QUAN_LY_QUAN_CAPHEModel.NhanVien" Role="NhanVien" Multiplicity="0..1" />
           <End Type="QUAN_LY_QUAN_CAPHEModel.DonHang" Role="DonHang" Multiplicity="*" />
@@ -429,7 +473,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -451,6 +495,8 @@
           <EntitySetMapping Name="ChiTietDonhangs">
             <EntityTypeMapping TypeName="QUAN_LY_QUAN_CAPHEModel.ChiTietDonhang">
               <MappingFragment StoreEntitySet="ChiTietDonhang">
+                <ScalarProperty Name="PARENTMADH" ColumnName="PARENTMADH" />
+                <ScalarProperty Name="PARENTID" ColumnName="PARENTID" />
                 <ScalarProperty Name="UPDATEDAT" ColumnName="UPDATEDAT" />
                 <ScalarProperty Name="CREADTEDAT" ColumnName="CREADTEDAT" />
                 <ScalarProperty Name="ISDEL" ColumnName="ISDEL" />
@@ -459,6 +505,7 @@
                 <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
                 <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
                 <ScalarProperty Name="MAMON" ColumnName="MAMON" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="MADH" ColumnName="MADH" />
               </MappingFragment>
             </EntityTypeMapping>

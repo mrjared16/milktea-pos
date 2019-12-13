@@ -136,13 +136,10 @@ namespace QuanLiQuanCaPhe.ViewModel
 			get { return temp2; }
 			set
 			{
-				if (temp2 != value && value != null)
-				{
-					temp2 = value;
-					MonAnChiTiet.MALOAI = selectedLoaiChiTiet.MALOAI;
-					//showDetails();
-					OnPropertyChanged("selectedLoaiChiTiet");
-				}
+				temp2 = value;
+				MonAnChiTiet.MALOAI = selectedLoaiChiTiet.MALOAI;
+				//showDetails();
+				OnPropertyChanged("selectedLoaiChiTiet");
 			}
 		}
 
@@ -231,7 +228,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 				if (string.IsNullOrEmpty(MonAnChiTiet.TENMON) ||
 				string.IsNullOrEmpty(MonAnChiTiet.MALOAI.ToString()) ||
 				string.IsNullOrEmpty(MonAnChiTiet.MALOAI.ToString()) ||
-				MonAnChiTiet.MALOAI==-1||
+				MonAnChiTiet.MALOAI == -1 ||
 				string.IsNullOrEmpty(MonAnChiTiet.GIA.ToString())
 				)
 					return false;
@@ -241,7 +238,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 			{
 				if (x.Content.ToString() == "THÊM")//ADD MON ĂN
 				{
-				
+
 					string res = SeviceData.themMonAn(MonAnChiTiet);
 					MyMessageBox(res);//xử lí thêm vào
 
@@ -333,7 +330,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 				MonAnChiTiet = new MonAn();
 				MonAnChiTiet.MALOAI = -1;
 				var temp = DataProvider.ISCreated.DB.MonAns.ToList();
-				MonAnChiTiet.MAMON=temp.Last().MAMON+1;
+				MonAnChiTiet.MAMON = temp.Last().MAMON + 1;
 				p.SelectedIndex = -1;
 			});
 

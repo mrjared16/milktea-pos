@@ -83,12 +83,14 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\BusinessModel.cs" />
     <Compile Include="Models\CaLamViec.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ChiTietDonhang.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataAcess.cs" />
     <Compile Include="Models\Database.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -109,6 +111,7 @@
     <Compile Include="Models\DonHang.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DrinkService.cs" />
     <Compile Include="Models\Home.cs" />
     <Compile Include="Models\LichLamViec.cs">
       <DependentUpon>Database.tt</DependentUpon>
@@ -124,12 +127,9 @@
     <Compile Include="Models\NhanVien.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderService.cs" />
     <Compile Include="Models\SeviceData.cs" />
-    <Compile Include="NhanVienMainWindow.xaml.cs">
-      <DependentUpon>NhanVienMainWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Models\UserService.cs" />
     <Compile Include="ViewModel\DoanhThuAdminViewModel.cs" />
     <Compile Include="ViewModel\HistoryViewModel.cs" />
     <Compile Include="ViewModel\HoaDonViewModel.cs" />
@@ -146,9 +146,6 @@
     </Compile>
     <Compile Include="View\History.xaml.cs">
       <DependentUpon>History.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Home.xaml.cs">
-      <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\HomeNhanVien.xaml.cs">
       <DependentUpon>HomeNhanVien.xaml</DependentUpon>
@@ -192,9 +189,6 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MonAnAdminViewModel.cs" />
-    <Compile Include="Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
-    </Compile>
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -207,10 +201,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="NhanVienMainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resource\MainResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -224,10 +214,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\HoaDon.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Home.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -275,10 +261,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Window1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -314,25 +296,26 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Image\trasua.jpg" />
     <Resource Include="Image\abc.jpg" />
     <Resource Include="Image\rsz_tra.jpg" />
     <Resource Include="Image\tra.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Models\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Database.Context.cs</LastGenOutput>
       <DependentUpon>Database.edmx</DependentUpon>
+      <LastGenOutput>Database.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Database.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

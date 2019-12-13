@@ -9,14 +9,13 @@
         x:Class="QuanLiQuanCaPhe.View.NhanVienLayout"
         xmlns:viewModels="clr-namespace:QuanLiQuanCaPhe.ViewModel"
         xmlns:views="clr-namespace:QuanLiQuanCaPhe.View"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="Layout" Height="800" Width="1500" Margin="0">
+        Title="Layout" Height="768"  Margin="0">
     <Window.Resources>
 		<DataTemplate x:Name="HomeViewTemplate" DataType="{x:Type viewModels:HomeNhanVienViewModel }">
 			<views:HomeNhanVien/>
 		</DataTemplate>
-
-
 		<DataTemplate x:Name="OrderViewTemplate" DataType="{x:Type viewModels:OrderViewModel}">
             <views:Order/>
         </DataTemplate>
