@@ -89,6 +89,7 @@
     <Compile Include="Models\ChiTietDonhang.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataAcess.cs" />
     <Compile Include="Models\Database.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -109,6 +110,7 @@
     <Compile Include="Models\DonHang.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DrinkService.cs" />
     <Compile Include="Models\Home.cs" />
     <Compile Include="Models\LichLamViec.cs">
       <DependentUpon>Database.tt</DependentUpon>
@@ -124,9 +126,10 @@
     <Compile Include="Models\NhanVien.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\BusinessModel.cs" />
     <Compile Include="Models\OrderService.cs" />
     <Compile Include="Models\SeviceData.cs" />
+    <Compile Include="Models\UserService.cs" />
     <Compile Include="ViewModel\detailsInfoMilkteaViewModel.cs" />
     <Compile Include="ViewModel\DoanhThuAdminViewModel.cs" />
     <Compile Include="ViewModel\HistoryViewModel.cs" />

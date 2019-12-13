@@ -45,15 +45,15 @@ namespace QuanLiQuanCaPhe.ViewModel
 				return;
 
 			string passEncode = MD5Hash(Base64Encode(Password));
-			var accCount = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN == UserName && x.MATKHAU == passEncode && x.ISDEL == 0);
+			var Account = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN == UserName && x.MATKHAU == passEncode && x.ISDEL == 0);
 
 			if (UserName.Equals("") || Password.Equals(""))
 			{
 				MessageBox.Show("Bạn chưa điền đầy đủ thông tin đăng nhập!!!");
 			}
-			else if (accCount.Count() > 0)
+			else if (Account.Count() > 0)
 			{
-				UserService.GetCurrentUser = accCount.First();
+				UserService.LoadUser(Account.First());
 				if (UserService.GetCurrentUser.CHUCVU.Equals("Admin"))
 				{
 					MainWindow mainWindow = new MainWindow();
