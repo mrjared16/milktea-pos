@@ -12,15 +12,16 @@ namespace QuanLiQuanCaPhe.Models
     using QuanLiQuanCaPhe.ViewModel;
     using System;
     using System.Collections.Generic;
-    
-    public partial class LoaiMonAn:BaseViewModel
+
+    public partial class LoaiMonAn : BaseViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LoaiMonAn()
         {
+
             this.MonAns = new HashSet<MonAn>();
         }
-    
+
         public string MALOAI { get; set; }
 
         private string _tenLoai;
@@ -40,7 +41,7 @@ namespace QuanLiQuanCaPhe.Models
         public Nullable<int> ISDEL { get; set; }
         public Nullable<System.DateTime> CREADTEDAT { get; set; }
         public Nullable<System.DateTime> UPDATEDAT { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonAn> MonAns { get; set; }
     }

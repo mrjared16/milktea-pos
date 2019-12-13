@@ -144,6 +144,8 @@ namespace QuanLiQuanCaPhe.ViewModel
                 if (loaiDoanhThu == Constants.DOANHTHU_SP)// truy van CSDL de lay doanh thu san pham theo ngay
                 {
                     listDoanhThu = SeviceData.DoanhThuTheoLoaiMonThangNay(selectedLoai.MALOAI, 1);
+                    listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+
                     TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
                     OnPropertyChanged("listDoanhThu");
                     OnPropertyChanged("color");
@@ -151,6 +153,8 @@ namespace QuanLiQuanCaPhe.ViewModel
                 if (loaiDoanhThu == Constants.DOANHTHU_TONG)// truy van CSDL de lay TONG DOANH THU theo ngay
                 {
                     listDoanhThu = SeviceData.DoanhThuTheoLoaiMonThangNay("", 2);
+                    listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+
                     TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
                     OnPropertyChanged("listDoanhThu");
                     OnPropertyChanged("color");
@@ -165,6 +169,8 @@ namespace QuanLiQuanCaPhe.ViewModel
                 if (loaiDoanhThu == Constants.DOANHTHU_SP)// truy van CSDL de lay doanh thu san pham theo ngay
                 {
                     listDoanhThu = SeviceData.DoanhThuTheoLoaiMonNamNay(selectedLoai.MALOAI, 1);
+                    listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+
                     TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
                     OnPropertyChanged("listDoanhThu");
                     OnPropertyChanged("color");
@@ -172,6 +178,8 @@ namespace QuanLiQuanCaPhe.ViewModel
                 if (loaiDoanhThu == Constants.DOANHTHU_TONG)// truy van CSDL de lay TONG DOANH THU theo ngay
                 {
                     listDoanhThu = SeviceData.DoanhThuTheoLoaiMonNamNay("", 2);
+                    listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+
                     TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
                     OnPropertyChanged("listDoanhThu");
                     OnPropertyChanged("color");
@@ -186,6 +194,8 @@ namespace QuanLiQuanCaPhe.ViewModel
                 if (loaiDoanhThu == Constants.DOANHTHU_SP)// truy van CSDL de lay doanh thu san pham theo ngay
                 {
                     listDoanhThu = SeviceData.DoanhThuTheoLoaiMonQuyNay(selectedLoai.MALOAI, 1);
+                    listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+
                     TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
                     OnPropertyChanged("listDoanhThu");
                     OnPropertyChanged("color");
@@ -193,6 +203,8 @@ namespace QuanLiQuanCaPhe.ViewModel
                 if (loaiDoanhThu == Constants.DOANHTHU_TONG)// truy van CSDL de lay TONG DOANH THU theo ngay
                 {
                     listDoanhThu = SeviceData.DoanhThuTheoLoaiMonQuyNay("", 2);
+                    listDoanhThu = new BindingList<DoanhThu>(listDoanhThu.OrderByDescending(x => x.TongTienThu).ToList());
+
                     TongDoanhThu = SeviceData.tongDoanhThu(listDoanhThu);
                     OnPropertyChanged("listDoanhThu");
                     OnPropertyChanged("color");

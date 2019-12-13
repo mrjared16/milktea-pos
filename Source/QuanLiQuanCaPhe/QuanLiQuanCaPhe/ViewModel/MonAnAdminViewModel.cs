@@ -27,6 +27,7 @@ namespace QuanLiQuanCaPhe.ViewModel
 
 
         public List<LoaiMonAn> MilkteaCategories { get; set; }
+        public List<LoaiMonAn> MilkteaCategoriesDetails { get; set; }
 
         public string _btnButtonAllColor;
         public string btnAllMonAnColor
@@ -129,16 +130,44 @@ namespace QuanLiQuanCaPhe.ViewModel
             }
         }
 
+        private LoaiMonAn temp2 { get; set; }
+        public LoaiMonAn selectedLoaiChiTiet
+        {
+            get { return temp2; }
+            set
+            {
+                if (temp2 != value && value != null)
+                {
+                    temp2 = value;
+                    MonAnChiTiet.MALOAI = selectedLoaiChiTiet.MALOAI;
+                    //showDetails();
+                    OnPropertyChanged("selectedLoaiChiTiet");
+                }
+            }
+        }
+
+
+
         public void showDetails()
         {
             MonAnChiTiet = new MonAn();
-            MonAnChiTiet.TENMON = selectItem_Menu.TENMON;
-            MonAnChiTiet.MALOAI = selectItem_Menu.MALOAI;
-            MonAnChiTiet.MAMON = selectItem_Menu.MAMON;
-            MonAnChiTiet.GIA = selectItem_Menu.GIA;
-            MonAnChiTiet.MOTA = selectItem_Menu.MOTA;
-            MonAnChiTiet.HINHANH = selectItem_Menu.HINHANH;
-            //còn create date, updatedate
+            if (selectItem_Menu != null)
+            {
+                MonAnChiTiet.TENMON = selectItem_Menu.TENMON;
+                //MonAnChiTiet.MALOAI = selectItem_Menu.MALOAI;
+                MonAnChiTiet.MAMON = selectItem_Menu.MAMON;
+                MonAnChiTiet.GIA = selectItem_Menu.GIA;
+                MonAnChiTiet.MOTA = selectItem_Menu.MOTA;
+                MonAnChiTiet.HINHANH = selectItem_Menu.HINHANH;
+                //còn create date, updatedate
+
+
+                List<LoaiMonAn> tempLoai = SeviceData.getLoaiMonAn(selectItem_Menu.MALOAI);
+
+                selectedLoaiChiTiet = tempLoai[0];
+            }
+
+
 
             ButtonVisibility = true;
             btnDelete_Cancel = "XÓA";
@@ -155,6 +184,7 @@ namespace QuanLiQuanCaPhe.ViewModel
                 if (_selectedLoai != value)
                 {
                     _selectedLoai = value;
+                    searchMonAnStr = "";
                     btnAllMonAnColor = "#002171";
                     OnPropertyChanged("btnAllMonAnColor");
                     showListMonAnTheoLoai();
@@ -189,13 +219,23 @@ namespace QuanLiQuanCaPhe.ViewModel
             MilkteaCategories = new List<LoaiMonAn>();
             MilkteaCategories = SeviceData.getLoaiMonAn();// get from database
 
+            MilkteaCategoriesDetails = new List<LoaiMonAn>();
+            MilkteaCategoriesDetails = SeviceData.getLoaiMonAn();
+
             listMonAn = SeviceData.getListMonAn();
 
 
             //command  command  command
             Add_SaveCommand = new RelayCommand<Button>((x) =>
             {
-                if (string.IsNullOrEmpty(MonAnChiTiet.TENMON)) return false;
+                if (string.IsNullOrEmpty(MonAnChiTiet.TENMON) ||
+                string.IsNullOrEmpty(MonAnChiTiet.MALOAI.ToString()) ||
+                string.IsNullOrEmpty(MonAnChiTiet.MAMON.ToString()) ||
+                string.IsNullOrEmpty(MonAnChiTiet.MOTA) ||
+                string.IsNullOrEmpty(MonAnChiTiet.GIA.ToString()) ||
+                string.IsNullOrEmpty(MonAnChiTiet.HINHANH.ToString())
+                )
+                    return false;
                 return true;
             },
             (x) =>
@@ -265,6 +305,8 @@ namespace QuanLiQuanCaPhe.ViewModel
                  btnAllMonAnColor = "#0277bd";
                  OnPropertyChanged("btnAllMonAnColor");
                  OnPropertyChanged("btnAllMonAnColor");
+
+                 searchMonAnStr = "";
                  selectedLoai = null;
                  x.SelectedIndex = -1;
                  listMonAn = SeviceData.getListMonAn();
@@ -282,12 +324,15 @@ namespace QuanLiQuanCaPhe.ViewModel
             });
 
             //click vao them mon
-            addMilkteaCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            addMilkteaCommand = new RelayCommand<ComboBox>((p) => { return true; }, (p) =>
             {
                 ButtonVisibility = true;
                 btnDelete_Cancel = "HỦY";
                 btnAdd_Save = "THÊM";
+
+                searchMonAnStr = "";
                 MonAnChiTiet = new MonAn();
+                p.SelectedIndex = -1;
             });
 
         }

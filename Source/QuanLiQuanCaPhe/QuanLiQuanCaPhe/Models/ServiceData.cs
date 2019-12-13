@@ -21,6 +21,11 @@ namespace QuanLiQuanCaPhe.Models
             return new List<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns);
         }
 
+        public static List<LoaiMonAn> getLoaiMonAn(string MaLoai)
+        {
+            return new List<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns.Where(x => x.MALOAI == MaLoai && x.ISDEL != 1).ToList());
+        }
+
         /// <summary>
         /// Tìm kiếm tên món
         /// </summary>

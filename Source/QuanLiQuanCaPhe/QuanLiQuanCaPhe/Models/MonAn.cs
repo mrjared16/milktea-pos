@@ -18,6 +18,8 @@ namespace QuanLiQuanCaPhe.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MonAn()
         {
+            this.MOTA = "";
+            this.GIA = 0;
             this.ChiTietDonhangs = new HashSet<ChiTietDonhang>();
         }
         //public string MAMON { get; set; }
