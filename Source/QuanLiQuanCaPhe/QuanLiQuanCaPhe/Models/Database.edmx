@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QUAN_LY_QUAN_CAPHEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QUAN_LY_QUAN_CAPHEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CaLamViec">
           <Key>
             <PropertyRef Name="MACALV" />
@@ -42,6 +42,7 @@
           <Property Name="MADH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MANV" Type="int" />
           <Property Name="THOIGIAN" Type="datetime" />
+          <Property Name="GIAMGIA" Type="float" />
           <Property Name="TONGTIEN" Type="float" Nullable="false" />
           <Property Name="TENKH" Type="nvarchar" MaxLength="30" />
           <Property Name="ISDEL" Type="int" />
@@ -230,8 +231,7 @@
             <End Role="MonAn" EntitySet="MonAn" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QUAN_LY_QUAN_CAPHEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -284,6 +284,7 @@
           <Property Name="UPDATEDAT" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ChiTietDonhangs" Relationship="Self.FK_CTDH_DH" FromRole="DonHang" ToRole="ChiTietDonhang" />
           <NavigationProperty Name="NhanVien" Relationship="Self.FK_DH_NV" FromRole="DonHang" ToRole="NhanVien" />
+          <Property Name="GIAMGIA" Type="Double" />
         </EntityType>
         <EntityType Name="LichLamViec">
           <Key>
@@ -514,6 +515,7 @@
           <EntitySetMapping Name="DonHangs">
             <EntityTypeMapping TypeName="QUAN_LY_QUAN_CAPHEModel.DonHang">
               <MappingFragment StoreEntitySet="DonHang">
+                <ScalarProperty Name="GIAMGIA" ColumnName="GIAMGIA" />
                 <ScalarProperty Name="MADH" ColumnName="MADH" />
                 <ScalarProperty Name="MANV" ColumnName="MANV" />
                 <ScalarProperty Name="THOIGIAN" ColumnName="THOIGIAN" />

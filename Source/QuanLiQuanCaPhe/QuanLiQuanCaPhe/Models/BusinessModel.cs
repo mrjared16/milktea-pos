@@ -198,7 +198,7 @@ namespace QuanLiQuanCaPhe.Models
             this.ID = DonHang.MADH;
             this.User = DonHang.NhanVien;
             this.Date = (DateTime)DonHang.CREADTEDAT;
-            this.Coupon = 0;
+            this.Coupon = (DonHang.GIAMGIA == null) ? 0 : (double)(DonHang.GIAMGIA) ;
             this.items = new ObservableCollection<OrderItem>(OrderService.GetOrderItems(DonHang));
 
         }
@@ -211,6 +211,7 @@ namespace QuanLiQuanCaPhe.Models
                 MADH = this.ID,
                 MANV = this.User.MANV,
                 TONGTIEN = this.OrderTotal,
+                GIAMGIA = this.Coupon,
                 ISDEL = 0,
                 CREADTEDAT = Now,
                 UPDATEDAT = Now
@@ -323,7 +324,7 @@ namespace QuanLiQuanCaPhe.Models
             //MessageBox.Show(_Item.Price + "-");
             this.Number = (int)ChiTiet.SOLUONG;
             //this.Note 
-
+            this.Discount = ChiTiet.GIAMGIA;
             if (HasToppings(ChiTiet))
             {
                 // TODO: need refactor
@@ -362,7 +363,7 @@ namespace QuanLiQuanCaPhe.Models
                 MADH = OrderID,
                 SOLUONG = this.Number,
                 DONGIA = this.Price,
-                THANHTIEN = this.Price * this.Number,
+                THANHTIEN = this.Price * this.Number - this.Discount,
                 ISDEL = 0,
                 CREADTEDAT = Now,
                 UPDATEDAT = Now,
@@ -374,7 +375,18 @@ namespace QuanLiQuanCaPhe.Models
         }
 
 
-
+        private double _Discount = 0;
+        public double Discount
+        {
+            get
+            {
+                return _Discount;
+            }
+            set
+            {
+                OnPropertyChanged(ref _Discount, value);
+            }
+        }
         // fields
         public int ID { get; set; }
 
@@ -498,7 +510,7 @@ namespace QuanLiQuanCaPhe.Models
                 //{
                 //    option += optionItem.ItemTotal;
                 //}
-                return (Item.Price * Number + topping + option);
+                return (Item.Price * Number + topping + option) - Discount;
             }
         }
 

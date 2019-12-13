@@ -196,7 +196,9 @@ namespace QuanLiQuanCaPhe.Models
         public static bool AddCoupon(Order order, string Coupon)
         {
             order.Coupon = OrderService.ValidateCoupon(Coupon);
-            return (order.Coupon != 0);
+            if (order.Coupon == 0)
+                return false;
+            return true;
         }
         public static void RemoveCoupon(Order order)
         {

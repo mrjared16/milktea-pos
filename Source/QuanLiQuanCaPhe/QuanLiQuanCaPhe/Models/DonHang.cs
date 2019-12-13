@@ -28,6 +28,7 @@ namespace QuanLiQuanCaPhe.Models
         public Nullable<int> ISDEL { get; set; }
         public Nullable<System.DateTime> CREADTEDAT { get; set; }
         public Nullable<System.DateTime> UPDATEDAT { get; set; }
+        public Nullable<double> GIAMGIA { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDonhang> ChiTietDonhangs { get; set; }
