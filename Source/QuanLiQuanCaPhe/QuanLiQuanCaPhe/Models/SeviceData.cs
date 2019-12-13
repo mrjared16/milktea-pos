@@ -742,5 +742,17 @@ namespace QuanLiQuanCaPhe.Models
                 return true;
             }
         }
+
+        public string layTenMon(string MAMON)
+        {
+            var temp = DataProvider.ISCreated.DB.MonAns.Where(x => x.MAMON == MAMON).SingleOrDefault();
+            return temp.TENMON;
+        }
+
+        public string layTenNhanVien(string MANV)
+        {
+            var temp = DataProvider.ISCreated.DB.NhanViens.Where(x => x.MANV == MANV).SingleOrDefault();
+            return temp.HOTEN;
+        }
     }
 }

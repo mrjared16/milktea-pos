@@ -52,7 +52,8 @@
                             TextWrapping="Wrap"
                             materialDesign:HintAssist.Hint="Mã loại món ăn:" 
                             Text="{Binding chiTietLoaiMonAn.MALOAI}"
-                            x:Name="textBlockMALOAI"/>
+                            x:Name="textBlockMALOAI"
+                            IsEnabled="False"/>
                         <TextBox
                             Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
                             VerticalAlignment="Top"

@@ -44,13 +44,13 @@
             </Grid.ColumnDefinitions>
             <ScrollViewer Grid.Column="0" Height="560">
                 <ListView x:Name="listViewDonHang" Margin="10"
-                          ItemsSource="{Binding listDonHang}"
+                          ItemsSource="{Binding listDonHang2}"
                           SelectedItem="{Binding selectItem, Mode=TwoWay}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Width="200" Header="Mã đơn hàng" DisplayMemberBinding="{Binding MADH}"/>
-                            <GridViewColumn Width="200" Header="Người tạo" DisplayMemberBinding="{Binding MANV}"/>
-                            <GridViewColumn Width="200" Header="Ngày tạo" DisplayMemberBinding="{Binding THOIGIAN}"/>
+                            <GridViewColumn Width="200" Header="Người bán" DisplayMemberBinding="{Binding HOTENNV}"/>
+                            <GridViewColumn Width="200" Header="Ngày bán" DisplayMemberBinding="{Binding THOIGIAN}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -74,7 +74,7 @@
                         AcceptsReturn="True"
                         TextWrapping="Wrap"
                         materialDesign:HintAssist.Hint="Người bán:" 
-                        Text="{Binding donHang.MANV, Mode=TwoWay}"
+                        Text="{Binding donHang.HOTENNV, Mode=TwoWay}"
                         x:Name="textBlockHOTEN"
                         IsEnabled="False"/>
                         <TextBox
@@ -107,10 +107,10 @@
                     </StackPanel>
                     <TextBlock Text="CHI TIẾT ĐƠN HÀNG" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"/>
                     <ListView Grid.Row="0" x:Name="listViewChiTietDonHang"
-                            ItemsSource="{Binding listChiTietDonHang}">
+                            ItemsSource="{Binding listChiTietDonHang2}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Mã Món" DisplayMemberBinding="{Binding MAMON}"/>
+                                <GridViewColumn Header="Tên Món" DisplayMemberBinding="{Binding TENMON}"/>
                                 <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding SOLUONG}"/>
                                 <GridViewColumn Header="Đơn giá" DisplayMemberBinding="{Binding DONGIA}"/>
                                 <GridViewColumn Header="Thành tiền" DisplayMemberBinding="{Binding THANHTIEN}"/>
