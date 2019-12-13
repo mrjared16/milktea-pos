@@ -67,6 +67,7 @@ namespace QuanLiQuanCaPhe.Models
         }
         public static double ValidateCoupon(string CouponCode)
         {
+            // TODO: refactor
             if (CouponCode == "MAGIAMGIA")
             {
                 return 20;
@@ -109,19 +110,21 @@ namespace QuanLiQuanCaPhe.Models
         // topping
         public static void AddTopping(Order order, Topping topping, OrderItem parent)
         {
+            // TODO: refactor
             if (topping == null || parent == null)
             {
                 MessageBox.Show("Co loi xay ra");
                 return;
             }
             //TODO: refactor
-            OrderItem orderItem = new OrderItem(topping.Item, 1, "");
+            OrderItem orderItem = new OrderItem(topping.Item);
             parent.AddTopping(orderItem);
             orderItem.AddParent(parent);
             order.OnPropertyChanged(null);
         }
         public static void RemoveTopping(Order order, Topping topping, OrderItem parent)
         {
+            // TODO: refactor
             if (topping == null || parent == null)
             {
                 MessageBox.Show("Co loi xay ra");

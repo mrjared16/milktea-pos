@@ -146,6 +146,7 @@ namespace QuanLiQuanCaPhe.Models
             foreach (OrderItem item in items)
             {
                 list.Add(item.ToChiTietDonHang(this.ID, Now));
+                // TODO: refactor
                 if (item.ToppingsOfItem.Count > 0)
                 {
                     foreach (OrderItem topping in item.ToppingsOfItem)
@@ -234,7 +235,7 @@ namespace QuanLiQuanCaPhe.Models
             this._Item = new Drink(ChiTiet.MonAn);
             this.Number = (int)ChiTiet.SOLUONG;
             //this.Note 
-
+            
             if (ChiTiet.ChiTietDonhang1.Count > 0)
             {
                 // TODO: need refactor
@@ -372,6 +373,7 @@ namespace QuanLiQuanCaPhe.Models
         public ToppingItem(OrderItem orderItem)
         {
             CurentToppingList = new ObservableCollection<Topping>(ListTopping);
+            // TODO: refactor
             if (orderItem == null || orderItem.ToppingsOfItem == null)
                 return;
             //MessageBox.Show(Toppings[0].Item.Name + " - " + Toppings[1].Item.Name);

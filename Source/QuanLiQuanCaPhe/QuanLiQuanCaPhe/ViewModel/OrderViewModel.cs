@@ -47,12 +47,13 @@ namespace QuanLiQuanCaPhe.ViewModel
                 OrderItem OrderItem = DrinkService.FindDrink(CurrentOrder, drink);
 
                 // only increase amount if item already exist and not having topping or option yet
+                // TODO: refactor
                 if (OrderItem != null && OrderItem.ToppingsOfItem.Count == 0)
                 {
                     OrderService.SetItemAmount(CurrentOrder, OrderItem, OrderItem.Number + 1);
                     return;
                 }
-                OrderService.AddItem(CurrentOrder, new OrderItem(drink, 1, ""));
+                OrderService.AddItem(CurrentOrder, new OrderItem(drink));
             });
 
             ToggleToppingForDrink = new RelayCommand<Topping>((drink) => { return true; }, (drink) =>

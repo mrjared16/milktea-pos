@@ -33,7 +33,7 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListBoxItem">
                                     <Button Background="{StaticResource Tab}" Name="ButtonColor" Content="{Binding Name}"  Height="30" Width="200" Margin="5,5,0,0" 
-                                    Command="{Binding DataContext.LoadDrinkByCategory,RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                                    Command="{Binding DataContext.LoadDrinkByCategory, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
                                     CommandParameter="{Binding}"
                                             />
                                 </ControlTemplate>
@@ -324,8 +324,8 @@
             <!--End of Checkout-->
         </Grid>
         <!--End of Order Content-->
-        
-        <!--Dialog--> 
+
+        <!--Dialog-->
         <materialDesign:DialogHost IsOpen="{Binding IsAddCouponDialogOpen}" Grid.ColumnSpan="2" CloseOnClickAway="True">
             <materialDesign:DialogHost.DialogContent>
                 <materialDesign:Card Grid.Row="1" Width="330" Height="150" HorizontalAlignment="Center" VerticalAlignment="Center">
