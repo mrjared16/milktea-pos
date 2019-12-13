@@ -131,7 +131,7 @@ namespace QuanLiQuanCaPhe.Models
                 return;
             }
             //TODO: refactor
-            OrderItem orderItem = new OrderItem(topping.Item);
+            OrderItem orderItem = new OrderItem(topping.Item, parent.Number);
             parent.AddTopping(orderItem);
             orderItem.AddParent(parent);
             order.OnPropertyChanged(null);
