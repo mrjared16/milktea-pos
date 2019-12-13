@@ -359,7 +359,7 @@ namespace QuanLiQuanCaPhe.Models
                 MAMON = this.Item.ID,
                 MADH = OrderID,
                 SOLUONG = this.Number,
-                THANHTIEN = this.Price,
+                DONGIA = this.Price,
                 ISDEL = 0,
                 CREADTEDAT = Now,
                 UPDATEDAT = Now,

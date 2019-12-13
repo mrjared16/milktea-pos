@@ -42,7 +42,7 @@ namespace QuanLiQuanCaPhe.Models
         public static List<Order> GetOrderByQueryString(string QueryString)
         {
             List<Order> result = DataProvider.ISCreated.DB.DonHangs.ToList()
-                 .Where(x => ContainDate(x, QueryString) || ContainID(x, QueryString) || ContainStaffName(x, QueryString))
+                 .Where(x => x.ISDEL != 1 && (ContainDate(x, QueryString) || ContainID(x, QueryString) || ContainStaffName(x, QueryString)))
                  .Select(x => new Order(x)).ToList();
             return result;
         }
@@ -86,7 +86,7 @@ namespace QuanLiQuanCaPhe.Models
         public static int GetNextOrderID()
         {
             //MessageBox.Show("Query Order ID");
-            DonHang LastID = DataProvider.ISCreated.DB.DonHangs.OrderByDescending(a => a.MADH).FirstOrDefault();
+            DonHang LastID = DataProvider.ISCreated.DB.DonHangs.OrderByDescending(a => a.MADH).Where(x => x.ISDEL != 1).FirstOrDefault();
             return (LastID == null) ? 0 : LastID.MADH + 1;
         }
 
