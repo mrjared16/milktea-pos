@@ -4,7 +4,7 @@
     <Key>
       <PropertyRef Name="MACALV" />
     </Key>
-    <Property Name="MACALV" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MACALV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TENCA" Type="nvarchar" MaxLength="30" />
     <Property Name="GIOBATDAU" Type="time" Precision="7" />
     <Property Name="GIOKETTHUC" Type="time" Precision="7" />
@@ -17,8 +17,8 @@
       <PropertyRef Name="MADH" />
       <PropertyRef Name="MAMON" />
     </Key>
-    <Property Name="MADH" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="MAMON" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MADH" Type="int" Nullable="false" />
+    <Property Name="MAMON" Type="int" Nullable="false" />
     <Property Name="SOLUONG" Type="float" Nullable="false" />
     <Property Name="DONGIA" Type="float" Nullable="false" />
     <Property Name="THANHTIEN" Type="float" Nullable="false" />
@@ -31,8 +31,8 @@
     <Key>
       <PropertyRef Name="MADH" />
     </Key>
-    <Property Name="MADH" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="MANV" Type="varchar" MaxLength="30" />
+    <Property Name="MADH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MANV" Type="int" />
     <Property Name="THOIGIAN" Type="datetime" />
     <Property Name="TONGTIEN" Type="float" Nullable="false" />
     <Property Name="TENKH" Type="nvarchar" MaxLength="30" />
@@ -46,9 +46,9 @@
       <PropertyRef Name="THU" />
       <PropertyRef Name="MACALV" />
     </Key>
-    <Property Name="MANV" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MANV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="THU" Type="nvarchar" MaxLength="30" Nullable="false" />
-    <Property Name="MACALV" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MACALV" Type="int" Nullable="false" />
     <Property Name="PHUCAP" Type="float" />
     <Property Name="ISDEL" Type="int" />
     <Property Name="CREADTEDAT" Type="datetime" />
@@ -58,7 +58,7 @@
     <Key>
       <PropertyRef Name="MALOAI" />
     </Key>
-    <Property Name="MALOAI" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MALOAI" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TENLOAI" Type="nvarchar" MaxLength="100" />
     <Property Name="ISDEL" Type="int" />
     <Property Name="CREADTEDAT" Type="datetime" />
@@ -68,11 +68,11 @@
     <Key>
       <PropertyRef Name="MAMON" />
     </Key>
-    <Property Name="MAMON" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MAMON" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TENMON" Type="nvarchar" MaxLength="100" />
     <Property Name="GIA" Type="float" Nullable="false" />
     <Property Name="MOTA" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="MALOAI" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MALOAI" Type="int" Nullable="false" />
     <Property Name="HINHANH" Type="image" />
     <Property Name="TTSP" Type="nvarchar" MaxLength="30" />
     <Property Name="ISDEL" Type="int" />
@@ -83,7 +83,7 @@
     <Key>
       <PropertyRef Name="MANV" />
     </Key>
-    <Property Name="MANV" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MANV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="HOTEN" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="LUONG" Type="float" />
     <Property Name="NGSINH" Type="date" />
@@ -92,7 +92,7 @@
     <Property Name="DIACHI" Type="nvarchar" MaxLength="100" />
     <Property Name="DIENTHOAI" Type="varchar" MaxLength="30" />
     <Property Name="CHUCVU" Type="nvarchar" MaxLength="30" />
-    <Property Name="HINHANh" Type="image" />
+    <Property Name="HINHANH" Type="image" />
     <Property Name="TAIKHOAN" Type="varchar" MaxLength="30" />
     <Property Name="MATKHAU" Type="varchar" MaxLength="50" />
     <Property Name="ISDEL" Type="int" />

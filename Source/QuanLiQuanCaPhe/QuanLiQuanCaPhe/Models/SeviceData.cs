@@ -1,755 +1,978 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace QuanLiQuanCaPhe.Models
 {
-    public class SeviceData
-    {
-        public SeviceData()
-        {
-        }
+	public class SeviceData
+	{
+		public SeviceData()
+		{
+		}
+		//them vao/////////////////////////////////////////////////////////////////////////////
+		public static List<LoaiMonAn> getLoaiMonAn()
+		{
+			return new List<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns);
+		}
 
-        public List<MonAn> getListMonAn()
-        {
-            List<MonAn> monAns = new List<MonAn>(DataProvider.ISCreated.DB.MonAns);
-            foreach (var item in monAns)
-            {
-                if (item.ISDEL == 1)
-                {
-                    monAns.Remove(item);
-                }
-            }
-            return monAns;
-        }
-        public List<MonAn> getListMonAnLoai(string MaLoai)
-        {
-            List<MonAn> monAns = new List<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.MALOAI == MaLoai));
-            foreach (var item in monAns)
-            {
-                if (item.ISDEL == 1)
-                {
-                    monAns.Remove(item);
-                }
-            }
-            return monAns;
-        }
-        public List<MonAn> getListMonAnTenMon(string TenMon)
-        {
-            List<MonAn> monAns = new List<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.MALOAI == TenMon));
-            foreach (var item in monAns)
-            {
-                if (item.ISDEL == 1)
-                {
-                    monAns.Remove(item);
-                }
-            }
-            return monAns;
-        }
-        public List<MonAn> getListMonAnMaMon(string MaMon)
-        {
-            List<MonAn> monAns = new List<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.MALOAI == MaMon));
-            foreach (var item in monAns)
-            {
-                if (item.ISDEL == 1)
-                {
-                    monAns.Remove(item);
-                }
-            }
-            return monAns;
-        }
+		/// <summary>
+		/// Tìm kiếm tên món
+		/// </summary>
+		/// <param name="TenMon"></param>
+		/// <returns></returns>
+		public static BindingList<MonAn> getListMonAnTenMon(string searchStr)
+		{
+			BindingList<MonAn> monAns = new BindingList<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.TENMON.Contains(searchStr) && x.ISDEL != 1).ToList());
+			return monAns;
+		}
 
-        public bool tonTaiMonAn(string MaMon)
-        {
-            var MonAn = DataProvider.ISCreated.DB.MonAns.Where(x => x.MAMON == MaMon);
-            int count = 0;
-            foreach (var item in MonAn)
+		public static BindingList<MonAn> getListMonAn()
+		{
+			BindingList<MonAn> monAns = new BindingList<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.ISDEL != 1).ToList());
+			return monAns;
+		}
+		public static List<MonAn> getListMonAnLoai(Nullable<int> MaLoai)
+		{
+			List<MonAn> monAns = new List<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.MALOAI == MaLoai && x.ISDEL != 1));
+			return monAns;
+		}
+		public static string themMonAn(MonAn monAn)
+		{
+			if (!tonTaiLoaiMonAn(monAn.MALOAI))
+			{
+				return "Mã loại không tồn tại";
+			}
+			if (string.IsNullOrEmpty(monAn.TENMON))
+			{
+				return "Tên món ăn rỗng";
+			}
+			if (tonTaiMonAn(monAn.MAMON))
+			{
+				return "Mã món đã tồn tại";
+			}
+			else
+			{
+				monAn.CREADTEDAT = DateTime.Now;
+				DataProvider.ISCreated.DB.MonAns.Add(monAn);
+				DataProvider.ISCreated.DB.SaveChanges();
+				return "Thành công";
+			}
+		}
+		public static bool tonTaiMonAn(int MaMon)
+		{
+			//MessageBox.Show(MaMon);
+			var MonAn = DataProvider.ISCreated.DB.MonAns.Where(x => x.MAMON == MaMon && x.ISDEL != 1);
+			int count = 0;
+			foreach (var item in MonAn)
+			{
+				if (item.ISDEL == 0 || item.ISDEL == null)
+				{
+					count++;
+				}
+			}
+			if (count > 0)
+				return true;
+			else
+				return false;
+		}
+
+		public static bool tonTaiLoaiMonAn(Nullable<int> MaLoai)
+		{
+			var MonAn = DataProvider.ISCreated.DB.LoaiMonAns.Where(x => x.MALOAI == MaLoai && x.ISDEL != 1);
+			int count = 0;
+			foreach (var item in MonAn)
+			{
+				if (item.ISDEL == 0 || item.ISDEL == null)
+				{
+					count++;
+				}
+			}
+			if (count > 0)
+				return true;
+			else
+				return false;
+		}
+		public static string suaMonAn(MonAn monAn)
+		{
+			if (!tonTaiMonAn(monAn.MAMON))
+			{
+				return "Món ăn không tồn tại!!!";
+			}
+			if (!tonTaiLoaiMonAn(monAn.MALOAI))
+			{
+				return "Mã loại không tồn tại";
+			}
+			else
+			{
+				var temp = DataProvider.ISCreated.DB.MonAns.Where(x => x.MAMON == monAn.MAMON && x.ISDEL != 1).SingleOrDefault();
+				if (temp != null)
+				{
+					temp.ISDEL = monAn.ISDEL;
+					temp.TENMON = monAn.TENMON;
+					temp.MAMON = monAn.MAMON;
+					temp.HINHANH = monAn.HINHANH;
+					temp.MALOAI = monAn.MALOAI;
+					temp.GIA = monAn.GIA;
+					temp.MOTA = monAn.MOTA;
+					temp.TTSP = monAn.TTSP;
+					temp.UPDATEDAT = DateTime.Now;
+					DataProvider.ISCreated.DB.SaveChanges();
+					return "Thành công";
+				}
+				return "Thất bại";
+			}
+		}
+		public static string XoaMonAn(MonAn monAn)
+		{
+			if (!tonTaiLoaiMonAn(monAn.MALOAI))
+			{
+				return "Mã món ăn không tồn tại!!!";
+			}
+			if (!tonTaiMonAn(monAn.MAMON))
+			{
+				return "Mã món ăn không tồn tại!!!";
+			}
+			if (string.IsNullOrEmpty(monAn.TENMON))
+			{
+				return "Tên món ăn rỗng!!!";
+			}
+			else
+			{
+				var temp = DataProvider.ISCreated.DB.MonAns.Where(x => x.MAMON == monAn.MAMON && x.ISDEL != 1).SingleOrDefault();
+				temp.ISDEL = 1;
+				DataProvider.ISCreated.DB.SaveChanges();
+				return "Thành công";
+			}
+
+		}
+		/// /////////////////////////////////////////////////////////////////////
+		/// 
+
+
+
+		public List<MonAn> getListMonAnMaMon(int MaMon)
+		{
+			List<MonAn> monAns = new List<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.MALOAI == MaMon && x.ISDEL != 1));
+			return monAns;
+		}
+
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="maLoai"></param>
+		/// <param name="mode"></param>
+		/// <returns></returns>
+		public static BindingList<DoanhThu> DoanhThuTheoLoaiMonHomNay(Nullable<int> maLoai, int mode)
+		{
+			BindingList<DoanhThu> doanhThu = new BindingList<DoanhThu>();
+			BindingList<MonAn> MonAn;
+			if (mode == 1)
+			{
+				MonAn = new BindingList<MonAn>(danhSachMonAnTheoLoaiMonAn(maLoai));
+			}
+			else
+			{
+				MonAn = getListMonAn();
+			}
+			string maDon;
+			DateTime date = DateTime.Now;
+			var ListDonHang = danhSachDonHangHomNay(date);
+			if (ListDonHang == null)
+				return null;
+			foreach (var item in MonAn)
+			{
+				var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
+				{
+					double SL = 0;
+					double TongTien = 0;
+					foreach (var item1 in CTMonAn)
+					{
+						foreach (var item2 in ListDonHang)
+						{
+							if (item1.MADH == item2.MADH)
+							{
+								SL += item1.SOLUONG;
+								TongTien += item1.THANHTIEN;
+							}
+						}
+					}
+					DoanhThu doanh = new DoanhThu(item, SL, TongTien);
+					doanhThu.Add(doanh);
+				}
+			}
+			return doanhThu;
+		}
+		public static double tongDoanhThu(BindingList<DoanhThu> list)
+		{
+			double tong = 0;
+			foreach (var x in list)
+			{
+				tong += x.TongTienThu;
+			}
+			return tong;
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="maLoai"></param>
+		/// <param name="mode"></param>
+		/// <returns></returns>
+		// don hang
+		public static BindingList<DonHang> danhSachDonHangHomNay(DateTime date)
+		{
+			BindingList<DonHang> donHangs = new BindingList<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.Day == date.Day && x.CREADTEDAT.Value.Month == date.Month && x.CREADTEDAT.Value.Year == date.Year && x.ISDEL != 1).ToArray());
+			int count = 0;
+			foreach (var item in donHangs)
+			{
+				if (item.ISDEL == 0)
+				{
+					count++;
+				}
+			}
+			if (count > 0)
+				return donHangs;
+			else
+				return null;
+		}
+
+
+		//public BindingList<DoanhThu> DoanhThuTheoLoaiMonTuanNay(string maLoai, int mode)
+		//{
+		//    BindingList<DoanhThu> doanhThu = new BindingList<DoanhThu>();
+		//    BindingList<MonAn> MonAn;
+		//    if (mode == 1)
+		//    {
+		//        MonAn = new BindingList<MonAn>(danhSachMonAnTheoLoaiMonAn(maLoai));
+		//    }
+		//    else
+		//    {
+		//        MonAn = getListMonAn();
+		//    }
+		//    string maDon;
+		//    DateTime date = DateTime.Now;
+		//    var ListDonHang = danhSachDonHangTuanNay();
+		//    foreach (var item in MonAn)
+		//    {
+		//        var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
+		//        {
+		//            double SL = 0;
+		//            double TongTien = 0;
+		//            foreach (var item1 in CTMonAn)
+		//            {
+		//                foreach (var item2 in ListDonHang)
+		//                {
+		//                    if (item1.MADH == item2.MADH)
+		//                    {
+		//                        SL += item1.SOLUONG;
+		//                        TongTien += item1.THANHTIEN;
+		//                    }
+		//                }
+		//            }
+		//            DoanhThu doanh = new DoanhThu(item, SL, TongTien);
+		//            doanhThu.Add(doanh);
+		//        }
+		//    }
+		//    return doanhThu;
+		//}
+
+		/// <summary>
+		/// /////////////////////////////THÁNG 
+		/// </summary>
+		/// <param name="maLoai"></param>
+		/// <param name="mode"></param>
+		/// <returns></returns>
+		public static BindingList<DoanhThu> DoanhThuTheoLoaiMonThangNay(Nullable<int> maLoai, int mode)
+		{
+			BindingList<DoanhThu> doanhThu = new BindingList<DoanhThu>();
+			BindingList<MonAn> MonAn;
+			if (mode == 1)
+			{
+				MonAn = new BindingList<MonAn>(danhSachMonAnTheoLoaiMonAn(maLoai));
+			}
+			else
+			{
+				MonAn = getListMonAn();
+			}
+			string maDon;
+			DateTime date = DateTime.Now;
+			var ListDonHang = danhSachDonHangThangNay(date);
+			if (ListDonHang == null)
+				return null;
+			foreach (var item in MonAn)
+			{
+				var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
+				{
+					double SL = 0;
+					double TongTien = 0;
+					foreach (var item1 in CTMonAn)
+					{
+						foreach (var item2 in ListDonHang)
+						{
+							if (item1.MADH == item2.MADH)
+							{
+								SL += item1.SOLUONG;
+								TongTien += item1.THANHTIEN;
+							}
+						}
+					}
+					DoanhThu doanh = new DoanhThu(item, SL, TongTien);
+					doanhThu.Add(doanh);
+				}
+			}
+			return doanhThu;
+		}
+
+		/// <summary>
+		/// /////////////////////////QUÍIIII
+		/// </summary>
+		/// <param name="maLoai"></param>
+		/// <param name="mode"></param>
+		/// <returns></returns>
+		public static BindingList<DoanhThu> DoanhThuTheoLoaiMonQuyNay(Nullable<int> maLoai, int mode)
+		{
+			BindingList<DoanhThu> doanhThu = new BindingList<DoanhThu>();
+			BindingList<MonAn> MonAn;
+			if (mode == 1)
+			{
+				MonAn = new BindingList<MonAn>(danhSachMonAnTheoLoaiMonAn(maLoai));
+			}
+			else
+			{
+				MonAn = getListMonAn();
+			}
+			string maDon;
+			DateTime date = DateTime.Now;
+			var ListDonHang = danhSachDonHangQuyNay(GetQuarter(date));
+			if (ListDonHang == null)
+				return null;
+			foreach (var item in MonAn)
+			{
+				var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
+				{
+					double SL = 0;
+					double TongTien = 0;
+					foreach (var item1 in CTMonAn)
+					{
+						foreach (var item2 in ListDonHang)
+						{
+							if (item1.MADH == item2.MADH)
+							{
+								SL += item1.SOLUONG;
+								TongTien += item1.THANHTIEN;
+							}
+						}
+					}
+					DoanhThu doanh = new DoanhThu(item, SL, TongTien);
+					doanhThu.Add(doanh);
+				}
+			}
+			return doanhThu;
+		}
+
+		/// <summary>
+		/// //////////////////////////////NĂM NÀYYYYYYYYYYYYY
+		/// </summary>
+		/// <param name="maLoai"></param>
+		/// <param name="mode"></param>
+		/// <returns></returns>
+		public static BindingList<DoanhThu> DoanhThuTheoLoaiMonNamNay(Nullable<int> maLoai, int mode)
+		{
+			BindingList<DoanhThu> doanhThu = new BindingList<DoanhThu>();
+			BindingList<MonAn> MonAn;
+			if (mode == 1)
+			{
+				MonAn = new BindingList<MonAn>(danhSachMonAnTheoLoaiMonAn(maLoai));
+			}
+			else
+			{
+				MonAn = getListMonAn();
+			}
+			string maDon;
+			DateTime date = DateTime.Now;
+			var ListDonHang = danhSachDonHangNamNay(date);
+			if (ListDonHang == null)
+				return null;
+			foreach (var item in MonAn)
+			{
+				var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
+				{
+					double SL = 0;
+					double TongTien = 0;
+					foreach (var item1 in CTMonAn)
+					{
+						foreach (var item2 in ListDonHang)
+						{
+							if (item1.MADH == item2.MADH)
+							{
+								SL += item1.SOLUONG;
+								TongTien += item1.THANHTIEN;
+							}
+						}
+					}
+					DoanhThu doanh = new DoanhThu(item, SL, TongTien);
+					doanhThu.Add(doanh);
+				}
+			}
+			return doanhThu;
+		}
+		public static BindingList<MonAn> danhSachMonAnTheoLoaiMonAn(Nullable<int> maLoai)
+		{
+
+			if (!tonTaiLoaiMonAn(maLoai))
+			{
+				return null;
+			}
+			return new BindingList<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.MALOAI == maLoai).ToList());
+		}
+		public static List<DonHang> danhSachDonHangTuanNay()
+		{
+			List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs);
+			foreach (var item in donHangs)
+			{
+				if (GetIso8601WeekOfYear(item.CREADTEDAT.Value) != GetIso8601WeekOfYear(DateTime.Now))
+				{
+					donHangs.Remove(item);
+				}
+			}
+			int count = 0;
+			foreach (var item in donHangs)
+			{
+				if (item.ISDEL == 0)
+				{
+					count++;
+				}
+			}
+			if (count > 0)
+				return donHangs;
+			else
+				return null;
+		}
+
+		public static int GetIso8601WeekOfYear(DateTime time)
+		{
+			// Seriously cheat.  If its Monday, Tuesday or Wednesday, then it'll 
+			// be the same week# as whatever Thursday, Friday or Saturday are,
+			// and we always get those right
+			DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(time);
+			if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
+			{
+				time = time.AddDays(3);
+			}
+
+			// Return the week of our adjusted day
+			return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+		}
+
+		public static List<DonHang> danhSachDonHangThangNay(DateTime date)
+		{
+			List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.Month == date.Month));
+			int count = 0;
+			foreach (var item in donHangs)
+			{
+				if (item.ISDEL == 0)
+				{
+					count++;
+				}
+			}
+			if (count > 0)
+				return donHangs;
+			else
+				return null;
+		}
+
+		public static List<DonHang> danhSachDonHangQuyNay(int quy)
+		{
+			List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs);
+			foreach (var item in donHangs)
+			{
+				if (GetQuarter(item.CREADTEDAT.Value) != GetQuarter(DateTime.Now))
+				{
+					donHangs.Remove(item);
+				}
+			}
+			int count = 0;
+			foreach (var item in donHangs)
+			{
+				if (item.ISDEL == 0)
+				{
+					count++;
+				}
+			}
+			if (count > 0)
+				return donHangs;
+			else
+				return null;
+		}
+		public static int GetQuarter(DateTime date)
+		{
+			if (date.Month >= 4 && date.Month <= 6)
+				return 1;
+			else if (date.Month >= 7 && date.Month <= 9)
+				return 2;
+			else if (date.Month >= 10 && date.Month <= 12)
+				return 3;
+			else
+				return 4;
+		}
+		public static List<DonHang> danhSachDonHangNamNay(DateTime date)
+		{
+			List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.Year == date.Year));
+			int count = 0;
+			foreach (var item in donHangs)
+			{
+				if (item.ISDEL == 0)
+				{
+					count++;
+				}
+			}
+			if (count > 0)
+				return donHangs;
+			else
+				return null;
+		}
+		public List<DonHang> TatCaDonHang()
+		{
+			return new List<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.ISDEL != 1));
+		}
+
+		///////////////////////////////////NHAN VIEN
+		/// <summary>
+		/// ////////////////////////////////////////////////////////////////////////
+		/// </summary>
+		/// <returns></returns>
+		public List<NhanVien> danhsachNhanVien()
+		{
+			List<NhanVien> nhanViens = new List<NhanVien>(DataProvider.ISCreated.DB.NhanViens);
+			foreach (var item in nhanViens)
+			{
+				if (item.ISDEL == 1)
+				{
+					nhanViens.Remove(item);
+				}
+			}
+			return nhanViens;
+		}
+		public bool tontaiNhanVien(int maNV)
+		{
+			var MonAn = DataProvider.ISCreated.DB.NhanViens.Where(x => x.MANV == maNV);
+			int count = 0;
+			foreach (var item in MonAn)
+			{
+				if (item.ISDEL == 0)
+				{
+					count++;
+				}
+			}
+			if (count > 0)
+				return true;
+			else
+				return false;
+		}
+		public bool themNhanVien(NhanVien nhanvien)
+		{
+
+			if (!tontaiNhanVien(nhanvien.MANV))
+			{
+				return false;
+			}
+			else
+			{
+				nhanvien.CREADTEDAT = DateTime.Now;
+				DataProvider.ISCreated.DB.NhanViens.Add(nhanvien);
+				DataProvider.ISCreated.DB.SaveChanges();
+				return true;
+			}
+		}
+		public bool suaNhanVien(NhanVien nhanVien)
+		{
+			if (!tontaiNhanVien(nhanVien.MANV))
+			{
+				return false;
+			}
+			else
+			{
+				var temp = DataProvider.ISCreated.DB.NhanViens.Where(x => x.MANV == nhanVien.MANV).SingleOrDefault();
+				if (temp.ISDEL == 1)
+				{
+					return false;
+				}
+				else
+				{
+					temp.HOTEN = nhanVien.HOTEN;
+					temp.DIACHI = nhanVien.DIACHI;
+					temp.LUONG = nhanVien.LUONG;
+					temp.NGSINH = nhanVien.NGSINH;
+					temp.PHAI = nhanVien.PHAI;
+					temp.HINHANH = nhanVien.HINHANH;
+					temp.CHUCVU = nhanVien.CHUCVU;
+					temp.CMND = nhanVien.CMND;
+					temp.DIENTHOAI = nhanVien.DIENTHOAI;
+					temp.UPDATEDAT = DateTime.Now;
+					DataProvider.ISCreated.DB.SaveChanges();
+					return true;
+				}
+			}
+		}
+		public bool xoaNhanVien(int maNV)
+		{
+			if (!tontaiNhanVien(maNV))
+			{
+				return false;
+			}
+			else
+			{
+
+				var temp = DataProvider.ISCreated.DB.NhanViens.Where(x => x.MANV == maNV).SingleOrDefault();
+				temp.ISDEL = 1;
+				DataProvider.ISCreated.DB.SaveChanges();
+				return true;
+			}
+		}
+
+		public List<ChiTietDonhang> danhSachChiTietDonhang(int maDH)
+		{
+			List<ChiTietDonhang> chiTietDonhangs = new List<ChiTietDonhang>(DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MADH == maDH));
+			int count = 0;
+			foreach (var item in chiTietDonhangs)
+			{
+				if (item.ISDEL == 0)
+				{
+					count++;
+				}
+			}
+			if (count > 0)
+				return chiTietDonhangs;
+			else
+				return null;
+		}
+		public bool themDonHang(DonHang donHang)
+		{
+			donHang.CREADTEDAT = DateTime.Now;
+			DataProvider.ISCreated.DB.DonHangs.Add(donHang);
+			DataProvider.ISCreated.DB.SaveChanges();
+			return true;
+		}
+		public bool themChiTietDonHang(ChiTietDonhang CTDonHang)
+		{
+			if (!tonTaiDonHang(CTDonHang.MADH))
+			{
+				return false;
+			}
+			else
+			{
+				CTDonHang.CREADTEDAT = DateTime.Now;
+				DataProvider.ISCreated.DB.ChiTietDonhangs.Add(CTDonHang);
+				DataProvider.ISCreated.DB.SaveChanges();
+				return true;
+			}
+		}
+		public bool tonTaiDonHang(int MaDH)
+		{
+			var MonAn = DataProvider.ISCreated.DB.DonHangs.Where(x => x.MADH == MaDH);
+			int count = 0;
+			foreach (var item in MonAn)
+			{
+				if (item.ISDEL == 0)
+				{
+					count++;
+				}
+			}
+			if (count > 0)
+				return true;
+			else
+				return false;
+		}
+		public bool xoaDonHang(int maDH)
+		{
+			if (!tonTaiDonHang(maDH))
+				return false;
+			else
+			{
+				// xoa don hang
+				var temp = DataProvider.ISCreated.DB.DonHangs.Where(x => x.MADH == maDH).SingleOrDefault();
+				temp.ISDEL = 1;
+				DataProvider.ISCreated.DB.SaveChanges();
+				// hoa chi tiet cua don hang do
+				var tempCT = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MADH == maDH);
+				foreach (var item in tempCT)
+				{
+					item.ISDEL = 1;
+				}
+				DataProvider.ISCreated.DB.SaveChanges();
+				return true;
+			}
+		}
+		public List<LoaiMonAn> danhSachLoaiMonAn()
+		{
+			List<LoaiMonAn> loaiMonAns = new List<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns.Where(x=>x.ISDEL!=1));
+			return loaiMonAns;
+		}
+
+		public List<LoaiMonAn> danhSachLoaiMonAnTheoTen(string tenLoaiMonAn)
+		{
+			List<LoaiMonAn> loaiMonAns = new List<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns.Where(x => x.TENLOAI == tenLoaiMonAn));
+			foreach (var item in loaiMonAns)
+			{
+				if (item.ISDEL == 1)
+				{
+					loaiMonAns.Remove(item);
+				}
+			}
+			return loaiMonAns;
+		}
+		public bool themLoaiMonAn(LoaiMonAn loaiMon)
+		{
+			if (tonTaiLoaiMonAn(loaiMon.MALOAI))
+			{
+				return false;
+			}
+            if(DataProvider.ISCreated.DB.LoaiMonAns.Where(x=>x.TENLOAI==loaiMon.TENLOAI).Count()>0)
             {
-                if (item.ISDEL != 1)
-                {
-                    count++;
-                }
-            }
-            if (count > 0)
-                return true;
-            else
                 return false;
-        }
+            }
+			else
+			{
+				loaiMon.CREADTEDAT = DateTime.Now;
+				DataProvider.ISCreated.DB.LoaiMonAns.Add(loaiMon);
+				DataProvider.ISCreated.DB.SaveChanges();
+				return true;
+			}
+		}
+		public bool xoaLoaiMonAn(Nullable<int> maLoai)
+		{
+			if (!tonTaiLoaiMonAn(maLoai))
+			{
+				return false;
+			}
+			else
+			{
+				// xoa don hang
+				var temp = DataProvider.ISCreated.DB.LoaiMonAns.Where(x => x.MALOAI == maLoai).SingleOrDefault();
+				temp.ISDEL = 1;
+				DataProvider.ISCreated.DB.SaveChanges();
+				// hoa chi tiet cua don hang do
+				var tempCT = DataProvider.ISCreated.DB.MonAns.Where(x => x.MALOAI == maLoai);
+				foreach (var item in tempCT)
+				{
+					item.ISDEL = 1;
+				}
+				DataProvider.ISCreated.DB.SaveChanges();
+				return true;
+			}
+		}
+		public bool suaLoaiMonAn(LoaiMonAn loaiMon)
+		{
+			if (!tonTaiLoaiMonAn(loaiMon.MALOAI))
+			{
+				return false;
+			}
+			else
+			{
+				var temp = DataProvider.ISCreated.DB.LoaiMonAns.Where(x => x.MALOAI == loaiMon.MALOAI).SingleOrDefault();
+				temp.MALOAI = loaiMon.MALOAI;
+				temp.TENLOAI = loaiMon.TENLOAI;
+				temp.UPDATEDAT = DateTime.Now;
+				DataProvider.ISCreated.DB.SaveChanges();
+				return true;
+			}
+		}
+		public static BitmapImage LoadImage(byte[] imageData)
+		{
+			if (imageData == null || imageData.Length == 0) return null;
+			var image = new BitmapImage();
+			using (var mem = new MemoryStream(imageData))
+			{
+				mem.Position = 0;
+				image.BeginInit();
+				image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+				image.CacheOption = BitmapCacheOption.OnLoad;
+				image.UriSource = null;
+				image.StreamSource = mem;
+				image.EndInit();
+			}
+			image.Freeze();
+			return image;
+		}
+		public static byte[] ImageToByte2(BitmapImage img)
+		{
+			JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+			encoder.Frames.Add(BitmapFrame.Create(img));
+			using (MemoryStream ms = new MemoryStream())
+			{
+				encoder.Save(ms);
+				return ms.ToArray();
+			}
+		}
 
-        public bool tonTaiLoaiMonAn(string MaLoai)
-        {
-            var MonAn = DataProvider.ISCreated.DB.LoaiMonAns.Where(x => x.MALOAI == MaLoai);
-            int count = 0;
-            foreach (var item in MonAn)
-            {
-                if (item.ISDEL != 1)
-                {
-                    count++;
-                }
-            }
-            if (count > 0)
-                return true;
-            else
-                return false;
-        }
+		public static BindingList<DonHang> TimKiemDonHang(string value)
+		{
+			BindingList<DonHang> donHangs = new BindingList<DonHang>();
+			BindingList<DonHang> temp = new BindingList<DonHang>(DataProvider.ISCreated.DB.DonHangs.ToArray());
+			foreach (var item in temp)
+			{
+				if (item.CREADTEDAT.Value.ToString("dd/mm/yyyy").ToLower().Contains(value.ToLower()))
+				{
+					if (!donHangs.Contains(item))
+					{
+						donHangs.Add(item);
+					}
 
-        public string themMonAn(MonAn monAn)
-        {
-            if (!tonTaiLoaiMonAn(monAn.MALOAI))
-            {
-                return "Mã món ăn không tồn tại";
-            }
-            if (monAn.TENMON.Equals(""))
-            {
-                return "Tên món ăn rỗng";
-            }
-            else
-            {
-                monAn.CREADTEDAT = DateTime.Now;
-                DataProvider.ISCreated.DB.MonAns.Add(monAn);
-                DataProvider.ISCreated.DB.SaveChanges();
-                return "Thành công";
-            }
-        }
-        public string XoaMonAn(MonAn monAn)
-        {
-            if (!tonTaiLoaiMonAn(monAn.MALOAI))
-            {
-                return "Mã món ăn không tồn tại";
-            }
-            if (monAn.TENMON.Equals(""))
-            {
-                return "Tên món ăn rỗng";
-            }
-            else
-            {
-                var temp = DataProvider.ISCreated.DB.MonAns.Where(x => x.MAMON == monAn.MAMON).SingleOrDefault();
+				}
+				if (TimKiemNhanVien(value)!=null)
+				{
+					foreach (var item1 in TimKiemNhanVien(value))
+					{
+						if(item1.MANV==item.MANV)
+						{
+							if (!donHangs.Contains(item))
+							{
+								donHangs.Add(item);
+							}
+						}
+					}
+				}
+			}
+			return donHangs;
+		}
+		public static BindingList<NhanVien> TimKiemNhanVien(string value)
+		{
+			BindingList<NhanVien> nhanViens = new BindingList<NhanVien>();
+			BindingList<NhanVien> temp = new BindingList<NhanVien>(DataProvider.ISCreated.DB.NhanViens.ToArray());
+			foreach (var item in temp)
+			{
+				if (item.HOTEN.ToLower().Contains(value.ToLower()))
+				{
+					if (!nhanViens.Contains(item))
+					{
+						nhanViens.Add(item);
+					}
+				}
+				else if (item.DIACHI.ToLower().Contains(value.ToLower()))
+				{
+					if (!nhanViens.Contains(item))
+					{
+						nhanViens.Add(item);
+					}
 
-                temp.ISDEL = 1;
-                DataProvider.ISCreated.DB.SaveChanges();
-                return "Thành công";
-            }
+				}
+				else if (item.CMND.ToLower().Contains(value.ToLower()))
+				{
+					if (!nhanViens.Contains(item))
+					{
+						nhanViens.Add(item);
+					}
 
-        }
+				}
+				else if (item.NGSINH.Value.ToString("dd/mm/yyyy").ToLower().Contains(value.ToLower()))
+				{
+					if (!nhanViens.Contains(item))
+					{
+						nhanViens.Add(item);
+					}
 
-        public string suaMonAn(MonAn monAn)
-        {
-            if (!tonTaiMonAn(monAn.MAMON))
-            {
-                return "Món ăn không tồn tại!!!";
-            }
-            else
-            {
-                var temp = DataProvider.ISCreated.DB.MonAns.Where(x => x.MAMON == monAn.MAMON).SingleOrDefault();
-                temp.ISDEL = monAn.ISDEL;
-                temp.TENMON = monAn.TENMON;
-                temp.MAMON = monAn.MAMON;
-                temp.HINHANH = monAn.HINHANH;
-                temp.MALOAI = monAn.MALOAI;
-                temp.GIA = monAn.GIA;
-                temp.MOTA = monAn.MOTA;
-                temp.TTSP = monAn.TTSP;
-                temp.UPDATEDAT = DateTime.Now;
-                DataProvider.ISCreated.DB.SaveChanges();
-                return "Thành công";
-            }
-        }
+				}
+				else if (item.DIENTHOAI.ToLower().Contains(value.ToLower()))
+				{
+					if (!nhanViens.Contains(item))
+					{
+						nhanViens.Add(item);
+					}
+				}
+				else if (item.MANV.ToString().ToLower().Contains(value.ToLower()))
+				{
+					if (!nhanViens.Contains(item))
+					{
+						nhanViens.Add(item);
+					}
 
-        //public List<DoanhThu> DoanhThuTheoLoaiMonHomNay(string maLoai, string mode)
-        //{
-        //    List<DoanhThu> doanhThu = new List<DoanhThu>();
-        //    List<MonAn> MonAn;
-        //    if (mode.Equals("Sản phẩm"))
-        //    {
-        //        MonAn = danhSachMonAnTheoLoaiMonAn(maLoai);
-        //    }
-        //    else
-        //    {
-        //        MonAn = getListMonAn();
-        //    }
-        //    string maDon;
-        //    DateTime date = DateTime.Now;
-        //    var ListDonHang = danhSachDonHangHomNay(date);
-        //    foreach (var item in MonAn)
-        //    {
-        //        var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
-        //        {
-        //            double SL = 0;
-        //            double TongTien = 0;
-        //            foreach (var item1 in CTMonAn)
-        //            {
-        //                foreach (var item2 in ListDonHang)
-        //                {
-        //                    if (item1.MADH == item2.MADH)
-        //                    {
-        //                        SL += item1.SOLUONG;
-        //                        TongTien += item1.THANHTIEN;
-        //                    }
-        //                }
-        //            }
-        //            DoanhThu doanh = new DoanhThu(item, SL, TongTien);
-        //            doanhThu.Add(doanh);
-        //        }
-        //    }
-        //    return doanhThu;
-        //}
-        //public List<DoanhThu> DoanhThuTheoLoaiMonTuanNay(string maLoai, string mode)
-        //{
-        //    List<DoanhThu> doanhThu = new List<DoanhThu>();
-        //    List<MonAn> MonAn;
-        //    if (mode.Equals("Sản phẩm"))
-        //    {
-        //        MonAn = danhSachMonAnTheoLoaiMonAn(maLoai);
-        //    }
-        //    else
-        //    {
-        //        MonAn = getListMonAn();
-        //    }
-        //    string maDon;
-        //    DateTime date = DateTime.Now;
-        //    var ListDonHang = danhSachDonHangTuanNay();
-        //    foreach (var item in MonAn)
-        //    {
-        //        var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
-        //        {
-        //            double SL = 0;
-        //            double TongTien = 0;
-        //            foreach (var item1 in CTMonAn)
-        //            {
-        //                foreach (var item2 in ListDonHang)
-        //                {
-        //                    if (item1.MADH == item2.MADH)
-        //                    {
-        //                        SL += item1.SOLUONG;
-        //                        TongTien += item1.THANHTIEN;
-        //                    }
-        //                }
-        //            }
-        //            DoanhThu doanh = new DoanhThu(item, SL, TongTien);
-        //            doanhThu.Add(doanh);
-        //        }
-        //    }
-        //    return doanhThu;
-        //}
-        //public List<DoanhThu> DoanhThuTheoLoaiMonThangNay(string maLoai, string mode)
-        //{
-        //    List<DoanhThu> doanhThu = new List<DoanhThu>();
-        //    List<MonAn> MonAn;
-        //    if (mode.Equals("Sản phẩm"))
-        //    {
-        //        MonAn = danhSachMonAnTheoLoaiMonAn(maLoai);
-        //    }
-        //    else
-        //    {
-        //        MonAn = getListMonAn();
-        //    }
-        //    string maDon;
-        //    DateTime date = DateTime.Now;
-        //    var ListDonHang = danhSachDonHangThangNay(date);
-        //    foreach (var item in MonAn)
-        //    {
-        //        var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
-        //        {
-        //            double SL = 0;
-        //            double TongTien = 0;
-        //            foreach (var item1 in CTMonAn)
-        //            {
-        //                foreach (var item2 in ListDonHang)
-        //                {
-        //                    if (item1.MADH == item2.MADH)
-        //                    {
-        //                        SL += item1.SOLUONG;
-        //                        TongTien += item1.THANHTIEN;
-        //                    }
-        //                }
-        //            }
-        //            DoanhThu doanh = new DoanhThu(item, SL, TongTien);
-        //            doanhThu.Add(doanh);
-        //        }
-        //    }
-        //    return doanhThu;
-        //}
-        //public List<DoanhThu> DoanhThuTheoLoaiMonQuyNay(string maLoai, string mode)
-        //{
-        //    List<DoanhThu> doanhThu = new List<DoanhThu>();
-        //    List<MonAn> MonAn;
-        //    if (mode.Equals("Sản phẩm"))
-        //    {
-        //        MonAn = danhSachMonAnTheoLoaiMonAn(maLoai);
-        //    }
-        //    else
-        //    {
-        //        MonAn = getListMonAn();
-        //    }
-        //    string maDon;
-        //    DateTime date = DateTime.Now;
+				}
+			}
+			if(nhanViens!=null)
+				return nhanViens;
+			return null;
+		}
+		public static BindingList<LoaiMonAn> TimKiemLoaiMonAn(string value)
+		{
+			BindingList<LoaiMonAn> loaiMonAns = new BindingList<LoaiMonAn>();
+			BindingList<LoaiMonAn> temp = new BindingList<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns.ToArray());
 
-        //    var ListDonHang = danhSachDonHangQuyNay(GetQuarter(date));
-        //    foreach (var item in MonAn)
-        //    {
-        //        var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
-        //        {
-        //            double SL = 0;
-        //            double TongTien = 0;
-        //            foreach (var item1 in CTMonAn)
-        //            {
-        //                foreach (var item2 in ListDonHang)
-        //                {
-        //                    if (item1.MADH == item2.MADH)
-        //                    {
-        //                        SL += item1.SOLUONG;
-        //                        TongTien += item1.THANHTIEN;
-        //                    }
-        //                }
-        //            }
-        //            DoanhThu doanh = new DoanhThu(item, SL, TongTien);
-        //            doanhThu.Add(doanh);
-        //        }
-        //    }
-        //    return doanhThu;
-        //}
-        //public List<DoanhThu> DoanhThuTheoLoaiMonNamNay(string maLoai, string mode)
-        //{
-        //    List<DoanhThu> doanhThu = new List<DoanhThu>();
-        //    List<MonAn> MonAn;
-        //    if (mode.Equals("Sản phẩm"))
-        //    {
-        //        MonAn = danhSachMonAnTheoLoaiMonAn(maLoai);
-        //    }
-        //    else
-        //    {
-        //        MonAn = getListMonAn();
-        //    }
-        //    string maDon;
-        //    DateTime date = DateTime.Now;
-        //    var ListDonHang = danhSachDonHangNamNay(date);
-        //    foreach (var item in MonAn)
-        //    {
-        //        var CTMonAn = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MAMON == item.MAMON);
-        //        {
-        //            double SL = 0;
-        //            double TongTien = 0;
-        //            foreach (var item1 in CTMonAn)
-        //            {
-        //                foreach (var item2 in ListDonHang)
-        //                {
-        //                    if (item1.MADH == item2.MADH)
-        //                    {
-        //                        SL += item1.SOLUONG;
-        //                        TongTien += item1.THANHTIEN;
-        //                    }
-        //                }
-        //            }
-        //            DoanhThu doanh = new DoanhThu(item, SL, TongTien);
-        //            doanhThu.Add(doanh);
-        //        }
-        //    }
-        //    return doanhThu;
-        //}
-        public List<MonAn> danhSachMonAnTheoLoaiMonAn(string maLoai)
-        {
+			foreach (var item in temp)
+			{
+				if (item.MALOAI.ToString().ToLower().Contains(value.ToLower()))
+				{
+					if(!loaiMonAns.Contains(item))
+					{
+						loaiMonAns.Add(item);
+					}
+				}
+				if (item.TENLOAI.ToLower().Contains(value.ToLower()))
+				{
+					if (!loaiMonAns.Contains(item))
+					{
+						loaiMonAns.Add(item);
+					}
+				}
+			}
+			if (loaiMonAns.Count > 0)
+				return loaiMonAns;
+			return null;
+		}
+		public static BindingList<MonAn> TimKiemMonAn(string value)
+		{
+			BindingList<MonAn> monAns = new BindingList<MonAn>();
+			BindingList<MonAn> temp = new BindingList<MonAn>(DataProvider.ISCreated.DB.MonAns.ToArray());
 
-            if (!tonTaiLoaiMonAn(maLoai))
-            {
-                return null;
-            }
-            return new List<MonAn>(DataProvider.ISCreated.DB.MonAns.Where(x => x.MALOAI == maLoai));
-        }
+			foreach (var item in temp)
+			{
+				if (item.TENMON.ToLower().Contains(value.ToLower()))
+				{
+					if (!monAns.Contains(item))
+					{
+						monAns.Add(item);
+					}
+				}
+				else if (item.GIA.ToString().ToLower().Contains(value.ToLower()))
+				{
+					if (!monAns.Contains(item))
+					{
+						monAns.Add(item);
+					}
+				}
+				else if(TimKiemLoaiMonAn(value)!=null)
+				{
+					foreach (var item1 in TimKiemLoaiMonAn(value))
+					{
+						if(item.MALOAI==item1.MALOAI)
+						{
+							if (!monAns.Contains(item))
+							{
+								monAns.Add(item);
+							}
+						}
+					}
+				}
+			}
+			if (monAns.Count > 0)
+				return monAns;
+			return null;
+		}
 
-
-
-
-        // nhan vien
-        public List<NhanVien> danhsachNhanVien()
-        {
-            List<NhanVien> nhanViens = new List<NhanVien>(DataProvider.ISCreated.DB.NhanViens);
-            List<NhanVien> nhanVienBiXoa = new List<NhanVien>();
-
-            foreach (var item in nhanViens)
-            {
-                if (item.ISDEL == 1)
-                    nhanVienBiXoa.Add(item);
-            }
-
-            foreach (var item in nhanVienBiXoa)
-                nhanViens.Remove(item);
-
-            return nhanViens;
-        }
-        public List<NhanVien> timKiemNhanVien(string value)
-        {
-            List<NhanVien> nhanViens = new List<NhanVien>();
-            return nhanViens;
-        }
-        public bool tontaiNhanVien(string maNV)
-        {
-            var nhanvien = DataProvider.ISCreated.DB.NhanViens.Where(x => x.MANV == maNV);
-            int count = 0;
-            foreach (var item in nhanvien)
-                count++;
-            if (count > 0)
-                return true;
-            else
-                return false;
-        }
-        public List<DonHang> TatCaDonHang()
-        {
-            return new List<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.ISDEL != 1));
-        }
-        public bool themNhanVien(NhanVien nhanvien)
-        {
-           
-            if (tontaiNhanVien(nhanvien.MANV))
-            {
-                var nhanVien = DataProvider.ISCreated.DB.NhanViens.Where(x => x.MANV == nhanvien.MANV);
-                int count = 0;
-                foreach (var item in nhanVien)
-                {
-                    if (item.ISDEL != 1)
-                    {
-                        count++;
-                    }
-                }
-                if (count > 0)
-                    return false;
-                else
-                {
-                    suaNhanVien(nhanvien);
-                    return true;
-                }
-            }
-            else
-            {
-                nhanvien.CREADTEDAT = DateTime.Now;
-                DataProvider.ISCreated.DB.NhanViens.Add(nhanvien);
-                DataProvider.ISCreated.DB.SaveChanges();
-                return true;
-            }
-        }
-        public bool suaNhanVien(NhanVien nhanVien)
-        {
-            if (!tontaiNhanVien(nhanVien.MANV))
-            {
-                return false;
-            }
-            else
-            {
-                var temp = DataProvider.ISCreated.DB.NhanViens.Where(x => x.MANV == nhanVien.MANV).SingleOrDefault();
-                temp.HOTEN = nhanVien.HOTEN;
-                temp.LUONG = nhanVien.LUONG;
-                temp.NGSINH = nhanVien.NGSINH;
-                temp.PHAI = nhanVien.PHAI;
-                temp.CHUCVU = nhanVien.CHUCVU;
-                temp.CMND = nhanVien.CMND;
-                temp.DIENTHOAI = nhanVien.DIENTHOAI;
-                temp.ISDEL = nhanVien.ISDEL;
-                DataProvider.ISCreated.DB.SaveChanges();
-                return true;
-            }
-        }
-        public bool xoaNhanVien(string maNV)
-        {
-            if (!tontaiNhanVien(maNV))
-            {
-                return false;
-            }
-            else
-            {
-
-                var temp = DataProvider.ISCreated.DB.NhanViens.Where(x => x.MANV == maNV).SingleOrDefault();
-                temp.ISDEL = 1;
-                DataProvider.ISCreated.DB.SaveChanges();
-                return true;
-            }
-        }
-
-        // don hang
-        public List<DonHang> danhSachDonHangHomNay(DateTime date)
-        {
-            List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.ToString("dd-MM-yyyy").Equals(date.ToString("dd-MM-yyyy"))));
-            
-            int count = 0;
-            foreach (var item in donHangs)
-            {
-                if (item.ISDEL != 1)
-                {
-                    count++;
-                }
-            }
-            if (count > 0)
-                return donHangs;
-            else
-                return null;
-        }
-        public List<DonHang> danhSachDonHangTuanNay()
-        {
-            List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs);
-            foreach (var item in donHangs)
-            {
-                if (GetIso8601WeekOfYear(item.CREADTEDAT.Value) != GetIso8601WeekOfYear(DateTime.Now))
-                {
-                    donHangs.Remove(item);
-                }
-            }
-            int count = 0;
-            foreach (var item in donHangs)
-            {
-                if (item.ISDEL != 1)
-                {
-                    count++;
-                }
-            }
-            if (count > 0)
-                return donHangs;
-            else
-                return null;
-        }
-
-        public static int GetIso8601WeekOfYear(DateTime time)
-        {
-            // Seriously cheat.  If its Monday, Tuesday or Wednesday, then it'll 
-            // be the same week# as whatever Thursday, Friday or Saturday are,
-            // and we always get those right
-            DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(time);
-            if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
-            {
-                time = time.AddDays(3);
-            }
-
-            // Return the week of our adjusted day
-            return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
-        }
-
-        public List<DonHang> danhSachDonHangThangNay(DateTime date)
-        {
-            List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.Month == date.Month));
-            int count = 0;
-            foreach (var item in donHangs)
-            {
-                if (item.ISDEL != 1)
-                {
-                    count++;
-                }
-            }
-            if (count > 0)
-                return donHangs;
-            else
-                return null;
-        }
-
-        public List<DonHang> danhSachDonHangQuyNay(int quy)
-        {
-            List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs);
-            foreach (var item in donHangs)
-            {
-                if (GetQuarter(item.CREADTEDAT.Value) != GetQuarter(DateTime.Now))
-                {
-                    donHangs.Remove(item);
-                }
-            }
-            int count = 0;
-            foreach (var item in donHangs)
-            {
-                if (item.ISDEL != 1)
-                {
-                    count++;
-                }
-            }
-            if (count > 0)
-                return donHangs;
-            else
-                return null;
-        }
-        public int GetQuarter(DateTime date)
-        {
-            if (date.Month >= 4 && date.Month <= 6)
-                return 1;
-            else if (date.Month >= 7 && date.Month <= 9)
-                return 2;
-            else if (date.Month >= 10 && date.Month <= 12)
-                return 3;
-            else
-                return 4;
-        }
-        public List<DonHang> danhSachDonHangNamNay(DateTime date)
-        {
-            List<DonHang> donHangs = new List<DonHang>(DataProvider.ISCreated.DB.DonHangs.Where(x => x.CREADTEDAT.Value.Year == date.Year));
-            int count = 0;
-            foreach (var item in donHangs)
-            {
-                if (item.ISDEL != 1)
-                {
-                    count++;
-                }
-            }
-            if (count > 0)
-                return donHangs;
-            else
-                return null;
-        }
-
-        public List<ChiTietDonhang> danhSachChiTietDonhang(string maDH)
-        {
-            List<ChiTietDonhang> chiTietDonhangs = new List<ChiTietDonhang>(DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MADH == maDH));
-            int count = 0;
-            foreach (var item in chiTietDonhangs)
-            {
-                if (item.ISDEL != 1)
-                {
-                    count++;
-                }
-            }
-            if (count > 0)
-                return chiTietDonhangs;
-            else
-                return new List<ChiTietDonhang>();
-        }
-        public bool themDonHang(DonHang donHang)
-        {
-            donHang.CREADTEDAT = DateTime.Now;
-            DataProvider.ISCreated.DB.DonHangs.Add(donHang);
-            DataProvider.ISCreated.DB.SaveChanges();
-            return true;
-        }
-        public bool themChiTietDonHang(ChiTietDonhang CTDonHang)
-        {
-            if (!tonTaiDonHang(CTDonHang.MADH))
-            {
-                return false;
-            }
-            else
-            {
-                CTDonHang.CREADTEDAT = DateTime.Now;
-                DataProvider.ISCreated.DB.ChiTietDonhangs.Add(CTDonHang);
-                DataProvider.ISCreated.DB.SaveChanges();
-                return true;
-            }
-        }
-        public bool tonTaiDonHang(string MaDH)
-        {
-            var MonAn = DataProvider.ISCreated.DB.DonHangs.Where(x => x.MADH == MaDH);
-            int count = 0;
-            foreach (var item in MonAn)
-            {
-                if (item.ISDEL != 1)
-                {
-                    count++;
-                }
-            }
-            if (count > 0)
-                return true;
-            else
-                return false;
-        }
-        public bool xoaDonHang(string maDH)
-        {
-            if (!tonTaiDonHang(maDH))
-                return false;
-            else
-            {
-                // xoa don hang
-                var temp = DataProvider.ISCreated.DB.DonHangs.Where(x => x.MADH == maDH).SingleOrDefault();
-                temp.ISDEL = 1;
-                DataProvider.ISCreated.DB.SaveChanges();
-                // hoa chi tiet cua don hang do
-                var tempCT = DataProvider.ISCreated.DB.ChiTietDonhangs.Where(x => x.MADH == maDH);
-                foreach (var item in tempCT)
-                {
-                    item.ISDEL = 1;
-                }
-                DataProvider.ISCreated.DB.SaveChanges();
-                return true;
-            }
-        }
-        public List<LoaiMonAn> danhSachLoaiMonAn()
-        {
-            List<LoaiMonAn> loaiMonAns = new List<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns);
-            List<LoaiMonAn> result=new List<LoaiMonAn>();
-            foreach (var item in loaiMonAns)
-            {
-                if (item.ISDEL != 1)
-                {
-                    result.Add(item);
-                }
-            }
-            return result;
-        }
-
-        public List<LoaiMonAn> danhSachLoaiMonAnTheoTen(string tenLoaiMonAn)
-        {
-            List<LoaiMonAn> loaiMonAns = new List<LoaiMonAn>(DataProvider.ISCreated.DB.LoaiMonAns.Where(x => x.TENLOAI == tenLoaiMonAn));
-            foreach (var item in loaiMonAns)
-            {
-                if (item.ISDEL == 1)
-                {
-                    loaiMonAns.Remove(item);
-                }
-            }
-            return loaiMonAns;
-        }
-        public bool themLoaiMonAn(LoaiMonAn loaiMon)
-        {
-            if (tonTaiLoaiMonAn(loaiMon.MALOAI))
-            {
-                return false;
-            }
-            else
-            {
-                loaiMon.CREADTEDAT = DateTime.Now;
-                DataProvider.ISCreated.DB.LoaiMonAns.Add(loaiMon);
-                DataProvider.ISCreated.DB.SaveChanges();
-                return true;
-            }
-        }
-        public bool xoaLoaiMonAn(string maLoai)
-        {
-            if (!tonTaiLoaiMonAn(maLoai))
-            {
-                return false;
-            }
-            else
-            {
-                // xoa don hang
-                var temp = DataProvider.ISCreated.DB.LoaiMonAns.Where(x => x.MALOAI == maLoai).SingleOrDefault();
-                temp.ISDEL = 1;
-                DataProvider.ISCreated.DB.SaveChanges();
-                // hoa chi tiet cua don hang do
-                var tempCT = DataProvider.ISCreated.DB.MonAns.Where(x => x.MALOAI == maLoai);
-                foreach (var item in tempCT)
-                {
-                    item.ISDEL = 1;
-                }
-                DataProvider.ISCreated.DB.SaveChanges();
-                return true;
-            }
-        }
-        public bool suaLoaiMonAn(LoaiMonAn loaiMon)
-        {
-            if (!tonTaiLoaiMonAn(loaiMon.MALOAI))
-            {
-                return false;
-            }
-            else
-            {
-                var temp = DataProvider.ISCreated.DB.LoaiMonAns.Where(x => x.MALOAI == loaiMon.MALOAI).SingleOrDefault();
-                temp.MALOAI = loaiMon.MALOAI;
-                temp.TENLOAI = loaiMon.TENLOAI;
-                temp.UPDATEDAT = DateTime.Now;
-                DataProvider.ISCreated.DB.SaveChanges();
-                return true;
-            }
-        }
-
-        public string layTenMon(string MAMON)
+        public string layTenMon(int MAMON)
         {
             var temp = DataProvider.ISCreated.DB.MonAns.Where(x => x.MAMON == MAMON).SingleOrDefault();
             return temp.TENMON;
         }
 
-        public string layTenNhanVien(string MANV)
+        public string layTenNhanVien(int MANV)
         {
             var temp = DataProvider.ISCreated.DB.NhanViens.Where(x => x.MANV == MANV).SingleOrDefault();
             return temp.HOTEN;

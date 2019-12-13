@@ -1,4 +1,5 @@
 ﻿using QuanLiQuanCaPhe.Models;
+using QuanLiQuanCaPhe.View;
 using QuanLiQuanCaPhe.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Windows.Input;
 
 namespace QuanLiQuanCaPhe.ViewModel
 {
-	class LoginViewModel: BaseViewModel
+	class LoginViewModel : BaseViewModel
 	{
 		public string tendangnhap { get; set; }
 
@@ -31,8 +32,8 @@ namespace QuanLiQuanCaPhe.ViewModel
 		public LoginViewModel()
 		{
 			IsLogin = false;
-			Password = "";
-			UserName = "";
+			Password = "admin";
+			UserName = "admin";
 			LoginCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { Login(p); });
 			CloseCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { p.Close(); });
 			PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
@@ -44,44 +45,29 @@ namespace QuanLiQuanCaPhe.ViewModel
 				return;
 
 			string passEncode = MD5Hash(Base64Encode(Password));
-			var accCount = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN == UserName && x.MATKHAU == passEncode);
+			var accCount = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN == UserName && x.MATKHAU == passEncode && x.ISDEL != 1);
 
-			if(UserName.Equals("")||Password.Equals(""))
+			if (UserName.Equals("") || Password.Equals(""))
 			{
 				MessageBox.Show("Bạn chưa điền đầy đủ thông tin đăng nhập!!!");
 			}
-			else if(accCount.Count()>0)
+			else if (accCount.Count() > 0)
 			{
-				foreach (var item in accCount)
+				UserService.GetCurrentUser = accCount.First();
+				if (UserService.GetCurrentUser.CHUCVU.Equals("Admin"))
 				{
-					if(item.ISDEL==0)
-					{
-						FileStream fileStream = new FileStream("tumeo.txt",FileMode.OpenOrCreate, FileAccess.ReadWrite);
-						byte[] temp = Encoding.UTF8.GetBytes(UserName);
-						fileStream.Write(temp, 0, temp.Length);
-						fileStream.Close();
-						IsLogin = true;
-						tendangnhap = UserName;
-
-						if (item.CHUCVU.Equals("Admin"))
-						{
-
-                            // load man hinh admin
-							MainWindow mainWindow = new MainWindow();
-							mainWindow.Show();
-						}
-						else
-                        { 
-
-                            // load man hinh nhan vien
-							NhanVienMainWindow nhanVienMainWindow = new NhanVienMainWindow();
-							nhanVienMainWindow.Show();
-						}
-						UserName = "";
-						Password = "";
-						p.Close();
-					}
+					MainWindow mainWindow = new MainWindow();
+					mainWindow.Show();
 				}
+				else
+				{
+					NhanVienLayout nhanVienLayout = new NhanVienLayout();
+					nhanVienLayout.Show();
+				}
+
+				UserName = "";
+				Password = "";
+				p.Close();
 			}
 			else
 			{

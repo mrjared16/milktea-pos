@@ -22,7 +22,7 @@ namespace QuanLiQuanCaPhe.ViewModel
         public ICommand cancelButtonCommmand { get; set; }
         public ICommand addNhanVienCommand { get; set; }
         
-        public ICommand ChonAnhCommand { get; set; }
+        public ICommand ChonAnhChiTietNhanVienCommand { get; set; }
         BitmapImage temp;
 
         private bool isAddActivity = true;
@@ -77,10 +77,12 @@ namespace QuanLiQuanCaPhe.ViewModel
             }
         }
 
-        public BitmapImage DisplayedImagePath
-        {
-            get { return temp; }
-            set { temp = value; OnPropertyChanged(); }
+		private BitmapImage _HinhAnhNhanVien;
+
+		public BitmapImage HinhAnhNhanVien
+		{
+            get { return _HinhAnhNhanVien; }
+            set { _HinhAnhNhanVien = value; OnPropertyChanged(); }
         }
 
         public ImageSource MyPhoto { get; set; }
@@ -126,11 +128,13 @@ namespace QuanLiQuanCaPhe.ViewModel
                 ChiTietNhanVien.MANV = selectItem.MANV;
                 ChiTietNhanVien.HOTEN = selectItem.HOTEN;
                 ChiTietNhanVien.LUONG = selectItem.LUONG;
+				ChiTietNhanVien.DIACHI = selectItem.DIACHI;
                 ChiTietNhanVien.NGSINH = selectItem.NGSINH;
                 ChiTietNhanVien.PHAI = selectItem.PHAI;
                 ChiTietNhanVien.CMND = selectItem.CMND;
                 ChiTietNhanVien.DIENTHOAI = selectItem.DIENTHOAI;
                 ChiTietNhanVien.CHUCVU = selectItem.CHUCVU;
+				HinhAnhNhanVien = SeviceData.LoadImage(selectItem.HINHANH);
                 isAddActivity = false;
                 cancelButtonName = "XÓA";
                 confirmButtonName = "LƯU";
@@ -150,14 +154,14 @@ namespace QuanLiQuanCaPhe.ViewModel
 
             SeviceData seviceData = new SeviceData();
 
-            ChonAnhCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+			ChonAnhChiTietNhanVienCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 if (openFileDialog.ShowDialog() == true)
                 {
                     Uri fileUri = new Uri(openFileDialog.FileName);
-                   // temp = fileUri.ToString();
-                    DisplayedImagePath = temp;
+					// temp = fileUri.ToString();
+					HinhAnhNhanVien = new BitmapImage(new Uri(openFileDialog.FileName));
                 }
             }
             );
@@ -202,12 +206,33 @@ namespace QuanLiQuanCaPhe.ViewModel
              });
 
             //click vao nut confirm
-            confirmButtonCommmand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            confirmButtonCommmand = new RelayCommand<Object>((p) => {
+
+				if (string.IsNullOrEmpty(ChiTietNhanVien.HOTEN) ||
+				string.IsNullOrEmpty(ChiTietNhanVien.NGSINH.Value.ToString("dd/mm/yyyy")) ||
+				string.IsNullOrEmpty(ChiTietNhanVien.DIACHI) ||
+				string.IsNullOrEmpty(ChiTietNhanVien.DIENTHOAI) ||
+				string.IsNullOrEmpty(ChiTietNhanVien.CHUCVU) ||
+				string.IsNullOrEmpty(ChiTietNhanVien.CMND) ||
+				string.IsNullOrEmpty(ChiTietNhanVien.HINHANH.ToString()) ||
+				string.IsNullOrEmpty(ChiTietNhanVien.MANV.ToString()) ||
+				string.IsNullOrEmpty(ChiTietNhanVien.LUONG.ToString()))
+					return false;
+				return true;
+			}, (p) =>
             {
                 if (isAddActivity)
                 {
                     NhanVien nhanvien = ChiTietNhanVien;
-                    if (seviceData.themNhanVien(nhanvien))                
+					try
+					{
+						nhanvien.HINHANH = SeviceData.ImageToByte2(HinhAnhNhanVien);
+					}
+					catch
+					{
+
+					}
+					if (seviceData.themNhanVien(nhanvien))                
                         listNhanVien = new BindingList<NhanVien>(seviceData.danhsachNhanVien());                    
                     else                    
                         MessageBox.Show("Ma nhan vien da ton tai :((");                    
@@ -216,7 +241,16 @@ namespace QuanLiQuanCaPhe.ViewModel
                 else
                 {
                     NhanVien nhanvien = ChiTietNhanVien;
-                    if (seviceData.suaNhanVien(nhanvien))
+					try
+					{
+						nhanvien.HINHANH = SeviceData.ImageToByte2(HinhAnhNhanVien);
+					}
+					catch
+					{
+
+					}
+					
+					if (seviceData.suaNhanVien(nhanvien))
                         listNhanVien = new BindingList<NhanVien>(seviceData.danhsachNhanVien());
                     else
                         MessageBox.Show("Khong chinh sua thong tin nhan vien duoc :((");
@@ -227,7 +261,9 @@ namespace QuanLiQuanCaPhe.ViewModel
             //click vao nut tim kiem
             findNhanVienCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
               {
-                  listNhanVien = new BindingList<NhanVien>(seviceData.timKiemNhanVien(queryString));
+				  MessageBox.Show(queryString);
+
+				  listNhanVien = new BindingList<NhanVien>(SeviceData.TimKiemNhanVien(queryString));
               });
 
             listNhanVien = new BindingList<NhanVien>(seviceData.danhsachNhanVien());

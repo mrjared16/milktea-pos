@@ -91,7 +91,7 @@
           <ScalarProperty Name="ISDEL" ColumnName="ISDEL" />
           <ScalarProperty Name="MATKHAU" ColumnName="MATKHAU" />
           <ScalarProperty Name="TAIKHOAN" ColumnName="TAIKHOAN" />
-          <ScalarProperty Name="HINHANh" ColumnName="HINHANh" />
+          <ScalarProperty Name="HINHANH" ColumnName="HINHANH" />
           <ScalarProperty Name="CHUCVU" ColumnName="CHUCVU" />
           <ScalarProperty Name="DIENTHOAI" ColumnName="DIENTHOAI" />
           <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />

@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 
 namespace QuanLiQuanCaPhe.View
 {
-	/// <summary>
-	/// Interaction logic for Order.xaml
-	/// </summary>
-	public partial class Order : UserControl
-	{
-		public Order()
-		{
-			InitializeComponent();
-		}
-	}
+    /// <summary>
+    /// Interaction logic for Order.xaml
+    /// </summary>
+    public partial class Order : UserControl
+    {
+        public Order()
+        {
+            InitializeComponent();
+        }
+    }
 }

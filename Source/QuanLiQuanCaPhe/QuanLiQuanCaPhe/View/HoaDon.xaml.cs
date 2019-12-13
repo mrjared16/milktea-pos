@@ -30,10 +30,5 @@ namespace QuanLiQuanCaPhe.View
             home = new HoaDonViewModel();
             this.DataContext = home;
         }
-
-        private void listViewDonHang_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }

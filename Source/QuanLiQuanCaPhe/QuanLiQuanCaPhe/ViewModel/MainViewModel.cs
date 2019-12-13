@@ -14,6 +14,9 @@ namespace QuanLiQuanCaPhe.ViewModel
 	{
 		public MainViewModel()
 		{
+
+
+
 		}
 	}
 }

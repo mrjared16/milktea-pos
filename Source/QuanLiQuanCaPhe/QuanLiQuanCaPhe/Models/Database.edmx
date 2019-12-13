@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="MACALV" />
           </Key>
-          <Property Name="MACALV" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MACALV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TENCA" Type="nvarchar" MaxLength="30" />
           <Property Name="GIOBATDAU" Type="time" Precision="7" />
           <Property Name="GIOKETTHUC" Type="time" Precision="7" />
@@ -22,8 +22,8 @@
             <PropertyRef Name="MADH" />
             <PropertyRef Name="MAMON" />
           </Key>
-          <Property Name="MADH" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="MAMON" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MADH" Type="int" Nullable="false" />
+          <Property Name="MAMON" Type="int" Nullable="false" />
           <Property Name="SOLUONG" Type="float" Nullable="false" />
           <Property Name="DONGIA" Type="float" Nullable="false" />
           <Property Name="THANHTIEN" Type="float" Nullable="false" />
@@ -36,8 +36,8 @@
           <Key>
             <PropertyRef Name="MADH" />
           </Key>
-          <Property Name="MADH" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="MANV" Type="varchar" MaxLength="30" />
+          <Property Name="MADH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MANV" Type="int" />
           <Property Name="THOIGIAN" Type="datetime" />
           <Property Name="TONGTIEN" Type="float" Nullable="false" />
           <Property Name="TENKH" Type="nvarchar" MaxLength="30" />
@@ -51,9 +51,9 @@
             <PropertyRef Name="THU" />
             <PropertyRef Name="MACALV" />
           </Key>
-          <Property Name="MANV" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MANV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="THU" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="MACALV" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MACALV" Type="int" Nullable="false" />
           <Property Name="PHUCAP" Type="float" />
           <Property Name="ISDEL" Type="int" />
           <Property Name="CREADTEDAT" Type="datetime" />
@@ -63,7 +63,7 @@
           <Key>
             <PropertyRef Name="MALOAI" />
           </Key>
-          <Property Name="MALOAI" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MALOAI" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TENLOAI" Type="nvarchar" MaxLength="100" />
           <Property Name="ISDEL" Type="int" />
           <Property Name="CREADTEDAT" Type="datetime" />
@@ -73,11 +73,11 @@
           <Key>
             <PropertyRef Name="MAMON" />
           </Key>
-          <Property Name="MAMON" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MAMON" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TENMON" Type="nvarchar" MaxLength="100" />
           <Property Name="GIA" Type="float" Nullable="false" />
           <Property Name="MOTA" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="MALOAI" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MALOAI" Type="int" Nullable="false" />
           <Property Name="HINHANH" Type="image" />
           <Property Name="TTSP" Type="nvarchar" MaxLength="30" />
           <Property Name="ISDEL" Type="int" />
@@ -88,7 +88,7 @@
           <Key>
             <PropertyRef Name="MANV" />
           </Key>
-          <Property Name="MANV" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MANV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="HOTEN" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="LUONG" Type="float" />
           <Property Name="NGSINH" Type="date" />
@@ -97,7 +97,7 @@
           <Property Name="DIACHI" Type="nvarchar" MaxLength="100" />
           <Property Name="DIENTHOAI" Type="varchar" MaxLength="30" />
           <Property Name="CHUCVU" Type="nvarchar" MaxLength="30" />
-          <Property Name="HINHANh" Type="image" />
+          <Property Name="HINHANH" Type="image" />
           <Property Name="TAIKHOAN" Type="varchar" MaxLength="30" />
           <Property Name="MATKHAU" Type="varchar" MaxLength="50" />
           <Property Name="ISDEL" Type="int" />
@@ -250,7 +250,7 @@
           <Key>
             <PropertyRef Name="MACALV" />
           </Key>
-          <Property Name="MACALV" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MACALV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TENCA" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="GIOBATDAU" Type="Time" Precision="7" />
           <Property Name="GIOKETTHUC" Type="Time" Precision="7" />
@@ -264,8 +264,8 @@
             <PropertyRef Name="MADH" />
             <PropertyRef Name="MAMON" />
           </Key>
-          <Property Name="MADH" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="MAMON" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MADH" Type="Int32" Nullable="false" />
+          <Property Name="MAMON" Type="Int32" Nullable="false" />
           <Property Name="SOLUONG" Type="Double" Nullable="false" />
           <Property Name="DONGIA" Type="Double" Nullable="false" />
           <Property Name="THANHTIEN" Type="Double" Nullable="false" />
@@ -280,8 +280,8 @@
           <Key>
             <PropertyRef Name="MADH" />
           </Key>
-          <Property Name="MADH" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="MANV" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MADH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MANV" Type="Int32" />
           <Property Name="THOIGIAN" Type="DateTime" Precision="3" />
           <Property Name="TONGTIEN" Type="Double" Nullable="false" />
           <Property Name="TENKH" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
@@ -297,9 +297,9 @@
             <PropertyRef Name="THU" />
             <PropertyRef Name="MACALV" />
           </Key>
-          <Property Name="MANV" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MANV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="THU" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="MACALV" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MACALV" Type="Int32" Nullable="false" />
           <Property Name="PHUCAP" Type="Double" />
           <Property Name="ISDEL" Type="Int32" />
           <Property Name="CREADTEDAT" Type="DateTime" Precision="3" />
@@ -311,7 +311,7 @@
           <Key>
             <PropertyRef Name="MALOAI" />
           </Key>
-          <Property Name="MALOAI" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MALOAI" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TENLOAI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ISDEL" Type="Int32" />
           <Property Name="CREADTEDAT" Type="DateTime" Precision="3" />
@@ -322,11 +322,11 @@
           <Key>
             <PropertyRef Name="MAMON" />
           </Key>
-          <Property Name="MAMON" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MAMON" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TENMON" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="GIA" Type="Double" Nullable="false" />
           <Property Name="MOTA" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="MALOAI" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MALOAI" Type="Int32" Nullable="false" />
           <Property Name="HINHANH" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="TTSP" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="ISDEL" Type="Int32" />
@@ -339,7 +339,7 @@
           <Key>
             <PropertyRef Name="MANV" />
           </Key>
-          <Property Name="MANV" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MANV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="HOTEN" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="LUONG" Type="Double" />
           <Property Name="NGSINH" Type="DateTime" Precision="0" />
@@ -348,7 +348,7 @@
           <Property Name="DIACHI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="DIENTHOAI" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="CHUCVU" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="HINHANh" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="HINHANH" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="TAIKHOAN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="MATKHAU" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ISDEL" Type="Int32" />
@@ -525,7 +525,7 @@
                 <ScalarProperty Name="ISDEL" ColumnName="ISDEL" />
                 <ScalarProperty Name="MATKHAU" ColumnName="MATKHAU" />
                 <ScalarProperty Name="TAIKHOAN" ColumnName="TAIKHOAN" />
-                <ScalarProperty Name="HINHANh" ColumnName="HINHANh" />
+                <ScalarProperty Name="HINHANH" ColumnName="HINHANH" />
                 <ScalarProperty Name="CHUCVU" ColumnName="CHUCVU" />
                 <ScalarProperty Name="DIENTHOAI" ColumnName="DIENTHOAI" />
                 <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />

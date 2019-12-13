@@ -24,14 +24,14 @@
         DataContext="{StaticResource NhanVienMainVM}"
         Title="Phần mềm quản lý kho" Height="800" Width="1500">
 
-	<Window.Resources>
+	<!--<Window.Resources>
 		<DataTemplate 
-			x:Name="taiKhoanTempalte"
-			DataType ="{x:Type ViewModelss:TaiKhoanNhanVienViewModel}"
+			x:Name="HomeNhanVienTempalte"
+			DataType ="{x:Type ViewModelss:HomeNhanVienViewModel}"
 			>
-			<View:TaiKhoanNhanVien DataContext="{Binding}"></View:TaiKhoanNhanVien>
+			<View:HomeNhanVien DataContext="{Binding}"></View:HomeNhanVien>
 		</DataTemplate>
-	</Window.Resources>
+	</Window.Resources>-->
 
 	<i:Interaction.Triggers>
 		<i:EventTrigger EventName="Loaded">
@@ -74,7 +74,7 @@
 				Height="150">
 					<Ellipse.Fill>
 						<ImageBrush
-						ImageSource="{Binding DisplayedImagePath}"
+						ImageSource="{Binding DisplayedImagePath1}"
 						>
 						</ImageBrush>
 					</Ellipse.Fill>

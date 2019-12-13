@@ -12,13 +12,17 @@ using System.Windows.Media;
 using System.ComponentModel;
 using QuanLiQuanCaPhe.Models;
 using System.IO;
+using System.Globalization;
+using System.Drawing;
 
 namespace QuanLiQuanCaPhe.ViewModel
 {
-	public class TaiKhoanViewModel: BaseViewModel
+	public class TaiKhoanViewModel : BaseViewModel
 	{
 		public bool Isloaded = false;
 		public ICommand LoadedWindowCommand { get; set; }
+		public ICommand LuuThongTinAdminCommand { get; set; }
+
 		public bool IsLoaded { get; set; }
 		public static string tumeo = "";
 
@@ -32,13 +36,13 @@ namespace QuanLiQuanCaPhe.ViewModel
 				OnPropertyChanged();
 			}
 		}
-		private string _MatKhau;
-		public string MatKhau
+		private string _GioiTinh;
+		public string GioiTinh
 		{
-			get => _MatKhau;
+			get => _GioiTinh;
 			set
 			{
-				_MatKhau = value;
+				_GioiTinh = value;
 				OnPropertyChanged();
 			}
 		}
@@ -109,63 +113,131 @@ namespace QuanLiQuanCaPhe.ViewModel
 		}
 		public ICommand ChonAnhCommand { get; set; }
 		String temp;
-
-		public string DisplayedImagePath
+		private BitmapImage _DisplayedImagePath;
+		public BitmapImage DisplayedImagePath
 		{
-			get { return temp; }
-			set { temp = value; OnPropertyChanged(); }
+			get { return _DisplayedImagePath; }
+			set { _DisplayedImagePath = value; OnPropertyChanged(); }
 		}
 
-		public ImageSource MyPhoto { get; set; }
-
+		SeviceData seviceData;
 		public TaiKhoanViewModel()
 		{
 			loadData();
 			ChonAnhCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
 			{
+
+				seviceData = new SeviceData();
+				//string temo = DataProvider.ISCreated.DB.NhanViens.First().HOTEN;
 				OpenFileDialog openFileDialog = new OpenFileDialog();
 				if (openFileDialog.ShowDialog() == true)
 				{
 					Uri fileUri = new Uri(openFileDialog.FileName);
 					temp = fileUri.ToString();
-					DisplayedImagePath = temp;
+					DisplayedImagePath = new BitmapImage(new Uri(openFileDialog.FileName));
 				}
 			}
 			);
-			
-			
+			LuuThongTinAdminCommand = new RelayCommand<Window>((p) =>
+			{
+				NhanVien item = UserService.GetCurrentUser;
+				//hinh anh
+				if (!DisplayedImagePath.ToString().Equals(LoadImage(item.HINHANH).ToString()))
+				{
+					return true;
+				}
+				//ho ten
+				if (!HoTen.Equals(item.HOTEN))
+					return true;
+				//ngay sinh
+				DateTime a = item.NGSINH.Value;
+				if (!NgaySinh.Equals(a.ToString("dd/MM/yyyy")))
+					return true;
+				//dia chi
+				if (!DiaChi.Equals(item.DIACHI))
+					return true;
+				// so dien thoai
+
+				if (!SDT.Equals(item.DIENTHOAI))
+					return true;
+				//mat khau
+				if (!GioiTinh.Equals(item.PHAI))
+					return true;
+				//chuc vu
+				if (!ChucVu.Equals(item.CHUCVU))
+					return true;
+				//CMND
+				if (!CMND.Equals(item.CMND))
+					return true;
+				else
+					return false;
+
+				;
+			}, (p) =>
+		  {
+			  var nhanvien = UserService.GetCurrentUser;
+			  nhanvien.PHAI = GioiTinh;
+			  nhanvien.HINHANH = ImageToByte2(DisplayedImagePath);
+			  nhanvien.CMND = CMND;
+			  nhanvien.CHUCVU = ChucVu;
+			  nhanvien.DIENTHOAI = SDT;
+			  nhanvien.HOTEN = HoTen;
+			  nhanvien.NGSINH = DateTime.ParseExact(NgaySinh, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+			  nhanvien.DIACHI = DiaChi;
+			  DataProvider.ISCreated.DB.SaveChangesAsync();
+		  }
+			);
 		}
 		public void loadData()
 		{
-			using (var fs1 = new FileStream("tumeo.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite))
-			{
-				byte[] atemp = new byte[100];
-				UTF8Encoding encoding = new UTF8Encoding(true);
-				int len = 0;
-				while(0<(len=fs1.Read(atemp,0,atemp.Length)))
-				{
-					 tumeo= encoding.GetString(atemp, 0, len);
-				}
 
-			}
-			var nhanVien = DataProvider.ISCreated.DB.NhanViens.Where(x => x.TAIKHOAN.Equals(tumeo));
-			foreach (var item in nhanVien)
+			NhanVien item = UserService.GetCurrentUser;
+			//ho ten
+			HoTen = item.HOTEN;
+			//
+			TaiKhoan = item.TAIKHOAN;
+			//ngay sinh
+			DateTime a = item.NGSINH.Value;
+			NgaySinh = a.ToString("dd/MM/yyyy");
+			//dia chi
+			DiaChi = item.DIACHI;
+			// so dien thoai
+			SDT = item.DIENTHOAI;
+			//mat khau
+			GioiTinh = item.PHAI;
+			//chuc vu
+			ChucVu = item.CHUCVU;
+			//CMND
+			CMND = item.CMND;
+			//hinh anh ca nhan
+			DisplayedImagePath = LoadImage(item.HINHANH);
+			File.Delete("tumeo.txt");
+		}
+		private static BitmapImage LoadImage(byte[] imageData)
+		{
+			if (imageData == null || imageData.Length == 0) return null;
+			var image = new BitmapImage();
+			using (var mem = new MemoryStream(imageData))
 			{
-				//ho ten
-				HoTen = item.HOTEN;
-				//
-				TaiKhoan = item.TAIKHOAN;
-				//ngay sinh
-				DateTime a = item.NGSINH.Value;
-				NgaySinh = a.ToString("dd/MM/yyyy");
-				// so dien thoai
-				SDT = item.DIENTHOAI;
-				//mat khau
-				MatKhau = item.MATKHAU;
-				//chuc vu
-				ChucVu = item.CHUCVU;
-				//CMND
-				CMND = item.CMND;
+				mem.Position = 0;
+				image.BeginInit();
+				image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+				image.CacheOption = BitmapCacheOption.OnLoad;
+				image.UriSource = null;
+				image.StreamSource = mem;
+				image.EndInit();
+			}
+			image.Freeze();
+			return image;
+		}
+		public static byte[] ImageToByte2(BitmapImage img)
+		{
+			JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+			encoder.Frames.Add(BitmapFrame.Create(img));
+			using (MemoryStream ms = new MemoryStream())
+			{
+				encoder.Save(ms);
+				return ms.ToArray();
 			}
 		}
 

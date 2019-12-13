@@ -6,10 +6,7 @@
              xmlns:local="clr-namespace:QuanLiQuanCaPhe.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid
+	<Grid
 		>
-		<Grid.Background>
-			<ImageBrush Stretch="UniformToFill"/>
-		</Grid.Background>
 	</Grid>
 </UserControl>

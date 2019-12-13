@@ -21,7 +21,7 @@ namespace QuanLiQuanCaPhe.ViewModel
         public ICommand addButtonCommand { get; set; }
         public ICommand cancelButtonCommand { get; set; }
         public ICommand confirmButtonCommand { get; set; }
-
+        string tenloai = "";
         private bool isAddActivity = true;
 
         private SeviceData seviceData = new SeviceData();
@@ -53,7 +53,7 @@ namespace QuanLiQuanCaPhe.ViewModel
             }
         }
 
-        private string _cancelNameButton="HỦY";
+        private string _cancelNameButton = "HỦY";
 
         public string cancelNameButton
         {
@@ -68,7 +68,7 @@ namespace QuanLiQuanCaPhe.ViewModel
             }
         }
 
-        private string _confirmNameButton="THÊM";
+        private string _confirmNameButton = "THÊM";
 
         public string confirmNameButton
         {
@@ -141,10 +141,12 @@ namespace QuanLiQuanCaPhe.ViewModel
             //click vao them mon
             addButtonCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
+                chiTietLoaiMonAn = new LoaiMonAn();
+                chiTietLoaiMonAn.TENLOAI = "";
+                chiTietLoaiMonAn.MALOAI = DataProvider.ISCreated.DB.LoaiMonAns.ToList().Last().MALOAI + 1;
                 isAddActivity = true;
                 cancelNameButton = "HỦY";
                 confirmNameButton = "THÊM";
-                chiTietLoaiMonAn = new LoaiMonAn();
             });
 
             //click vao nut cancel
@@ -168,7 +170,17 @@ namespace QuanLiQuanCaPhe.ViewModel
             });
 
             //click vao nut confirm
-            confirmButtonCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            confirmButtonCommand = new RelayCommand<Object>((p) =>
+            {
+                
+                //chiTietLoaiMonAn.TENLOAI = "";
+                if (!string.IsNullOrEmpty(chiTietLoaiMonAn.TENLOAI))
+                {
+                    //MessageBox.Show(chiTietLoaiMonAn.TENLOAI);
+                    return true;
+                }
+                return false;
+            }, (p) =>
             {
                 if (isAddActivity)
                 {
@@ -176,8 +188,10 @@ namespace QuanLiQuanCaPhe.ViewModel
                     if (seviceData.themLoaiMonAn(loaiMonAn))
                         listLoaiMonAn = new BindingList<LoaiMonAn>(seviceData.danhSachLoaiMonAn());
                     else
-                        MessageBox.Show("Ma mon an da ton tai :((");
-                    chiTietLoaiMonAn = new LoaiMonAn();
+                    {
+                        MessageBox.Show("Mon an da ton tai :((");
+                        chiTietLoaiMonAn.TENLOAI = "";
+                    }
                 }
                 else
                 {
@@ -193,7 +207,11 @@ namespace QuanLiQuanCaPhe.ViewModel
             //click vao nut tim kiem
             findLoaiMonAnCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
-                listLoaiMonAn = new BindingList<LoaiMonAn>(seviceData.danhSachLoaiMonAn());
+                if (SeviceData.TimKiemLoaiMonAn(queryString) != null)
+                    listLoaiMonAn = new BindingList<LoaiMonAn>(SeviceData.TimKiemLoaiMonAn(queryString));
+                else
+                    listLoaiMonAn = new BindingList<LoaiMonAn>();
+
             });
         }
     }

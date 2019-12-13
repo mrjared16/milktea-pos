@@ -23,12 +23,11 @@ namespace QuanLiQuanCaPhe
 		public NhanVienMainWindow()
 		{
 			InitializeComponent();
-			DataContext = new TaiKhoanNhanVienViewModel();
-
+			DataContext = new HomeNhanVienViewModel();
 		}
 		private void taiKhoan(object sender, RoutedEventArgs e)
 		{
-			DataContext = new TaiKhoanNhanVienViewModel();
+			DataContext = new HomeNhanVienViewModel();
 		}
 
 		private void MonAnAdmin(object sender, RoutedEventArgs e)
@@ -38,8 +37,8 @@ namespace QuanLiQuanCaPhe
 
 		private void BanHang(object sender, RoutedEventArgs e)
 		{
-		}
 
+		}
 		private void LichSuBanHang(object sender, RoutedEventArgs e)
 		{
 

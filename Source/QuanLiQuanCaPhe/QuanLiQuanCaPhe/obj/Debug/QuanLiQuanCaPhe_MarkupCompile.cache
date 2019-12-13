@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\GitHub Repo (ISE)\milktea-pos\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\obj\Debug\
 QuanLiQuanCaPhe
 none
 false
 DEBUG;TRACE
-D:\GitHub Repo (ISE)\milktea-pos\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\App.xaml
-131411371602
+D:\Hoc\3rd YEAR\Intoduction to Sofware Engineer\Tu's Code\milktea-pos-T-\Source\QuanLiQuanCaPhe\QuanLiQuanCaPhe\App.xaml
+191207247832
 21363741524
-40-1973079169
-22969450873
-Login.xaml;MainWindow.xaml;NhanVienMainWindow.xaml;Resource\MainResource.xaml;View\HoaDon.xaml;View\Home.xaml;View\LoaiMonAn.xaml;View\NhanVien.xaml;View\TaiKhoan.xaml;View\MonAnAdmin.xaml;View\Order.xaml;View\TaiKhoanNhanVien.xaml;View\UserControlBarUC.xaml;
+561459768847
+23-1571331013
+Login.xaml;MainWindow.xaml;NhanVienMainWindow.xaml;Resource\MainResource.xaml;View\DoanhThuAdmin.xaml;View\History.xaml;View\HoaDon.xaml;View\Home.xaml;View\HomeNhanVien.xaml;View\LichLamViecNhanVien.xaml;View\LoaiMonAn.xaml;View\NhanVien.xaml;View\NhanVienLayout.xaml;View\Order.xaml;View\TaiKhoan.xaml;View\MonAnAdmin.xaml;View\TaiKhoanNhanVien.xaml;View\UserControlBarUC.xaml;Window1.xaml;
 
 False
 

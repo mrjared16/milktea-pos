@@ -104,8 +104,8 @@ namespace QuanLiQuanCaPhe.ViewModel
 
         public class DonHang2 : BaseViewModel
         {
-            private string _MADH;
-            public string MADH
+            private int _MADH;
+            public int MADH
             {
                 get => _MADH; set
                 {
@@ -113,8 +113,8 @@ namespace QuanLiQuanCaPhe.ViewModel
                 }
             }
 
-            private string _MANV;
-            public string MANV
+            private int _MANV;
+            public int MANV
             {
                 get => _MANV; set
                 {
@@ -259,16 +259,16 @@ namespace QuanLiQuanCaPhe.ViewModel
             {
                 donHang.MADH = selectItem.MADH;
                 donHang.MANV = selectItem.MANV;
-                donHang.TENKH = selectItem.TENKH;
                 donHang.THOIGIAN = selectItem.THOIGIAN;
                 donHang.TONGTIEN = selectItem.TONGTIEN;
+                donHang.TENKH = selectItem.TENKH;
                 donHang.HOTENNV = selectItem.HOTENNV;
                 listChiTietDonHang = new BindingList<ChiTietDonhang>(seviceData.danhSachChiTietDonhang(donHang.MADH));
                 SetDataSourceChiTietDonHang();
             }
         }
 
-        public class ChiTietDonhang2: BaseViewModel
+        public class ChiTietDonhang2 : BaseViewModel
         {
             private string _TENMON;
             public string TENMON
@@ -279,8 +279,8 @@ namespace QuanLiQuanCaPhe.ViewModel
                 }
             }
 
-            private string _MADH;
-            public string MADH
+            private int _MADH;
+            public int MADH
             {
                 get => _MADH; set
                 {
@@ -288,8 +288,8 @@ namespace QuanLiQuanCaPhe.ViewModel
                 }
             }
 
-            private string _MAMON;
-            public string MAMON
+            private int _MAMON;
+            public int MAMON
             {
                 get => _MAMON; set
                 {
@@ -384,35 +384,45 @@ namespace QuanLiQuanCaPhe.ViewModel
 
             //tim kiem don hang tu o tim kiem
             findDonHangCommand = new RelayCommand<Object>((p) => { return true; }, (p) => {
-                //tim kiem voi query string tai day
-                
+				//tim kiem voi query string tai day
+				listDonHang = new BindingList<DonHang>(SeviceData.TimKiemDonHang(queryString));
+                SetdataSourceDonHang();
             });
 
             //lay danh sach don hang hom nay
             timKiemDonHangHomNayCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
               {
-                  listDonHang = new BindingList<DonHang>(seviceData.danhSachDonHangHomNay(DateTime.Now));
-                  SetdataSourceDonHang();
-              });
+				  DateTime now = DateTime.Now;
+                  if (SeviceData.danhSachDonHangHomNay(now) != null)
+                  {
+                      listDonHang = new BindingList<DonHang>(SeviceData.danhSachDonHangHomNay(now));
+                      SetdataSourceDonHang();
+                  }
+                  else
+                  {
+                      listDonHang = new BindingList<DonHang>();
+                      SetdataSourceDonHang();
+                  } 
+			  });
 
             //lay danh sach don hang thang nay
             timKiemDonHangThangNayCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                listDonHang = new BindingList<DonHang>(seviceData.danhSachDonHangThangNay(DateTime.Now));
+                listDonHang = new BindingList<DonHang>(SeviceData.danhSachDonHangThangNay(DateTime.Now));
                 SetdataSourceDonHang();
             });
 
             //lay danh sach don hang quy nay
             timKiemDonHangQuyNayCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                listDonHang = new BindingList<DonHang>(seviceData.danhSachDonHangQuyNay(DateTime.Now.Month/3+1));
+                listDonHang = new BindingList<DonHang>(SeviceData.danhSachDonHangQuyNay(DateTime.Now.Month/3+1));
                 SetdataSourceDonHang();
             });
 
             //lay danh sach don hang nam nay
             timKiemDonHangNamNayCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                listDonHang = new BindingList<DonHang>(seviceData.danhSachDonHangNamNay(DateTime.Now));
+                listDonHang = new BindingList<DonHang>(SeviceData.danhSachDonHangNamNay(DateTime.Now));
                 SetdataSourceDonHang();
             });
 
