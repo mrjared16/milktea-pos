@@ -199,7 +199,6 @@ namespace QuanLiQuanCaPhe.Models
 			{
 				MonAn = getListMonAn();
 			}
-			string maDon;
 			DateTime date = DateTime.Now;
 			var ListDonHang = danhSachDonHangHomNay(date);
 			foreach (var item in MonAn)
@@ -316,7 +315,6 @@ namespace QuanLiQuanCaPhe.Models
 			{
 				MonAn = getListMonAn();
 			}
-			string maDon;
 			DateTime date = DateTime.Now;
 			var ListDonHang = danhSachDonHangThangNay(date);
 			foreach (var item in MonAn)
@@ -361,7 +359,6 @@ namespace QuanLiQuanCaPhe.Models
 			{
 				MonAn = getListMonAn();
 			}
-			string maDon;
 			DateTime date = DateTime.Now;
 			var ListDonHang = danhSachDonHangQuyNay(GetQuarter(date));
 			foreach (var item in MonAn)
@@ -406,7 +403,6 @@ namespace QuanLiQuanCaPhe.Models
 			{
 				MonAn = getListMonAn();
 			}
-			string maDon;
 			DateTime date = DateTime.Now;
 			var ListDonHang = danhSachDonHangNamNay(date);
 			foreach (var item in MonAn)

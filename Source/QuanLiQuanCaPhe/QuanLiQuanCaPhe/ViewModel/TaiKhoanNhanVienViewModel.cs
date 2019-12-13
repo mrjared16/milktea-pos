@@ -92,7 +92,6 @@ namespace QuanLiQuanCaPhe.ViewModel
 			}
 		}
 		public ICommand ChonAnhNhanVienCommand { get; set; }
-		String temp;
 		private BitmapImage _DisplayedImagePath1;
 		public BitmapImage DisplayedImagePath1
 		{
