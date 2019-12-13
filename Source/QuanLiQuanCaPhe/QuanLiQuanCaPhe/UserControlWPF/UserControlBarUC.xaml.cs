@@ -14,19 +14,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiQuanCaPhe.View
+namespace QuanLiQuanCaPhe.UserControlWPF
 {
 	/// <summary>
-	/// Interaction logic for LichLamViecNhanVien.xaml
+	/// Interaction logic for UserControlBarUC.xaml
 	/// </summary>
-	public partial class LichLamViecNhanVien : UserControl
+	public partial class UserControlBarUC : UserControl
 	{
-		public LichLamViecNhanVienViewModel Home { get; set; }
-		public LichLamViecNhanVien()
+		public ControlBarViewModel Viewmodel { get; set; }
+		public UserControlBarUC()
 		{
 			InitializeComponent();
-			Home = new LichLamViecNhanVienViewModel();
-			this.DataContext = Home;
+			this.DataContext = Viewmodel = new ControlBarViewModel();
 		}
 	}
 }

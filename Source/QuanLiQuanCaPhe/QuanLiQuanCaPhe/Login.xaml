@@ -14,7 +14,7 @@
         DataContext="{StaticResource LoginVM}"
         Name="loginWindow"
         Title="Quản lí quán cà phê" Height="300" Width="400">
-    <Grid Background="{DynamicResource BackgroundColor}">
+	<Grid Background="Aqua">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="auto"></RowDefinition>
 			<RowDefinition></RowDefinition>

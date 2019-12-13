@@ -25,6 +25,8 @@ namespace QuanLiQuanCaPhe.View
 		public TaiKhoanNhanVien()
 		{
 			InitializeComponent();
+			Home = new TaiKhoanNhanVienViewModel();
+			this.DataContext = Home;
 		}
 	}
 }

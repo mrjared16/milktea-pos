@@ -9,24 +9,65 @@
 
 namespace QuanLiQuanCaPhe.Models
 {
+    using QuanLiQuanCaPhe.ViewModel;
     using System;
     using System.Collections.Generic;
     
-    public partial class LoaiMonAn
+    public partial class LoaiMonAn:BaseViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LoaiMonAn()
         {
             this.MonAns = new HashSet<MonAn>();
         }
-    
-        public int MALOAI { get; set; }
-        public string TENLOAI { get; set; }
-        public Nullable<int> ISDEL { get; set; }
-        public Nullable<System.DateTime> CREADTEDAT { get; set; }
-        public Nullable<System.DateTime> UPDATEDAT { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+		private int _MALOAI;
+		public int MALOAI
+		{
+			get => _MALOAI; set
+			{
+				_MALOAI = value; OnPropertyChanged();
+			}
+		}
+
+		private string _TENLOAI;
+		public string TENLOAI
+		{
+			get => _TENLOAI; set
+			{
+				_TENLOAI = value; OnPropertyChanged();
+			}
+		}
+
+		private Nullable<int> _ISDEL;
+		public Nullable<int> ISDEL
+		{
+			get => _ISDEL; set
+			{
+				_ISDEL = value; OnPropertyChanged();
+			}
+		}
+
+		private Nullable<System.DateTime> _CREADTEDAT;
+		public Nullable<System.DateTime> CREADTEDAT
+		{
+			get => _CREADTEDAT; set
+			{
+				_CREADTEDAT = value; OnPropertyChanged();
+			}
+		}
+
+		private Nullable<System.DateTime> _UPDATEDAT;
+		public Nullable<System.DateTime> UPDATEDAT
+		{
+			get => _UPDATEDAT; set
+			{
+				_UPDATEDAT = value; OnPropertyChanged();
+			}
+		}
+
+
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonAn> MonAns { get; set; }
     }
 }

@@ -9,10 +9,11 @@
 
 namespace QuanLiQuanCaPhe.Models
 {
+    using QuanLiQuanCaPhe.ViewModel;
     using System;
     using System.Collections.Generic;
     
-    public partial class NhanVien
+    public partial class NhanVien:BaseViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NhanVien()
@@ -20,24 +21,142 @@ namespace QuanLiQuanCaPhe.Models
             this.DonHangs = new HashSet<DonHang>();
             this.LichLamViecs = new HashSet<LichLamViec>();
         }
-    
-        public int MANV { get; set; }
-        public string HOTEN { get; set; }
-        public Nullable<double> LUONG { get; set; }
-        public Nullable<System.DateTime> NGSINH { get; set; }
-        public string PHAI { get; set; }
-        public string CMND { get; set; }
-        public string DIACHI { get; set; }
-        public string DIENTHOAI { get; set; }
-        public string CHUCVU { get; set; }
-        public byte[] HINHANH { get; set; }
-        public string TAIKHOAN { get; set; }
-        public string MATKHAU { get; set; }
-        public Nullable<int> ISDEL { get; set; }
-        public Nullable<System.DateTime> CREADTEDAT { get; set; }
-        public Nullable<System.DateTime> UPDATEDAT { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+		private int _MANV;
+		public int MANV
+		{
+			get => _MANV; set
+			{ _MANV = value; OnPropertyChanged(); }
+		}
+
+		private string _HOTEN;
+		public string HOTEN
+		{
+			get => _HOTEN; set
+			{
+				_HOTEN = value; OnPropertyChanged();
+			}
+		}
+
+		private Nullable<double> _LUONG;
+		public Nullable<double> LUONG
+		{
+			get => _LUONG; set
+			{
+				_LUONG = value; OnPropertyChanged();
+			}
+		}
+
+		private Nullable<System.DateTime> _NGSINH;
+		public Nullable<System.DateTime> NGSINH
+		{
+			get => _NGSINH; set
+			{
+				_NGSINH = value; OnPropertyChanged();
+			}
+		}
+
+		private string _PHAI;
+		public string PHAI
+		{
+			get => _PHAI; set
+			{
+				_PHAI = value; OnPropertyChanged();
+			}
+		}
+
+		private string _CMND;
+		public string CMND
+		{
+			get => _CMND; set
+			{
+				_CMND = value; OnPropertyChanged();
+			}
+		}
+
+		private string _DIACHI;
+		public string DIACHI
+		{
+			get => _DIACHI; set
+			{
+				_DIACHI = value; OnPropertyChanged();
+			}
+		}
+
+		private string _DIENTHOAI;
+		public string DIENTHOAI
+		{
+			get => _DIENTHOAI; set
+			{
+				_DIENTHOAI = value; OnPropertyChanged();
+			}
+		}
+
+		private string _CHUCVU;
+		public string CHUCVU
+		{
+			get => _CHUCVU; set
+			{
+				_CHUCVU = value; OnPropertyChanged();
+			}
+		}
+
+		private byte[] _HINHANH;
+		public byte[] HINHANH
+		{
+			get => _HINHANH; set
+			{
+				_HINHANH = value; OnPropertyChanged();
+			}
+		}
+
+		private string _TAIKHOAN;
+		public string TAIKHOAN
+		{
+			get => _TAIKHOAN; set
+			{
+				_TAIKHOAN = value; OnPropertyChanged();
+			}
+		}
+
+		private string _MATKHAU;
+		public string MATKHAU
+		{
+			get => _MATKHAU; set
+			{
+				_MATKHAU = value; OnPropertyChanged();
+			}
+		}
+
+		private Nullable<int> _ISDEL;
+		public Nullable<int> ISDEL
+		{
+			get => _ISDEL; set
+			{
+				_ISDEL = value; OnPropertyChanged();
+			}
+		}
+
+		private Nullable<System.DateTime> _CREATEDAT;
+		public Nullable<System.DateTime> CREADTEDAT
+		{
+			get => _CREATEDAT; set
+			{
+				_CREATEDAT = value; OnPropertyChanged();
+			}
+		}
+
+		private Nullable<System.DateTime> _UPDATEDAT;
+		public Nullable<System.DateTime> UPDATEDAT
+		{
+			get => _UPDATEDAT; set
+			{
+				_UPDATEDAT = value; OnPropertyChanged();
+			}
+		}
+
+
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonHang> DonHangs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LichLamViec> LichLamViecs { get; set; }

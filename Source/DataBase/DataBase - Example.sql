@@ -64,7 +64,7 @@ create table ChiTietDonhang
 (
 	MADH int not null,
 	ID int not null,
-	MAMON VARCHAR(30) not null,
+	MAMON int not null,
 	SOLUONG  FLOAT not null,
 	DONGIA FLOAT not null,
 	THANHTIEN  FLOAT not null,

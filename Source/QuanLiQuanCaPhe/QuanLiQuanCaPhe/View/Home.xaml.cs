@@ -1,5 +1,4 @@
-﻿using QuanLiQuanCaPhe.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,16 +16,13 @@ using System.Windows.Shapes;
 namespace QuanLiQuanCaPhe.View
 {
 	/// <summary>
-	/// Interaction logic for LichLamViecNhanVien.xaml
+	/// Interaction logic for Home.xaml
 	/// </summary>
-	public partial class LichLamViecNhanVien : UserControl
+	public partial class Home : UserControl
 	{
-		public LichLamViecNhanVienViewModel Home { get; set; }
-		public LichLamViecNhanVien()
+		public Home()
 		{
 			InitializeComponent();
-			Home = new LichLamViecNhanVienViewModel();
-			this.DataContext = Home;
 		}
 	}
 }

@@ -1,5 +1,4 @@
-﻿using QuanLiQuanCaPhe.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiQuanCaPhe.View
+namespace QuanLiQuanCaPhe.UserControlWPF
 {
 	/// <summary>
-	/// Interaction logic for LichLamViecNhanVien.xaml
+	/// Interaction logic for MonAn.xaml
 	/// </summary>
-	public partial class LichLamViecNhanVien : UserControl
+	public partial class MonAn : UserControl
 	{
-		public LichLamViecNhanVienViewModel Home { get; set; }
-		public LichLamViecNhanVien()
+		public MonAn()
 		{
 			InitializeComponent();
-			Home = new LichLamViecNhanVienViewModel();
-			this.DataContext = Home;
 		}
 	}
 }

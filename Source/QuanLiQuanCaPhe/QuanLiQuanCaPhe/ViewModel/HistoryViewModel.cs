@@ -7,40 +7,42 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using QuanLiQuanCaPhe.Models;
 using System.Windows;
-using System.Data.Entity;
-
 namespace QuanLiQuanCaPhe.ViewModel
 {
     public class HistoryViewModel : NhanVienLayoutViewModelInterface
     {
         public ICommand LoadOrderByCategory { get; set; }
-        public HistoryViewModel()
+		public ICommand SearchDonhang { get; set; }
+
+		private string _QueryStringLichSuDonhang;
+		public string QueryStringLichSuDonhang
+		{
+			get => _QueryStringLichSuDonhang;
+			set { _QueryStringLichSuDonhang = value; OnPropertyChanged(); }
+		}
+		public HistoryViewModel()
         {
             Title = "Lịch sử bán hàng";
+            //SelectedOrder = (_ListOrder == null) ? null : ListOrder[0];
             SelectedCategory = ListCategory[0];
             LoadOrderByCategory = new RelayCommand<Category>((category) => { return (category != SelectedCategory); }, (category) =>
            {
                SelectedCategory = category;
            });
+			SearchDonhang = new RelayCommand<object>((category) => {
+				if(string.IsNullOrEmpty(QueryStringLichSuDonhang))
+					return false;
+				return true;
+			}, (category) =>
+			{
+				//ListCategory = new List<Category>(SeviceData.TimKiemDonHang(QueryStringLichSuDonhang));
+			});
 
-        }
-        private int _OrderSideBar = 0;
-        public int OrderSideBar { get => _OrderSideBar; set { OnPropertyChanged(ref _OrderSideBar, value); } }
+		}
         private Order _SelectedOrder;
         public Order SelectedOrder
         {
-            get
-            {
-                if (_SelectedOrder != null)
-                {
-                    OrderSideBar = 320;
-                }
-                else
-                {
-                    OrderSideBar = 0;
-                }
-                return _SelectedOrder;
-            }
+            get { return _SelectedOrder; }
             set
             {
                 OnPropertyChanged(ref _SelectedOrder, value);
@@ -51,10 +53,8 @@ namespace QuanLiQuanCaPhe.ViewModel
         {
             get
             {
-                if (_ListOrder == null || OrderService.HistoryHasModified())
-                {
-                    _ListOrder = OrderService.GetOrderByCategory(SelectedCategory);
-                }
+                if (_ListOrder == null)
+                    _ListOrder = OrderService.GetOrderByCategory(new Category() { ID = "day"});
                 return _ListOrder;
             }
             set

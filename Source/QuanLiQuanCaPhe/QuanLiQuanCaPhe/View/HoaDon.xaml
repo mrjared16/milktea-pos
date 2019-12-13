@@ -86,7 +86,7 @@
                         AcceptsReturn="True"
                         TextWrapping="Wrap"
                         materialDesign:HintAssist.Hint="Thời gian:" 
-                        Text="{Binding donHang.CREADTEDAT, Mode=TwoWay}"
+                        Text="{Binding donHang.THOIGIAN, Mode=TwoWay}"
                         x:Name="textBlockTHOIGIAN"
                         IsEnabled="False"/>
                         <TextBox

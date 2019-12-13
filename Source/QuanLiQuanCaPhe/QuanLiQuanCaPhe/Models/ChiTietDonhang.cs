@@ -14,14 +14,7 @@ namespace QuanLiQuanCaPhe.Models
     
     public partial class ChiTietDonhang
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ChiTietDonhang()
-        {
-            this.ChiTietDonhang1 = new HashSet<ChiTietDonhang>();
-        }
-    
         public int MADH { get; set; }
-        public int ID { get; set; }
         public int MAMON { get; set; }
         public double SOLUONG { get; set; }
         public double DONGIA { get; set; }
@@ -30,13 +23,8 @@ namespace QuanLiQuanCaPhe.Models
         public Nullable<int> ISDEL { get; set; }
         public Nullable<System.DateTime> CREADTEDAT { get; set; }
         public Nullable<System.DateTime> UPDATEDAT { get; set; }
-        public Nullable<int> PARENTID { get; set; }
-        public Nullable<int> PARENTMADH { get; set; }
     
         public virtual DonHang DonHang { get; set; }
         public virtual MonAn MonAn { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietDonhang> ChiTietDonhang1 { get; set; }
-        public virtual ChiTietDonhang ChiTietDonhang2 { get; set; }
     }
 }

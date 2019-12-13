@@ -8,226 +8,190 @@ using QuanLiQuanCaPhe.ViewModel;
 
 namespace QuanLiQuanCaPhe.Models
 {
-
-    public class OrderService
-    {
-        public static int GetNextOrderID()
-        {
-            return DataAccess.GetNextOrderID();
-        }
-        public static int GetNextOrderItemID()
-        {
-            return _OrderItemID++;
-        }
-
-        public static List<Category> GetCategories()
-        {
-            List<Category> _ListCategory = new List<Category>();
-            _ListCategory.Add(new Category() { Name = "Hôm nay", ID = 1});
-            _ListCategory.Add(new Category() { Name = "Tuần này", ID = 2});
-            _ListCategory.Add(new Category() { Name = "Tháng này", ID = 3 });
-            _ListCategory.Add(new Category() { Name = "Tất cả", ID = null });
-            return _ListCategory;
-        }
-        public static List<Order> GetOrderByCategory(Category value)
-        {
-            if (value == null)
-                return null;
-            switch (value.ID)
-            {
-                case 1:
-                    return DataAccess.GetOrderToday();
-                case 2:
-                    return DataAccess.GetOrderThisWeek();
-                case 3:
-                    return DataAccess.GetOrderThisMonth();
-                default:
-                    return DataAccess.GetAllOrder();
-            }
-        }
-        public static List<OrderItem> GetOrderItems(DonHang DonHang)
-        {
-            List<OrderItem> result = DonHang.ChiTietDonhangs.ToList().Where(x => x.ISDEL != 1 && IsDrink(x)).Select(x => new OrderItem(x)).ToList();
-            return result;
-        }
-
-        public static List<Topping> GetToppings()
-        {
-            return DataAccess.GetToppings();
-        }
-
-        //public static List<Option> GetOptions()
-        //{
-        //    return DataAccess.GetOptions();
-        //}
-
-        //public static List<OptionGroup> GetGroupsOption()
-        //{
-        //    return DataAccess.GetGroupsOption();
-        //}
-        public static bool HistoryHasModified()
-        {
-            if (!_HistoryHasModified)
-                return false;
-
-            _HistoryHasModified = false;
-            return true;
-        }
-        public static double ValidateCoupon(string CouponCode)
-        {
-            // TODO: refactor
-            if (CouponCode == "MAGIAMGIA")
-            {
-                return 20;
-            }
-            return 0;
-        }
+	public class UserService
+	{
+		private static NhanVien _CurrentUser = null;
+		public static NhanVien GetCurrentUser
+		{
+			get
+			{
+				return _CurrentUser;
+			}
+			set
+			{
+				_CurrentUser = value;
+			}
+		}
+		//public static NhanVien GetCurrentUser()
+		//{
+		//    return DataProvider.ISCreated.DB.NhanViens.FirstOrDefault();
+		//}
+	}
+	public class OrderService
+	{
+		// API
+		public static string GetUser()
+		{
+			return "Phúc";
+		}
+		public static void AddOrder(Order item)
+		{
+			//GetListOrder.Add(item);
+			DataAccess.AddOrder(item);
+		}
+		public static int GetNextOrderID()
+		{
+			return DataAccess.GetNextOrderID();
+		}
 
 
-        public static void AddOrder(Order item)
-        {
-            _OrderItemID = 0;
-            _HistoryHasModified = true;
-            DataAccess.AddOrder(item);
-        }
-        // order item
-        public static void AddItem(Order order, OrderItem item)
-        {
-            order.items.Add(item);
-            order.OnPropertyChanged(null);
-        }
-        public static void RemoveItem(Order order, OrderItem item)
-        {
-            order.items.Remove(item);
-            order.OnPropertyChanged(null);
-        }
+		//private static List<Order> ListOrder = null;
+		//public static List<Order> GetListOrder
+		//{
+		//    get
+		//    {
+
+		//        if (ListOrder == null)
+		//        {
+		//            ListOrder = new List<Order>();
+		//        }
+		//        return ListOrder;
+		//    }
+		//}
+
+		public static List<Category> GetCategories()
+		{
+			List<Category> _ListCategory = new List<Category>();
+			_ListCategory.Add(new Category() { Name = "Hôm nay", ID = "day" });
+			_ListCategory.Add(new Category() { Name = "Tuần này", ID = "week" });
+			_ListCategory.Add(new Category() { Name = "Tháng này", ID = "month" });
+			_ListCategory.Add(new Category() { Name = "Tất cả", ID = null });
+			return _ListCategory;
+		}
+
+		public static List<Order> GetOrderByCategory(Category value)
+		{
+			if (value == null)
+				return null;
+			switch (value.ID)
+			{
+				case "day":
+					return DataAccess.GetOrderToday();
+				case "week":
+					return DataAccess.GetOrderThisWeek();
+				case "month":
+					return DataAccess.GetOrderThisMonth();
+				default:
+					return DataAccess.GetAllOrder();
+			}
+		}
+		public static List<OrderItem> GetOrderItems(DonHang DonHang)
+		{
+			return DonHang.ChiTietDonhangs.ToList().Where(x => x.ISDEL != 1).Select(x => new OrderItem(x)).ToList();
+		}
+	}
+
+	public class DrinkService
+	{
+		// API
+		public static List<Category> GetCategories()
+		{
+			//return FakeData.GetCategories();
+			return DataAccess.GetCategories();
+		}
+		public static List<Drink> GetDrinkFromCategory(Category category)
+		{
+			//return FakeData.GetDrinkFromCategory(_ListCategory.Name);
+			return DataAccess.GetDrinkFromCategory(category);
+		}
+	}
+	public class DataAccess
+	{
+		public static List<Category> GetCategories()
+		{
+			List<Category> list = new List<Category>(DataProvider.ISCreated.DB.LoaiMonAns.ToList().Where(x => x.ISDEL != 1).Select(x => new Category(x)));
+			list.Insert(0, new Category() { Name = "Tất cả", ID = null });
+			return list;
+		}
+		public static List<Drink> GetDrinkFromCategory(Category category)
+		{
+			List<Drink> list = DataProvider.ISCreated.DB.MonAns.ToList().Where(x => x.ISDEL != 1 && (category.ID == null || x.MALOAI.ToString() == category.ID)).Select(x => new Drink(x)).ToList();
+			return list;
+		}
+
+		public static int GetNextOrderID()
+		{
+			DonHang LastID = DataProvider.ISCreated.DB.DonHangs.OrderByDescending(a => a.MADH).FirstOrDefault();
+			return (LastID == null) ? 1 : LastID.MADH+1;
+		}
+		public static void AddOrder(Order order)
+		{
+
+			DonHang don = order.ToDonHang();
 
 
-
-        public static void SetItemAmount(Order order, OrderItem orderitem, int amount)
-        {
-            orderitem.Number = amount;
-            order.OnPropertyChanged(null);
-        }
-
-        public static void RemoveAllItems(Order order)
-        {
-            order.items.Clear();
-            order.OnPropertyChanged(null);
-        }
-
-        // topping
-        public static void AddTopping(Order order, Topping topping, OrderItem parent)
-        {
-            // TODO: refactor
-            if (topping == null || parent == null)
-            {
-                MessageBox.Show("Co loi xay ra");
-                return;
-            }
-            //TODO: refactor
-            OrderItem orderItem = new OrderItem(topping.Item);
-            parent.AddTopping(orderItem);
-            orderItem.AddParent(parent);
-            order.OnPropertyChanged(null);
-        }
-        public static void RemoveTopping(Order order, Topping topping, OrderItem parent)
-        {
-            // TODO: refactor
-            if (topping == null || parent == null)
-            {
-                MessageBox.Show("Co loi xay ra");
-                return;
-            }
-            // TODO: refactor
-            OrderItem orderItem = parent.ToppingsOfItem.FirstOrDefault(x => x.Item.ID == topping.Item.ID);
-            parent.RemoveTopping(orderItem);
-            order.OnPropertyChanged(null);
-        }
-
-        // Option
-        //public static void SelectOption(Order currentOrder, Option drink, OrderItem option)
-        //{
-        //    // TODO: refactor
-        //    if (drink == null || option == null)
-        //    {
-        //        MessageBox.Show("Co loi xay ra");
-        //        return;
-        //    }
-        //    OrderItem old = option.OptionsOfItem.FirstOrDefault(x => HasSameCategory(drink.Item, x.Item));
-        //    if (old != null)
-        //        RemoveOption(currentOrder, old.Item, option);
-        //    //TODO: refactor
-        //    OrderItem orderItem = new OrderItem(drink.Item);
-
-        //    option.AddOption(orderItem);
-        //    orderItem.AddParent(option);
-        //    currentOrder.OnPropertyChanged(null);
-        //}
-
-        //public static void RemoveOption(Order currentOrder, Drink drink, OrderItem parent)
-        //{
-        //    // TODO: refactor
-        //    if (drink == null || parent == null)
-        //    {
-        //        MessageBox.Show("Co loi xay ra");
-        //        return;
-        //    }
-        //    // TODO: refactor
-        //    OrderItem orderItem = parent.OptionsOfItem.FirstOrDefault(x => x.Item.ID == drink.ID);
-        //    parent.RemoveOption(orderItem);
-        //    currentOrder.OnPropertyChanged(null);
-        //}
-
-        //private static bool HasSameCategory(Drink a, Drink b)
-        //{
-        //    return GetMonAn(a).MALOAI == GetMonAn(b).MALOAI;
-        //}
-        //private static MonAn GetMonAn(Drink a)
-        //{
-        //    return DataProvider.ISCreated.DB.MonAns.FirstOrDefault(x => x.MAMON == a.ID);
-        //}
-        // coupon
-        public static bool AddCoupon(Order order, string Coupon)
-        {
-            order.Coupon = OrderService.ValidateCoupon(Coupon);
-            return (order.Coupon != 0);
-        }
-        public static void RemoveCoupon(Order order)
-        {
-            order.Coupon = 0;
-        }
-
-        public static bool IsEmpty(Order order)
-        {
-            return !order.items.Any();
-        }
-        public static bool HasCoupon(Order order)
-        {
-            return order.Coupon > 0;
-        }
-        public static bool IsTopping(LoaiMonAn loaiMonAn)
-        {
-            return (loaiMonAn.TENLOAI.Equals("CÁC LOẠI HẠT"));
-        }
-        public static bool IsOption(LoaiMonAn loaiMonAn)
-        {
-            return (loaiMonAn.TENLOAI.Equals("SIZE") || loaiMonAn.TENLOAI.Equals("TYPE"));
-        }
-        public static bool IsDrink(LoaiMonAn loaiMonAn)
-        {
-            return (!IsTopping(loaiMonAn) && !IsOption(loaiMonAn));
-        }
+			DataProvider.ISCreated.DB.DonHangs.Add(don);
+			DataProvider.ISCreated.DB.SaveChanges();
 
 
-        private static int _OrderItemID = 0;
-        private static bool _HistoryHasModified = false;
-        private static bool IsDrink(ChiTietDonhang chiTietDonhang)
-        {
-            return chiTietDonhang.ChiTietDonhang2 == null;
-        }
+			DataProvider.ISCreated.DB.ChiTietDonhangs.AddRange(order.ToChiTietDonHangs());
+			DataProvider.ISCreated.DB.SaveChanges();
+		}
+		private static List<Order> GetOrderBy(Func<DonHang, bool> Condition)
+		{
+			List<Order> list =
+				DataProvider.ISCreated.DB.DonHangs.ToList()
+				.Where(x => Condition(x) && x.ISDEL != 1)
+				.Select(x => new Order(x))
+				.ToList();
+			return list;
+		}
 
-    }
-
+		public static List<Order> GetOrderToday()
+		{
+			return GetOrderBy(IsInToday);
+		}
+		public static List<Order> GetOrderThisWeek()
+		{
+			return GetOrderBy(IsInThisWeek);
+		}
+		public static List<Order> GetOrderThisMonth()
+		{
+			return GetOrderBy(IsInThisMonth);
+		}
+		public static List<Order> GetAllOrder()
+		{
+			return GetOrderBy((DonHang) => { return true; });
+		}
+		private static bool IsInToday(DonHang DonHang)
+		{
+			return AreInSameDay(DonHang.CREADTEDAT.Value, DateTime.Now);
+		}
+		private static bool IsInThisWeek(DonHang DonHang)
+		{
+			return AreInSameWeek(DonHang.CREADTEDAT.Value, DateTime.Now);
+		}
+		private static bool IsInThisMonth(DonHang DonHang)
+		{
+			return AreInSameMonth(DonHang.CREADTEDAT.Value, DateTime.Now);
+		}
+		private static bool AreInSameDay(DateTime date1, DateTime date2)
+		{
+			return (date1.Year == date2.Year && date1.Month == date2.Month & date1.Day == date2.Day);
+		}
+		private static bool AreInSameWeek(DateTime date1, DateTime date2)
+		{
+			if (date1.Year != date2.Year || date1.Month != date2.Month)
+				return false;
+			var cal = System.Globalization.DateTimeFormatInfo.CurrentInfo.Calendar;
+			var d1 = date1.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date1));
+			var d2 = date2.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date2));
+			return d1 == d2;
+		}
+		private static bool AreInSameMonth(DateTime date1, DateTime date2)
+		{
+			return (date1.Year == date2.Year && date1.Month == date2.Month);
+		}
+	}
 
 }
