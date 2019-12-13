@@ -106,7 +106,7 @@ namespace QuanLiQuanCaPhe.ViewModel
             {
                 donHang.MADH = selectItem.MADH;
                 donHang.MANV = selectItem.MANV;
-                donHang.THOIGIAN = selectItem.THOIGIAN;
+                donHang.CREADTEDAT = selectItem.CREADTEDAT;
                 donHang.TONGTIEN = selectItem.TONGTIEN;
                 donHang.TENKH = selectItem.TENKH;
                 listChiTietDonHang = new BindingList<ChiTietDonhang>(seviceData.danhSachChiTietDonhang(donHang.MADH));

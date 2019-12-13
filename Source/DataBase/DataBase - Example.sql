@@ -63,14 +63,17 @@ create table DonHang
 create table ChiTietDonhang
 (
 	MADH int not null,
-	MAMON int not null,
+	ID int not null,
+	MAMON VARCHAR(30) not null,
 	SOLUONG  FLOAT not null,
 	DONGIA FLOAT not null,
 	THANHTIEN  FLOAT not null,
 	GIAMGIA FLOAT not null,
 	ISDEL int DEFAULT 0,
 	CREADTEDAT datetime,
-	UPDATEDAT datetime
+	UPDATEDAT datetime,
+	PARENTID int,
+	PARENTMADH int
 )
 create table LichLamViec
 (
@@ -112,11 +115,15 @@ GO
 GO	
 -- tạo khóa chính, ngoại cho bảng chi tiết đơn hàng
 alter table ChiTietDonHang add 
-	PRIMARY KEY(MADH,MAMON)
-
+	PRIMARY KEY(MADH,ID)
+GO
 alter table ChiTietDonHang add
 	constraint FK_CTDH_DH foreign key (MADH)
 	references DonHang (MADH)
+GO
+alter table ChiTietDonHang add
+	constraint FK_CTDH_OPTION_CTDH foreign key (PARENTMADH, PARENTID)
+	references ChiTietDonHang (MADH, ID)
 GO	
 alter table ChiTietDonHang add
 	constraint FK_CTDH_MA foreign key (MAMON)
