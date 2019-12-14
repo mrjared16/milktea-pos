@@ -47,13 +47,13 @@
             </Grid.ColumnDefinitions>
             <ScrollViewer Grid.Column="0" Height="560">
                 <ListView x:Name="listViewDonHang" Margin="10"
-                          ItemsSource="{Binding listDonHang}"
+                          ItemsSource="{Binding listDonHang2}"
                           SelectedItem="{Binding selectItem, Mode=TwoWay}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Width="200" Header="Mã đơn hàng" DisplayMemberBinding="{Binding MADH}"/>
-                            <GridViewColumn Width="200" Header="Người tạo" DisplayMemberBinding="{Binding MANV}"/>
-                            <GridViewColumn Width="200" Header="Ngày tạo" DisplayMemberBinding="{Binding THOIGIAN}"/>
+                            <GridViewColumn Width="200" Header="Người bán" DisplayMemberBinding="{Binding HOTENNV}"/>
+                            <GridViewColumn Width="200" Header="Ngày bán" DisplayMemberBinding="{Binding THOIGIAN}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -61,7 +61,7 @@
             <ScrollViewer Height="550" Grid.Column="1" Background="AntiqueWhite" Margin="0 10 0 0">
                 <StackPanel>
                     <TextBlock Text="THÔNG TIN ĐƠN HÀNG" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="5"/>
-                    <StackPanel>
+                    <StackPanel Background="#0ffff7" Margin="15 0 0 0">
                         <TextBox
                         Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
                         VerticalAlignment="Top"
@@ -70,14 +70,15 @@
                         materialDesign:HintAssist.Hint="Mã đơn hàng:" 
                         Text="{Binding donHang.MADH, Mode=TwoWay}"
                         x:Name="textBlockMADH"
-                        IsEnabled="False"/>
+                        IsEnabled="False"
+                        Background="Aqua"/>
                         <TextBox
                         Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
                         VerticalAlignment="Top"
                         AcceptsReturn="True"
                         TextWrapping="Wrap"
                         materialDesign:HintAssist.Hint="Người bán:" 
-                        Text="{Binding donHang.MANV, Mode=TwoWay}"
+                        Text="{Binding donHang.HOTENNV, Mode=TwoWay}"
                         x:Name="textBlockHOTEN"
                         IsEnabled="False"/>
                         <TextBox
@@ -86,7 +87,7 @@
                         AcceptsReturn="True"
                         TextWrapping="Wrap"
                         materialDesign:HintAssist.Hint="Thời gian:" 
-                        Text="{Binding donHang.CREADTEDAT, Mode=TwoWay}"
+                        Text="{Binding donHang.THOIGIAN, Mode=TwoWay}"
                         x:Name="textBlockTHOIGIAN"
                         IsEnabled="False"/>
                         <TextBox
@@ -108,17 +109,16 @@
                         x:Name="textBlockTENKH"
                         IsEnabled="False"/>
                     </StackPanel>
-                    <TextBlock Text="CHI TIẾT ĐƠN HÀNG" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"/>
+                    <TextBlock Text="CHI TIẾT ĐƠN HÀNG" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="10"/>
                     <ListView Grid.Row="0" x:Name="listViewChiTietDonHang"
-                            ItemsSource="{Binding listChiTietDonHang}">
+                            ItemsSource="{Binding listChiTietDonHang2}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Mã Món" DisplayMemberBinding="{Binding MAMON}"/>
-								<GridViewColumn Header="Tên món" DisplayMemberBinding="{Binding TEMMON}"/>
-								<GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding SOLUONG}"/>
-                                <GridViewColumn Header="Đơn giá" DisplayMemberBinding="{Binding DONGIA}"/>
-                                <GridViewColumn Header="Thành tiền" DisplayMemberBinding="{Binding THANHTIEN}"/>
-                                <GridViewColumn Header="Giảm giá" DisplayMemberBinding="{Binding GIAMGIA}"/>
+                                <GridViewColumn Width="200" Header="Tên món" DisplayMemberBinding="{Binding TENMON}"/>
+								<GridViewColumn Width="100" Header="Số lượng" DisplayMemberBinding="{Binding SOLUONG}"/>
+                                <GridViewColumn Width="100" Header="Đơn giá" DisplayMemberBinding="{Binding DONGIA}"/>
+                                <GridViewColumn Width="100" Header="Thành tiền" DisplayMemberBinding="{Binding THANHTIEN}"/>
+                                <GridViewColumn Width="100" Header="Giảm giá" DisplayMemberBinding="{Binding GIAMGIA}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>

@@ -32,37 +32,54 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ScrollViewer Grid.Row="0" Height="560">
-                <ListView x:Name="listViewLoaiMonAn" Margin="10"
+            <ScrollViewer Grid.Row="0" Width="300">
+                <ListView x:Name="listViewLoaiMonAn" 
                           ItemsSource="{Binding listLoaiMonAn}"
                           SelectedItem="{Binding selectItem, Mode=TwoWay}">
+                    
                     <ListView.View>
                         <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="Width" Value="300"/>
+                                    <Setter Property="Background" Value="#0D47A1" />
+                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="BorderBrush" Value="{x:Null}" />
+                                    <Setter Property="BorderThickness" Value="0" />
+                                    <Setter Property="Margin" Value="0" />
+                                    <Setter Property="Padding" Value="5" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+
                             <GridViewColumn Header="Tên loại món ăn" DisplayMemberBinding="{Binding TENLOAI}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
             </ScrollViewer>
             <StackPanel Grid.Column="1" Margin="10 20 10 10" Background="AntiqueWhite">
-                <TextBlock Text="CHI TIẾT LOẠI MÓN ĂN" HorizontalAlignment="Center" FontSize="25"/>
+                <TextBlock Text="CHI TIẾT LOẠI MÓN ĂN" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="10"/>
                 <ScrollViewer Height="500" VerticalScrollBarVisibility="Visible">
                     <StackPanel>
-                        <TextBox
+                        <StackPanel Background="#0ffff7" Margin="15 0 0 0">
+                            <TextBox
                             Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
                             VerticalAlignment="Top"
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
                             materialDesign:HintAssist.Hint="Mã loại món ăn:" 
                             Text="{Binding chiTietLoaiMonAn.MALOAI}"
-                            x:Name="textBlockMALOAI"/>
-                        <TextBox
+                            x:Name="textBlockMALOAI"
+                            IsEnabled="False"/>
+                            <TextBox
                             Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
                             VerticalAlignment="Top"
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
                             materialDesign:HintAssist.Hint="Tên loại món ăn:" 
-                            Text="{Binding chiTietLoaiMonAn.TENLOAI}"
+                            Text="{Binding chiTietLoaiMonAn.TENLOAI, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                             x:Name="textBlockTENLOAI"/>
+                        </StackPanel>
                         <Grid Margin="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
