@@ -110,7 +110,7 @@
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="30"/>
                                                     <RowDefinition Height="*"/>
-                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="Auto"/>
                                                 </Grid.RowDefinitions>
                                                 <!--Name and exit-->
                                                 <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Grid.Column="0"  Style="{DynamicResource StrongTitle}" 

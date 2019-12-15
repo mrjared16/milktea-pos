@@ -62,8 +62,8 @@ namespace QuanLiQuanCaPhe.ViewModel
             {
                 DonHang2 temp = new DonHang2();
                 temp.MADH = item.MADH;
-                temp.MANV = item.MANV;
-                temp.THOIGIAN = item.THOIGIAN;
+                temp.MANV = (int)item.MANV;
+                temp.CREADTEDAT = item.CREADTEDAT;
                 temp.TONGTIEN = item.TONGTIEN;
                 temp.TENKH = item.TENKH;
                 temp.HOTENNV = seviceData.layTenNhanVien(item.MANV);
@@ -131,14 +131,6 @@ namespace QuanLiQuanCaPhe.ViewModel
                 }
             }
 
-            private Nullable<System.DateTime> _THOIGIAN;
-            public Nullable<System.DateTime> THOIGIAN
-            {
-                get => _THOIGIAN; set
-                {
-                    _THOIGIAN = value; OnPropertyChanged();
-                }
-            }
 
             private Nullable<double> _TONGTIEN;
             public Nullable<double> TONGTIEN
@@ -259,7 +251,7 @@ namespace QuanLiQuanCaPhe.ViewModel
             {
                 donHang.MADH = selectItem.MADH;
                 donHang.MANV = selectItem.MANV;
-                donHang.THOIGIAN = selectItem.THOIGIAN;
+                donHang.CREADTEDAT = selectItem.CREADTEDAT;
                 donHang.TONGTIEN = selectItem.TONGTIEN;
                 donHang.TENKH = selectItem.TENKH;
                 donHang.HOTENNV = selectItem.HOTENNV;

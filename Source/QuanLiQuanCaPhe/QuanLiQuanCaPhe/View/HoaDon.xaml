@@ -53,7 +53,7 @@
                         <GridView>
                             <GridViewColumn Width="200" Header="Mã đơn hàng" DisplayMemberBinding="{Binding MADH}"/>
                             <GridViewColumn Width="200" Header="Người bán" DisplayMemberBinding="{Binding HOTENNV}"/>
-                            <GridViewColumn Width="200" Header="Ngày bán" DisplayMemberBinding="{Binding THOIGIAN}"/>
+                            <GridViewColumn Width="200" Header="Ngày bán" DisplayMemberBinding="{Binding CREADTEDAT}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -87,8 +87,8 @@
                         AcceptsReturn="True"
                         TextWrapping="Wrap"
                         materialDesign:HintAssist.Hint="Thời gian:" 
-                        Text="{Binding donHang.THOIGIAN, Mode=TwoWay}"
-                        x:Name="textBlockTHOIGIAN"
+                        Text="{Binding donHang.CREADTEDAT, Mode=TwoWay}"
+                        x:Name="textBlockCREADTEDAT"
                         IsEnabled="False"/>
                         <TextBox
                         Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"

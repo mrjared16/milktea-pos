@@ -132,6 +132,13 @@
                                 TextWrapping="Wrap"
                                 materialDesign:HintAssist.Hint="Chức vụ:" 
                                 Text="{Binding CHUCVU, Mode=TwoWay}"/>
+                                                        <TextBox
+                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                VerticalAlignment="Top"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                materialDesign:HintAssist.Hint="Tai khoan:" 
+                                Text="{Binding TAIKHOAN, Mode=TwoWay}"/>
                         </StackPanel>
                         <Grid Margin="10">
                             <Grid.ColumnDefinitions>

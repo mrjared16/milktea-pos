@@ -37,7 +37,8 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="0" Background="{DynamicResource SideBar}" Width="240" Grid.RowSpan="2">
             <Grid Width="240" Height="240">
-                <Image Width="160" Height="160" Stretch="None" />
+                <Image Margin="20 0 20 0"
+                      	Source="../Image/tra.jpg"/>
             </Grid>
             <StackPanel>
                 <Button Command="{Binding LoadHomeView}" Style="{StaticResource SideTab}" Content="Tài khoản"/>

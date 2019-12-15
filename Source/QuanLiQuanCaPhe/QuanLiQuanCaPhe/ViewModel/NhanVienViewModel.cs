@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.ComponentModel;
 using QuanLiQuanCaPhe.Models;
 using System.IO;
-
+using System.Security.Cryptography;
 
 namespace QuanLiQuanCaPhe.ViewModel
 {
@@ -134,6 +134,7 @@ namespace QuanLiQuanCaPhe.ViewModel
                 ChiTietNhanVien.CMND = selectItem.CMND;
                 ChiTietNhanVien.DIENTHOAI = selectItem.DIENTHOAI;
                 ChiTietNhanVien.CHUCVU = selectItem.CHUCVU;
+                ChiTietNhanVien.TAIKHOAN = selectItem.TAIKHOAN;
 				HinhAnhNhanVien = SeviceData.LoadImage(selectItem.HINHANH);
                 isAddActivity = false;
                 cancelButtonName = "XÓA";
@@ -224,34 +225,44 @@ namespace QuanLiQuanCaPhe.ViewModel
                 if (isAddActivity)
                 {
                     NhanVien nhanvien = ChiTietNhanVien;
-					try
-					{
-						nhanvien.HINHANH = SeviceData.ImageToByte2(HinhAnhNhanVien);
-					}
-					catch
-					{
+                    try
+                    {
+                        nhanvien.HINHANH = SeviceData.ImageToByte2(HinhAnhNhanVien);
+                    }
+                    catch
+                    {
 
-					}
-					if (seviceData.themNhanVien(nhanvien))                
-                        listNhanVien = new BindingList<NhanVien>(seviceData.danhsachNhanVien());                    
-                    else                    
-                        MessageBox.Show("Ma nhan vien da ton tai :((");                    
+                    }
+
+                    nhanvien.MATKHAU = MD5Hash(Base64Encode(nhanvien.CMND));
+
+                    if (seviceData.themNhanVien(nhanvien))
+                    {
+                     
+                        MessageBox.Show("Thêm thành công \n Mật khẩu mặc định là CMND!!!");
+                        listNhanVien = new BindingList<NhanVien>(seviceData.danhsachNhanVien());
+                    }
+                    else
+                        MessageBox.Show("Ma nhan vien da ton tai :((");
                     ChiTietNhanVien = new NhanVien();
                 }
                 else
                 {
                     NhanVien nhanvien = ChiTietNhanVien;
-					try
-					{
-						nhanvien.HINHANH = SeviceData.ImageToByte2(HinhAnhNhanVien);
-					}
-					catch
-					{
+                    try
+                    {
+                        nhanvien.HINHANH = SeviceData.ImageToByte2(HinhAnhNhanVien);
+                    }
+                    catch
+                    {
 
-					}
-					
-					if (seviceData.suaNhanVien(nhanvien))
+                    }
+
+                    if (seviceData.suaNhanVien(nhanvien))
+                    {
                         listNhanVien = new BindingList<NhanVien>(seviceData.danhsachNhanVien());
+                        MessageBox.Show("Lưu thành công");
+                    } 
                     else
                         MessageBox.Show("Khong chinh sua thong tin nhan vien duoc :((");
                     showDetails();
@@ -268,5 +279,24 @@ namespace QuanLiQuanCaPhe.ViewModel
 
             listNhanVien = new BindingList<NhanVien>(seviceData.danhsachNhanVien());
         }
-    }   
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+        public static string MD5Hash(string input)
+        {
+            StringBuilder hash = new StringBuilder();
+            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
+            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
+
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                hash.Append(bytes[i].ToString("x2"));
+            }
+            return hash.ToString();
+        }
+
+
+    }
 }
