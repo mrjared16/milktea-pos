@@ -23,8 +23,8 @@ namespace QuanLiQuanCaPhe.Models
         public static List<Category> GetCategories()
         {
             List<Category> _ListCategory = new List<Category>();
-            _ListCategory.Add(new Category() { Name = "Hôm nay", ID = 1});
-            _ListCategory.Add(new Category() { Name = "Tuần này", ID = 2});
+            _ListCategory.Add(new Category() { Name = "Hôm nay", ID = 1 });
+            _ListCategory.Add(new Category() { Name = "Tuần này", ID = 2 });
             _ListCategory.Add(new Category() { Name = "Tháng này", ID = 3 });
             _ListCategory.Add(new Category() { Name = "Tất cả", ID = null });
             return _ListCategory;
@@ -45,6 +45,11 @@ namespace QuanLiQuanCaPhe.Models
                     return DataAccess.GetAllOrder();
             }
         }
+        public static List<Order> GetOrderByQueryString(string QueryString)
+        {
+            return DataAccess.GetOrderByQueryString(QueryString);
+        }
+        
         public static List<OrderItem> GetOrderItems(DonHang DonHang)
         {
             List<OrderItem> result = DonHang.ChiTietDonhangs.ToList().Where(x => x.ISDEL != 1 && IsDrink(x)).Select(x => new OrderItem(x)).ToList();
@@ -126,7 +131,7 @@ namespace QuanLiQuanCaPhe.Models
                 return;
             }
             //TODO: refactor
-            OrderItem orderItem = new OrderItem(topping.Item);
+            OrderItem orderItem = new OrderItem(topping.Item, parent.Number);
             parent.AddTopping(orderItem);
             orderItem.AddParent(parent);
             order.OnPropertyChanged(null);
@@ -191,7 +196,9 @@ namespace QuanLiQuanCaPhe.Models
         public static bool AddCoupon(Order order, string Coupon)
         {
             order.Coupon = OrderService.ValidateCoupon(Coupon);
-            return (order.Coupon != 0);
+            if (order.Coupon == 0)
+                return false;
+            return true;
         }
         public static void RemoveCoupon(Order order)
         {

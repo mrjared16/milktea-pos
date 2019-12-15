@@ -52,6 +52,10 @@ namespace QuanLiQuanCaPhe.Models
         {
             get { return name; }
         }
+        public string CustomName
+        {
+            get { return Name + " (" + String.Format("{0:n0}", Price) + "đ)"; }
+        }
         public string Label
         {
             get { return (name.Length > 15) ? name.Substring(0, 12) + "..." : name; }
@@ -194,7 +198,7 @@ namespace QuanLiQuanCaPhe.Models
             this.ID = DonHang.MADH;
             this.User = DonHang.NhanVien;
             this.Date = (DateTime)DonHang.CREADTEDAT;
-            this.Coupon = 0;
+            this.Coupon = (DonHang.GIAMGIA == null) ? 0 : (double)(DonHang.GIAMGIA) ;
             this.items = new ObservableCollection<OrderItem>(OrderService.GetOrderItems(DonHang));
 
         }
@@ -207,6 +211,7 @@ namespace QuanLiQuanCaPhe.Models
                 MADH = this.ID,
                 MANV = this.User.MANV,
                 TONGTIEN = this.OrderTotal,
+                GIAMGIA = this.Coupon,
                 ISDEL = 0,
                 CREADTEDAT = Now,
                 UPDATEDAT = Now
@@ -304,7 +309,7 @@ namespace QuanLiQuanCaPhe.Models
             Item = item;
             Number = number;
             //Note = note;
-
+            
             Parent = null;
             ToppingsOfItem = null;
             //OptionsOfItem = null;
@@ -319,7 +324,7 @@ namespace QuanLiQuanCaPhe.Models
             //MessageBox.Show(_Item.Price + "-");
             this.Number = (int)ChiTiet.SOLUONG;
             //this.Note 
-
+            this.Discount = ChiTiet.GIAMGIA;
             if (HasToppings(ChiTiet))
             {
                 // TODO: need refactor
@@ -349,13 +354,16 @@ namespace QuanLiQuanCaPhe.Models
         // Save order item, if it is topping or option, reference to Parent ID
         public ChiTietDonhang ToChiTietDonHang(int OrderID, DateTime Now)
         {
+            if (this.Parent != null)
+                this.Number = this.Parent.Number;
             ChiTietDonhang result = new ChiTietDonhang()
             {
                 ID = this.ID,
                 MAMON = this.Item.ID,
                 MADH = OrderID,
                 SOLUONG = this.Number,
-                THANHTIEN = this.Price,
+                DONGIA = this.Price,
+                THANHTIEN = this.Price * this.Number - this.Discount,
                 ISDEL = 0,
                 CREADTEDAT = Now,
                 UPDATEDAT = Now,
@@ -367,7 +375,18 @@ namespace QuanLiQuanCaPhe.Models
         }
 
 
-
+        private double _Discount = 0;
+        public double Discount
+        {
+            get
+            {
+                return _Discount;
+            }
+            set
+            {
+                OnPropertyChanged(ref _Discount, value);
+            }
+        }
         // fields
         public int ID { get; set; }
 
@@ -421,7 +440,6 @@ namespace QuanLiQuanCaPhe.Models
         //        OnPropertyChanged(ref _OptionsOfItem, value);
         //    }
         //}
-
         private int _Number = 0;
         public int Number
         {
@@ -432,6 +450,13 @@ namespace QuanLiQuanCaPhe.Models
             set
             {
                 _Number = value;
+                if (this.HasToppings())
+                {
+                    foreach (OrderItem topping in ToppingsOfItem)
+                    {
+                        topping.Number = value;
+                    }
+                }
                 //OnPropertyChanged(ref _Number, value);
                 OnPropertyChanged("");
             }
@@ -485,7 +510,7 @@ namespace QuanLiQuanCaPhe.Models
                 //{
                 //    option += optionItem.ItemTotal;
                 //}
-                return (Item.Price + topping + option) * Number;
+                return (Item.Price * Number + topping + option) - Discount;
             }
         }
 
