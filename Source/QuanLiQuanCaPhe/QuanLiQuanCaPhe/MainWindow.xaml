@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLiQuanCaPhe"
         mc:Ignorable="d"
-		xmlns:uc="clr-namespace:QuanLiQuanCaPhe.UserControlWPF"
+		xmlns:uc="clr-namespace:QuanLiQuanCaPhe.View"
 		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 		TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -14,17 +14,64 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-		 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+		xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 		ResizeMode="NoResize"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        
+		xmlns:ViewModelss="clr-namespace:QuanLiQuanCaPhe.ViewModel"
+		xmlns:View="clr-namespace:QuanLiQuanCaPhe.View"
         Name="mainWindow"
         DataContext="{StaticResource MainVM}"
-        Title="Phần mềm quản lý kho" Height="500" Width="625">
+        Title="Phần mềm quản cà phê" Height="800" Width="1500">
+
+	<Window.Resources>
+		<DataTemplate 
+			x:Name="taiKhoanTempalte"
+			DataType ="{x:Type ViewModelss:TaiKhoanViewModel}"
+			>
+			<View:TaiKhoan DataContext="{Binding}"></View:TaiKhoan>
+		</DataTemplate>
+
+		<DataTemplate 
+			x:Name="HoaDon"
+			DataType ="{x:Type ViewModelss:HoaDonViewModel}"
+			>
+			<View:HoaDon DataContext="{Binding}"></View:HoaDon>
+		</DataTemplate>
+
+		<DataTemplate 
+			x:Name="LoaiMonAn"
+			DataType ="{x:Type ViewModelss:LoaiMonAnViewModel}"
+			>
+			<View:LoaiMonAn DataContext="{Binding}"></View:LoaiMonAn>
+		</DataTemplate>
+
+		<DataTemplate 
+			x:Name="NhanVien"
+			DataType ="{x:Type ViewModelss:NhanVienViewModel}"
+			>
+			<View:NhanVienAdmin DataContext="{Binding}"></View:NhanVienAdmin>
+		</DataTemplate>
+
+
+		<DataTemplate 
+			x:Name="MonAnAdminTempalte"
+			DataType ="{x:Type ViewModelss:MonAnAdminViewModel}"
+			>
+			<View:MonAn DataContext="{Binding}"></View:MonAn>
+		</DataTemplate>
+		<DataTemplate 
+			x:Name="DoanhThuAdminTempalte"
+			DataType ="{x:Type ViewModelss:DoanhThuAdminViewModel}"
+			>
+			<View:DoanhThuAdmin DataContext="{Binding}"></View:DoanhThuAdmin>
+		</DataTemplate>
+	</Window.Resources>
+	
 	<i:Interaction.Triggers>
 		<i:EventTrigger EventName="Loaded">
-			<i:InvokeCommandAction Command="{Binding LoadedWindowCommand}"/>
+			<i:InvokeCommandAction Command="{Binding LoadedWindowCommand}"
+								   CommandParameter="{Binding ElementName=mainWindow}"/>
 		</i:EventTrigger>
 	</i:Interaction.Triggers>
 	<Grid>
@@ -35,305 +82,135 @@
 		<Grid Grid.Row="0">
 			<uc:UserControlBarUC Tag="{Binding Title, ElementName=mainWindow}"></uc:UserControlBarUC>
 		</Grid>
-
 		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
-				<RowDefinition Height="auto"></RowDefinition>
-				<RowDefinition></RowDefinition>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
 			</Grid.RowDefinitions>
-
-			<!--menu-->
-			<Grid Grid.Row="0">
-				<Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Background="Transparent">
-					<Grid.Resources>
-						<Style TargetType="Button">
-							<Setter Property="Margin" Value="2 4 2 4"></Setter>
-							<Setter Property="Background" Value="LightCyan"></Setter>
-						</Style>
-					</Grid.Resources>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition></ColumnDefinition>
-						<ColumnDefinition></ColumnDefinition>
-						<ColumnDefinition></ColumnDefinition>
-						<ColumnDefinition></ColumnDefinition>
-						<ColumnDefinition></ColumnDefinition>
-						<ColumnDefinition></ColumnDefinition>
-					</Grid.ColumnDefinitions>
-					<Button Grid.Column="0" ToolTip="Nhập kho">
-						<Grid>
-							<Grid.RowDefinitions>
-								<RowDefinition></RowDefinition>
-								<RowDefinition></RowDefinition>
-							</Grid.RowDefinitions>
-							<Grid Grid.Row="0">
-								<TextBlock Text="Nhập kho" HorizontalAlignment="Center"></TextBlock>
-							</Grid>
-							<Grid Grid.Row="1">
-								<materialDesign:PackIcon HorizontalAlignment="Center" Width="24" Height="24"  Kind="ArrowDownBoldCircleOutline" />
-							</Grid>
-						</Grid>
-					</Button>
-					<Button Grid.Column="1" ToolTip="Xuất kho">
-						<Grid>
-							<Grid.RowDefinitions>
-								<RowDefinition></RowDefinition>
-								<RowDefinition></RowDefinition>
-							</Grid.RowDefinitions>
-							<Grid Grid.Row="0">
-								<TextBlock Text="Xuất kho" HorizontalAlignment="Center"></TextBlock>
-							</Grid>
-							<Grid Grid.Row="1">
-								<materialDesign:PackIcon Width="24" Height="24"  HorizontalAlignment="Center"  Kind="ArrowUpBoldCircleOutline" />
-							</Grid>
-						</Grid>
-					</Button>
-					<Button Grid.Column="2" ToolTip="Vật tư">
-						<Grid>
-							<Grid.RowDefinitions>
-								<RowDefinition></RowDefinition>
-								<RowDefinition></RowDefinition>
-							</Grid.RowDefinitions>
-							<Grid Grid.Row="0">
-								<TextBlock Text="Vật tư" HorizontalAlignment="Center"></TextBlock>
-							</Grid>
-							<Grid Grid.Row="1">
-								<materialDesign:PackIcon Width="24" Height="24"  HorizontalAlignment="Center"  Kind="Dns" />
-							</Grid>
-						</Grid>
-					</Button>
-					<Button Grid.Column="3" ToolTip="Đơn vị đo">
-						<Grid>
-							<Grid.RowDefinitions>
-								<RowDefinition></RowDefinition>
-								<RowDefinition></RowDefinition>
-							</Grid.RowDefinitions>
-							<Grid Grid.Row="0">
-								<TextBlock Text="Đơn vị đo" HorizontalAlignment="Center"></TextBlock>
-							</Grid>
-							<Grid Grid.Row="1">
-								<materialDesign:PackIcon Width="24" Height="24"  HorizontalAlignment="Center"  Kind="Altimeter" />
-							</Grid>
-						</Grid>
-					</Button>
-					<Button Grid.Column="4" ToolTip="Nhà cung cấp">
-						<Grid>
-							<Grid.RowDefinitions>
-								<RowDefinition></RowDefinition>
-								<RowDefinition></RowDefinition>
-							</Grid.RowDefinitions>
-							<Grid Grid.Row="0">
-								<TextBlock Text="Nhà cung cấp" HorizontalAlignment="Center"></TextBlock>
-							</Grid>
-							<Grid Grid.Row="1">
-								<materialDesign:PackIcon Width="24" Height="24"  HorizontalAlignment="Center"  Kind="Factory" />
-							</Grid>
-						</Grid>
-					</Button>
-					<Button Grid.Column="5" ToolTip="Khách hàng">
-						<Grid>
-							<Grid.RowDefinitions>
-								<RowDefinition></RowDefinition>
-								<RowDefinition></RowDefinition>
-							</Grid.RowDefinitions>
-							<Grid Grid.Row="0">
-								<TextBlock Text="Khách hàng" HorizontalAlignment="Center"></TextBlock>
-							</Grid>
-							<Grid Grid.Row="1">
-								<materialDesign:PackIcon Width="24" Height="24"  HorizontalAlignment="Center"  Kind="HumanHandsup" />
-							</Grid>
-						</Grid>
-					</Button>
-				</Grid>
-			</Grid>
-
-			<!--main-->
-			<Grid Grid.Row="1">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="auto"></RowDefinition>
-					<RowDefinition></RowDefinition>
-				</Grid.RowDefinitions>
-
-				<!--Filter-->
-				<Grid Grid.Row="0">
-					<materialDesign:Card Margin="5">
-						<Grid Grid.Row="0">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="auto"></RowDefinition>
-								<RowDefinition Height="auto"></RowDefinition>
-								<RowDefinition></RowDefinition>
-							</Grid.RowDefinitions>
-							<Grid Grid.Row="0" Margin="5">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="auto"></ColumnDefinition>
-									<ColumnDefinition Width="auto"></ColumnDefinition>
-									<ColumnDefinition Width="auto"></ColumnDefinition>
-								</Grid.ColumnDefinitions>
-
-								<Grid Grid.Column="0">
-									<DatePicker VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày bắt đầu" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-								</Grid>
-								<Grid Grid.Column="1">
-									<DatePicker VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày kết thúc" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-								</Grid>
-								<Grid Grid.Column="2">
-									<Button Style="{StaticResource MaterialDesignRaisedButton}" Margin="5"
-                                            Width="100"
-                                            Content="Lọc"
-                                            ToolTip="Resource name: MaterialDesignRaisedButton"></Button>
-								</Grid>
-							</Grid>
-							<Grid Grid.Row="1">
-								<Separator Margin="5"></Separator>
-							</Grid>
-							<Grid Grid.Row="2">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="auto"></ColumnDefinition>
-									<ColumnDefinition Width="auto"></ColumnDefinition>
-									<ColumnDefinition Width="auto"></ColumnDefinition>
-								</Grid.ColumnDefinitions>
-
-								<Grid Grid.Column="0">
-									<materialDesign:Card Background="#03a9f4"  Margin="5"
-                                                         Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"  
-                                                         Padding="0" Width="200">
-										<Grid>
-											<Grid.RowDefinitions>
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-											</Grid.RowDefinitions>
-											<TextBlock Grid.Row="0" Margin="16 16 16 4"     
-                                                       Text="Lượng nhập"
-                                                       Style="{StaticResource MaterialDesignHeadlineTextBlock}">
-
-											</TextBlock>
-											<Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-											<TextBlock Grid.Row="2" Margin="16 0 16 8" VerticalAlignment="Center" 
-                                                       HorizontalAlignment="Left"      
-                                                       Text="998568"
-                                                       Style="{StaticResource MaterialDesignDisplay1TextBlock}">
-											</TextBlock>
-											<materialDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0">
-												<StackPanel>
-													<!--đưa gì vào thì đưa-->
-												</StackPanel>
-											</materialDesign:PopupBox>
-										</Grid>
-									</materialDesign:Card>
-								</Grid>
-
-								<Grid Grid.Column="1">
-									<materialDesign:Card Background="#03a9f4" Margin="5"
-                                                         Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"  
-                                                         Padding="0" Width="200">
-										<Grid>
-											<Grid.RowDefinitions>
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-											</Grid.RowDefinitions>
-											<TextBlock Grid.Row="0" Margin="16 16 16 4"     
-                                                       Text="Lượng xuất"
-                                                       Style="{StaticResource MaterialDesignHeadlineTextBlock}">
-
-											</TextBlock>
-											<Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-											<TextBlock Grid.Row="2" Margin="16 0 16 8" VerticalAlignment="Center" 
-                                                       HorizontalAlignment="Left"      
-                                                       Text="998568"
-                                                       Style="{StaticResource MaterialDesignDisplay1TextBlock}">
-											</TextBlock>
-											<materialDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0">
-												<StackPanel>
-													<!--đưa gì vào thì đưa-->
-												</StackPanel>
-											</materialDesign:PopupBox>
-										</Grid>
-									</materialDesign:Card>
-								</Grid>
-
-								<Grid Grid.Column="2">
-									<materialDesign:Card Background="#03a9f4"  Margin="5"
-                                                         Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"  
-                                                         Padding="0" Width="200">
-										<Grid>
-											<Grid.RowDefinitions>
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-											</Grid.RowDefinitions>
-											<TextBlock Grid.Row="0" Margin="16 16 16 4"     
-                                                       Text="Tồn kho"
-                                                       Style="{StaticResource MaterialDesignHeadlineTextBlock}">
-
-											</TextBlock>
-											<Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-											<TextBlock Grid.Row="2" Margin="16 0 16 8" VerticalAlignment="Center" 
-                                                       HorizontalAlignment="Left"      
-                                                       Text="998568"
-                                                       Style="{StaticResource MaterialDesignDisplay1TextBlock}">
-											</TextBlock>
-											<materialDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0">
-												<StackPanel>
-													<!--đưa gì vào thì đưa-->
-												</StackPanel>
-											</materialDesign:PopupBox>
-										</Grid>
-									</materialDesign:Card>
-								</Grid>
-							</Grid>
-						</Grid>
-					</materialDesign:Card>
-				</Grid>
-
-				<!--list-->
-				<materialDesign:Card Grid.Row="1" Margin="5" VerticalAlignment="Stretch">
-					<Grid >
-						<Grid.RowDefinitions>
-							<RowDefinition Height="auto"></RowDefinition>
-							<RowDefinition Height="auto"></RowDefinition>
-							<RowDefinition></RowDefinition>
-						</Grid.RowDefinitions>
-
-						<Grid Grid.Row="0" Margin="5">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="auto"></ColumnDefinition>
-								<ColumnDefinition Width="auto"></ColumnDefinition>
-								<ColumnDefinition Width="auto"></ColumnDefinition>
-							</Grid.ColumnDefinitions>
-
-							<Grid Grid.Column="0">
-								<DatePicker VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày bắt đầu" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-							</Grid>
-							<Grid Grid.Column="1">
-								<DatePicker VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" materialDesign:HintAssist.Hint="Ngày kết thúc" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-							</Grid>
-							<Grid Grid.Column="2">
-								<Button Style="{StaticResource MaterialDesignRaisedButton}" Margin="5"
-                                            Width="100"
-                                            Content="Lọc"
-                                            ToolTip="Resource name: MaterialDesignRaisedButton"></Button>
-							</Grid>
-						</Grid>
-
-						<Grid Grid.Row="1">
-							<Separator></Separator>
-						</Grid>
-						<Grid Grid.Row="2">
-							<ListView>
-								<ListView.View>
-									<GridView>
-										<GridViewColumn Header="STT"></GridViewColumn>
-										<GridViewColumn Header="Tên vật tư"></GridViewColumn>
-										<GridViewColumn Header="Số lượng tồn"></GridViewColumn>
-									</GridView>
-								</ListView.View>
-							</ListView>
-						</Grid>
-					</Grid>
-				</materialDesign:Card>
+			<Grid
+				Grid.Row="0"
+				Grid.Column="0"
+				Background="Orange"
+				>
+				<Image
+					Margin="30"
+					Source="Image/tra.jpg"
+					/>
 
 			</Grid>
+			<DockPanel Background="Orange" Grid.Row="1" Grid.Column="0" Grid.RowSpan="5">
+				<StackPanel>
+					<Button
+						x:Name="TaiKhoan"
+						Background="ForestGreen"
+						Padding="5,5,5,5"
+						Grid.Row="0"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
+						Margin="0,0,0,0"
+						FontSize="20"
+						Content="Tài khoản"
+						Visibility="Visible"
+						Style="{StaticResource MaterialDesignRaisedButton}"
+						ToolTip="Resource name: MaterialDesignRaisedButton" 
+						Click="taiKhoan">
+					</Button>
+					<Button
+						x:Name="donhang"
+						Background="ForestGreen"
+						Grid.Row="1"
+						Padding="5,5,5,5"
+						FontSize="20"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
+						Click="DonHang"
+						Margin="0,0,0,0"
+						Style="{StaticResource MaterialDesignRaisedButton}"
+						ToolTip="Resource name: MaterialDesignRaisedButton">
+						
+						_Đơn hàng
+					</Button>
+					<Button
+						x:Name="MonAn"
+						Background="ForestGreen"
+						Grid.Row="2"
+						FontSize="20"
+						Padding="5,5,5,5"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
+						Margin="0,0,0,0"
+						Style="{StaticResource MaterialDesignRaisedButton}"
+						ToolTip="Resource name: MaterialDesignRaisedButton" Click="MonAnAdmin">
+						_Món ăn
+					</Button>
+					<Button
+						x:Name="loaimonan"
+						Background="ForestGreen"
+						Grid.Row="3"
+						FontSize="20"
+						Padding="5,5,5,5"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
+						Margin="0,0,0,0"
+						Click="LoaiMonAn"
+						Style="{StaticResource MaterialDesignRaisedButton}"
+						ToolTip="Resource name: MaterialDesignRaisedButton">
+						_Loại món ăn
+					</Button>
+					<Button
+						x:Name="DoanhThu"
+						Background="ForestGreen"
+						Grid.Row="4"
+						FontSize="20"
+						Padding="5,5,5,5"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
+						Margin="0,0,0,0"
+						Style="{StaticResource MaterialDesignRaisedButton}"
+						ToolTip="Resource name: MaterialDesignRaisedButton"
+						Click="doanhThu">
+						_Doanh thu
+					</Button>
+					<Button
+						x:Name="nhanvien"
+						Grid.Row="5"
+						Padding="5,5,5,5"
+						FontSize="20"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
+						Margin="0,0,0,0"
+						Background="ForestGreen"
+						Style="{StaticResource MaterialDesignRaisedButton}"
+						ToolTip="Resource name: MaterialDesignRaisedButton" 
+						Click="NhanVien">
+						_Nhân viên
+					</Button>
+					<Button
+						Grid.Row="5"
+						Padding="5,5,5,5"
+						FontSize="20"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
+						Margin="0,0,0,0"
+						Background="ForestGreen"
+						Style="{StaticResource MaterialDesignRaisedButton}"
+						ToolTip="Resource name: MaterialDesignRaisedButton" 
+						Click="DangXuat">
+						_Đăng xuất
+					</Button>
+				</StackPanel>
+			</DockPanel>
+			<ContentControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="4" Content="{Binding}"/>
 		</Grid>
 	</Grid>
 </Window>

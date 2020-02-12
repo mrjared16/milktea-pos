@@ -1,0 +1,60 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLiQuanCaPhe.View"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        x:Class="QuanLiQuanCaPhe.View.NhanVienLayout"
+        xmlns:viewModels="clr-namespace:QuanLiQuanCaPhe.ViewModel"
+        xmlns:views="clr-namespace:QuanLiQuanCaPhe.View"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="Layout" Height="768"  Margin="0">
+    <Window.Resources>
+		<DataTemplate x:Name="HomeViewTemplate" DataType="{x:Type viewModels:HomeNhanVienViewModel }">
+			<views:HomeNhanVien/>
+		</DataTemplate>
+		<DataTemplate x:Name="OrderViewTemplate" DataType="{x:Type viewModels:OrderViewModel}">
+            <views:Order/>
+        </DataTemplate>
+        <DataTemplate x:Name="HistoryViewTemplate" DataType="{x:Type viewModels:HistoryViewModel}">
+            <views:History/>
+        </DataTemplate>
+    </Window.Resources>
+    <Window.DataContext>
+        <viewModels:NhanVienLayoutViewModel/>
+    </Window.DataContext>
+    <Grid Background="{DynamicResource BackgroundColor}" Margin="0,0,-7,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Background="{DynamicResource SideBar}" Width="240" Grid.RowSpan="2">
+            <Grid Width="240" Height="240">
+                <Image Margin="20 0 20 0"
+                      	Source="../Image/tra.jpg"/>
+            </Grid>
+            <StackPanel>
+                <Button Command="{Binding LoadHomeView}" Style="{StaticResource SideTab}" Content="Tài khoản"/>
+                <Button Command="{Binding LoadOrderView}" Style="{StaticResource SideTab}" Content="Bán hàng"/>
+                <Button Command="{Binding LoadHistoryView}" Style="{StaticResource SideTab}" Content="Lịch sử bán hàng"/>
+				<Button Command="{Binding LoadLogoutView}"
+						CommandParameter="{Binding RelativeSource={
+             RelativeSource AncestorType={x:Type Window}}}"
+						Style="{StaticResource SideTab}" Content="Đăng xuất"/>
+			</StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,21.538">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Text="{Binding Title}" FontWeight="Bold" Foreground="{DynamicResource Header}" FontSize="{DynamicResource BigFont}"/>
+            <Separator/>
+        </StackPanel>
+        <!--BINDING CURRENT VIEW-->
+        <ContentControl Grid.Column="1" Grid.Row="1" Content="{Binding CurrentView}" Grid.ColumnSpan="2" />
+    </Grid>
+</Window>

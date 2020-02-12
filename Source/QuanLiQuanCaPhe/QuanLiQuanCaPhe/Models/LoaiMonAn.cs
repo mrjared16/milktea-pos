@@ -20,7 +20,7 @@ namespace QuanLiQuanCaPhe.Models
             this.MonAns = new HashSet<MonAn>();
         }
     
-        public string MALOAI { get; set; }
+        public int MALOAI { get; set; }
         public string TENLOAI { get; set; }
         public Nullable<int> ISDEL { get; set; }
         public Nullable<System.DateTime> CREADTEDAT { get; set; }

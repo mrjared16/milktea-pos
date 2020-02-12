@@ -20,10 +20,11 @@ namespace QuanLiQuanCaPhe.Models
             this.ChiTietDonhangs = new HashSet<ChiTietDonhang>();
         }
     
-        public string MADH { get; set; }
-        public string MANV { get; set; }
+        public int MADH { get; set; }
+        public Nullable<int> MANV { get; set; }
         public Nullable<System.DateTime> THOIGIAN { get; set; }
-        public Nullable<double> TONGTIEN { get; set; }
+        public Nullable<double> GIAMGIA { get; set; }
+        public double TONGTIEN { get; set; }
         public string TENKH { get; set; }
         public Nullable<int> ISDEL { get; set; }
         public Nullable<System.DateTime> CREADTEDAT { get; set; }

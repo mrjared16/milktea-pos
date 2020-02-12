@@ -1,0 +1,129 @@
+﻿<UserControl x:Class="QuanLiQuanCaPhe.View.TaiKhoan"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+			 xmlns:local="clr-namespace:QuanLiQuanCaPhe.View"
+             mc:Ignorable="d" 
+			 d:DesignHeight="800" d:DesignWidth="1250"  
+			>
+	<Grid Background="MediumSpringGreen">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"></RowDefinition>
+			<RowDefinition></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid
+			Margin="0,10,0,0"
+					Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto"></RowDefinition>
+				<RowDefinition></RowDefinition>
+			</Grid.RowDefinitions>
+			<Ellipse 
+				Grid.Row="0"
+				HorizontalAlignment="Center"
+				Width="150"
+				Height="150">
+				<Ellipse.Fill>
+					<ImageBrush
+						ImageSource="{Binding DisplayedImagePath}"
+						>
+					</ImageBrush>
+				</Ellipse.Fill>
+			</Ellipse>
+			<Button 
+				Margin="10"
+				Content="Chọn ảnh"
+				Grid.Row="1"    
+				IsDefault="True"
+				Style="{StaticResource MaterialDesignRaisedButton}"    
+				Width="110"  
+				Command="{Binding ChonAnhCommand}"
+				ToolTip="Resource name: MaterialDesignRaisedButton">
+			
+			</Button>
+		</Grid>
+		<materialDesign:Card Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="450">
+			<Grid>
+				<Grid.Resources>
+					<Style TargetType="Grid">
+						<Setter Property="Margin" Value="15 0 15 0"></Setter>
+					</Style>
+				</Grid.Resources>
+				<Grid.RowDefinitions>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+				</Grid.RowDefinitions>
+				<Grid Grid.Row="0">
+					<TextBox materialDesign:HintAssist.Hint="Họ tên"
+									 Name="hoten"
+							 Text="{Binding HoTen, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+							 
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+				</Grid>
+				<Grid Grid.Row="1">
+					<TextBox materialDesign:HintAssist.Hint="NgaySinh"
+									 Name="NgaySinh"
+							 Text="{Binding NgaySinh, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+				</Grid>
+				<Grid Grid.Row="2">
+					<TextBox materialDesign:HintAssist.Hint="SĐT"
+							 Text="{Binding SDT, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+				</Grid>
+				<Grid Grid.Row="3">
+					<TextBox materialDesign:HintAssist.Hint="Địa chỉ"
+							 Text="{Binding DiaChi, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+				</Grid>
+				<Grid Grid.Row="4">
+					<TextBox materialDesign:HintAssist.Hint="Chức vụ"
+							 Text="{Binding ChucVu, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+				</Grid>
+				<Grid Grid.Row="5">
+					<TextBox materialDesign:HintAssist.Hint="CMND"
+							 Text="{Binding CMND, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+				</Grid>
+				<Grid Grid.Row="6">
+					<TextBox materialDesign:HintAssist.Hint="Giới tính"
+							 Text="{Binding GioiTinh, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+				</Grid>
+
+				<Grid Grid.Row="8"
+							  Margin="10,10,10,10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition></ColumnDefinition>
+						<ColumnDefinition></ColumnDefinition>
+
+					</Grid.ColumnDefinitions>
+					<Button   
+						Grid.Column="0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"    
+                        Width="120"    
+						Command="{Binding LuuThongTinAdminCommand}"
+                        ToolTip="Resource name: MaterialDesignRaisedButton" 
+						Content="Lưu"></Button>
+					<Button   
+						Grid.Column="1"
+                        Style="{StaticResource MaterialDesignRaisedButton}"    
+                        Width="120"    
+						Command="{Binding DoiThongTinAdminCommand}"
+                        ToolTip="Resource name: MaterialDesignRaisedButton" 
+						Content="Đổi mật khẩu"></Button>
+				</Grid>
+			</Grid>
+		</materialDesign:Card>
+	</Grid>
+</UserControl>

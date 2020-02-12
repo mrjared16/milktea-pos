@@ -20,11 +20,11 @@ namespace QuanLiQuanCaPhe.Models
             this.ChiTietDonhangs = new HashSet<ChiTietDonhang>();
         }
     
-        public string MAMON { get; set; }
+        public int MAMON { get; set; }
         public string TENMON { get; set; }
-        public Nullable<double> GIA { get; set; }
+        public double GIA { get; set; }
         public string MOTA { get; set; }
-        public string MALOAI { get; set; }
+        public int MALOAI { get; set; }
         public byte[] HINHANH { get; set; }
         public string TTSP { get; set; }
         public Nullable<int> ISDEL { get; set; }
